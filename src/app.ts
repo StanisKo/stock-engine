@@ -1,5 +1,7 @@
 import express, { Application } from 'express';
 
+import mongoose from 'mongoose';
+
 import demoRouter from './routes/demo.routes';
 
 require('dotenv').config();
@@ -18,7 +20,7 @@ application.use(
 
 application.use('', demoRouter);
 
-application.listen(port, (): void => {
+application.listen(port, async (): Promise<void> => {
 
-    return console.log(`API is avaialable on port ${port}`);
+    return console.log(`Engine is avaialable on port ${port}`);
 });

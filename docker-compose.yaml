@@ -27,7 +27,7 @@ services:
       ME_CONFIG_MONGODB_SERVER: database-client
       VCAP_APP_PORT: ${MONGO_EXPRESS_PORT}
     links:
-      - database-client
+      - database
 
   engine:
     build:

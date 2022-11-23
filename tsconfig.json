@@ -1,31 +1,24 @@
 {
-  "compilerOptions": {
+    "compilerOptions": {
       "module": "commonjs",
-      "esModuleInterop": true,
-      "target": "es6",
-      "noImplicitAny": true,
-      "allowSyntheticDefaultImports": true,
-      "downlevelIteration": true,
-      "forceConsistentCasingInFileNames": true,
-      "isolatedModules": true,
-      "noFallthroughCasesInSwitch": true,
-      "resolveJsonModule": true,
-      "skipLibCheck": true,
-      "strict": true,
+      "declaration": true,
+      "removeComments": true,
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
-      "strictPropertyInitialization": false,
-      "moduleResolution": "node",
+      "allowSyntheticDefaultImports": true,
+      "target": "es2017",
       "sourceMap": true,
-      "outDir": "build",
-      "baseUrl": ".",
-      "paths": {
-          "*": [
-              "node_modules/*"
-          ]
-      }
-  },
-  "include": [
-      "src/**/*"
-  ]
-}
+      "outDir": "./dist",
+      "baseUrl": "./",
+      "incremental": true,
+      "skipLibCheck": true,
+      "strictNullChecks": true,
+      "noImplicitAny": true,
+      "strictBindCallApply": false,
+      "forceConsistentCasingInFileNames": false,
+      "noFallthroughCasesInSwitch": true,
+      "moduleResolution":"Node",
+      "resolveJsonModule": true
+    }
+  }
+  
