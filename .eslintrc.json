@@ -16,7 +16,7 @@
         "semi": "warn"
     },
     "parserOptions": {
-        "ecmaversion": 2018,
+        "ecmaversion": 2022,
         "sourceType": "module"
     }
 }
