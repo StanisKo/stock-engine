@@ -1,11 +1,8 @@
-class=""&gt; **/.classpath
-**/.dockerignore
-**/.git
-**/.gitignore
-**/.vscode
-**/docker-compose*
-**/Dockerfile*
-**/node_modules
-**/secrets.dev.yaml
-LICENSE
-README.md
+.dockerignore
+.git
+.gitignore
+.vscode
+docker-compose
+Dockerfile
+node_modules
+secrets.dev.yaml
