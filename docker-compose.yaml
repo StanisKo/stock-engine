@@ -30,14 +30,3 @@ services:
       - database
     depends_on:
       - database
-
-  engine:
-    container_name: engine
-    build:
-      dockerfile: Dockerfile
-      context: "."
-    volumes:
-      - /engine/node_modules
-      - ./:/engine
-    depends_on:
-      - database
