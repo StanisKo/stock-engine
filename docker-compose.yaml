@@ -13,7 +13,7 @@ services:
         MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
         MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
       volumes:
-        - ./docker/mongo/create-user.js:/docker-entrypoint-initdb.d/create-user.js:ro
+        - ./mongo/create-user.js:/docker-entrypoint-initdb.d/create-user.js:ro
         - ./docker/tmp/mongo/db:/data/db
 
   database-client:
@@ -24,15 +24,20 @@ services:
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_ROOT_USERNAME}
       ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_ROOT_PASSWORD}
-      ME_CONFIG_MONGODB_SERVER: database-client
+      ME_CONFIG_MONGODB_SERVER: database
       VCAP_APP_PORT: ${MONGO_EXPRESS_PORT}
     links:
       - database
+    depends_on:
+      - database
 
   engine:
+    container_name: engine
     build:
       dockerfile: Dockerfile
       context: "."
     volumes:
       - /engine/node_modules
       - ./:/engine
+    depends_on:
+      - database

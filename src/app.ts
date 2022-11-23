@@ -1,26 +1,79 @@
+import http from 'http';
 import express, { Application } from 'express';
+import cors from 'cors';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
 
 import demoRouter from './routes/demo.routes';
 
-import dotenv from 'dotenv';
+class Server {
 
-dotenv.config();
+    application: Application;
 
-const application: Application = express();
+    port: number;
 
-const port: number = Number(process.env.PORT) ?? 8000;
+    constructor() {
 
-application.use(
-    express.json()
-);
+        dotenv.config();
 
-application.use(
-    express.urlencoded({ extended: true })
-);
+        this.application = express();
 
-application.use('', demoRouter);
+        this.port = Number(process.env.PORT);
 
-application.listen(port, async (): Promise<void> => {
+        this.application.use(express.json());
 
-    return console.log(`Engine is avaialable on port ${port}`);
-});
+        this.application.use(express.urlencoded({ extended: true }));
+
+        this.application.enable('trust proxy');
+
+        this.application.disable('x-powered-by');
+
+        this.application.use(
+            cors({
+                exposedHeaders: 'Authorization'
+            })
+        );
+    }
+
+    private connectRoutes(): void {
+
+        this.application.use('', demoRouter);
+    }
+
+    private async establishDatabaseConnection(): Promise<void> {
+
+        const { MONGO_PROTOCOL, MONGO_USERNAME, MONGO_PASSWORD, MONGO_HOST, MONGO_PORT, MONGO_DATABASE } = process.env;
+
+        console.log(`${MONGO_PROTOCOL}://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}:${MONGO_PORT}/${MONGO_DATABASE}`);
+
+        await mongoose.connect(
+            `${MONGO_PROTOCOL}://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}:${MONGO_PORT}/${MONGO_DATABASE}`
+        );
+    }
+
+    public async run(): Promise<void> {
+
+        await this.establishDatabaseConnection();
+
+        this.connectRoutes();
+
+        const server = http.createServer(this.application);
+
+        server.listen(this.port).on('listening', async () => {
+
+            console.log( `Engine is available on ${server.address()}:${this.port}`);
+
+        }).on('error', error => {
+
+            console.log(error.message);
+
+            console.log(error.stack);
+        });
+    }
+}
+
+(async (): Promise<void> => {
+    const server = new Server();
+
+    await server.run();
+})();
