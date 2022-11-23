@@ -44,9 +44,11 @@ class Server {
 
         const { MONGO_PROTOCOL, MONGO_USERNAME, MONGO_PASSWORD, MONGO_HOST, MONGO_PORT, MONGO_DATABASE } = process.env;
 
-        await mongoose.connect(
+        const connection = await mongoose.connect(
             `${MONGO_PROTOCOL}://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}:${MONGO_PORT}/${MONGO_DATABASE}`
         );
+
+        console.log(connection);
     }
 
     public async run(): Promise<void> {
@@ -59,7 +61,7 @@ class Server {
 
         server.listen(this.port).on('listening', async () => {
 
-            console.log( `Engine is available on ${server.address()}:${this.port}`);
+            console.log( `Engine is available on port ${this.port}`);
 
         }).on('error', error => {
 
