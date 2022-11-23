@@ -14,7 +14,7 @@ services:
         MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
       volumes:
         - ./mongo/create-user.js:/docker-entrypoint-initdb.d/create-user.js:ro
-        - ./docker/tmp/mongo/db:/data/db
+        - ./docker/data/mongo/db:/data/db
 
   database-client:
     image: mongo-express
