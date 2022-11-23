@@ -6,7 +6,7 @@ import dotenv from 'dotenv';
 
 import demoRouter from './routes/demo.routes';
 
-class Server {
+export class Server {
 
     application: Application;
 
@@ -69,9 +69,3 @@ class Server {
         });
     }
 }
-
-(async (): Promise<void> => {
-    const server = new Server();
-
-    await server.run();
-})();
