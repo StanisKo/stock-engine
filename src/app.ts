@@ -1,10 +1,10 @@
 import express, { Application } from 'express';
 
-import mongoose from 'mongoose';
-
 import demoRouter from './routes/demo.routes';
 
-require('dotenv').config();
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const application: Application = express();
 
