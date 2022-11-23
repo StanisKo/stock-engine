@@ -2,7 +2,7 @@
 
 FROM node:alpine
 
-WORKDIR /app
+WORKDIR /engine
 
 COPY package.json .
 
