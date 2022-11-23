@@ -44,11 +44,9 @@ class Server {
 
         const { MONGO_PROTOCOL, MONGO_USERNAME, MONGO_PASSWORD, MONGO_HOST, MONGO_PORT, MONGO_DATABASE } = process.env;
 
-        const connection = await mongoose.connect(
+        await mongoose.connect(
             `${MONGO_PROTOCOL}://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}:${MONGO_PORT}/${MONGO_DATABASE}`
         );
-
-        console.log(connection);
     }
 
     public async run(): Promise<void> {
