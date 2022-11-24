@@ -4,7 +4,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
-import demoRouter from './routes/demo.routes';
+import industryProfileRouter from './routes/industry-profile.routes';
 
 export class Server {
 
@@ -37,7 +37,7 @@ export class Server {
 
     private connectRoutes(): void {
 
-        this.application.use('', demoRouter);
+        this.application.use('', industryProfileRouter);
     }
 
     private async establishDatabaseConnection(): Promise<void> {

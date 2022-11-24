@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 
-import { IndustryProfile } from '../schemas/industry-profile.schema';
+import { IndustryProfileService } from '../services/industry-profile.service';
 
-export const fetchFinancialDataForIndustryProfile = async (request: Request, response: Response): Promise<Response> => {
+export const requestFinancialDataForIndustryProfile = async (request: Request, response: Response): Promise<void> => {
 
     const { ticker } = request.query;
 
@@ -10,20 +10,26 @@ export const fetchFinancialDataForIndustryProfile = async (request: Request, res
         response.statusCode = 400;
         response.statusMessage = 'ticker querystring parameter is required';
 
-        return response;
+        response.send();
     }
 
-    const industryProfile = new IndustryProfile();
+    const industryProfileService = new IndustryProfileService(ticker as string);
 
-    await industryProfile.save();
+    try {
+        await industryProfileService.requestFinancialData();
+    }
+    catch (error) {
+        response.statusCode = 500;
+        response.statusMessage = (error as Error).message;
+
+        response.send();
+    }
 
     response.statusCode = 200;
 
     response.json(
         {
-            data: industryProfile
+            success: true
         }
     );
-
-    return response;
 };
