@@ -1,8 +1,6 @@
-// https://eodhistoricaldata.com/api/eod/AAPL.US?api_token=demo&fmt=json
+import fetch from 'node-fetch';
 
-import { ITickerFundamentals } from '../interfaces/ticker-fundamentals.interface';
-
-import { ITickerPrice } from '../interfaces/ticker-price.interface';
+import { ITickerFundamentals, ITickerPrice, ITickerFinancialData } from '../interfaces/ticker.interface';
 
 export class FinancialApiService {
 
@@ -10,7 +8,9 @@ export class FinancialApiService {
 
     apiUrl: string;
 
-    constructor() {
+    constructor(ticker: string) {
+
+        this.ticker = ticker;
 
         this.apiUrl = process.env.FINANCIAL_DATA_API_URL || '';
     }
@@ -26,14 +26,14 @@ export class FinancialApiService {
 
     private async requestHistoricalTickerPrices(): Promise<ITickerPrice[]> {
 
-        const request = await fetch(`${this.apiUrl}/eod/${this.ticker}.US?api_token=demo`);
+        const request = await fetch(`${this.apiUrl}/eod/${this.ticker}.US?fmt=json&api_token=demo`);
 
         const prices = await request.json() as ITickerPrice[];
 
         return prices;
     }
 
-    public async requestFinancicalTickerData(): Promise<{ fundamentals: ITickerFundamentals, prices: ITickerPrice[] }> {
+    public async requestFinancicalTickerData(): Promise<ITickerFinancialData> {
 
         const fundamentals = await this.requestFundamentalTickerData();
 

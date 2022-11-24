@@ -3,7 +3,7 @@ Iteration 1:
 
 Accepts a ticker that serves as an input for sculpting the profile for given industry
 
-Fetches financial data on the ticker (fundamentals)
+Fetches financial data on the ticker (fundamentals, prices)
 
 Makes use of Parser Service to match API response with our own schema
 
@@ -12,36 +12,31 @@ Creates and saves industry profile
 Saves the ticker data for potential further usage
 */
 
-import fetch from 'node-fetch';
-
-import { ITickerFundamentals } from '../interfaces/ticker-fundamentals.interface';
+import { ITickerFinancialData } from '../interfaces/ticker.interface';
 
 import { ServiceResponse } from '../dtos/serviceResponse';
 
+import { FinancialApiService } from './financial-api.service';
+
 import { FinancialApiParserService } from './financial-api-parser.service';
+
 
 export class IndustryProfileService {
 
-    ticker: string;
-
-    apiUrl: string;
+    financialApiService: FinancialApiService;
 
     financialApiParserService: FinancialApiParserService;
 
     constructor(ticker: string) {
 
-        this.ticker = ticker;
-
-        this.apiUrl = process.env.FINANCIAL_DATA_API_URL || '';
+        this.financialApiService = new FinancialApiService(ticker);
     }
 
-    private async requestFinancialData(): Promise<ITickerFundamentals> {
+    private async requestFinancialData(): Promise<ITickerFinancialData> {
 
-        const result = await fetch(`${this.apiUrl}/${this.ticker}.US?api_token=demo`);
+        const financialData = await this.financialApiService.requestFinancicalTickerData();
 
-        const data = await result.json() as ITickerFundamentals;
-
-        return data;
+        return financialData;
     }
 
     public async createIndustryProfileFromTicker(): Promise<ServiceResponse> {
