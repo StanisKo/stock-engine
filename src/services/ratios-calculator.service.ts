@@ -8,6 +8,8 @@ On SD: https://www.businessinsider.com/personal-finance/how-to-find-standard-dev
        https://financetrain.com/variance-standard-deviation ! (RoR included)
 
 On RoR: https://www.investopedia.com/terms/r/rateofreturn.asp
+
+SD = 
 */
 
 import { ITickerPrice } from  '../interfaces/ticker.interface';
@@ -21,9 +23,9 @@ export class RatiosCalculatorService {
         this.prices = prices;
     }
 
-    private calculateHistoricRateOfReturn(): number[] {
+    private calculateAverageRateOfReturn(): number {
 
-        const historicalRateOfReturn: number[] = [];
+        const dayOnDayReturns: number[] = [];
 
         /*
         O(n) time, O(2n) space, can we do better?
@@ -45,17 +47,22 @@ export class RatiosCalculatorService {
             /*
             Otherwise, calculate percentange change over each day
             */
-            historicalRateOfReturn.push(
+            dayOnDayReturns.push(
                 ((currentPrice - previousPrice) / previousPrice) * 100
             );
         }
 
-        return historicalRateOfReturn;
+        /*
+        Sum changes and divide over the total number of diffs to get to average
+        */
+        const sumOfHistoricalReturns = dayOnDayReturns.reduce((x, y) => x + y);
+
+        return sumOfHistoricalReturns / dayOnDayReturns.length;
     }
 
     public calculateStandardDeviation(): void {
 
-        const historicRateOfReturn = this.calculateHistoricRateOfReturn();
+        const historicRateOfReturn = this.calculateAverageRateOfReturn();
 
         console.log(historicRateOfReturn);
     }
