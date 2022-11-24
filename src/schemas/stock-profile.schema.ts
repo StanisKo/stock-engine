@@ -10,11 +10,15 @@ therefore, not all values are available via the API
 NOTE: it might be the case we'd need to calculate some missing values, provided
 API delivers financial documents (balance sheet, income statement, cash flow statement)
 
+NOTE: Since all values must be compared with the same industry, we should aspire for
+creating only one profile per industry
+
 Iteration 1 (24-11-2022):
 
-This profile is the result of the average between 2 of my core positions: NIO and APPS
+At this point in time we have only 2 profiles, both sculpted from my core positions:
+NIO and APPS -- Automotive and Digital Advertising, respectively
 
-This might change based on further business ideas
+This might/will change with further business ideas
 */
 
 const { Schema } = mongoose;
@@ -22,6 +26,13 @@ const { Schema } = mongoose;
 const stockProfileSchema = new Schema(
     {
         _id: { type: mongoose.SchemaTypes.String, default: uuid.v4 },
+
+        /*
+        ALL RATIOS MUST BE COMPARED WITHIN THE SAME INDUSTRY
+        */
+        industry: {
+            type: String
+        },
 
         /*
         Size measurement of the stock
@@ -45,8 +56,7 @@ const stockProfileSchema = new Schema(
             The higher standard deviation, the greater possible outcomes, both negative and positive.
             */
             standardDeviation: {
-                type: Number,
-                required: true
+                type: Number
             },
 
             /*
@@ -56,8 +66,7 @@ const stockProfileSchema = new Schema(
             relative to the volatility of the asset. 
             */
             sharpeRatio: {
-                type: Number,
-                required: true
+                type: Number
             },
 
             /*
@@ -73,8 +82,7 @@ const stockProfileSchema = new Schema(
                 * < 0: Moves opposite direction of the index (very rare).
             */
             beta: {
-                type: Number,
-                required: true
+                type: Number
             },
 
             /*
@@ -86,8 +94,7 @@ const stockProfileSchema = new Schema(
                 * < 0: Underperforms the index.
             */
             alpha: {
-                type: Number,
-                required: true
+                type: Number
             },
 
             /*
@@ -99,41 +106,58 @@ const stockProfileSchema = new Schema(
                 * <= 70: Does not perform like index (influenced by 70% or less).
             */
             rSquared: {
-                type: Number,
-                required: true
+                type: Number
             }
         },
 
         valuation: {
 
+            /*
+            Denotes the price you pay for $1 of earnings.
+            Rule of thumb — stocks trading at a lower P/E ratio than their industry peers are considered value stocks.
+            */
             priceToEarning: {
-                type: Number,
-                required: true
+                type: Number
             },
 
+            /*
+            Helps to understand future growth prospects of the company and its stock.
+            The lower the number, the better.
+            */
             priceToEarningsGrowth: {
-                type: Number,
-                required: true
+                type: Number
             },
 
+            /*
+            Denotes the price you pay for $1 of sales.
+            Reflects how good stock performs against the sales operations of the business.
+            Considered to be more reliable.
+            */
             priceToSales: {
-                type: Number,
-                required: true
+                type: Number
             },
 
+            /*
+            Denotes the price you pay for $1 of equity, a.k.a. book value (assets - liabilities).
+            Reflects how stock is priced against company’s actual worth.
+            */
             priceToBook: {
-                type: Number,
-                required: true
+                type: Number
             },
 
+            /*
+            Denotes how much interest you earn from dividends.
+            */
             dividendYield: {
-                type: Number,
-                required: true
+                type: Number
             },
 
+            /*
+            A percentage of profit distributed to investors.
+            Helps to understand if company can sustain its dividend payouts in the future.
+            */
             dividendPayout: {
-                type: Number,
-                required: true
+                type: Number
             }
         },
 
@@ -171,11 +195,6 @@ const stockProfileSchema = new Schema(
         debt: {
 
             debtToEquity: {
-                type: Number,
-                required: true
-            },
-
-            interestCoverage: {
                 type: Number,
                 required: true
             }
