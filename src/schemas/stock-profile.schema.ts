@@ -3,9 +3,12 @@ import * as uuid from 'uuid';
 import mongoose from 'mongoose';
 
 /*
-NOTE: most of the measurement and ratios fields are NOT required, since companies do
-not expose everything in their financial statements and, therefeore, values
-are not available via the API
+NOTE: at this point in time, all of the measurement and ratios fields are optional,
+since companies do not expose everything in their financial statements and,
+therefore, not all values are available via the API
+
+NOTE: it might be the case we'd need to calculate some missing values, provided
+API delivers financial documents (balance sheet, income statement, cash flow statement)
 
 Iteration 1 (24-11-2022):
 
@@ -27,13 +30,11 @@ const stockProfileSchema = new Schema(
 
             label: {
                 type: String,
-                enum: ['small', 'medium', 'large'],
-                required: true
+                enum: ['small', 'medium', 'large']
             },
 
             value: {
-                type: Number,
-                required: true
+                type: Number
             }
         },
 
@@ -76,11 +77,27 @@ const stockProfileSchema = new Schema(
                 required: true
             },
 
+            /*
+            Measures excess returns/losses against the return of the index.
+            Expressed in a decimal (0.N) that is a percentage of over or under performance.
+
+            Alpha Ranges:
+                * > 0: Outperforms the index
+                * < 0: Underperforms the index.
+            */
             alpha: {
                 type: Number,
                 required: true
             },
 
+            /*
+            Measures how much the movement of the assets is influenced by the movement of the index.
+            Ranges from 0 to 100.
+
+            R-Squared Ranges:
+                * >= 85 && <= 100: Closely correlates with index (influenced by 85-100%).
+                * <= 70: Does not perform like index (influenced by 70% or less).
+            */
             rSquared: {
                 type: Number,
                 required: true
