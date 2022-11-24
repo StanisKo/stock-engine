@@ -219,7 +219,7 @@ const industryProfileSchema = new Schema(
 
     },
 
-    { collection: 'StockProfiles', timestamps: true }
+    { collection: 'IndustryProfiles', timestamps: true }
 );
 
 export const IndustryProfile = mongoose.model('IndustryProfile', industryProfileSchema);
