@@ -14,7 +14,11 @@ Saves the ticker data for potential further usage
 
 import fetch from 'node-fetch';
 
+import { ITickerData } from '../interfaces/ticker-data.interface';
+
 import { ServiceResponse } from '../dtos/serviceResponse';
+
+import { FinancialApiParserService } from './financial-api-parser.service';
 
 export class IndustryProfileService {
 
@@ -22,7 +26,7 @@ export class IndustryProfileService {
 
     apiUrl: string;
 
-    rawTickerData: { [key: string]: unknown };
+    financialApiParserService = FinancialApiParserService;
 
     constructor(ticker: string) {
 
@@ -31,15 +35,13 @@ export class IndustryProfileService {
         this.apiUrl = process.env.FINANCIAL_DATA_API_URL || '';
     }
 
-    private async requestFinancialData(): Promise<void> {
+    private async requestFinancialData(): Promise<ITickerData> {
 
         const result = await fetch(`${this.apiUrl}/${this.ticker}.US?api_token=demo`);
 
-        const data = await result.json();
+        const data = await result.json() as ITickerData;
 
-        console.log(data);
-
-        this.rawTickerData = data;
+        return data;
     }
 
     public async createIndustryProfileFromTicker(): Promise<ServiceResponse> {
@@ -47,7 +49,9 @@ export class IndustryProfileService {
         const response = new ServiceResponse();
 
         try {
-            await this.requestFinancialData();
+            const tickerData = await this.requestFinancialData();
+
+            this.financialApiParserService = new FinancialApiParserService(tickerData);
 
             response.success = true;
         }
