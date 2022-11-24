@@ -8,8 +8,6 @@ export const requestFinancialDataForIndustryProfile = async (
     const { ticker } = request.query;
 
     if (!ticker) {
-        response.statusCode = 404;
-
         response.status(404).json(
             {
                 message: 'ticker querystring parameter is required'
@@ -19,7 +17,7 @@ export const requestFinancialDataForIndustryProfile = async (
 
     const industryProfileService = new IndustryProfileService(ticker as string);
 
-    const serviceResponse = await industryProfileService.requestFinancialData();
+    const serviceResponse = await industryProfileService.createIndustryProfileFromTicker();
 
     return response.status(200).json(serviceResponse);
 };

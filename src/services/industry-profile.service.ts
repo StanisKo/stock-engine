@@ -22,6 +22,8 @@ export class IndustryProfileService {
 
     apiUrl: string;
 
+    rawTickerData: { [key: string]: unknown };
+
     constructor(tickers: string) {
 
         this.ticker = tickers;
@@ -29,16 +31,23 @@ export class IndustryProfileService {
         this.apiUrl = process.env.FINANCIAL_DATA_API_URL || '';
     }
 
-    public async requestFinancialData(): Promise<ServiceResponse> {
+    private async requestFinancialData(): Promise<void> {
+
+        const result = await fetch(`${this.apiUrl}/${this.ticker}.US?api_token=demo`);
+
+        const data = await result.json();
+
+        console.log(data);
+
+        this.rawTickerData = data;
+    }
+
+    public async createIndustryProfileFromTicker(): Promise<ServiceResponse> {
 
         const response = new ServiceResponse();
 
         try {
-            const result = await fetch(`${this.apiUrl}/${this.ticker}.US?api_token=demo`);
-
-            const data = await result.json();
-
-            console.log(JSON.stringify(data, null, 4));
+            await this.requestFinancialData();
 
             response.success = true;
         }
@@ -47,7 +56,7 @@ export class IndustryProfileService {
 
             response.success = false;
 
-            response.message = 'Failed to fetch financial data on provided ticker';
+            response.message = 'Failed to create industry profile from provided ticker';
         }
 
         return response;
