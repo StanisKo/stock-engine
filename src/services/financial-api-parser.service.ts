@@ -7,7 +7,9 @@ Accepts raw ticker data
 
 Extracts fields necessary for industry profile
 
-Returns them back to the caller in the shape of interface that adheres to Industry Profile schema
+Makes use of calculator service to calculate missing ratios
+
+Returns values back to the caller in the shape of interface that adheres to Industry Profile schema
 */
 
 import { IIndustryProfile } from '../interfaces/industry-profile.interface';

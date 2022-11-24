@@ -21,13 +21,42 @@ export class RatiosCalculatorService {
         this.prices = prices;
     }
 
-    private calculateHistoricRateOfReturn(): void {
+    private calculateHistoricRateOfReturn(): number[] {
 
-        console.log(this.prices);
+        const historicalRateOfReturn: number[] = [];
+
+        /*
+        O(n) time, O(2n) space, can we do better?
+        */
+        for (let i = 0; i < this.prices.length; i++) {
+
+            /*
+            There is no perecentage change from nothing to first entry
+            */
+            if (i === 0) {
+
+                continue;
+            }
+
+            const currentPrice = this.prices[i].close;
+
+            const previousPrice = this.prices[i - 1].close;
+
+            /*
+            Otherwise, calculate percentange change over each day
+            */
+            historicalRateOfReturn.push(
+                ((currentPrice - previousPrice) / previousPrice) * 100
+            );
+        }
+
+        return historicalRateOfReturn;
     }
 
     public calculateStandardDeviation(): void {
 
         const historicRateOfReturn = this.calculateHistoricRateOfReturn();
+
+        console.log(historicRateOfReturn);
     }
 }
