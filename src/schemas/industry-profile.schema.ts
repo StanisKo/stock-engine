@@ -23,7 +23,7 @@ This might/will change with further business ideas
 
 const { Schema } = mongoose;
 
-const stockProfileSchema = new Schema(
+const industryProfileSchema = new Schema(
     {
         _id: { type: mongoose.SchemaTypes.String, default: uuid.v4 },
 
@@ -222,4 +222,4 @@ const stockProfileSchema = new Schema(
     { collection: 'StockProfiles', timestamps: true }
 );
 
-export const StockProfile = mongoose.model('StockProfile', stockProfileSchema);
+export const IndustryProfile = mongoose.model('IndustryProfile', industryProfileSchema);

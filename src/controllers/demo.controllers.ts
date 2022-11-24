@@ -1,16 +1,16 @@
 import { Request, Response } from 'express';
 
-import { StockProfile } from '../schemas/stock-profile.schema';
+import { IndustryProfile } from '../schemas/industry-profile.schema';
 
 const demo = async (request: Request, response: Response): Promise<void> => {
 
-    const stockProfile = new StockProfile();
+    const industryProfile = new IndustryProfile();
 
-    await stockProfile.save();
+    await industryProfile.save();
 
     response.status(200).json(
         {
-            data: stockProfile
+            data: industryProfile
         }
     );
 };
