@@ -24,9 +24,9 @@ export class IndustryProfileService {
 
     rawTickerData: { [key: string]: unknown };
 
-    constructor(tickers: string) {
+    constructor(ticker: string) {
 
-        this.ticker = tickers;
+        this.ticker = ticker;
 
         this.apiUrl = process.env.FINANCIAL_DATA_API_URL || '';
     }
