@@ -10,14 +10,24 @@ On SD: https://www.businessinsider.com/personal-finance/how-to-find-standard-dev
 On RoR: https://www.investopedia.com/terms/r/rateofreturn.asp
 */
 
+import { ITickerPrice } from  '../interfaces/ticker.interface';
+
 export class RatiosCalculatorService {
 
-    // private calculateHistoricRateOfReturn(historicStockPrices: number[]) {
-      
-    // }
+    prices: ITickerPrice[];
 
-    // public calculateStandardDeviation(): void {
+    constructor(prices: ITickerPrice[]) {
 
-    //     const historicRateOfReturn = this.calculateHistoricRateOfReturn();
-    // }
+        this.prices = prices;
+    }
+
+    private calculateHistoricRateOfReturn(): void {
+
+        console.log(this.prices);
+    }
+
+    public calculateStandardDeviation(): void {
+
+        const historicRateOfReturn = this.calculateHistoricRateOfReturn();
+    }
 }

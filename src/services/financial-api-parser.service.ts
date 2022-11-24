@@ -12,29 +12,38 @@ Returns them back to the caller in the shape of interface that adheres to Indust
 
 import { IIndustryProfile } from '../interfaces/industry-profile.interface';
 
-import { ITickerFundamentals } from '../interfaces/ticker-fundamentals.interface';
+import { ITickerFinancialData } from '../interfaces/ticker.interface';
+
+import { RatiosCalculatorService } from './ratios-calculator.service';
 
 export class FinancialApiParserService {
 
-    static extractedTickerData: IIndustryProfile;
+    extractedTickerData: IIndustryProfile;
 
-    static rawTickerData: ITickerFundamentals;
+    rawTickerData: ITickerFinancialData;
 
-    constructor(rawTickerData: ITickerFundamentals) {
+    ratiosCalculatorService: RatiosCalculatorService;
 
-        FinancialApiParserService.extractedTickerData = {} as IIndustryProfile;
+    constructor(rawTickerData: ITickerFinancialData) {
 
-        FinancialApiParserService.rawTickerData = rawTickerData;
+        this.extractedTickerData = {} as IIndustryProfile;
+
+        this.rawTickerData = rawTickerData;
     }
 
     public parseTickerData(): void {
 
-        const { extractedTickerData, rawTickerData } = FinancialApiParserService;
+        const { fundamentals, prices } = this.rawTickerData;
 
-        extractedTickerData.industry = rawTickerData.General.Industry;
+        this.extractedTickerData.industry = fundamentals.General.Industry;
 
-        extractedTickerData.marketCap = rawTickerData.Highlights.MarketCapitalization;
+        this.extractedTickerData.marketCap = fundamentals.Highlights.MarketCapitalization;
 
-        console.log(JSON.stringify(rawTickerData, null, 8));
+        /*
+        Calculate things that are missing from APIs manually
+        */
+        this.ratiosCalculatorService = new RatiosCalculatorService(prices);
+
+        const standardDeviation = this.ratiosCalculatorService.calculateStandardDeviation();
     }
 }

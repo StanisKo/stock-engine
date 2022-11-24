@@ -44,9 +44,9 @@ export class IndustryProfileService {
         const response = new ServiceResponse();
 
         try {
-            const tickerData = await this.requestFinancialData();
+            const tickerFinancialData = await this.requestFinancialData();
 
-            this.financialApiParserService = new FinancialApiParserService(tickerData);
+            this.financialApiParserService = new FinancialApiParserService(tickerFinancialData);
 
             this.financialApiParserService.parseTickerData();
 
