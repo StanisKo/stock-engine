@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import demoController from '../controllers/demo.controllers';
+import demoController from '../controllers/industry-profile.controllers';
 
 const router = Router();
 
