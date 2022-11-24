@@ -14,6 +14,8 @@ Saves the ticker data for potential further usage
 
 import fetch from 'node-fetch';
 
+import { ServiceResponse } from '../dtos/serviceResponse';
+
 export class IndustryProfileService {
 
     ticker: string;
@@ -27,7 +29,9 @@ export class IndustryProfileService {
         this.apiUrl = process.env.FINANCIAL_DATA_API_URL || '';
     }
 
-    public async requestFinancialData(): Promise<void> {
+    public async requestFinancialData(): Promise<ServiceResponse> {
+
+        const response = new ServiceResponse();
 
         try {
             const result = await fetch(`${this.apiUrl}/${this.ticker}.US?api_token=demo`);
@@ -35,11 +39,17 @@ export class IndustryProfileService {
             const data = await result.json();
 
             console.log(JSON.stringify(data, null, 4));
+
+            response.success = true;
         }
         catch (error) {
             console.log(error);
 
-            throw new Error('Failed to fetch finacial data');
+            response.success = false;
+
+            response.message = 'Failed to fetch financial data on provided ticker';
         }
+
+        return response;
     }
 }

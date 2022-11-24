@@ -2,34 +2,24 @@ import { Request, Response } from 'express';
 
 import { IndustryProfileService } from '../services/industry-profile.service';
 
-export const requestFinancialDataForIndustryProfile = async (request: Request, response: Response): Promise<void> => {
+export const requestFinancialDataForIndustryProfile = async (
+    request: Request, response: Response): Promise<Response> => {
 
     const { ticker } = request.query;
 
     if (!ticker) {
-        response.statusCode = 400;
-        response.statusMessage = 'ticker querystring parameter is required';
+        response.statusCode = 404;
 
-        response.send();
+        response.status(404).json(
+            {
+                message: 'ticker querystring parameter is required'
+            }
+        );
     }
 
     const industryProfileService = new IndustryProfileService(ticker as string);
 
-    try {
-        await industryProfileService.requestFinancialData();
-    }
-    catch (error) {
-        response.statusCode = 500;
-        response.statusMessage = (error as Error).message;
+    const serviceResponse = await industryProfileService.requestFinancialData();
 
-        response.send();
-    }
-
-    response.statusCode = 200;
-
-    response.json(
-        {
-            success: true
-        }
-    );
+    return response.status(200).json(serviceResponse);
 };
