@@ -14,7 +14,7 @@ Saves the ticker data for potential further usage
 
 import fetch from 'node-fetch';
 
-import { ITickerData } from '../interfaces/ticker-data.interface';
+import { ITickerFundamentals } from '../interfaces/ticker-fundamentals.interface';
 
 import { ServiceResponse } from '../dtos/serviceResponse';
 
@@ -35,11 +35,11 @@ export class IndustryProfileService {
         this.apiUrl = process.env.FINANCIAL_DATA_API_URL || '';
     }
 
-    private async requestFinancialData(): Promise<ITickerData> {
+    private async requestFinancialData(): Promise<ITickerFundamentals> {
 
         const result = await fetch(`${this.apiUrl}/${this.ticker}.US?api_token=demo`);
 
-        const data = await result.json() as ITickerData;
+        const data = await result.json() as ITickerFundamentals;
 
         return data;
     }

@@ -12,15 +12,15 @@ Returns them back to the caller in the shape of interface that adheres to Indust
 
 import { IIndustryProfile } from '../interfaces/industry-profile.interface';
 
-import { ITickerData } from '../interfaces/ticker-data.interface';
+import { ITickerFundamentals } from '../interfaces/ticker-fundamentals.interface';
 
 export class FinancialApiParserService {
 
     static extractedTickerData: IIndustryProfile;
 
-    static rawTickerData: ITickerData;
+    static rawTickerData: ITickerFundamentals;
 
-    constructor(rawTickerData: ITickerData) {
+    constructor(rawTickerData: ITickerFundamentals) {
 
         FinancialApiParserService.extractedTickerData = {} as IIndustryProfile;
 
@@ -32,5 +32,9 @@ export class FinancialApiParserService {
         const { extractedTickerData, rawTickerData } = FinancialApiParserService;
 
         extractedTickerData.industry = rawTickerData.General.Industry;
+
+        extractedTickerData.marketCap = rawTickerData.Highlights.MarketCapitalization;
+
+        console.log(JSON.stringify(rawTickerData, null, 8));
     }
 }
