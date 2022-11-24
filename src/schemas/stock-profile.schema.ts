@@ -10,8 +10,8 @@ therefore, not all values are available via the API
 NOTE: it might be the case we'd need to calculate some missing values, provided
 API delivers financial documents (balance sheet, income statement, cash flow statement)
 
-NOTE: Since all values must be compared with the same industry, we should aspire for
-creating only one profile per industry
+NOTE: Since all values except those under risk must be compared with the same industry,
+we should aspire for creating only one profile per industry
 
 Iteration 1 (24-11-2022):
 
@@ -28,7 +28,7 @@ const stockProfileSchema = new Schema(
         _id: { type: mongoose.SchemaTypes.String, default: uuid.v4 },
 
         /*
-        ALL RATIOS MUST BE COMPARED WITHIN THE SAME INDUSTRY
+        ALL RATIOS EXCEPT RISK MUST BE COMPARED WITHIN THE SAME INDUSTRY
         */
         industry: {
             type: String
@@ -63,7 +63,7 @@ const stockProfileSchema = new Schema(
             Measures rate of return on the asset above risk-free investment, such as treasury bonds or cash.
             In other words, measures whether the risk is justified against investing into risk-free assets.
             A Sharpe Ratio above 1.0 is considered good, as it indicates potential excess return
-            relative to the volatility of the asset. 
+            relative to the volatility of the asset.
             */
             sharpeRatio: {
                 type: Number
@@ -163,40 +163,57 @@ const stockProfileSchema = new Schema(
 
         profitability: {
 
+            /*
+            Displays how effectively the company is using its assets to generate income.
+            The higher the number, the better.
+            */
             returnOnAssets: {
-                type: Number,
-                required: true
+                type: Number
             },
 
+            /*
+            Displays how effective the company is using its investment from shareholders to generate income.
+            The higher the number, the better.
+            */
             returnOnEquity: {
-                type: Number,
-                required: true
+                type: Number
             },
 
+            /*
+            Denotes how much profit company makes after deducting liabilites.
+            */
             profitMargin: {
-                type: Number,
-                required: true
+                type: Number
             }
         },
 
         liquidity: {
 
+            /*
+            Denotes company’s capacity to meet it’s short-term obligations (debt),
+            where short-term obligations are debt due within 1 year period.
+            */
             currentRatio: {
-                type: Number,
-                required: true
+                type: Number
             },
 
+            /*
+            Similar to Current Ratio, but is more conservative. As a rule, lower than Current Ratio.
+            */
             quickRatio: {
-                type: Number,
-                required: true
+                type: Number
             }
         },
 
         debt: {
 
+            /*
+            Measures the relationship between the amount of capital that has been borrowed (debt),
+            and the amount of capital contributed by shareholders (equity).
+            Displays company’s ability to service it’s long-term debt obligations. The lower the number, the better.
+            */
             debtToEquity: {
-                type: Number,
-                required: true
+                type: Number
             }
         }
 
