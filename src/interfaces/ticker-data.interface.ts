@@ -1,4 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export interface ITickerData {
 
-    [key: string]: unknown;
+    /*
+    We have no intention of typing out the whole API response
+    */
+    [key: string]: any;
 }

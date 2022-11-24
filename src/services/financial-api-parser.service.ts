@@ -26,4 +26,11 @@ export class FinancialApiParserService {
 
         FinancialApiParserService.rawTickerData = rawTickerData;
     }
+
+    public parseTickerData(): void {
+
+        const { extractedTickerData, rawTickerData } = FinancialApiParserService;
+
+        extractedTickerData.industry = rawTickerData.General.Industry;
+    }
 }

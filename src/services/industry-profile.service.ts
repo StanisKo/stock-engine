@@ -26,7 +26,7 @@ export class IndustryProfileService {
 
     apiUrl: string;
 
-    financialApiParserService = FinancialApiParserService;
+    financialApiParserService: FinancialApiParserService;
 
     constructor(ticker: string) {
 
@@ -52,6 +52,8 @@ export class IndustryProfileService {
             const tickerData = await this.requestFinancialData();
 
             this.financialApiParserService = new FinancialApiParserService(tickerData);
+
+            this.financialApiParserService.parseTickerData();
 
             response.success = true;
         }
