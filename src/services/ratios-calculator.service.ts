@@ -23,6 +23,14 @@ export class RatiosCalculatorService {
         this.prices = prices;
     }
 
+    /*
+    TODO: how to factor in stock splits?
+
+    calculate in chunks, in between splits, calculate avarage over each chunk, calculate
+    average over averages? Should work
+
+    TODO: comments needed, document
+    */
     private calculateAverageRateOfReturn(): number {
 
         const dayOnDayReturns: number[] = [];
