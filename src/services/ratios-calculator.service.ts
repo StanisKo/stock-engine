@@ -24,12 +24,28 @@ export class RatiosCalculatorService {
     }
 
     /*
-    TODO: how to factor in stock splits?
+    In order to calcualate average rate of return we got to make use of available EOD prices
 
-    calculate in chunks, in between splits, calculate avarage over each chunk, calculate
-    average over averages? Should work
+    When thinking of average RoR it is crucial to also factor in stocks splits,
+    since calculating over the raw dataset would skew the result
 
-    TODO: comments needed, document
+    E.g., if one would own 1 share of $100 that would then grow to $120 and then the stock split of,
+    let's say, 6:1 take place, one would end up with 6 shares of $20 each
+
+    This drastically impacts stock price, since the curve would be $100 --> $120 --> $20,
+    skewing the calculation of average returns into negative territory
+
+    Nevertheless and luckily for us, we have information on date and time of stocks splits per ticker
+
+    Therefore, what we need to do:
+
+    Chunk the dataset into subsets divided by stock splits dates
+
+    Calculate average RoR over each subset
+
+    Sum averages per chunk and calculate average (of averages)
+
+    This would yield proper understanding of ticker's RoR
     */
     private calculateAverageRateOfReturn(): number {
 
