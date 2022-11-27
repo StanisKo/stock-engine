@@ -1,9 +1,9 @@
 import { Router } from 'express';
 
-import { createIndustryProfileFromTicker } from '../controllers/industry-profile.controllers';
+import { requestFinancialDataForIndustryProfile } from '../controllers/industry-profile.controllers';
 
 const router = Router();
 
-router.get('/create-industry-profile', createIndustryProfileFromTicker);
+router.get('/request-financial-data', requestFinancialDataForIndustryProfile);
 
 export default router;

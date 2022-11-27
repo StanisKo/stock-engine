@@ -18,7 +18,7 @@ import { ITickerFinancialData } from '../interfaces/ticker.interface';
 
 import { RatiosCalculatorService } from './ratios-calculator.service';
 
-export class FinancialApiParser {
+export class FinancialApiParserService {
 
     extractedTickerData: IIndustryProfile;
 
