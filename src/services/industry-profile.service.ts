@@ -12,8 +12,6 @@ Creates and saves industry profile
 Saves the ticker data for potential further usage
 */
 
-import { ITickerFinancialData } from '../interfaces/ticker.interface';
-
 import { ServiceResponse } from '../dtos/serviceResponse';
 
 import { FinancialApiService } from './financial-api.service';
@@ -32,19 +30,12 @@ export class IndustryProfileService {
         this.financialApiService = new FinancialApiService(ticker);
     }
 
-    private async requestFinancialData(): Promise<ITickerFinancialData> {
-
-        const financialData = await this.financialApiService.requestFinancicalTickerData();
-
-        return financialData;
-    }
-
     public async createIndustryProfileFromTicker(): Promise<ServiceResponse> {
 
         const response = new ServiceResponse();
 
         try {
-            const tickerFinancialData = await this.requestFinancialData();
+            const tickerFinancialData = await this.financialApiService.requestFinancicalTickerData();
 
             this.financialApiParserService = new FinancialApiParserService(tickerFinancialData);
 

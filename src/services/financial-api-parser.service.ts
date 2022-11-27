@@ -46,6 +46,6 @@ export class FinancialApiParserService {
         */
         this.ratiosCalculatorService = new RatiosCalculatorService(prices);
 
-        const standardDeviation = this.ratiosCalculatorService.calculateStandardDeviation();
+        this.ratiosCalculatorService.calculateStandardDeviation();
     }
 }
