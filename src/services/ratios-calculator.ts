@@ -14,7 +14,7 @@ SD =
 
 import { ITickerPrice } from  '../interfaces/ticker.interface';
 
-export class RatiosCalculatorService {
+export class RatiosCalculator {
 
     prices: ITickerPrice[];
 

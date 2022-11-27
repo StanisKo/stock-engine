@@ -16,7 +16,7 @@ import { IIndustryProfile } from '../interfaces/industry-profile.interface';
 
 import { ITickerFinancialData } from '../interfaces/ticker.interface';
 
-import { RatiosCalculatorService } from './ratios-calculator.service';
+import { RatiosCalculator } from './ratios-calculator';
 
 export class FinancialApiParserService {
 
@@ -24,7 +24,7 @@ export class FinancialApiParserService {
 
     rawTickerData: ITickerFinancialData;
 
-    ratiosCalculatorService: RatiosCalculatorService;
+    ratiosCalculator: RatiosCalculator;
 
     constructor(rawTickerData: ITickerFinancialData) {
 
@@ -44,8 +44,8 @@ export class FinancialApiParserService {
         /*
         Calculate things that are missing from APIs manually
         */
-        this.ratiosCalculatorService = new RatiosCalculatorService(prices);
+        this.ratiosCalculator = new RatiosCalculator(prices);
 
-        const standardDeviation = this.ratiosCalculatorService.calculateStandardDeviation();
+        const standardDeviation = this.ratiosCalculator.calculateStandardDeviation();
     }
 }
