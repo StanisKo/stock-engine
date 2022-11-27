@@ -18,7 +18,7 @@ import { ITickerFinancialData } from '../interfaces/ticker.interface';
 
 import { RatiosCalculator } from './ratios-calculator';
 
-export class FinancialApiParserService {
+export class FinancialApiParser {
 
     extractedTickerData: IIndustryProfile;
 
@@ -46,6 +46,6 @@ export class FinancialApiParserService {
         */
         this.ratiosCalculator = new RatiosCalculator(prices);
 
-        const standardDeviation = this.ratiosCalculator.calculateStandardDeviation();
+        this.ratiosCalculator.calculateStandardDeviation();
     }
 }

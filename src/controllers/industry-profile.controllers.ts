@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 
-import { IndustryProfileService } from '../services/industry-profile.service';
+import { IndustryProfileMaker } from '../services/industry-profile-maker';
 
-export const requestFinancialDataForIndustryProfile = async (
+export const createIndustryProfileFromTicker = async (
     request: Request, response: Response): Promise<Response> => {
 
     const { ticker } = request.query;
@@ -15,9 +15,9 @@ export const requestFinancialDataForIndustryProfile = async (
         );
     }
 
-    const industryProfileService = new IndustryProfileService(ticker as string);
+    const industryProfileMaker = new IndustryProfileMaker(ticker as string);
 
-    const serviceResponse = await industryProfileService.createIndustryProfileFromTicker();
+    const serviceResponse = await industryProfileMaker.createIndustryProfileFromTicker();
 
     return response.status(200).json(serviceResponse);
 };

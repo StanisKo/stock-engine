@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 
 import { ITickerFundamentals, ITickerPrice, ITickerFinancialData } from '../interfaces/ticker.interface';
 
-export class FinancialApiService {
+export class FinancialApiConnector {
 
     ticker: string;
 
