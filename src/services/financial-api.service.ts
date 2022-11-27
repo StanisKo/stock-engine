@@ -15,7 +15,7 @@ export class FinancialApiService {
         this.apiUrl = process.env.FINANCIAL_DATA_API_URL || '';
     }
 
-    private async requestFundamentalTickerData(): Promise<ITickerFundamentals> {
+    private async requestFundamentalsTickerData(): Promise<ITickerFundamentals> {
 
         const request = await fetch(`${this.apiUrl}/fundamentals/${this.ticker}.US?api_token=demo`);
 
@@ -35,7 +35,7 @@ export class FinancialApiService {
 
     public async requestFinancicalTickerData(): Promise<ITickerFinancialData> {
 
-        const fundamentals = await this.requestFundamentalTickerData();
+        const fundamentals = await this.requestFundamentalsTickerData();
 
         const prices = await this.requestHistoricalTickerPrices();
 
