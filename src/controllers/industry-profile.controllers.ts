@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 
 import { IndustryProfileService } from '../services/industry-profile.service';
 
-export const requestFinancialDataForIndustryProfile = async (
+export const createIndustryProfileFromTicker = async (
     request: Request, response: Response): Promise<Response> => {
 
     const { ticker } = request.query;
