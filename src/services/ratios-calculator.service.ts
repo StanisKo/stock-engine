@@ -22,7 +22,7 @@ divided by count of returns minus one
 */
 
 /*
-TODO: not done, AAPL is at 2.56 according to internet, you're at 2.49, where did you go wrong?
+TODO: not done, AAPL is at 2.56 according to internet, you're at 2.58, where did you go wrong?, simplify formulas
 */
 
 import { ITickerPrice, ITickerSplit } from  '../interfaces/ticker.interface';
@@ -135,6 +135,7 @@ export class RatiosCalculatorService {
         If there are no splits, we can calculate over entire dataset immediately
         */
         if (!Object.keys(this.splits).length) {
+
             const [returns, averageRateOfReturn] = this.calculateAverageRateOfReturn(this.prices);
 
             const variance = this.calculateVariance(returns, averageRateOfReturn);
@@ -170,17 +171,20 @@ export class RatiosCalculatorService {
             currentSubset.push(price);
         }
 
-        const deviations: number[] = [];
+        const variances: number[] = [];
 
         for (let i = 0; i < subsets.length; i++) {
+
             const [returns, averageRateOfReturn] = this.calculateAverageRateOfReturn(subsets[i]);
 
             const variance = this.calculateVariance(returns, averageRateOfReturn);
 
-            deviations.push(Math.sqrt(variance));
+            variances.push(variance);
         }
 
-        standardDeviation = deviations.reduce((x, y) => x + y) / deviations.length;
+        const variance = variances.reduce((x, y) => x + y) / variances.length;
+
+        standardDeviation = Math.sqrt(variance);
 
         console.log(standardDeviation);
 
