@@ -22,7 +22,7 @@ divided by count of returns minus one
 */
 
 /*
-TODO: factor in splits
+TODO: not done, AAPL is at 2.56 according to internet, you're at 2.49, where did you go wrong?
 */
 
 import { ITickerPrice, ITickerSplit } from  '../interfaces/ticker.interface';
