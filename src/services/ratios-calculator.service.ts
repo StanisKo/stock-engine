@@ -3,7 +3,7 @@ SD for Standard Deviation
 
 V for Variance
 
-RoR for Rate of Return (daily, since we're calculating over daily data)
+RoR for Rate of Return (daily, since we're calculating over daily prices)
 
 ARoR for Average Rate of Return
 
@@ -18,7 +18,11 @@ Or in words:
 Standard Deviation is the square root of Variance
 
 Variance is sum of sqaures of diffs between Rate of Return and Avarage Rate of Return
-divided by count of Returns minus one
+divided by count of returns minus one
+*/
+
+/*
+TODO: all these 3 steps have to work over subsets
 */
 
 import { ITickerPrice, ITickerSplit } from  '../interfaces/ticker.interface';
@@ -28,8 +32,6 @@ export class RatiosCalculatorService {
     prices: ITickerPrice[];
 
     splits: { [key: string]: boolean };
-
-    returns: number[];
 
     constructor(prices: ITickerPrice[], splits: ITickerSplit[]) {
 
@@ -67,7 +69,7 @@ export class RatiosCalculatorService {
 
     This would yield proper understanding of ticker's RoR
     */
-    private calculateAverageRateOfReturn(prices: ITickerPrice[]): number {
+    private calculateAverageRateOfReturn(prices: ITickerPrice[]): [number[], number] {
 
         const dayOnDayReturns: number[] = [];
 
@@ -97,16 +99,11 @@ export class RatiosCalculatorService {
         }
 
         /*
-        We also save returns needed to then calculate variance
-        */
-        this.returns = dayOnDayReturns;
-
-        /*
         Sum changes and divide over the total number of diffs to get to average
         */
         const sumOfHistoricalReturns = dayOnDayReturns.reduce((x, y) => x + y);
 
-        return sumOfHistoricalReturns / dayOnDayReturns.length;
+        return [dayOnDayReturns, sumOfHistoricalReturns / dayOnDayReturns.length];
     }
 
     /*
@@ -114,25 +111,25 @@ export class RatiosCalculatorService {
     diffs between daily rate of return and average rate of return
     and then divide it by count of daily returns - 1
     */
-    private calculateVariance(averageRateOfReturn: number): number {
+    private calculateVariance(returns: number[], averageRateOfReturn: number): number {
 
         let sumOfSquares = 0;
 
-        for (let i = 0; i < this.returns.length; i++) {
+        for (let i = 0; i < returns.length; i++) {
 
-            sumOfSquares += Math.pow(this.returns[i] - averageRateOfReturn, 2);
+            sumOfSquares += Math.pow(returns[i] - averageRateOfReturn, 2);
         }
 
-        const variance = sumOfSquares / this.returns.length - 1;
+        const variance = sumOfSquares / returns.length - 1;
 
         return variance;
     }
 
     public calculateStandardDeviation(): number {
 
-        const averageRateOfReturn = this.calculateAverageRateOfReturn(this.prices);
+        const [returns, averageRateOfReturn] = this.calculateAverageRateOfReturn(this.prices);
 
-        const variance = this.calculateVariance(averageRateOfReturn);
+        const variance = this.calculateVariance(returns, averageRateOfReturn);
 
         const standardDeviation = Math.sqrt(variance);
 
