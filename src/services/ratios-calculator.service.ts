@@ -17,12 +17,12 @@ Or in words:
 
 Standard Deviation is the square root of Variance
 
-Variance is sum of sqaures of diffs between Rate of Return and Avarage Rate of Return
+Variance is sum of squares of diffs between Rate of Return and Avarage Rate of Return
 divided by count of returns minus one
 */
 
 /*
-TODO: all these 3 steps have to work over subsets
+TODO: factor in splits
 */
 
 import { ITickerPrice, ITickerSplit } from  '../interfaces/ticker.interface';
@@ -46,6 +46,8 @@ export class RatiosCalculatorService {
     }
 
     /*
+    TODO: This has to be moved around file
+
     In order to calcualate average rate of return we got to make use of available EOD prices
 
     When thinking of average RoR it is crucial to also factor in stocks splits,
@@ -79,7 +81,7 @@ export class RatiosCalculatorService {
         for (let i = 0; i < prices.length; i++) {
 
             /*
-            There is no perecentage change from nothing to first entry
+            There is no percentage change from nothing to first entry
             */
             if (i === 0) {
 
@@ -127,11 +129,60 @@ export class RatiosCalculatorService {
 
     public calculateStandardDeviation(): number {
 
-        const [returns, averageRateOfReturn] = this.calculateAverageRateOfReturn(this.prices);
+        let standardDeviation;
 
-        const variance = this.calculateVariance(returns, averageRateOfReturn);
+        /*
+        If there are no splits, we can calculate over entire dataset immediately
+        */
+        if (!Object.keys(this.splits).length) {
+            const [returns, averageRateOfReturn] = this.calculateAverageRateOfReturn(this.prices);
 
-        const standardDeviation = Math.sqrt(variance);
+            const variance = this.calculateVariance(returns, averageRateOfReturn);
+
+            standardDeviation = Math.sqrt(variance);
+        }
+
+        /*
+        Otherwise, we need to calculate SD for each subset and then get the average
+        */
+        const subsets: ITickerPrice[][] = [];
+
+        let currentSubset: ITickerPrice[] = [];
+
+        for (let i = 0; i < this.prices.length; i++) {
+
+            const price = this.prices[i];
+
+            /*
+            If currently iterated price falls on split date,
+            push subset into wrapper collection, clear current subset,
+            remove data string from map and continue looping
+            */
+            if (this.splits[price.date]) {
+
+                subsets.push(currentSubset);
+
+                currentSubset = [];
+
+                delete this.splits[price.date];
+            }
+
+            currentSubset.push(price);
+        }
+
+        const deviations: number[] = [];
+
+        for (let i = 0; i < subsets.length; i++) {
+            const [returns, averageRateOfReturn] = this.calculateAverageRateOfReturn(subsets[i]);
+
+            const variance = this.calculateVariance(returns, averageRateOfReturn);
+
+            deviations.push(Math.sqrt(variance));
+        }
+
+        standardDeviation = deviations.reduce((x, y) => x + y) / deviations.length;
+
+        console.log(standardDeviation);
 
         return standardDeviation;
     }
