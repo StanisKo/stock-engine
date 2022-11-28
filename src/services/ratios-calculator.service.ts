@@ -18,13 +18,18 @@ export class RatiosCalculatorService {
 
     prices: ITickerPrice[];
 
-    splits: ITickerSplit[];
+    splits: { [key: string]: boolean };
 
     constructor(prices: ITickerPrice[], splits: ITickerSplit[]) {
 
         this.prices = prices;
 
-        this.splits = splits;
+        this.splits = {};
+
+        for (let i = 0; i < splits.length; i++) {
+
+            this.splits[splits[i].execution_date] = true;
+        }
     }
 
     /*
@@ -51,14 +56,14 @@ export class RatiosCalculatorService {
 
     This would yield proper understanding of ticker's RoR
     */
-    private calculateAverageRateOfReturn(): number {
+    private calculateAverageRateOfReturnOverSubset(prices: ITickerPrice[]): number {
 
         const dayOnDayReturns: number[] = [];
 
         /*
         O(n) time, O(2n) space, can we do better?
         */
-        for (let i = 0; i < this.prices.length; i++) {
+        for (let i = 0; i < prices.length; i++) {
 
             /*
             There is no perecentage change from nothing to first entry
@@ -68,9 +73,9 @@ export class RatiosCalculatorService {
                 continue;
             }
 
-            const currentPrice = this.prices[i].close;
+            const currentPrice = prices[i].close;
 
-            const previousPrice = this.prices[i - 1].close;
+            const previousPrice = prices[i - 1].close;
 
             /*
             Otherwise, calculate percentange change over each day
@@ -86,6 +91,58 @@ export class RatiosCalculatorService {
         const sumOfHistoricalReturns = dayOnDayReturns.reduce((x, y) => x + y);
 
         return sumOfHistoricalReturns / dayOnDayReturns.length;
+    }
+
+    private calculateAverageRateOfReturn(): number {
+
+        let historicalRateOfReturn;
+
+        /*
+        If there were no stock splits, we can calculate average over
+        entire dataset immediately
+        */
+        if (!this.splits.length) {
+
+            historicalRateOfReturn = this.calculateAverageRateOfReturnOverSubset(this.prices);
+
+            return historicalRateOfReturn;
+        }
+
+        /*
+        Otherwise, we divide dataset into subsets based on splits
+        */
+        const subsets: ITickerPrice[][] = [];
+
+        let currentSubset: ITickerPrice[] = [];
+
+        for (let i = 0; i < this.prices.length; i++) {
+
+            const price = this.prices[i];
+
+            /*
+            If currently iterated price falls on split date,
+            push subset into wrapper collection, clear current subset,
+            remove data string from map and continue looping
+            */
+            if (this.splits[price.date]) {
+
+                subsets.push(currentSubset);
+
+                currentSubset = [];
+
+                delete this.splits[price.date];
+            }
+
+            currentSubset.push(price);
+        }
+
+        const rateOfReturnPerSplit = subsets.map(subset => this.calculateAverageRateOfReturnOverSubset(subset));
+
+        const sumOfReturnsAmongstSubsets = rateOfReturnPerSplit.reduce((x, y) => x + y);
+
+        historicalRateOfReturn = sumOfReturnsAmongstSubsets / subsets.length;
+
+        return historicalRateOfReturn;
     }
 
     public calculateStandardDeviation(): void {
