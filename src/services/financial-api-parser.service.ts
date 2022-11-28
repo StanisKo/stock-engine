@@ -37,8 +37,6 @@ export class FinancialApiParserService {
 
         const { fundamentals, prices, splits } = this.rawTickerData;
 
-        console.log(splits);
-
         this.extractedTickerData.industry = fundamentals.General.Industry;
 
         this.extractedTickerData.marketCap = fundamentals.Highlights.MarketCapitalization;
@@ -46,7 +44,7 @@ export class FinancialApiParserService {
         /*
         Calculate things that are missing from APIs manually
         */
-        this.ratiosCalculatorService = new RatiosCalculatorService(prices);
+        this.ratiosCalculatorService = new RatiosCalculatorService(prices, splits);
 
         this.ratiosCalculatorService.calculateStandardDeviation();
     }

@@ -12,15 +12,19 @@ On RoR: https://www.investopedia.com/terms/r/rateofreturn.asp
 SD = 
 */
 
-import { ITickerPrice } from  '../interfaces/ticker.interface';
+import { ITickerPrice, ITickerSplit } from  '../interfaces/ticker.interface';
 
 export class RatiosCalculatorService {
 
     prices: ITickerPrice[];
 
-    constructor(prices: ITickerPrice[]) {
+    splits: ITickerSplit[];
+
+    constructor(prices: ITickerPrice[], splits: ITickerSplit[]) {
 
         this.prices = prices;
+
+        this.splits = splits;
     }
 
     /*
