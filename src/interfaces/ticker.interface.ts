@@ -25,9 +25,22 @@ export interface ITickerPrice {
   volume: number;
 }
 
+export interface ITickerSplit {
+
+    execution_date: string;
+
+    split_from: number;
+
+    split_to: number;
+
+    ticker: string;
+}
+
 export interface ITickerFinancialData {
 
     fundamentals: ITickerFundamentals,
 
-    prices: ITickerPrice[]
+    prices: ITickerPrice[],
+
+    splits: ITickerSplit[],
 }
