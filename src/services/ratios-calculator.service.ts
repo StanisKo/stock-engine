@@ -101,7 +101,7 @@ export class RatiosCalculatorService {
         If there were no stock splits, we can calculate average over
         entire dataset immediately
         */
-        if (!this.splits.length) {
+        if (!Object.keys(this.splits).length) {
 
             historicalRateOfReturn = this.calculateAverageRateOfReturnOverSubset(this.prices);
 
@@ -109,7 +109,8 @@ export class RatiosCalculatorService {
         }
 
         /*
-        Otherwise, we divide dataset into subsets based on splits
+        Otherwise, we divide dataset into subsets based on splits and calculate individually,
+        to later sum and average over
         */
         const subsets: ITickerPrice[][] = [];
 
@@ -136,9 +137,9 @@ export class RatiosCalculatorService {
             currentSubset.push(price);
         }
 
-        const rateOfReturnPerSplit = subsets.map(subset => this.calculateAverageRateOfReturnOverSubset(subset));
+        const rateOfReturnPerSubset = subsets.map(subset => this.calculateAverageRateOfReturnOverSubset(subset));
 
-        const sumOfReturnsAmongstSubsets = rateOfReturnPerSplit.reduce((x, y) => x + y);
+        const sumOfReturnsAmongstSubsets = rateOfReturnPerSubset.reduce((x, y) => x + y);
 
         historicalRateOfReturn = sumOfReturnsAmongstSubsets / subsets.length;
 
