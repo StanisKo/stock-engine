@@ -1,15 +1,24 @@
 /*
-Calculates ratios missing from the API
+SD for Standard Deviation
 
-On SD: https://www.businessinsider.com/personal-finance/how-to-find-standard-deviation?international=true&r=US&IR=T
+V for Variance
 
-       https://www.fincash.com/l/equity/standard-deviation
+RoR for Rate of Return (daily, since we're calculating over daily data)
 
-       https://financetrain.com/variance-standard-deviation ! (RoR included)
+ARoR for Average Rate of Return
 
-On RoR: https://www.investopedia.com/terms/r/rateofreturn.asp
+****
 
-SD = 
+SD = √ V
+
+V = Σ(RoR - ARoR)² / N(RoR) - 1
+
+Or in words:
+
+Standard Deviation is the square root of Variance
+
+Variance is sum of sqaures of diffs between Rate of Return and Avarage Rate of Return
+divided by count of Returns minus one
 */
 
 import { ITickerPrice, ITickerSplit } from  '../interfaces/ticker.interface';
@@ -41,7 +50,7 @@ export class RatiosCalculatorService {
     since calculating over the raw dataset would skew the result
 
     E.g., if one would own 1 share of $100 that would then grow to $120 and then the stock split of,
-    let's say, 6:1 take place, one would end up with 6 shares of $20 each
+    let's say, 1:6 take place, one would end up with 6 shares of $20 each
 
     This drastically impacts stock price, since the curve would be $100 --> $120 --> $20,
     skewing the calculation of average returns into negative territory
@@ -100,6 +109,11 @@ export class RatiosCalculatorService {
         return sumOfHistoricalReturns / dayOnDayReturns.length;
     }
 
+    /*
+    To calculate variance we sum the squares of
+    diffs between daily rate of return and average rate of return
+    and then divide it by count of daily returns - 1
+    */
     private calculateVariance(averageRateOfReturn: number): number {
 
         let sumOfSquares = 0;
