@@ -141,10 +141,13 @@ export class RatiosCalculatorService {
             const variance = this.calculateVariance(returns, averageRateOfReturn);
 
             standardDeviation = Math.sqrt(variance);
+
+            return standardDeviation;
         }
 
         /*
-        Otherwise, we need to calculate SD for each subset and then get the average
+        Otherwise, we calculate variance over each subset individually, get the average
+        and then use as input to calculate standard deviation
         */
         const subsets: ITickerPrice[][] = [];
 
