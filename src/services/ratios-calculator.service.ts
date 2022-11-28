@@ -20,6 +20,8 @@ export class RatiosCalculatorService {
 
     splits: { [key: string]: boolean };
 
+    returns: number[];
+
     constructor(prices: ITickerPrice[], splits: ITickerSplit[]) {
 
         this.prices = prices;
@@ -52,11 +54,11 @@ export class RatiosCalculatorService {
 
     Calculate average RoR over each subset
 
-    Sum averages per chunk and calculate average (of averages)
+    Sum averages per subset and calculate average (of averages)
 
     This would yield proper understanding of ticker's RoR
     */
-    private calculateAverageRateOfReturnOverSubset(prices: ITickerPrice[]): number {
+    private calculateAverageRateOfReturn(prices: ITickerPrice[]): number {
 
         const dayOnDayReturns: number[] = [];
 
@@ -86,6 +88,11 @@ export class RatiosCalculatorService {
         }
 
         /*
+        We also save returns needed to then calculate variance
+        */
+        this.returns = dayOnDayReturns;
+
+        /*
         Sum changes and divide over the total number of diffs to get to average
         */
         const sumOfHistoricalReturns = dayOnDayReturns.reduce((x, y) => x + y);
@@ -93,63 +100,28 @@ export class RatiosCalculatorService {
         return sumOfHistoricalReturns / dayOnDayReturns.length;
     }
 
-    private calculateAverageRateOfReturn(): number {
+    private calculateVariance(averageRateOfReturn: number): number {
 
-        let historicalRateOfReturn;
+        let sumOfSquares = 0;
 
-        /*
-        If there were no stock splits, we can calculate average over
-        entire dataset immediately
-        */
-        if (!Object.keys(this.splits).length) {
+        for (let i = 0; i < this.returns.length; i++) {
 
-            historicalRateOfReturn = this.calculateAverageRateOfReturnOverSubset(this.prices);
-
-            return historicalRateOfReturn;
+            sumOfSquares += Math.pow(this.returns[i] - averageRateOfReturn, 2);
         }
 
-        /*
-        Otherwise, we divide dataset into subsets based on splits and calculate individually,
-        to later sum and average over
-        */
-        const subsets: ITickerPrice[][] = [];
+        const variance = sumOfSquares / this.returns.length - 1;
 
-        let currentSubset: ITickerPrice[] = [];
-
-        for (let i = 0; i < this.prices.length; i++) {
-
-            const price = this.prices[i];
-
-            /*
-            If currently iterated price falls on split date,
-            push subset into wrapper collection, clear current subset,
-            remove data string from map and continue looping
-            */
-            if (this.splits[price.date]) {
-
-                subsets.push(currentSubset);
-
-                currentSubset = [];
-
-                delete this.splits[price.date];
-            }
-
-            currentSubset.push(price);
-        }
-
-        const rateOfReturnPerSubset = subsets.map(subset => this.calculateAverageRateOfReturnOverSubset(subset));
-
-        const sumOfReturnsAmongstSubsets = rateOfReturnPerSubset.reduce((x, y) => x + y);
-
-        historicalRateOfReturn = sumOfReturnsAmongstSubsets / subsets.length;
-
-        return historicalRateOfReturn;
+        return variance;
     }
 
-    public calculateStandardDeviation(): void {
+    public calculateStandardDeviation(): number {
 
-        const historicRateOfReturn = this.calculateAverageRateOfReturn();
+        const averageRateOfReturn = this.calculateAverageRateOfReturn(this.prices);
 
-        console.log(historicRateOfReturn);
+        const variance = this.calculateVariance(averageRateOfReturn);
+
+        const standardDeviation = Math.sqrt(variance);
+
+        return standardDeviation;
     }
 }
