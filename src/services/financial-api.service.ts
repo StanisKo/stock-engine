@@ -1,6 +1,11 @@
 import fetch from 'node-fetch';
 
-import { ITickerFundamentals, ITickerPrice, ITickerSplit,  ITickerFinancialData } from '../interfaces/ticker.interface';
+import {
+    ITickerFundamentals,
+    ITickerPrice,
+    ITickerSplit,
+    ITickerFinancialData
+} from '../interfaces/ticker.interface';
 
 export class FinancialApiService {
 

@@ -35,7 +35,9 @@ export class FinancialApiParserService {
 
     public parseTickerData(): void {
 
-        const { fundamentals, prices } = this.rawTickerData;
+        const { fundamentals, prices, splits } = this.rawTickerData;
+
+        console.log(splits);
 
         this.extractedTickerData.industry = fundamentals.General.Industry;
 
