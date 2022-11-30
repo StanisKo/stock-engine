@@ -29,8 +29,6 @@ https://www.investopedia.com/terms/c/cagr.asp
 
 Don't do it historical, calculate as of today 1 year back
 
-index from prices: prices[prices.length - 365] (factor in leap year as well)
-
 Keep since-IPO calculation as curiosity
 */
 
@@ -50,7 +48,7 @@ export class CAGRCalculatorService {
 
         this.base = 1;
 
-        this.startingPrice = prices[0].close;
+        // this.startingPrice = prices[0].close;
 
         /*
         We want number of unique years since stock is listed - 1, since we disregard current year
@@ -80,13 +78,29 @@ export class CAGRCalculatorService {
         Each valued by the latest market price; total value of which is then the measure
         of the growth of than one share
         */
-        this.endingPrice = prices[prices.length - 1].close * this.base;
+        // this.endingPrice = prices[prices.length - 1].close * this.base;
+
+
+        /*
+        WIP on year-to-date
+
+        This works, but, if the run falls on weekend, take last friday
+        */
+        this.startingPrice = prices.find(
+            price =>
+                price.date === `${new Date().getFullYear() - 1}-${new Date().getMonth() + 1}-${new Date().getDate()}`
+        )?.close || 0;
+
+        this.endingPrice = prices[prices.length - 1].close;
+
+        console.log(this.startingPrice);
     }
 
     public calculateCAGR(): number {
 
         const cagr =  (
-            (this.endingPrice / this.startingPrice) * (1 / this.numberOfUniqueYears) - 1
+            // (this.endingPrice / this.startingPrice) * (1 / this.numberOfUniqueYears) - 1
+            (this.endingPrice / this.startingPrice) * (1 / 1) - 1
         ) * 100;
 
         console.log(cagr);
