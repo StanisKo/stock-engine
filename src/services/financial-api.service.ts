@@ -62,11 +62,15 @@ export class FinancialApiService {
 
     public async requestFinancicalTickerData(): Promise<ITickerFinancialData> {
 
+        console.log(`Retrieving data on ${this.ticker}`);
+
         const fundamentals = await this.requestFundamentalsTickerData();
 
         const prices = await this.requestHistoricalTickerPrices();
 
         const splits = await this.requestSplitsTickerData();
+
+        console.log(`Fundamentals, prices, and splits data on ${this.ticker} is successfully retrieved`);
 
         return { fundamentals, prices, splits };
     }

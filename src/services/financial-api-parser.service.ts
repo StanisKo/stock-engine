@@ -35,15 +35,14 @@ export class FinancialApiParserService {
 
     public parseTickerData(): void {
 
+        console.log('Started parsing the data');
+
         const { fundamentals, prices, splits } = this.rawTickerData;
 
         this.extractedTickerData.industry = fundamentals.General.Industry;
 
         this.extractedTickerData.marketCap = fundamentals.Highlights.MarketCapitalization;
 
-        /*
-        Calculate things that are missing from APIs manually
-        */
         this.standardDeviationCalculatorService = new StandardDeviationCalculatorService(prices, splits);
 
         const standardDeviation = this.standardDeviationCalculatorService.calculateStandardDeviation();
@@ -57,7 +56,5 @@ export class FinancialApiParserService {
         };
 
         this.extractedTickerData.risk.standardDeviation = standardDeviation;
-
-        console.log(this.extractedTickerData);
     }
 }
