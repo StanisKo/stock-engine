@@ -57,5 +57,7 @@ export class FinancialApiParserService {
         };
 
         this.extractedTickerData.risk.standardDeviation = standardDeviation;
+
+        console.log(this.extractedTickerData);
     }
 }

@@ -143,7 +143,7 @@ export class StandardDeviationCalculatorService {
 
         /*
         Otherwise, we calculate variance over each subset individually, get the average
-        and then use as input to calculate standard deviation
+        and then use it as input to calculate standard deviation
         */
         const subsets: ITickerPrice[][] = [];
 
@@ -184,8 +184,6 @@ export class StandardDeviationCalculatorService {
         const variance = variances.reduce((x, y) => x + y) / variances.length;
 
         standardDeviation = Math.sqrt(variance);
-
-        console.log(standardDeviation);
 
         return standardDeviation;
     }
