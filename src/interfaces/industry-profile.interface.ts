@@ -25,6 +25,13 @@ export interface IIndustryProfile {
       industry: string,
 
       /*
+      Compound Annual Growth Rate (CAGR) — mean annual growth rate of an investment
+      over a specified period of time longer than one year.
+      It represents one of the most accurate ways to calculate and determine returns for an asset.
+      */
+      cagr: number,
+
+      /*
       Size measurement of the stock
       */
       marketCap: {

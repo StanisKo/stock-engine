@@ -13,6 +13,10 @@ const industryProfileSchema = new mongoose.Schema<IIndustryProfileSchema>(
             type: String
         },
 
+        cagr: {
+            type: Number
+        },
+
         marketCap: {
 
             label: {
