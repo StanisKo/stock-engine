@@ -16,7 +16,7 @@ import { IIndustryProfile } from '../interfaces/industry-profile.interface';
 
 import { ITickerFinancialData } from '../interfaces/ticker.interface';
 
-import { StandardDeviationCalculatorService } from './standard-deviation-calculator.service';
+import { StandardDeviationCalculatorService } from './calculators/standard-deviation-calculator.service';
 
 export class FinancialApiParserService {
 

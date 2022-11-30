@@ -48,7 +48,7 @@ In such, we're calculating RoR over each closing price of current day against pr
 ARoR = SUM(RoR) / N(RoR) where N is count of datapoints we have
 */
 
-import { ITickerPrice, ITickerSplit } from  '../interfaces/ticker.interface';
+import { ITickerPrice, ITickerSplit } from  '../../interfaces/ticker.interface';
 
 export class StandardDeviationCalculatorService {
 
