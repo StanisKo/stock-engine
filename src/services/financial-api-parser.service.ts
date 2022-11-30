@@ -47,13 +47,15 @@ export class FinancialApiParserService {
 
         this.extractedTickerData.marketCap = fundamentals.Highlights.MarketCapitalization;
 
+        this.cagrCalculatorService = new CAGRCalculatorService(prices, splits, fundamentals.General.IPODate);
+
+        const cagr = this.cagrCalculatorService.calculateCAGR();
+
+        this.extractedTickerData.cagr = cagr;
+
         this.standardDeviationCalculatorService = new StandardDeviationCalculatorService(prices, splits);
 
         const standardDeviation = this.standardDeviationCalculatorService.calculateStandardDeviation();
-
-        this.cagrCalculatorService = new CAGRCalculatorService(prices, splits, fundamentals.General.IPODate);
-
-        this.cagrCalculatorService.calculateCAGR();
 
         this.extractedTickerData.risk = {
             standardDeviation: 0,

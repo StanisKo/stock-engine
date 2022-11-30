@@ -20,6 +20,18 @@ endingValue = last price * base
 beginningValue = first price (* 1, duh)
 
 # of years = sum of unique years in prices dataset
+
+TODO: docs and validation needed! THIS IS WRONG, you have to consdier time frames
+
+On CAGR:
+
+https://www.investopedia.com/terms/c/cagr.asp
+
+Don't do it historical, calculate as of today 1 year back
+
+index from prices: prices[prices.length - 365] (factor in leap year as well)
+
+Keep since-IPO calculation as curiosity
 */
 
 import { ITickerPrice, ITickerSplit } from '../../interfaces/ticker.interface';
