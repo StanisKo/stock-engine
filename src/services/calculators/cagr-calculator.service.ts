@@ -5,7 +5,7 @@ base = 1 share
 
 for each stock split:
 
-    if from > to:
+    if to > from:
 
         base *= to
 
@@ -22,11 +22,11 @@ beginningValue = first price (* 1, duh)
 # of years = sum of unique years in prices dataset
 */
 
-import { ITickerPrice } from '../../interfaces/ticker.interface';
-
-// import { ITickerSplit } from '../../interfaces/ticker.interface';
+import { ITickerPrice, ITickerSplit } from '../../interfaces/ticker.interface';
 
 export class CAGRCalculatorService {
+
+    base: number;
 
     startingPrice: number;
 
@@ -34,18 +34,11 @@ export class CAGRCalculatorService {
 
     numberOfUniqueYears: number;
 
-    /*
-    We can immediately declare it as a constant
-    */
-    base: 1;
+    constructor(prices: ITickerPrice[], splits: ITickerSplit[], ipoDate: string) {
 
-    // splits: ITickerSplit[]
-
-    constructor(prices: ITickerPrice[], ipoDate: string) {
+        this.base = 1;
 
         this.startingPrice = prices[0].close;
-
-        this.endingPrice = prices[prices.length - 1].close;
 
         /*
         We want number of unique years since stock is listed - 1, since we disregard current year
@@ -53,7 +46,40 @@ export class CAGRCalculatorService {
         */
         this.numberOfUniqueYears = Number(new Date().getFullYear()) - Number(new Date(ipoDate).getFullYear()) - 1;
 
-        console.log(this.numberOfUniqueYears);
+        for (let i = 0; i < splits.length; i++) {
+
+            if (splits[i].split_to > splits[i].split_from) {
+
+                this.base *= splits[i].split_to;
+            }
+            else {
+
+                this.base /= splits[i].split_to;
+            }
+        }
+
+        /*
+        This would signify the end value of 1 share held since the IPO date,
+        even if stock was split multiple times
+
+        E.g., if one holds 1 share, then splits of 1:2, 1:3, and 1:4 happen,
+        one would end up holding 2 * 3 * 4 = 24 shares
+
+        Each valued by the latest market price; total value of which is then the measure
+        of the growth of than one share
+        */
+        this.endingPrice = prices[prices.length - 1].close * this.base;
+    }
+
+    public calculateCAGR(): number {
+
+        const cagr =  (
+            (this.endingPrice / this.startingPrice) * (1 / this.numberOfUniqueYears) - 1
+        ) * 100;
+
+        console.log(cagr);
+
+        return cagr;
     }
 
 }

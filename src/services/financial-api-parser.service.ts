@@ -51,7 +51,9 @@ export class FinancialApiParserService {
 
         const standardDeviation = this.standardDeviationCalculatorService.calculateStandardDeviation();
 
-        this.cagrCalculatorService = new CAGRCalculatorService(prices, fundamentals.General.IPODate);
+        this.cagrCalculatorService = new CAGRCalculatorService(prices, splits, fundamentals.General.IPODate);
+
+        this.cagrCalculatorService.calculateCAGR();
 
         this.extractedTickerData.risk = {
             standardDeviation: 0,
