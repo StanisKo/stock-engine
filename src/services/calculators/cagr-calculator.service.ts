@@ -22,7 +22,9 @@ beginningValue = first price (* 1, duh)
 # of years = sum of unique years in prices dataset
 */
 
-import { ITickerPrice, ITickerSplit } from '../../interfaces/ticker.interface';
+import { ITickerPrice } from '../../interfaces/ticker.interface';
+
+// import { ITickerSplit } from '../../interfaces/ticker.interface';
 
 export class CAGRCalculatorService {
 
@@ -37,13 +39,21 @@ export class CAGRCalculatorService {
     */
     base: 1;
 
-    constructor(startingPrice: number, endindPrice: number, prices: ITickerPrice[], splits: ITickerSplit[]) {
+    // splits: ITickerSplit[]
 
-        this.startingPrice = startingPrice;
+    constructor(prices: ITickerPrice[], ipoDate: string) {
 
-        this.endingPrice = endindPrice;
+        this.startingPrice = prices[0].close;
 
+        this.endingPrice = prices[prices.length - 1].close;
 
+        /*
+        We want number of unique years since stock is listed - 1, since we disregard current year
+        (within any point in time prices are always incomplete for this year)
+        */
+        this.numberOfUniqueYears = Number(new Date().getFullYear()) - Number(new Date(ipoDate).getFullYear()) - 1;
+
+        console.log(this.numberOfUniqueYears);
     }
 
 }

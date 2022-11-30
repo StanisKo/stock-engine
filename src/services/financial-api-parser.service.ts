@@ -18,6 +18,8 @@ import { ITickerFinancialData } from '../interfaces/ticker.interface';
 
 import { StandardDeviationCalculatorService } from './calculators/standard-deviation-calculator.service';
 
+import { CAGRCalculatorService } from './calculators/cagr-calculator.service';
+
 export class FinancialApiParserService {
 
     extractedTickerData: IIndustryProfile;
@@ -25,6 +27,8 @@ export class FinancialApiParserService {
     rawTickerData: ITickerFinancialData;
 
     standardDeviationCalculatorService: StandardDeviationCalculatorService;
+
+    cagrCalculatorService: CAGRCalculatorService;
 
     constructor(rawTickerData: ITickerFinancialData) {
 
@@ -39,8 +43,6 @@ export class FinancialApiParserService {
 
         const { fundamentals, prices, splits } = this.rawTickerData;
 
-        console.log(JSON.stringify(fundamentals, null, 8));
-
         this.extractedTickerData.industry = fundamentals.General.Industry;
 
         this.extractedTickerData.marketCap = fundamentals.Highlights.MarketCapitalization;
@@ -48,6 +50,8 @@ export class FinancialApiParserService {
         this.standardDeviationCalculatorService = new StandardDeviationCalculatorService(prices, splits);
 
         const standardDeviation = this.standardDeviationCalculatorService.calculateStandardDeviation();
+
+        this.cagrCalculatorService = new CAGRCalculatorService(prices, fundamentals.General.IPODate);
 
         this.extractedTickerData.risk = {
             standardDeviation: 0,
