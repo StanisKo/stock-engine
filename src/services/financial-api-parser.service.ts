@@ -39,6 +39,8 @@ export class FinancialApiParserService {
 
         const { fundamentals, prices, splits } = this.rawTickerData;
 
+        console.log(JSON.stringify(fundamentals, null, 8));
+
         this.extractedTickerData.industry = fundamentals.General.Industry;
 
         this.extractedTickerData.marketCap = fundamentals.Highlights.MarketCapitalization;

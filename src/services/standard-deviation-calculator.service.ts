@@ -72,7 +72,7 @@ export class StandardDeviationCalculatorService {
 
         const dayOnDayReturns: number[] = [];
 
-        let sumOfHistoricalReturns = 0;
+        let sumOfDayOnDayReturns = 0;
 
         /*
         O(n) time, O(2n) space, can we do better?
@@ -98,10 +98,10 @@ export class StandardDeviationCalculatorService {
 
             dayOnDayReturns.push(percentageChange);
 
-            sumOfHistoricalReturns += percentageChange;
+            sumOfDayOnDayReturns += percentageChange;
         }
 
-        return [dayOnDayReturns, sumOfHistoricalReturns / dayOnDayReturns.length];
+        return [dayOnDayReturns, sumOfDayOnDayReturns / dayOnDayReturns.length];
     }
 
     /*
