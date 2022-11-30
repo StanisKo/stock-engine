@@ -48,6 +48,14 @@ export class FinancialApiParserService {
 
         const standardDeviation = this.standardDeviationCalculatorService.calculateStandardDeviation();
 
+        this.extractedTickerData.risk = {
+            standardDeviation: 0,
+            sharpeRatio: 0,
+            beta: 0,
+            alpha: 0,
+            rSquared: 0
+        };
+
         this.extractedTickerData.risk.standardDeviation = standardDeviation;
     }
 }
