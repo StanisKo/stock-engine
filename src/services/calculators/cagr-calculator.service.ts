@@ -36,7 +36,7 @@ import { ITickerPrice, ITickerSplit } from '../../interfaces/ticker.interface';
 
 export class CAGRCalculatorService {
 
-    base: number;
+    base: number; // rename to split factor
 
     startingPrice: number;
 
@@ -84,7 +84,10 @@ export class CAGRCalculatorService {
         /*
         WIP on year-to-date
 
-        This works, but, if the run falls on weekend, take last friday
+        This works, but, if the run falls on weekend, take last Friday
+
+        Certainly, then refactor, and only then mount on the split factor
+        in case if there was a split within the last year
         */
         this.startingPrice = prices.find(
             price =>
@@ -98,6 +101,9 @@ export class CAGRCalculatorService {
 
     public calculateCAGR(): number {
 
+        /*
+        Here, we can simply subtract 1, since we need only looking 1 year back
+        */
         const cagr =  (
             // (this.endingPrice / this.startingPrice) * (1 / this.numberOfUniqueYears) - 1
             (this.endingPrice / this.startingPrice) * (1 / 1) - 1
