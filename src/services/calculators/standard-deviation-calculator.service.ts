@@ -46,6 +46,8 @@ RoR = (P2 - P1) / P1 * 100 where P2 is current price and P1 is previous (in term
 In such, we're calculating RoR over each closing price of current day against previous day*
 
 ARoR = SUM(RoR) / N(RoR) where N is count of datapoints we have
+
+On Standard Deviation: https://www.investopedia.com/terms/s/standarddeviation.asp
 */
 
 import { ITickerPrice, ITickerSplit } from  '../../interfaces/ticker.interface';
