@@ -26,7 +26,13 @@ export class SharpeRatioCalculatorService {
         console.log('Calculated Sharpe Ratio');
 
         /*
-        Measure against ^GSPC, S&P 500 index
+        TODO: Measure against ^GSPC, S&P 500 index
+
+        https://opendata.stackexchange.com/questions/18081/free-rest-api-for-daily-end-of-day-sp-500-index
+
+        https://www.npmjs.com/package/yahoo-finance
+
+        NOTE: if you can get prices from here, use this, instead of historical eod to save on api
         */
 
         const sharpeRatio = (this.cagr - this.treasuryBondYield) / this.standardDeviation;
