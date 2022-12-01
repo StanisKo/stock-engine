@@ -1,14 +1,20 @@
 /*
+As our risk-free investment benchmark we take US 10 years Treasury Bond yield
+
 On Sharpe Ratio: https://www.investopedia.com/terms/s/sharperatio.asp
 */
 
 export class SharpeRatioCalculatorService {
 
+    treasuryBondYield: number;
+
     cagr: number;
 
     standardDeviation: number;
 
-    constructor(cagr: number, standardDeviation: number) {
+    constructor(treasuryBondYield: number, cagr: number, standardDeviation: number) {
+
+        this.treasuryBondYield = treasuryBondYield;
 
         this.cagr = cagr;
 
@@ -19,10 +25,7 @@ export class SharpeRatioCalculatorService {
 
         console.log('Calculated Sharpe Ratio');
 
-        /*
-        This has to factor in risk-free return: US treasury bond
-        */
-        return this.cagr / this.standardDeviation;
+        return (this.treasuryBondYield - this.cagr) / this.standardDeviation;
     }
 
 }

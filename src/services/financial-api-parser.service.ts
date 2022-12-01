@@ -45,7 +45,7 @@ export class FinancialApiParserService {
 
         console.log('Started parsing the data');
 
-        const { fundamentals, prices } = this.rawTickerData;
+        const { fundamentals, prices, treasuryBondYield } = this.rawTickerData;
 
         this.extractedTickerData.industry = fundamentals.General.Industry;
 
@@ -71,7 +71,11 @@ export class FinancialApiParserService {
 
         this.extractedTickerData.risk.standardDeviation = standardDeviation;
 
-        this.sharpeRatioCalculatorService = new SharpeRatioCalculatorService(cagr, standardDeviation);
+        this.sharpeRatioCalculatorService = new SharpeRatioCalculatorService(
+            treasuryBondYield,
+            cagr,
+            standardDeviation
+        );
 
         this.extractedTickerData.risk.sharpeRatio = this.sharpeRatioCalculatorService.calculateSharpeRatio();
 
