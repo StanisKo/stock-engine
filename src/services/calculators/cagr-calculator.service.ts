@@ -48,9 +48,6 @@ export class CAGRCalculatorService {
 
         this.startingPrice = prices.find(price => price.date === oneYearBackAsString)?.adjusted_close || 0;
 
-        /*
-        We then apply the split factor to the ending price
-        */
         this.endingPrice = prices[prices.length - 1].adjusted_close;
     }
 

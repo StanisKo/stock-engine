@@ -12,10 +12,6 @@ export class FinancialApiService {
 
     financialDataApiUrl: string;
 
-    splitsApiUrl: string;
-
-    splitsApiKey: string;
-
     constructor(ticker: string) {
 
         this.ticker = ticker;
