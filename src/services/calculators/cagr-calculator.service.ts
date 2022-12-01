@@ -90,7 +90,7 @@ export class CAGRCalculatorService {
         /*
         Here, bringing the diff between ending price and starting price to the exponent
         of 1 divided by number of years to look back is unnecessary, since we're always
-        calculation one year back
+        calculating one year back
 
         Yet, kept if business logic will change (V1, 01-12-2022)
 
