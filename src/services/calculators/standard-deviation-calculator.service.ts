@@ -12,27 +12,6 @@ In such, RoR and ARoR are the fundament of calculating SD
 
 To get to RoR and ARoR we got to make use of available adjusted EOD (end of day) prices
 
-When thinking of ARoR it is crucial to also factor in stocks splits,
-since calculating over the raw dataset would skew the result
-
-E.g., if one would own 1 share of $100 that would then grow to $120 and then the stock split of,
-let's say, 1:6 take place, one would end up with 6 shares of $20 each
-
-This drastically impacts stock price, since the curve would be $100 --> $120 --> $20,
-skewing the calculation of average returns into negative territory, and, therefore, skewing the SD
-
-Nevertheless and luckily for us, we have information on date and time of stocks splits per ticker
-
-Therefore, what we need to do:
-
-Chunk the dataset into subsets divided by stock splits dates
-
-Calculate ARoR over each subset
-
-Sum averages per subset and calculate average (of averages)
-
-This would yield proper understanding of ticker's RoR
-
 ****
 
 The described can be expressed as following:
@@ -50,24 +29,15 @@ ARoR = SUM(RoR) / N(RoR) where N is count of datapoints we have
 On Standard Deviation: https://www.investopedia.com/terms/s/standarddeviation.asp
 */
 
-import { ITickerPrice, ITickerSplit } from  '../../interfaces/ticker.interface';
+import { ITickerPrice } from  '../../interfaces/ticker.interface';
 
 export class StandardDeviationCalculatorService {
 
     prices: ITickerPrice[];
 
-    splits: { [key: string]: boolean };
-
-    constructor(prices: ITickerPrice[], splits: ITickerSplit[]) {
+    constructor(prices: ITickerPrice[]) {
 
         this.prices = prices;
-
-        this.splits = {};
-
-        for (let i = 0; i < splits.length; i++) {
-
-            this.splits[splits[i].execution_date] = true;
-        }
     }
 
     private calculateAverageRateOfReturn(prices: ITickerPrice[]): [number[], number] {
@@ -124,67 +94,11 @@ export class StandardDeviationCalculatorService {
 
     public calculateStandardDeviation(): number {
 
-        let standardDeviation;
+        const [returns, averageRateOfReturn] = this.calculateAverageRateOfReturn(this.prices);
 
-        /*
-        If there are no splits, we can calculate over entire dataset immediately
-        */
-        if (!Object.keys(this.splits).length) {
+        const variance = this.calculateVariance(returns, averageRateOfReturn);
 
-            const [returns, averageRateOfReturn] = this.calculateAverageRateOfReturn(this.prices);
-
-            const variance = this.calculateVariance(returns, averageRateOfReturn);
-
-            standardDeviation = Math.sqrt(variance);
-
-            console.log('Calculated Standard Deviation');
-
-            return standardDeviation;
-        }
-
-        /*
-        Otherwise, we calculate variance over each subset individually, get the average
-        and then use it as input to calculate standard deviation
-        */
-        const subsets: ITickerPrice[][] = [];
-
-        let currentSubset: ITickerPrice[] = [];
-
-        for (let i = 0; i < this.prices.length; i++) {
-
-            const price = this.prices[i];
-
-            /*
-            If currently iterated price falls on split date,
-            push subset into wrapper collection, clear current subset,
-            remove data string from map and continue looping
-            */
-            if (this.splits[price.date]) {
-
-                subsets.push(currentSubset);
-
-                currentSubset = [];
-
-                delete this.splits[price.date];
-            }
-
-            currentSubset.push(price);
-        }
-
-        const variances: number[] = [];
-
-        for (let i = 0; i < subsets.length; i++) {
-
-            const [returns, averageRateOfReturn] = this.calculateAverageRateOfReturn(subsets[i]);
-
-            const variance = this.calculateVariance(returns, averageRateOfReturn);
-
-            variances.push(variance);
-        }
-
-        const variance = variances.reduce((x, y) => x + y) / variances.length;
-
-        standardDeviation = Math.sqrt(variance);
+        const standardDeviation = Math.sqrt(variance);
 
         console.log('Calculated Standard Deviation');
 

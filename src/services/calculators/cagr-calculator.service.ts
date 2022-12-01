@@ -6,19 +6,15 @@ On CAGR: https://www.investopedia.com/terms/c/cagr.asp
 
 import moment from 'moment';
 
-import { ITickerPrice, ITickerSplit } from '../../interfaces/ticker.interface';
+import { ITickerPrice } from '../../interfaces/ticker.interface';
 
 export class CAGRCalculatorService {
-
-    splitFactor: number;
 
     startingPrice: number;
 
     endingPrice: number;
 
-    constructor(prices: ITickerPrice[], splits: ITickerSplit[]) {
-
-        this.splitFactor = 1;
+    constructor(prices: ITickerPrice[]) {
 
         /*
         As we're calculating CAGR on year-to-date basis, we need the price
@@ -53,36 +49,9 @@ export class CAGRCalculatorService {
         this.startingPrice = prices.find(price => price.date === oneYearBackAsString)?.adjusted_close || 0;
 
         /*
-        Additionally, we need to factor in any potential splits that might have taken
-        place within the last year
-        */
-        const splitYearToDate = splits.find(
-            split => new Date(split.execution_date).getFullYear() === now.getFullYear()
-        );
-
-        if (splitYearToDate) {
-
-            const { split_to, split_from } = splitYearToDate;
-
-            /*
-            This would signify the end value of 1 share held,
-            even if stock was split multiple times within year-to-date
-
-            E.g., if one holds 1 share as of one year back,
-            then splits of 1:2, 1:3, and 1:4 happen, one would end up holding 2 * 3 * 4 = 24 shares
-
-            Each valued by the latest market price; total value of which is then the measure
-            of the growth/decrease of than one share
-
-            The reverse is true as well: if reverse split took place, the split factor would decrease
-            */
-            split_to > split_from ? this.splitFactor *= split_to : this.splitFactor /= split_to;
-        }
-
-        /*
         We then apply the split factor to the ending price
         */
-        this.endingPrice = prices[prices.length - 1].adjusted_close * this.splitFactor;
+        this.endingPrice = prices[prices.length - 1].adjusted_close;
     }
 
     public calculateCAGR(): number {

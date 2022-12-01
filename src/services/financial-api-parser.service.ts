@@ -45,19 +45,19 @@ export class FinancialApiParserService {
 
         console.log('Started parsing the data');
 
-        const { fundamentals, prices, splits } = this.rawTickerData;
+        const { fundamentals, prices } = this.rawTickerData;
 
         this.extractedTickerData.industry = fundamentals.General.Industry;
 
         this.extractedTickerData.marketCap = fundamentals.Highlights.MarketCapitalization;
 
-        this.cagrCalculatorService = new CAGRCalculatorService(prices, splits);
+        this.cagrCalculatorService = new CAGRCalculatorService(prices);
 
         const cagr = this.cagrCalculatorService.calculateCAGR();
 
         this.extractedTickerData.cagr = cagr;
 
-        this.standardDeviationCalculatorService = new StandardDeviationCalculatorService(prices, splits);
+        this.standardDeviationCalculatorService = new StandardDeviationCalculatorService(prices);
 
         const standardDeviation = this.standardDeviationCalculatorService.calculateStandardDeviation();
 
