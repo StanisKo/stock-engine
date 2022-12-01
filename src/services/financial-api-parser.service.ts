@@ -66,5 +66,9 @@ export class FinancialApiParserService {
         };
 
         this.extractedTickerData.risk.standardDeviation = standardDeviation;
+
+        this.extractedTickerData.risk.sharpeRatio = cagr / standardDeviation;
+
+        console.log(this.extractedTickerData);
     }
 }

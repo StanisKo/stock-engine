@@ -1,33 +1,5 @@
 /*
-CAGR = ([(Ending Value / Beginning Value) ^ (1 / # of years)] - 1) * 100
-
-base = 1 share
-
-for each stock split:
-
-    if to > from:
-
-        base *= to
-
-    else:
-
-        base /= to
-
-Then:
-
-endingValue = last price * base
-
-beginningValue = first price (* 1, duh)
-
-# of years = sum of unique years in prices dataset
-
-TODO: docs and validation needed! THIS IS WRONG, you have to consdier time frames
-
-On CAGR:
-
-https://www.investopedia.com/terms/c/cagr.asp
-
-Don't do it historical, calculate as of today 1 year back
+CAGR = ( [ (Ending Price / Start Price) ^ (1 / N years to look back) ] - 1) * 100
 */
 
 import moment from 'moment';
@@ -101,8 +73,6 @@ export class CAGRCalculatorService {
         Here, we can simply subtract 1, since we're always looking one year back
         */
         const cagr =  ((this.endingPrice / this.startingPrice) - 1) * 100;
-
-        console.log(cagr);
 
         return cagr;
     }
