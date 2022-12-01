@@ -44,6 +44,7 @@ export class CAGRCalculatorService {
 
         /*
         Knowing the precise date, we can now define the starting price
+        as well as ending price
         */
 
         this.startingPrice = prices.find(price => price.date === oneYearBackAsString)?.adjusted_close || 0;
