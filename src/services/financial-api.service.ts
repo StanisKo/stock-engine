@@ -1,5 +1,7 @@
 import fetch from 'node-fetch';
 
+import yahooFinance from 'yahoo-finance2';
+
 import {
     ITickerFundamentals,
     ITickerPrice,
@@ -34,6 +36,23 @@ export class FinancialApiService {
         const fundametals = await request.json() as ITickerFundamentals;
 
         return fundametals;
+    }
+
+    /*
+    Use lib for prices on stocks as well
+    */
+    private async requestHistoricalBenchmarkPrices(): Promise<void> {
+        const foo = await yahooFinance.historical(
+            '^GSPC',
+            {
+                period1: '12-01-2021',
+                period2: '12-01-2022',
+                interval: '1d',
+                includeAdjustedClose: true
+            }
+        );
+
+        console.log(foo[foo.length - 1]);
     }
 
     private async requestHistoricalTickerPrices(): Promise<ITickerPrice[]> {

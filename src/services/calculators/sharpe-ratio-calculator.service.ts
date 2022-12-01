@@ -30,9 +30,13 @@ export class SharpeRatioCalculatorService {
 
         https://opendata.stackexchange.com/questions/18081/free-rest-api-for-daily-end-of-day-sp-500-index
 
-        https://www.npmjs.com/package/yahoo-finance
+        https://www.npmjs.com/package/yahoo-finance for docs
+
+        https://www.npmjs.com/package/yahoo-finance2
 
         NOTE: if you can get prices from here, use this, instead of historical eod to save on api
+
+        Here, get sp500 prices for last year, calc avg return, use in sharpe ratio
         */
 
         const sharpeRatio = (this.cagr - this.treasuryBondYield) / this.standardDeviation;

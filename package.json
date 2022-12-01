@@ -12,7 +12,7 @@
     "http": "^0.0.1-security",
     "mongoose": "^6.7.3",
     "node-fetch": "^2.6.1",
-    "yahoo-finance": "^0.3.7"
+    "yahoo-finance2": "^2.3.10"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
