@@ -1,3 +1,7 @@
+/*
+On Sharpe Ratio: https://www.investopedia.com/terms/s/sharperatio.asp
+*/
+
 export class SharpeRatioCalculatorService {
 
     cagr: number;
