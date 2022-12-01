@@ -40,12 +40,16 @@ export class FinancialApiService {
     public async requestFinancicalTickerData(): Promise<ITickerFinancialData> {
 
         const temp = await fetch(
-            'https://data.nasdaq.com/api/v3/datasets/USTREASURY/REALLONGTERM.json?api_key=YQjU9q7quLJ7hdx3vszh'
+            'https://data.nasdaq.com/api/v3/datasets/USTREASURY/YIELD.json?limit=1&order=desc&api_key=YQjU9q7quLJ7hdx3vszh'
         );
 
         const data = await temp.json();
 
-        console.log(data);
+        const indexer = data.dataset.column_names.indexOf('10 YR');
+
+        const foo = data.dataset.data[0][indexer];
+
+        console.log(foo);
 
         console.log(`Retrieving data on ${this.ticker}`);
 
