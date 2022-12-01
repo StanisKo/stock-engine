@@ -3,7 +3,6 @@ import fetch from 'node-fetch';
 import {
     ITickerFundamentals,
     ITickerPrice,
-    ITickerSplit,
     ITickerFinancialData
 } from '../interfaces/ticker.interface';
 
@@ -22,10 +21,6 @@ export class FinancialApiService {
         this.ticker = ticker;
 
         this.financialDataApiUrl = process.env.FINANCIAL_DATA_API_URL || '';
-
-        this.splitsApiUrl = process.env.STOCK_SPLITS_DATA_API_URL || '';
-
-        this.splitsApiKey = process.env.STOCK_SPLITS_DATA_API_KEY || '';
     }
 
     private async requestFundamentalsTickerData(): Promise<ITickerFundamentals> {
@@ -46,20 +41,6 @@ export class FinancialApiService {
         return prices;
     }
 
-    /*
-    TODO: make sure both normal and reverse splits are provided into calculation!
-    */
-    private async requestSplitsTickerData(): Promise<ITickerSplit[]> {
-
-        const request = await fetch(
-            `${this.splitsApiUrl}?ticker=${this.ticker}&reverse_split=false&apiKey=${this.splitsApiKey}`
-        );
-
-        const splits = (await request.json() as { results: ITickerSplit[] }).results;
-
-        return splits;
-    }
-
     public async requestFinancicalTickerData(): Promise<ITickerFinancialData> {
 
         console.log(`Retrieving data on ${this.ticker}`);
@@ -68,10 +49,8 @@ export class FinancialApiService {
 
         const prices = await this.requestHistoricalTickerPrices();
 
-        const splits = await this.requestSplitsTickerData();
+        console.log(`Fundamentals and prices data on ${this.ticker} is successfully retrieved`);
 
-        console.log(`Fundamentals, prices, and splits data on ${this.ticker} is successfully retrieved`);
-
-        return { fundamentals, prices, splits };
+        return { fundamentals, prices };
     }
 }
