@@ -47,7 +47,7 @@ export class FinancialApiParserService {
 
         this.extractedTickerData.marketCap = fundamentals.Highlights.MarketCapitalization;
 
-        this.cagrCalculatorService = new CAGRCalculatorService(prices, splits, fundamentals.General.IPODate);
+        this.cagrCalculatorService = new CAGRCalculatorService(prices, splits);
 
         const cagr = this.cagrCalculatorService.calculateCAGR();
 

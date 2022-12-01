@@ -36,7 +36,7 @@ import { ITickerPrice, ITickerSplit } from '../../interfaces/ticker.interface';
 
 export class CAGRCalculatorService {
 
-    base: number; // rename to split factor
+    splitFactor: number;
 
     startingPrice: number;
 
@@ -44,51 +44,44 @@ export class CAGRCalculatorService {
 
     numberOfUniqueYears: number;
 
-    constructor(prices: ITickerPrice[], splits: ITickerSplit[], ipoDate: string) {
+    constructor(prices: ITickerPrice[], splits: ITickerSplit[]) {
 
-        this.base = 1;
+        this.splitFactor = 1;
 
-        // this.startingPrice = prices[0].close;
+        const now = new Date();
 
-        /*
-        We want number of unique years since stock is listed - 1, since we disregard current year
-        (within any point in time prices are always incomplete for this year)
-        */
-        this.numberOfUniqueYears = Number(new Date().getFullYear()) - Number(new Date(ipoDate).getFullYear()) - 1;
+        const splitYearToDate = splits.find(
+            split => new Date(split.execution_date).getFullYear === now.getFullYear
+        );
 
-        for (let i = 0; i < splits.length; i++) {
+        if (splitYearToDate) {
 
-            if (splits[i].split_to > splits[i].split_from) {
+            const { split_to, split_from } = splitYearToDate;
 
-                this.base *= splits[i].split_to;
-            }
-            else {
+            /*
+            This would signify the end value of 1 share held,
+            even if stock was split multiple times witin year-to-date
 
-                this.base /= splits[i].split_to;
-            }
+            E.g., if one holds 1 share, then splits of 1:2, 1:3, and 1:4 happen,
+            one would end up holding 2 * 3 * 4 = 24 shares
+
+            Each valued by the latest market price; total value of which is then the measure
+            of the growth of than one share
+
+            The reverse, is true as well: if reverse split took place, the split factor would decrease
+            */
+            split_to > split_from ? this.splitFactor *= split_to : this.splitFactor /= split_to;
         }
 
         /*
-        This would signify the end value of 1 share held since the IPO date,
-        even if stock was split multiple times
-
-        E.g., if one holds 1 share, then splits of 1:2, 1:3, and 1:4 happen,
-        one would end up holding 2 * 3 * 4 = 24 shares
-
-        Each valued by the latest market price; total value of which is then the measure
-        of the growth of than one share
+        We then apply the split factor to the ending price
         */
-        // this.endingPrice = prices[prices.length - 1].close * this.base;
-
+        this.endingPrice = prices[prices.length - 1].close * this.splitFactor;
 
         /*
-        WIP on year-to-date
-
-        This works, but, if the run falls on weekend, take last Friday
-
-        Certainly, then refactor, and only then mount on the split factor
-        in case if there was a split within the last year
+        
         */
+        
         this.startingPrice = prices.find(
             price =>
                 price.date === `${new Date().getFullYear() - 1}-${new Date().getMonth() + 1}-${new Date().getDate()}`
@@ -102,12 +95,9 @@ export class CAGRCalculatorService {
     public calculateCAGR(): number {
 
         /*
-        Here, we can simply subtract 1, since we need only looking 1 year back
+        Here, we can simply subtract 1, since we're always looking one year back
         */
-        const cagr =  (
-            // (this.endingPrice / this.startingPrice) * (1 / this.numberOfUniqueYears) - 1
-            (this.endingPrice / this.startingPrice) * (1 / 1) - 1
-        ) * 100;
+        const cagr =  ((this.endingPrice / this.startingPrice) - 1) * 100;
 
         console.log(cagr);
 
