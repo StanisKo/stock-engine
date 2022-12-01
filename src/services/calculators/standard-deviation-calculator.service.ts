@@ -10,7 +10,7 @@ Therefore, in order to get to V we need to calculate RoR and ARoR
 
 In such, RoR and ARoR are the fundament of calculating SD
 
-To get to RoR and ARoR we got to make use of available EOD (end of day) prices
+To get to RoR and ARoR we got to make use of available adjusted EOD (end of day) prices
 
 When thinking of ARoR it is crucial to also factor in stocks splits,
 since calculating over the raw dataset would skew the result
