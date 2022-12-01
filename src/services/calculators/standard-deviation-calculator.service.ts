@@ -27,6 +27,8 @@ In such, we're calculating RoR over each closing price of current day against pr
 
 ARoR = SUM(RoR) / N(RoR) where N is count of datapoints we have
 
+****
+
 On Standard Deviation: https://www.investopedia.com/terms/s/standarddeviation.asp
 
 NOTE: we do not subtract 1 from count of returns, since we're calculating over entire dataset
