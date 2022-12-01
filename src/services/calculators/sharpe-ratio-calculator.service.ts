@@ -25,6 +25,10 @@ export class SharpeRatioCalculatorService {
 
         console.log('Calculated Sharpe Ratio');
 
+        /*
+        Measure against ^GSPC, S&P 500 index
+        */
+
         const sharpeRatio = (this.cagr - this.treasuryBondYield) / this.standardDeviation;
 
         return sharpeRatio;
