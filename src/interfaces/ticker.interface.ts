@@ -29,5 +29,7 @@ export interface ITickerFinancialData {
 
     fundamentals: ITickerFundamentals,
 
-    prices: ITickerPrice[]
+    prices: ITickerPrice[],
+
+    treasuryBondYield: number
 }

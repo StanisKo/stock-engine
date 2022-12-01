@@ -12,11 +12,19 @@ export class FinancialApiService {
 
     financialDataApiUrl: string;
 
+    usTreasuryBondYieldApiURL: string;
+
+    usTreasuryBondYieldApiKey: string;
+
     constructor(ticker: string) {
 
         this.ticker = ticker;
 
         this.financialDataApiUrl = process.env.FINANCIAL_DATA_API_URL || '';
+
+        this.usTreasuryBondYieldApiURL = process.env.US_TREASURY_BOND_YIELD_API || '';
+
+        this.usTreasuryBondYieldApiKey = process.env.US_TREASURY_BOND_YIELD_API_KEY || '';
     }
 
     private async requestFundamentalsTickerData(): Promise<ITickerFundamentals> {
@@ -37,28 +45,30 @@ export class FinancialApiService {
         return prices;
     }
 
-    public async requestFinancicalTickerData(): Promise<ITickerFinancialData> {
-
-        const temp = await fetch(
-            'https://data.nasdaq.com/api/v3/datasets/USTREASURY/YIELD.json?limit=1&order=desc&api_key=YQjU9q7quLJ7hdx3vszh'
+    private async requestUSTreasuryBondYield(): Promise<number> {
+        const request = await fetch(
+            `${this.usTreasuryBondYieldApiURL}?limit=1&order=desc&api_key=${this.usTreasuryBondYieldApiKey}`
         );
 
-        const data = await temp.json();
+        const data = await request.json();
 
         const indexer = data.dataset.column_names.indexOf('10 YR');
 
-        const foo = data.dataset.data[0][indexer];
+        const treasuryBondYield = data.dataset.data[0][indexer];
 
-        console.log(foo);
+        return treasuryBondYield;
+    }
 
-        console.log(`Retrieving data on ${this.ticker}`);
+    public async requestFinancicalTickerData(): Promise<ITickerFinancialData> {
 
         const fundamentals = await this.requestFundamentalsTickerData();
 
         const prices = await this.requestHistoricalTickerPrices();
 
-        console.log(`Fundamentals and prices data on ${this.ticker} is successfully retrieved`);
+        const treasuryBondYield = await this.requestUSTreasuryBondYield();
 
-        return { fundamentals, prices };
+        console.log(`${this.ticker}: Fundamentals, prices and treasury bond yield data is successfully retrieved`);
+
+        return { fundamentals, prices, treasuryBondYield };
     }
 }
