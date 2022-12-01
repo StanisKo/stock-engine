@@ -15,7 +15,10 @@ export class SharpeRatioCalculatorService {
 
         console.log('Calculated Sharpe Ratio');
 
-        return 0;
+        /*
+        This has to factor in risk-free return: bond or cash?
+        */
+        return this.cagr / this.standardDeviation;
     }
 
 }
