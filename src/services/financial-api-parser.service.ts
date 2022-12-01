@@ -16,9 +16,11 @@ import { IIndustryProfile } from '../interfaces/industry-profile.interface';
 
 import { ITickerFinancialData } from '../interfaces/ticker.interface';
 
+import { CAGRCalculatorService } from './calculators/cagr-calculator.service';
+
 import { StandardDeviationCalculatorService } from './calculators/standard-deviation-calculator.service';
 
-import { CAGRCalculatorService } from './calculators/cagr-calculator.service';
+import { SharpeRatioCalculatorService } from './calculators/sharpe-ratio-calculator.service';
 
 export class FinancialApiParserService {
 
@@ -26,9 +28,11 @@ export class FinancialApiParserService {
 
     rawTickerData: ITickerFinancialData;
 
+    cagrCalculatorService: CAGRCalculatorService;
+
     standardDeviationCalculatorService: StandardDeviationCalculatorService;
 
-    cagrCalculatorService: CAGRCalculatorService;
+    sharpeRatioCalculatorService: SharpeRatioCalculatorService;
 
     constructor(rawTickerData: ITickerFinancialData) {
 
@@ -67,7 +71,9 @@ export class FinancialApiParserService {
 
         this.extractedTickerData.risk.standardDeviation = standardDeviation;
 
-        this.extractedTickerData.risk.sharpeRatio = cagr / standardDeviation;
+        this.sharpeRatioCalculatorService = new SharpeRatioCalculatorService(cagr, standardDeviation);
+
+        this.extractedTickerData.risk.sharpeRatio = this.sharpeRatioCalculatorService.calculateSharpeRatio();
 
         console.log(this.extractedTickerData);
     }

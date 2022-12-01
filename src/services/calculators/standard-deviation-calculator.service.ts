@@ -137,7 +137,7 @@ export class StandardDeviationCalculatorService {
 
             standardDeviation = Math.sqrt(variance);
 
-            console.log('Calculated standard deviation');
+            console.log('Calculated Standard Deviation');
 
             return standardDeviation;
         }
@@ -186,7 +186,7 @@ export class StandardDeviationCalculatorService {
 
         standardDeviation = Math.sqrt(variance);
 
-        console.log('Calculated standard deviation');
+        console.log('Calculated Standard Deviation');
 
         return standardDeviation;
     }
