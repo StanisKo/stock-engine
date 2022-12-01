@@ -50,7 +50,7 @@ export class CAGRCalculatorService {
         Knowing the precise date, we can now define the starting price
         */
 
-        this.startingPrice = prices.find(price => price.date === oneYearBackAsString)?.close || 0;
+        this.startingPrice = prices.find(price => price.date === oneYearBackAsString)?.adjusted_close || 0;
 
         /*
         Additionally, we need to factor in any potential splits that might have taken
@@ -82,7 +82,7 @@ export class CAGRCalculatorService {
         /*
         We then apply the split factor to the ending price
         */
-        this.endingPrice = prices[prices.length - 1].close * this.splitFactor;
+        this.endingPrice = prices[prices.length - 1].adjusted_close * this.splitFactor;
     }
 
     public calculateCAGR(): number {

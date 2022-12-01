@@ -89,9 +89,9 @@ export class StandardDeviationCalculatorService {
             /*
             Otherwise, calculate percentange change over each day
             */
-            const currentPrice = prices[i].close;
+            const currentPrice = prices[i].adjusted_close;
 
-            const previousPrice = prices[i - 1].close;
+            const previousPrice = prices[i - 1].adjusted_close;
 
             const percentageChange = ((currentPrice - previousPrice) / previousPrice) * 100;
 
