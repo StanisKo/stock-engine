@@ -20,7 +20,7 @@ export class SharpeRatioCalculatorService {
         console.log('Calculated Sharpe Ratio');
 
         /*
-        This has to factor in risk-free return: bond or cash?
+        This has to factor in risk-free return: US treasury bond
         */
         return this.cagr / this.standardDeviation;
     }

@@ -39,6 +39,14 @@ export class FinancialApiService {
 
     public async requestFinancicalTickerData(): Promise<ITickerFinancialData> {
 
+        const temp = await fetch(
+            'https://data.nasdaq.com/api/v3/datasets/USTREASURY/REALLONGTERM.json?api_key=YQjU9q7quLJ7hdx3vszh'
+        );
+
+        const data = await temp.json();
+
+        console.log(data);
+
         console.log(`Retrieving data on ${this.ticker}`);
 
         const fundamentals = await this.requestFundamentalsTickerData();
