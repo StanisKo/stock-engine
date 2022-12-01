@@ -31,9 +31,9 @@ ARoR = SUM(RoR) / N(RoR) where N is count of datapoints we have
 
 On Standard Deviation: https://www.investopedia.com/terms/s/standarddeviation.asp
 
-NOTE: we do not subtract 1 from count of returns, since we're calculating over entire dataset
+NOTE: we do not subtract 1 from count of returns, since we're calculating over entire dataset:
 
-https://www.khanacademy.org/math/statistics-probability/summarizing-quantitative-data/variance-standard-deviation-population/a/calculating-standard-deviation-step-by-step
+https://www.thoughtco.com/population-vs-sample-standard-deviations-3126372
 */
 
 import { ITickerPrice } from  '../../interfaces/ticker.interface';
