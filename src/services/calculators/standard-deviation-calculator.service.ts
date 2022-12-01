@@ -41,7 +41,7 @@ SD = SQRT(V)
 
 V = SUM(RoR - ARoR)² / N(RoR) - 1
 
-RoR = (P2 - P1) / P1 * 100 where P2 is current price and P1 is previous (in terms of each entry to prices dataset)
+RoR = (P2 - P1) / P1 * 100 where P2 is Nth price and P1 is previous
 
 In such, we're calculating RoR over each closing price of current day against previous day*
 
@@ -76,9 +76,6 @@ export class StandardDeviationCalculatorService {
 
         let sumOfDayOnDayReturns = 0;
 
-        /*
-        O(n) time, O(2n) space, can we do better?
-        */
         for (let i = 0; i < prices.length; i++) {
 
             /*
