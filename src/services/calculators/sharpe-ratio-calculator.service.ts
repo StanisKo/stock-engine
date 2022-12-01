@@ -25,7 +25,9 @@ export class SharpeRatioCalculatorService {
 
         console.log('Calculated Sharpe Ratio');
 
-        return (this.treasuryBondYield - this.cagr) / this.standardDeviation;
+        const sharpeRatio = (this.cagr - this.treasuryBondYield) / this.standardDeviation;
+
+        return sharpeRatio;
     }
 
 }
