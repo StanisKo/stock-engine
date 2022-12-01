@@ -28,9 +28,9 @@ On CAGR:
 https://www.investopedia.com/terms/c/cagr.asp
 
 Don't do it historical, calculate as of today 1 year back
-
-Keep since-IPO calculation as curiosity
 */
+
+import moment from 'moment';
 
 import { ITickerPrice, ITickerSplit } from '../../interfaces/ticker.interface';
 
@@ -42,13 +42,29 @@ export class CAGRCalculatorService {
 
     endingPrice: number;
 
-    numberOfUniqueYears: number;
-
     constructor(prices: ITickerPrice[], splits: ITickerSplit[]) {
 
         this.splitFactor = 1;
 
         const now = new Date();
+
+        let oneYearBack = moment(now).subtract(1, 'year');
+
+        const dayOfWeekOneYearBack = oneYearBack.day();
+
+        if (dayOfWeekOneYearBack === 5) {
+
+            oneYearBack = oneYearBack.subtract(1, 'day');
+        }
+
+        if (dayOfWeekOneYearBack === 6) {
+
+            oneYearBack = oneYearBack.subtract(2, 'day');
+        }
+
+        const oneYearBackAsString = oneYearBack.format('YYYY-MM-DD');
+
+        this.startingPrice = prices.find(price => price.date === oneYearBackAsString)?.close || 0;
 
         const splitYearToDate = splits.find(
             split => new Date(split.execution_date).getFullYear === now.getFullYear
@@ -77,19 +93,6 @@ export class CAGRCalculatorService {
         We then apply the split factor to the ending price
         */
         this.endingPrice = prices[prices.length - 1].close * this.splitFactor;
-
-        /*
-        
-        */
-        
-        this.startingPrice = prices.find(
-            price =>
-                price.date === `${new Date().getFullYear() - 1}-${new Date().getMonth() + 1}-${new Date().getDate()}`
-        )?.close || 0;
-
-        this.endingPrice = prices[prices.length - 1].close;
-
-        console.log(this.startingPrice);
     }
 
     public calculateCAGR(): number {
