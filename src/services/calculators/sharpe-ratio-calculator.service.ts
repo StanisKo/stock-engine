@@ -1,27 +1,26 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 /*
 As our risk-free investment benchmark we take SP500's rate of return TTM (trailing twelve months)
 
 On Sharpe Ratio: https://www.investopedia.com/terms/s/sharperatio.asp
 */
 
-/*
-TODO: build helper class for calculating average rate of return to then be used on ticker prices
-and risk free investment prices
-*/
-
 import { IBenchmarkPrice } from  '../../interfaces/ticker.interface';
+
+import { CalculatorHelperService } from './calculator-helper.service';
 
 export class SharpeRatioCalculatorService {
 
-    riskFreeBenchmarkPrices: IBenchmarkPrice[];
+    benchmarkPrices: IBenchmarkPrice[];
 
     cagr: number;
 
     standardDeviation: number;
 
-    constructor(riskFreeBenchmarkPrices: IBenchmarkPrice[], cagr: number, standardDeviation: number) {
+    constructor(benchmarkPrices: IBenchmarkPrice[], cagr: number, standardDeviation: number) {
 
-        this.riskFreeBenchmarkPrices = riskFreeBenchmarkPrices;
+        this.benchmarkPrices = benchmarkPrices;
 
         this.cagr = cagr;
 
@@ -30,13 +29,18 @@ export class SharpeRatioCalculatorService {
 
     public calculateSharpeRatio(): number {
 
+        const endingPrice = this.benchmarkPrices[this.benchmarkPrices.length - 1].adjClose!;
+
+        const startingPrice = this.benchmarkPrices[0].adjClose!;
+
+        const benchmarkAverageRateOfReturn = CalculatorHelperService.calculatRateOfReturnOverBenchmark(
+            endingPrice,
+            startingPrice
+        );
+
+        const sharpeRatio = (this.cagr - benchmarkAverageRateOfReturn) / this.standardDeviation;
+
         console.log('Calculated Sharpe Ratio');
-
-        console.log(this.riskFreeBenchmarkPrices[0]);
-
-        console.log(this.riskFreeBenchmarkPrices[this.riskFreeBenchmarkPrices.length - 1]);
-
-        const sharpeRatio = (this.cagr - 1) / this.standardDeviation;
 
         return sharpeRatio;
     }

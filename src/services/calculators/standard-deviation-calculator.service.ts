@@ -72,7 +72,9 @@ export class StandardDeviationCalculatorService {
 
     public calculateStandardDeviation(): number {
 
-        const [returns, averageRateOfReturn] = CalculatorHelperService.calculateAverageRateOfReturn(this.prices);
+        const [returns, averageRateOfReturn] = CalculatorHelperService.calculateAverageRateOfReturnOverTicker(
+            this.prices
+        );
 
         const variance = this.calculateVariance(returns, averageRateOfReturn);
 

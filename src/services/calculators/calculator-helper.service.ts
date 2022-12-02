@@ -2,7 +2,7 @@ import { ITickerPrice } from '../../interfaces/ticker.interface';
 
 export class CalculatorHelperService {
 
-    static calculateAverageRateOfReturn(prices: ITickerPrice[]): [number[], number] {
+    static calculateAverageRateOfReturnOverTicker(prices: ITickerPrice[]): [number[], number] {
 
         const returns: number[] = [];
 
@@ -36,5 +36,12 @@ export class CalculatorHelperService {
         We need returns for standard deviation
         */
         return [returns, sumOfReturns / returns.length];
+    }
+
+    static calculatRateOfReturnOverBenchmark(endingPrice: number, startingPrice: number): number {
+
+        const benchmarkRateOfReturn = ((endingPrice - startingPrice) / startingPrice) * 100;
+
+        return benchmarkRateOfReturn;
     }
 }
