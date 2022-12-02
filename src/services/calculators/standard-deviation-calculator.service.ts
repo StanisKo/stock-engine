@@ -38,46 +38,17 @@ https://www.thoughtco.com/population-vs-sample-standard-deviations-3126372
 
 import { ITickerPrice } from  '../../interfaces/ticker.interface';
 
+import { CalculatorHelperService } from './calculator-helper.service';
+
 export class StandardDeviationCalculatorService {
 
     prices: ITickerPrice[];
 
+    calculatorHelperService: CalculatorHelperService;
+
     constructor(prices: ITickerPrice[]) {
 
         this.prices = prices;
-    }
-
-    private calculateAverageRateOfReturn(prices: ITickerPrice[]): [number[], number] {
-
-        const dayOnDayReturns: number[] = [];
-
-        let sumOfDayOnDayReturns = 0;
-
-        for (let i = 0; i < prices.length; i++) {
-
-            /*
-            There is no percentage change from nothing to first entry
-            */
-            if (i === 0) {
-
-                continue;
-            }
-
-            /*
-            Otherwise, calculate percentange change over each day
-            */
-            const currentPrice = prices[i].adjusted_close;
-
-            const previousPrice = prices[i - 1].adjusted_close;
-
-            const percentageChange = ((currentPrice - previousPrice) / previousPrice) * 100;
-
-            dayOnDayReturns.push(percentageChange);
-
-            sumOfDayOnDayReturns += percentageChange;
-        }
-
-        return [dayOnDayReturns, sumOfDayOnDayReturns / dayOnDayReturns.length];
     }
 
     /*
@@ -101,7 +72,7 @@ export class StandardDeviationCalculatorService {
 
     public calculateStandardDeviation(): number {
 
-        const [returns, averageRateOfReturn] = this.calculateAverageRateOfReturn(this.prices);
+        const [returns, averageRateOfReturn] = CalculatorHelperService.calculateAverageRateOfReturn(this.prices);
 
         const variance = this.calculateVariance(returns, averageRateOfReturn);
 
