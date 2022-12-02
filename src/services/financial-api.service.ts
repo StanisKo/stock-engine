@@ -2,6 +2,8 @@ import fetch from 'node-fetch';
 
 import yahooFinance from 'yahoo-finance2';
 
+import moment from 'moment';
+
 import {
     ITickerFundamentals,
     ITickerPrice,
@@ -10,6 +12,11 @@ import {
 } from '../interfaces/ticker.interface';
 
 export class FinancialApiService {
+
+    /*
+    We always scale tickers against SP500 returns
+    */
+    static riskFreeBenchmarkTicker = '^GSPC';
 
     ticker: string;
 
@@ -43,17 +50,34 @@ export class FinancialApiService {
     Use lib for prices on stocks as well
     */
     private async requestHistoricalBenchmarkPrices(): Promise<IBenchmarkPrice[]> {
-        const historicalSP500Prices = await yahooFinance.historical(
-            '^GSPC',
+
+        const now = moment();
+
+        let oneYearBack = moment().subtract(1, 'year');
+
+        const dayOfWeekOneYearBack = oneYearBack.day();
+
+        if (dayOfWeekOneYearBack === 5) {
+
+            oneYearBack = oneYearBack.subtract(1, 'day');
+        }
+
+        if (dayOfWeekOneYearBack === 6) {
+
+            oneYearBack = oneYearBack.subtract(2, 'day');
+        }
+
+        const riskFreeBenchmarkPrices = await yahooFinance.historical(
+            FinancialApiService.riskFreeBenchmarkTicker,
             {
-                period1: '12-01-2021',
-                period2: '12-01-2022',
+                period1: oneYearBack.format('MM-DD-YYYY'),
+                period2: now.format('MM-DD-YYYY'),
                 interval: '1d',
                 includeAdjustedClose: true
             }
         );
 
-        return historicalSP500Prices;
+        return riskFreeBenchmarkPrices;
     }
 
     private async requestHistoricalTickerPrices(): Promise<ITickerPrice[]> {
@@ -65,30 +89,16 @@ export class FinancialApiService {
         return prices;
     }
 
-    private async requestUSTreasuryBondYield(): Promise<number> {
-        const request = await fetch(
-            `${this.usTreasuryBondYieldApiURL}?limit=1&order=desc&api_key=${this.usTreasuryBondYieldApiKey}`
-        );
-
-        const data = await request.json();
-
-        const indexer = data.dataset.column_names.indexOf('10 YR');
-
-        const treasuryBondYield = data.dataset.data[0][indexer];
-
-        return treasuryBondYield;
-    }
-
     public async requestFinancicalTickerData(): Promise<ITickerFinancialData> {
 
         const fundamentals = await this.requestFundamentalsTickerData();
 
         const prices = await this.requestHistoricalTickerPrices();
 
-        const treasuryBondYield = await this.requestUSTreasuryBondYield();
+        const riskFreeBenchmarkPrices = await this.requestHistoricalBenchmarkPrices();
 
-        console.log(`${this.ticker}: Fundamentals, prices and treasury bond yield data is successfully retrieved`);
+        console.log(`${this.ticker}: Fundamentals, prices and risk free benchmark data is successfully retrieved`);
 
-        return { fundamentals, prices, treasuryBondYield };
+        return { fundamentals, prices, riskFreeBenchmarkPrices };
     }
 }

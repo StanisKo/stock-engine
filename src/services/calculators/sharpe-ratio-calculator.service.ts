@@ -4,17 +4,19 @@ As our risk-free investment benchmark we take US 10 years Treasury Bond yield
 On Sharpe Ratio: https://www.investopedia.com/terms/s/sharperatio.asp
 */
 
+import { IBenchmarkPrice } from  '../../interfaces/ticker.interface';
+
 export class SharpeRatioCalculatorService {
 
-    treasuryBondYield: number;
+    riskFreeBenchmarkPrices: IBenchmarkPrice[];
 
     cagr: number;
 
     standardDeviation: number;
 
-    constructor(treasuryBondYield: number, cagr: number, standardDeviation: number) {
+    constructor(riskFreeBenchmarkPrices: IBenchmarkPrice[], cagr: number, standardDeviation: number) {
 
-        this.treasuryBondYield = treasuryBondYield;
+        this.riskFreeBenchmarkPrices = riskFreeBenchmarkPrices;
 
         this.cagr = cagr;
 
@@ -24,6 +26,10 @@ export class SharpeRatioCalculatorService {
     public calculateSharpeRatio(): number {
 
         console.log('Calculated Sharpe Ratio');
+
+        console.log(this.riskFreeBenchmarkPrices[0]);
+
+        console.log(this.riskFreeBenchmarkPrices[this.riskFreeBenchmarkPrices.length - 1]);
 
         /*
         TODO: Measure against ^GSPC, S&P 500 index
@@ -39,7 +45,7 @@ export class SharpeRatioCalculatorService {
         Here, get sp500 prices for last year, calc avg return, use in sharpe ratio
         */
 
-        const sharpeRatio = (this.cagr - this.treasuryBondYield) / this.standardDeviation;
+        const sharpeRatio = (this.cagr - 1) / this.standardDeviation;
 
         return sharpeRatio;
     }

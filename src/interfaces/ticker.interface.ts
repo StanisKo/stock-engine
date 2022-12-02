@@ -48,5 +48,5 @@ export interface ITickerFinancialData {
 
     prices: ITickerPrice[],
 
-    treasuryBondYield: number
+    riskFreeBenchmarkPrices: IBenchmarkPrice[],
 }
