@@ -4,6 +4,11 @@ As our risk-free investment benchmark we take SP500's rate of return TTM (traili
 On Sharpe Ratio: https://www.investopedia.com/terms/s/sharperatio.asp
 */
 
+/*
+TODO: build helper class for calculating average rate of return to then be used on ticker prices
+and risk free investment prices
+*/
+
 import { IBenchmarkPrice } from  '../../interfaces/ticker.interface';
 
 export class SharpeRatioCalculatorService {
