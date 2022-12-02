@@ -22,19 +22,11 @@ export class FinancialApiService {
 
     financialDataApiUrl: string;
 
-    usTreasuryBondYieldApiURL: string;
-
-    usTreasuryBondYieldApiKey: string;
-
     constructor(ticker: string) {
 
         this.ticker = ticker;
 
         this.financialDataApiUrl = process.env.FINANCIAL_DATA_API_URL || '';
-
-        this.usTreasuryBondYieldApiURL = process.env.US_TREASURY_BOND_YIELD_API || '';
-
-        this.usTreasuryBondYieldApiKey = process.env.US_TREASURY_BOND_YIELD_API_KEY || '';
     }
 
     private async requestFundamentalsTickerData(): Promise<ITickerFundamentals> {
