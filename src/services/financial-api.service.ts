@@ -7,7 +7,8 @@ import moment from 'moment';
 import {
     ITickerFundamentals,
     ITickerPrice,
-    ITickerFinancialData
+    ITickerFinancialData,
+    IBenchmarkPrice
 } from '../interfaces/ticker.interface';
 
 export class FinancialApiService {
@@ -37,7 +38,10 @@ export class FinancialApiService {
         return fundametals;
     }
 
-    private async requestRiskFreeBenchmarkPrices(): Promise<ITickerPrice[]> {
+    /*
+    TODO: Use lib for prices on stocks as well!
+    */
+    private async requestRiskFreeBenchmarkPrices(): Promise<IBenchmarkPrice[]> {
 
         const now = moment();
 
@@ -63,7 +67,7 @@ export class FinancialApiService {
                 interval: '1d',
                 includeAdjustedClose: true
             }
-        ) as ITickerPrice[];
+        );
 
         return riskFreeBenchmarkPrices;
     }

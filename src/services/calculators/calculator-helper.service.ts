@@ -2,14 +2,6 @@ import { ITickerPrice } from '../../interfaces/ticker.interface';
 
 export class CalculatorHelperService {
 
-    /*
-    Since different APIs have different naming, we are checking for properties runtime
-    */
-    static indexOutAdjustedClose(price: ITickerPrice): number {
-
-        return price.adjusted_close ?? price.adjClose;
-    }
-
     static calculateAverageRateOfReturn(prices: ITickerPrice[]): [number[], number] {
 
         const returns: number[] = [];
@@ -29,9 +21,9 @@ export class CalculatorHelperService {
             /*
             Otherwise, calculate percentange change over each period
             */
-            const currentPrice = CalculatorHelperService.indexOutAdjustedClose(prices[i]);
+            const currentPrice = prices[i].adjusted_close;
 
-            const previousPrice = CalculatorHelperService.indexOutAdjustedClose(prices[i - 1]);
+            const previousPrice = prices[i - 1].adjusted_close;
 
             const percentageChange = ((currentPrice - previousPrice) / previousPrice) * 100;
 
