@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
 /*
-As our risk-free investment benchmark we take SP500's rate of return TTM (trailing twelve months)
+As our risk-free investment benchmark we take SP500's rate of return
 
 On Sharpe Ratio: https://www.investopedia.com/terms/s/sharperatio.asp
 */
@@ -33,12 +33,12 @@ export class SharpeRatioCalculatorService {
 
         const startingPrice = this.benchmarkPrices[0].adjClose!;
 
-        const benchmarkAverageRateOfReturn = CalculatorHelperService.calculatRateOfReturnOverBenchmark(
+        const benchmarkRateOfReturn = CalculatorHelperService.calculatRateOfReturnOverBenchmark(
             endingPrice,
             startingPrice
         );
 
-        const sharpeRatio = (this.cagr - benchmarkAverageRateOfReturn) / this.standardDeviation;
+        const sharpeRatio = (this.cagr - benchmarkRateOfReturn) / this.standardDeviation;
 
         console.log('Calculated Sharpe Ratio');
 
