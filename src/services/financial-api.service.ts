@@ -47,7 +47,7 @@ export class FinancialApiService {
     }
 
     /*
-    Use lib for prices on stocks as well
+    TODO: Use lib for prices on stocks as well!
     */
     private async requestHistoricalBenchmarkPrices(): Promise<IBenchmarkPrice[]> {
 
