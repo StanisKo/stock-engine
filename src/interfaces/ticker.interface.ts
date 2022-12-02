@@ -2,27 +2,44 @@
 
 export interface ITickerFundamentals {
 
-  /*
-  We have no intention of typing out the whole API response
-  */
-  [key: string]: any;
+    /*
+    We have no intention of typing out the whole API response
+    */
+    [key: string]: any;
 }
 
 export interface ITickerPrice {
 
-  date: string;
+    date: string;
 
-  open: number;
+    open: number;
 
-  high: number;
+    high: number;
 
-  low: number;
+    low: number;
 
-  close: number;
+    close: number;
 
-  adjusted_close: number;
+    adjusted_close: number;
 
-  volume: number;
+    volume: number;
+}
+
+export interface IBenchmarkPrice {
+
+    date: Date,
+
+    open: number,
+
+    high: number,
+
+    low: number,
+
+    close: number,
+
+    adjClose?: number,
+
+    volume: number
 }
 
 export interface ITickerFinancialData {

@@ -5,7 +5,8 @@ import yahooFinance from 'yahoo-finance2';
 import {
     ITickerFundamentals,
     ITickerPrice,
-    ITickerFinancialData
+    ITickerFinancialData,
+    IBenchmarkPrice
 } from '../interfaces/ticker.interface';
 
 export class FinancialApiService {
@@ -41,8 +42,8 @@ export class FinancialApiService {
     /*
     Use lib for prices on stocks as well
     */
-    private async requestHistoricalBenchmarkPrices(): Promise<void> {
-        const foo = await yahooFinance.historical(
+    private async requestHistoricalBenchmarkPrices(): Promise<IBenchmarkPrice[]> {
+        const historicalSP500Prices = await yahooFinance.historical(
             '^GSPC',
             {
                 period1: '12-01-2021',
@@ -52,7 +53,7 @@ export class FinancialApiService {
             }
         );
 
-        console.log(foo[foo.length - 1]);
+        return historicalSP500Prices;
     }
 
     private async requestHistoricalTickerPrices(): Promise<ITickerPrice[]> {
