@@ -9,17 +9,17 @@ TODO: build helper class for calculating average rate of return to then be used 
 and risk free investment prices
 */
 
-import { IBenchmarkPrice } from  '../../interfaces/ticker.interface';
+import { ITickerPrice } from  '../../interfaces/ticker.interface';
 
 export class SharpeRatioCalculatorService {
 
-    riskFreeBenchmarkPrices: IBenchmarkPrice[];
+    riskFreeBenchmarkPrices: ITickerPrice[];
 
     cagr: number;
 
     standardDeviation: number;
 
-    constructor(riskFreeBenchmarkPrices: IBenchmarkPrice[], cagr: number, standardDeviation: number) {
+    constructor(riskFreeBenchmarkPrices: ITickerPrice[], cagr: number, standardDeviation: number) {
 
         this.riskFreeBenchmarkPrices = riskFreeBenchmarkPrices;
 
