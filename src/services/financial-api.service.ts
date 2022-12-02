@@ -49,7 +49,7 @@ export class FinancialApiService {
     /*
     TODO: Use lib for prices on stocks as well!
     */
-    private async requestHistoricalBenchmarkPrices(): Promise<IBenchmarkPrice[]> {
+    private async requestRiskFreeBenchmarkPrices(): Promise<IBenchmarkPrice[]> {
 
         const now = moment();
 
@@ -95,7 +95,7 @@ export class FinancialApiService {
 
         const prices = await this.requestHistoricalTickerPrices();
 
-        const riskFreeBenchmarkPrices = await this.requestHistoricalBenchmarkPrices();
+        const riskFreeBenchmarkPrices = await this.requestRiskFreeBenchmarkPrices();
 
         console.log(`${this.ticker}: Fundamentals, prices and risk free benchmark data is successfully retrieved`);
 
