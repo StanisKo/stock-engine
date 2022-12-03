@@ -12,11 +12,11 @@ Creates and saves industry profile
 Saves the ticker data for potential further usage
 */
 
-import { ServiceResponse } from '../dtos/serviceResponse';
+import { ServiceResponse } from '../../dtos/serviceResponse';
 
-import { FinancialApiService } from './api/financial-api.service';
+import { FinancialApiService } from '../api/financial-api.service';
 
-import { FinancialApiParserService } from './api/financial-api-parser.service';
+import { FinancialApiParserService } from '../api/financial-api-parser.service';
 
 
 export class IndustryProfileService {

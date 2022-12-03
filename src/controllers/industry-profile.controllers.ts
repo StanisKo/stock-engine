@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { IndustryProfileService } from '../services/industry-profile.service';
+import { IndustryProfileService } from '../services/core/industry-profile.service';
 
 export const createIndustryProfileFromTicker = async (
     request: Request, response: Response): Promise<Response> => {
