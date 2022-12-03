@@ -17,11 +17,11 @@ import { ITickerPrice } from '../../interfaces/ticker.interface';
 TODO: TTM does not include current month!
 
 TODO: build method that would actully return two data points [number, number]
-rather than margins
+rather than slice
 */
 export class TimeSeriesHelperService {
 
-    static returnTTMMargin(): [string, string] {
+    static getTTMMargin(): [string, string] {
 
         const now = moment();
 
@@ -44,7 +44,7 @@ export class TimeSeriesHelperService {
 
     static sliceDataSetIntoTTM(prices: ITickerPrice[]): ITickerPrice[] {
 
-        const [oneYearBack, _] = TimeSeriesHelperService.returnTTMMargin();
+        const [oneYearBack, _] = TimeSeriesHelperService.getTTMMargin();
 
         const startingPrice = prices.find(price => moment(price.date).format('MM-DD-YYYY') === oneYearBack);
 

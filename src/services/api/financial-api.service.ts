@@ -20,6 +20,8 @@ export class FinancialApiService {
 
     financialDataApiUrl: string;
 
+    ttmMargin: [string, string];
+
     constructor(ticker: string) {
 
         FinancialApiService.benchmarkTicker = process.env.BENCHMARK_TICKER || '';
@@ -27,6 +29,8 @@ export class FinancialApiService {
         this.ticker = ticker;
 
         this.financialDataApiUrl = process.env.FINANCIAL_DATA_API_URL || '';
+
+        this.ttmMargin = TimeSeriesHelperService.getTTMMargin();
     }
 
     private async requestFundamentalsTickerData(): Promise<ITickerFundamentals> {
@@ -43,7 +47,7 @@ export class FinancialApiService {
     */
     private async requestHistoricalTickerPrices(tickerIpoDate: string): Promise<ITickerPrice[]> {
 
-        const [_, now] = TimeSeriesHelperService.returnTTMMargin();
+        const [_, now] = this.ttmMargin;
 
         const prices = await yahooFinance.historical(
             this.ticker,
@@ -63,7 +67,7 @@ export class FinancialApiService {
     */
     private async requestBenchmarkPrices(): Promise<ITickerPrice[]> {
 
-        const [oneYearBack, now] = TimeSeriesHelperService.returnTTMMargin();
+        const [oneYearBack, now] = this.ttmMargin;
 
         const benchmarkPrices = await yahooFinance.historical(
             FinancialApiService.benchmarkTicker,
