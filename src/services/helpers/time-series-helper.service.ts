@@ -15,9 +15,6 @@ import { ITickerPrice } from '../../interfaces/ticker.interface';
 
 /*
 TODO: TTM does not include current month!
-
-TODO: build method that would actully return two data points [number, number]
-rather than slice
 */
 export class TimeSeriesHelperService {
 
@@ -40,6 +37,11 @@ export class TimeSeriesHelperService {
         }
 
         return [oneYearBack.format('MM-DD-YYYY'), now.format('MM-DD-YYYY')];
+    }
+
+    static getEndingAndStartingPrice(prices: ITickerPrice[]): [number, number] {
+
+        return [prices[prices.length - 1].adjClose, prices[0].adjClose];
     }
 
     static sliceDataSetIntoTTM(prices: ITickerPrice[]): ITickerPrice[] {

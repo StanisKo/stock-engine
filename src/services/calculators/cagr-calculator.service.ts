@@ -6,20 +6,20 @@ On CAGR: https://www.investopedia.com/terms/c/cagr.asp
 
 import { ITickerPrice } from '../../interfaces/ticker.interface';
 
+import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
+
 export class CAGRCalculatorService {
 
-    startingPrice: number;
-
-    endingPrice: number;
+    prices: ITickerPrice[];
 
     constructor(prices: ITickerPrice[]) {
 
-        this.startingPrice = prices[0].adjClose;
-
-        this.endingPrice = prices[prices.length - 1].adjClose;
+        this.prices = prices;
     }
 
     public calculateCAGR(): number {
+
+        const [endingPrice, startingPrice] = TimeSeriesHelperService.getEndingAndStartingPrice(this.prices);
 
         /*
         Since we're calculating CAGR over TTM (1 year), we don't need to bring
@@ -32,7 +32,7 @@ export class CAGRCalculatorService {
         ((this.endingPrice / this.startingPrice) - 1) * 100
         */
         const cagr = (
-            ((this.endingPrice / this.startingPrice) - 1)
+            ((endingPrice / startingPrice) - 1)
         ) * 100;
 
         console.log('Calculated CAGR');
