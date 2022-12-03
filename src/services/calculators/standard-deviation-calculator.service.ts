@@ -4,7 +4,7 @@ Standard Deviation is the square root of Variance
 Therefore, in order to get to SD we need to calculate V
 
 Variance, in it's turn, is the sum of squares of diffs
-between Rate of Return and Avarage Rate of Return divided by count of returns
+between Rate of Return and Avarage Rate of Return divided by count of returns minus one
 
 
 Therefore, in order to get to V we need to calculate RoR and ARoR
@@ -19,7 +19,7 @@ The described can be expressed as following:
 
 SD = SQRT(V)
 
-V = SUM(RoR - ARoR)² / N(RoR)
+V = SUM(RoR - ARoR)² / N(RoR) - 1
 
 RoR = (P2 - P1) / P1 * 100 where P2 is Nth price and P1 is previous
 
@@ -30,10 +30,6 @@ ARoR = SUM(RoR) / N(RoR) where N is count of datapoints we have
 ****
 
 On Standard Deviation: https://www.investopedia.com/terms/s/standarddeviation.asp
-
-NOTE: we do not subtract 1 from count of returns, since we're calculating over entire dataset:
-
-https://www.thoughtco.com/population-vs-sample-standard-deviations-3126372
 */
 
 import { ITickerPrice } from  '../../interfaces/ticker.interface';
@@ -63,7 +59,7 @@ export class StandardDeviationCalculatorService {
             sumOfSquares += Math.pow(returns[i] - averageRateOfReturn, 2);
         }
 
-        const variance = sumOfSquares / returns.length;
+        const variance = sumOfSquares / returns.length - 1;
 
         return variance;
     }
