@@ -13,10 +13,7 @@ import {
 
 export class FinancialApiService {
 
-    /*
-    We scale tickers against SP500 returns
-    */
-    static benchmarkTicker = '^GSPC';
+    static benchmarkTicker = process.env['^GSPC'] || '';
 
     ticker: string;
 
