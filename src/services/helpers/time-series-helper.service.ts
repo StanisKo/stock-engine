@@ -36,6 +36,11 @@ export class TimeSeriesHelperService {
 
     static sliceDataSetIntoTTM(prices: ITickerPrice[]): ITickerPrice[] {
 
+        /*
+        Since we're slicing ticker prices, their date field is different
+        from benchmark prices, therefore, we need to provide a format
+        parameter for the margin, to later be used in lambda expression
+        */
         const [oneYearBack, _] = TimeSeriesHelperService.returnTTMMargin('YYYY-MM-DD');
 
         const startingPrice = prices.find(price => price.date === oneYearBack);
