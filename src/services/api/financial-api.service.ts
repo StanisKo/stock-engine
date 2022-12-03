@@ -13,13 +13,15 @@ import {
 
 export class FinancialApiService {
 
-    static benchmarkTicker = process.env.BENCHMARK_TICKER || '';
+    static benchmarkTicker: string;
 
     ticker: string;
 
     financialDataApiUrl: string;
 
     constructor(ticker: string) {
+
+        FinancialApiService.benchmarkTicker = process.env.BENCHMARK_TICKER || '';
 
         this.ticker = ticker;
 
