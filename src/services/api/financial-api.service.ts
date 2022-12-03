@@ -4,17 +4,13 @@ import moment from 'moment';
 import fetch from 'node-fetch';
 import yahooFinance from 'yahoo-finance2';
 
-import {
-    ITickerFundamentals,
-    ITickerPrice,
-    ITickerFinancialData
-} from '../../interfaces/ticker.interface';
+import { ITickerFundamentals, ITickerPrice, ITickerFinancialData } from '../../interfaces/ticker.interface';
 
 import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 
 export class FinancialApiService {
 
-    static benchmarkTicker: string;
+    benchmarkTicker: string;
 
     ticker: string;
 
@@ -24,7 +20,7 @@ export class FinancialApiService {
 
     constructor(ticker: string) {
 
-        FinancialApiService.benchmarkTicker = process.env.BENCHMARK_TICKER || '';
+        this.benchmarkTicker = process.env.BENCHMARK_TICKER || '';
 
         this.ticker = ticker;
 
@@ -70,7 +66,7 @@ export class FinancialApiService {
         const [oneYearBack, now] = this.ttmMargin;
 
         const benchmarkPrices = await yahooFinance.historical(
-            FinancialApiService.benchmarkTicker,
+            this.benchmarkTicker,
             {
                 period1: oneYearBack,
                 period2: now,
