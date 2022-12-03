@@ -2,6 +2,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
 /*
+Returns TTM margin (starting price date, ending price date)
+
 Slices incoming (historical dataset) into TTM subset
 
 TTM: Trailing Twelve Months
@@ -13,7 +15,7 @@ import { ITickerPrice } from '../../interfaces/ticker.interface';
 
 export class TimeSeriesHelperService {
 
-    static returnTTMMargin(format: 'YYYY-MM-DD' | 'MM-DD-YYYY'): [oneYearBack: string, now: string] {
+    static returnTTMMargin(format: 'YYYY-MM-DD' | 'MM-DD-YYYY'): [string, string] {
 
         const now = moment();
 
