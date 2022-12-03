@@ -14,9 +14,9 @@ import {
 export class FinancialApiService {
 
     /*
-    We always scale tickers against SP500 returns
+    We scale tickers against SP500 returns
     */
-    static riskFreeBenchmarkTicker = '^GSPC';
+    static benchmarkTicker = '^GSPC';
 
     ticker: string;
 
@@ -38,10 +38,7 @@ export class FinancialApiService {
         return fundametals;
     }
 
-    /*
-    TODO: Use lib for prices on stocks as well!
-    */
-    private async requestRiskFreeBenchmarkPrices(): Promise<IBenchmarkPrice[]> {
+    private async requestBenchmarkPrices(): Promise<IBenchmarkPrice[]> {
 
         const now = moment();
 
@@ -59,8 +56,8 @@ export class FinancialApiService {
             oneYearBack = oneYearBack.subtract(2, 'day');
         }
 
-        const riskFreeBenchmarkPrices = await yahooFinance.historical(
-            FinancialApiService.riskFreeBenchmarkTicker,
+        const benchmarkPrices = await yahooFinance.historical(
+            FinancialApiService.benchmarkTicker,
             {
                 period1: oneYearBack.format('MM-DD-YYYY'),
                 period2: now.format('MM-DD-YYYY'),
@@ -69,7 +66,7 @@ export class FinancialApiService {
             }
         );
 
-        return riskFreeBenchmarkPrices;
+        return benchmarkPrices;
     }
 
     private async requestHistoricalTickerPrices(): Promise<ITickerPrice[]> {
@@ -87,9 +84,9 @@ export class FinancialApiService {
 
         const prices = await this.requestHistoricalTickerPrices();
 
-        const riskFreeBenchmarkPrices = await this.requestRiskFreeBenchmarkPrices();
+        const riskFreeBenchmarkPrices = await this.requestBenchmarkPrices();
 
-        console.log(`${this.ticker}: Fundamentals, prices and risk free benchmark data is successfully retrieved`);
+        console.log(`${this.ticker}: Fundamentals, prices and benchmark data is successfully retrieved`);
 
         return { fundamentals, prices, riskFreeBenchmarkPrices };
     }
