@@ -1,35 +1,38 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
 /*
+
+Sharpe Ratio = (Ticker Rate of Return - Benchmark Rate of Return) / Ticker Standard Deviation
+
 As our risk-free investment benchmark we take SP500's rate of return
 
 On Sharpe Ratio: https://www.investopedia.com/terms/s/sharperatio.asp
 */
 
-import { IBenchmarkPrice } from  '../../interfaces/ticker.interface';
+import { IBenchmarkPrice, ITickerPrice } from  '../../interfaces/ticker.interface';
 
 export class SharpeRatioCalculatorService {
 
-    benchmarkPrices: IBenchmarkPrice[];
+    tickerPricesTTM: ITickerPrice[];
 
-    cagr: number;
+    benchmarkPricesTTM: IBenchmarkPrice[];
 
-    standardDeviation: number;
+    tickerRateOfReturn: number;
 
-    constructor(benchmarkPrices: IBenchmarkPrice[], cagr: number, standardDeviation: number) {
+    benchmarkRateOfReturn: number;
 
-        this.benchmarkPrices = benchmarkPrices;
+    tickerStandardDeviation: number;
 
-        this.cagr = cagr;
+    constructor(benchmarkPrices: IBenchmarkPrice[], standardDeviation: number) {
 
-        this.standardDeviation = standardDeviation;
+        this.benchmarkPricesTTM = benchmarkPrices;
+
+        this.tickerStandardDeviation = standardDeviation;
     }
 
     public calculateSharpeRatio(): number {
 
-        const benchmarkRateOfReturn = 1;
-
-        const sharpeRatio = (this.cagr - benchmarkRateOfReturn) / this.standardDeviation;
+        const sharpeRatio = (this.tickerRateOfReturn - this.benchmarkRateOfReturn) / this.tickerStandardDeviation;
 
         console.log('Calculated Sharpe Ratio');
 
