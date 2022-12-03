@@ -25,28 +25,11 @@ export interface ITickerPrice {
     volume: number;
 }
 
-export interface IBenchmarkPrice {
-
-    date: Date,
-
-    open: number,
-
-    high: number,
-
-    low: number,
-
-    close: number,
-
-    adjClose: number,
-
-    volume: number
-}
-
 export interface ITickerFinancialData {
 
     fundamentals: ITickerFundamentals,
 
     prices: ITickerPrice[],
 
-    benchmarkPrices: IBenchmarkPrice[],
+    benchmarkPrices: ITickerPrice[],
 }

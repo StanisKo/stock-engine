@@ -9,7 +9,7 @@ in our case -- TTM, Trailing Twelve Month RoR of ticker and benchmark
 On Sharpe Ratio: https://www.investopedia.com/terms/s/sharperatio.asp
 */
 
-import { IBenchmarkPrice, ITickerPrice } from  '../../interfaces/ticker.interface';
+import { ITickerPrice } from  '../../interfaces/ticker.interface';
 
 import { CalculatorHelperService } from '../helpers/calculator-helper.service';
 
@@ -17,11 +17,11 @@ export class SharpeRatioCalculatorService {
 
     tickerPricesTTM: ITickerPrice[];
 
-    benchmarkPricesTTM: IBenchmarkPrice[];
+    benchmarkPricesTTM: ITickerPrice[];
 
     tickerStandardDeviation: number;
 
-    constructor(tickerPrices: ITickerPrice[], benchmarkPrices: IBenchmarkPrice[], standardDeviation: number) {
+    constructor(tickerPrices: ITickerPrice[], benchmarkPrices: ITickerPrice[], standardDeviation: number) {
 
         this.tickerPricesTTM = tickerPrices;
 

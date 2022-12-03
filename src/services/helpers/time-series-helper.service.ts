@@ -15,7 +15,7 @@ import { ITickerPrice } from '../../interfaces/ticker.interface';
 
 export class TimeSeriesHelperService {
 
-    static returnTTMMargin(format: 'YYYY-MM-DD' | 'MM-DD-YYYY'): [string, string] {
+    static returnTTMMargin(): [string, string] {
 
         const now = moment();
 
@@ -33,19 +33,14 @@ export class TimeSeriesHelperService {
             oneYearBack = oneYearBack.subtract(2, 'day');
         }
 
-        return [oneYearBack.format(format), now.format(format)];
+        return [oneYearBack.format('MM-DD-YYYY'), now.format('MM-DD-YYYY')];
     }
 
     static sliceDataSetIntoTTM(prices: ITickerPrice[]): ITickerPrice[] {
 
-        /*
-        Since we're slicing ticker prices, their date field is different
-        from benchmark prices, therefore, we need to provide a format
-        parameter for the margin, to later be used in lambda expression
-        */
-        const [oneYearBack, _] = TimeSeriesHelperService.returnTTMMargin('YYYY-MM-DD');
+        const [oneYearBack, _] = TimeSeriesHelperService.returnTTMMargin();
 
-        const startingPrice = prices.find(price => moment(price.date).format('YYYY-MM-DD') === oneYearBack);
+        const startingPrice = prices.find(price => moment(price.date).format('MM-DD-YYYY') === oneYearBack);
 
         return prices.slice(prices.indexOf(startingPrice!) ?? 0);
     }

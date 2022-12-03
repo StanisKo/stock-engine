@@ -7,8 +7,7 @@ import yahooFinance from 'yahoo-finance2';
 import {
     ITickerFundamentals,
     ITickerPrice,
-    ITickerFinancialData,
-    IBenchmarkPrice
+    ITickerFinancialData
 } from '../../interfaces/ticker.interface';
 
 import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
@@ -43,7 +42,7 @@ export class FinancialApiService {
     We request ticker prices since IPO date
     */
     private async requestHistoricalTickerPrices(tickerIpoDate: string): Promise<ITickerPrice[]> {
-        const [_, now] = TimeSeriesHelperService.returnTTMMargin('MM-DD-YYYY');
+        const [_, now] = TimeSeriesHelperService.returnTTMMargin();
 
         const prices = await yahooFinance.historical(
             this.ticker,
@@ -61,9 +60,9 @@ export class FinancialApiService {
     /*
     We request benchmark prices as TTM
     */
-    private async requestBenchmarkPrices(): Promise<IBenchmarkPrice[]> {
+    private async requestBenchmarkPrices(): Promise<ITickerPrice[]> {
 
-        const [oneYearBack, now] = TimeSeriesHelperService.returnTTMMargin('MM-DD-YYYY');
+        const [oneYearBack, now] = TimeSeriesHelperService.returnTTMMargin();
 
         const benchmarkPrices = await yahooFinance.historical(
             FinancialApiService.benchmarkTicker,
@@ -73,7 +72,7 @@ export class FinancialApiService {
                 interval: '1d',
                 includeAdjustedClose: true
             }
-        ) as IBenchmarkPrice[];
+        ) as ITickerPrice[];
 
         return benchmarkPrices;
     }
