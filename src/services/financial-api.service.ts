@@ -84,10 +84,10 @@ export class FinancialApiService {
 
         const prices = await this.requestHistoricalTickerPrices();
 
-        const riskFreeBenchmarkPrices = await this.requestBenchmarkPrices();
+        const benchmarkPrices = await this.requestBenchmarkPrices();
 
         console.log(`${this.ticker}: Fundamentals, prices and benchmark data is successfully retrieved`);
 
-        return { fundamentals, prices, riskFreeBenchmarkPrices };
+        return { fundamentals, prices, benchmarkPrices };
     }
 }

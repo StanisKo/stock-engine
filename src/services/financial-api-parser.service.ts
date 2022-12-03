@@ -74,6 +74,9 @@ export class FinancialApiParserService {
 
         const tickerPricesTTM = TimeSeriesHelperService.sliceDataSetIntoTTM(prices);
 
+        /*
+        Our benchmark prices are already TTM
+        */
         this.sharpeRatioCalculatorService = new SharpeRatioCalculatorService(
             tickerPricesTTM,
             benchmarkPrices,
