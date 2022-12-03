@@ -64,7 +64,7 @@ export class FinancialApiService {
                 interval: '1d',
                 includeAdjustedClose: true
             }
-        );
+        ) as IBenchmarkPrice[];
 
         return benchmarkPrices;
     }

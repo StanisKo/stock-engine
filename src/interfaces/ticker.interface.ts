@@ -37,7 +37,7 @@ export interface IBenchmarkPrice {
 
     close: number,
 
-    adjClose?: number,
+    adjClose: number,
 
     volume: number
 }
