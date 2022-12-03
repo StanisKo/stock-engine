@@ -42,6 +42,7 @@ export class FinancialApiService {
     We request ticker prices since IPO date
     */
     private async requestHistoricalTickerPrices(tickerIpoDate: string): Promise<ITickerPrice[]> {
+
         const [_, now] = TimeSeriesHelperService.returnTTMMargin();
 
         const prices = await yahooFinance.historical(
