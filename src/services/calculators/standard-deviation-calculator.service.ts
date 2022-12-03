@@ -32,25 +32,18 @@ ARoR = SUM(RoR) / N(RoR) where N is count of datapoints we have
 On Standard Deviation: https://www.investopedia.com/terms/s/standarddeviation.asp
 */
 
-import { ITickerPrice } from  '../../interfaces/ticker.interface';
+import { ITickerPrice } from '../../interfaces/ticker.interface';
 
 import { CalculatorHelperService } from '../helpers/calculator-helper.service';
 
 export class StandardDeviationCalculatorService {
-
-    prices: ITickerPrice[];
-
-    constructor(prices: ITickerPrice[]) {
-
-        this.prices = prices;
-    }
 
     /*
     To calculate variance we sum the squares of
     diffs between daily rate of return and average rate of return
     and then divide it by count of daily returns
     */
-    private calculateVariance(returns: number[], averageRateOfReturn: number): number {
+    private static calculateVariance(returns: number[], averageRateOfReturn: number): number {
 
         let sumOfSquares = 0;
 
@@ -64,9 +57,9 @@ export class StandardDeviationCalculatorService {
         return variance;
     }
 
-    public calculateStandardDeviation(): number {
+    static calculateStandardDeviation(prices: ITickerPrice[]): number {
 
-        const [returns, averageRateOfReturn] = CalculatorHelperService.calculateAverageRateOfReturn(this.prices);
+        const [returns, averageRateOfReturn] = CalculatorHelperService.calculateAverageRateOfReturn(prices);
 
         const variance = this.calculateVariance(returns, averageRateOfReturn);
 

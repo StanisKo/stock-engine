@@ -32,8 +32,6 @@ export class FinancialApiParserService {
 
     standardDeviationCalculatorService: StandardDeviationCalculatorService;
 
-    sharpeRatioCalculatorService: SharpeRatioCalculatorService;
-
     constructor(rawTickerData: ITickerFinancialData) {
 
         this.extractedTickerData = {} as IIndustryProfile;
@@ -70,23 +68,26 @@ export class FinancialApiParserService {
         /*
         Calculate standard deviation over entire dataset of ticker prices (since IPO date)
         */
-        this.standardDeviationCalculatorService = new StandardDeviationCalculatorService(prices);
 
-        const standardDeviation = this.standardDeviationCalculatorService.calculateStandardDeviation();
+        const standardDeviation = StandardDeviationCalculatorService.calculateStandardDeviation(prices);
 
         this.extractedTickerData.risk.standardDeviation =
-            this.standardDeviationCalculatorService.calculateStandardDeviation();
+            StandardDeviationCalculatorService.calculateStandardDeviation(prices);
 
         /*
         Calculate sharpe ratio over ticker TTM prices and benchmark prices (that are TTM by default)
         */
-        this.sharpeRatioCalculatorService = new SharpeRatioCalculatorService(
-            tickerTTMPrices,
-            benchmarkTTMPrices,
-            standardDeviation
+        const [benchmarkEndingPrice, benchmarkStartingPrice] = TimeSeriesHelperService.getEndingAndStartingPrice(
+            benchmarkTTMPrices
         );
 
-        this.extractedTickerData.risk.sharpeRatio = this.sharpeRatioCalculatorService.calculateSharpeRatio();
+        this.extractedTickerData.risk.sharpeRatio = SharpeRatioCalculatorService.calculateSharpeRatio(
+            tickerEndingPrice,
+            tickerStartingPrice,
+            benchmarkEndingPrice,
+            benchmarkStartingPrice,
+            standardDeviation
+        );
     }
 
     public parseTickerData(): void {
