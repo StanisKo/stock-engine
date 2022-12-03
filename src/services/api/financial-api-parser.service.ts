@@ -14,7 +14,7 @@ Returns values back to the caller in the shape of interface that adheres to Indu
 
 import { IIndustryProfile } from '../../interfaces/industry-profile.interface';
 
-import { ITickerFinancialData } from '../../interfaces/ticker.interface';
+import { ITickerFinancialData, ITickerPrice } from '../../interfaces/ticker.interface';
 
 import { CAGRCalculatorService } from '../calculators/cagr-calculator.service';
 
@@ -43,36 +43,18 @@ export class FinancialApiParserService {
         this.rawTickerData = rawTickerData;
     }
 
-    public parseTickerData(): void {
-
-        console.log('Started parsing the data');
-
-        const { fundamentals, prices, benchmarkPrices } = this.rawTickerData;
+    private calculateAndExtractMissingMeasurements(prices: ITickerPrice[], benchmarkTTMPrices: ITickerPrice[]): void {
 
         /*
-        Extract some basic fields
+        Calculate CAGR over ticker TTM prices
         */
-        this.extractedTickerData.industry = fundamentals.General.Industry;
+        const tickerTTMPrices = TimeSeriesHelperService.sliceDataSetIntoTTM(prices);
 
-        this.extractedTickerData.marketCap = fundamentals.Highlights.MarketCapitalization;
-
-        /*
-        Calculate CAGR over TTM prices
-        */
-        const tickerPricesTTM = TimeSeriesHelperService.sliceDataSetIntoTTM(prices);
-
-        this.cagrCalculatorService = new CAGRCalculatorService(tickerPricesTTM);
+        this.cagrCalculatorService = new CAGRCalculatorService(tickerTTMPrices);
 
         const cagr = this.cagrCalculatorService.calculateCAGR();
 
         this.extractedTickerData.cagr = cagr;
-
-        /*
-        Calculate standard deviation over entire dataset of ticker prices (since IPO date)
-        */
-        this.standardDeviationCalculatorService = new StandardDeviationCalculatorService(prices);
-
-        const standardDeviation = this.standardDeviationCalculatorService.calculateStandardDeviation();
 
         this.extractedTickerData.risk = {
             standardDeviation: 0,
@@ -82,19 +64,45 @@ export class FinancialApiParserService {
             rSquared: 0
         };
 
-        this.extractedTickerData.risk.standardDeviation = standardDeviation;
+        /*
+        Calculate standard deviation over entire dataset of ticker prices (since IPO date)
+        */
+        this.standardDeviationCalculatorService = new StandardDeviationCalculatorService(prices);
+
+        const standardDeviation = this.standardDeviationCalculatorService.calculateStandardDeviation();
+
+        this.extractedTickerData.risk.standardDeviation =
+            this.standardDeviationCalculatorService.calculateStandardDeviation();
 
         /*
-        Calculate sharpe ratio of ticker TTM prices and benchmark prices
-        (that are requested as TTM by default)
+        Calculate sharpe ratio over ticker TTM prices and benchmark prices (that are TTM by default)
         */
         this.sharpeRatioCalculatorService = new SharpeRatioCalculatorService(
-            tickerPricesTTM,
-            benchmarkPrices,
+            tickerTTMPrices,
+            benchmarkTTMPrices,
             standardDeviation
         );
 
         this.extractedTickerData.risk.sharpeRatio = this.sharpeRatioCalculatorService.calculateSharpeRatio();
+    }
+
+    public parseTickerData(): void {
+
+        console.log('Started parsing the data');
+
+        const { fundamentals, prices, benchmarkPrices } = this.rawTickerData;
+
+        /*
+        Extract available fields
+        */
+        this.extractedTickerData.industry = fundamentals.General.Industry;
+
+        this.extractedTickerData.marketCap = fundamentals.Highlights.MarketCapitalization;
+
+        /*
+        Calculate and extract missing fields
+        */
+        this.calculateAndExtractMissingMeasurements(prices, benchmarkPrices);
 
         console.log(this.extractedTickerData);
     }
