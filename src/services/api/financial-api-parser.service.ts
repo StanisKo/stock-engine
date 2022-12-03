@@ -49,10 +49,16 @@ export class FinancialApiParserService {
 
         const { fundamentals, prices, benchmarkPrices } = this.rawTickerData;
 
+        /*
+        Extract some basic fields
+        */
         this.extractedTickerData.industry = fundamentals.General.Industry;
 
         this.extractedTickerData.marketCap = fundamentals.Highlights.MarketCapitalization;
 
+        /*
+        Calculate CAGR over TTM prices
+        */
         const tickerPricesTTM = TimeSeriesHelperService.sliceDataSetIntoTTM(prices);
 
         this.cagrCalculatorService = new CAGRCalculatorService(tickerPricesTTM);
@@ -61,6 +67,9 @@ export class FinancialApiParserService {
 
         this.extractedTickerData.cagr = cagr;
 
+        /*
+        Calculate standard deviation over entire dataset of ticker prices (since IPO date)
+        */
         this.standardDeviationCalculatorService = new StandardDeviationCalculatorService(prices);
 
         const standardDeviation = this.standardDeviationCalculatorService.calculateStandardDeviation();
@@ -75,6 +84,10 @@ export class FinancialApiParserService {
 
         this.extractedTickerData.risk.standardDeviation = standardDeviation;
 
+        /*
+        Calculate sharpe ratio of ticker TTM prices and benchmark prices
+        (that are requested as TTM by default)
+        */
         this.sharpeRatioCalculatorService = new SharpeRatioCalculatorService(
             tickerPricesTTM,
             benchmarkPrices,
