@@ -17,7 +17,7 @@ export class CAGRCalculatorService {
     constructor(prices: ITickerPrice[]) {
 
         /*
-        As we're calculating CAGR on year-to-date basis, we need the price
+        As we're calculating CAGR on TTM basis, we need the price
         exactly on year back
 
         Yet, there are some edge cases: if one year back falls on Saturday or Sunday,
