@@ -1,8 +1,5 @@
 import fetch from 'node-fetch';
-
 import yahooFinance from 'yahoo-finance2';
-
-import moment from 'moment';
 
 import {
     ITickerFundamentals,
@@ -10,6 +7,8 @@ import {
     ITickerFinancialData,
     IBenchmarkPrice
 } from '../../interfaces/ticker.interface';
+
+import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 
 export class FinancialApiService {
 
@@ -39,27 +38,13 @@ export class FinancialApiService {
 
     private async requestBenchmarkPrices(): Promise<IBenchmarkPrice[]> {
 
-        const now = moment();
-
-        let oneYearBack = moment().subtract(1, 'year');
-
-        const dayOfWeekOneYearBack = oneYearBack.day();
-
-        if (dayOfWeekOneYearBack === 5) {
-
-            oneYearBack = oneYearBack.subtract(1, 'day');
-        }
-
-        if (dayOfWeekOneYearBack === 6) {
-
-            oneYearBack = oneYearBack.subtract(2, 'day');
-        }
+        const [oneYearBack, now] = TimeSeriesHelperService.returnTTMMargin('MM-DD-YYYY');
 
         const benchmarkPrices = await yahooFinance.historical(
             FinancialApiService.benchmarkTicker,
             {
-                period1: oneYearBack.format('MM-DD-YYYY'),
-                period2: now.format('MM-DD-YYYY'),
+                period1: oneYearBack,
+                period2: now,
                 interval: '1d',
                 includeAdjustedClose: true
             }
