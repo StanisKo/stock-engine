@@ -25,7 +25,7 @@ export class CAGRCalculatorService {
         Since we're calculating CAGR over TTM (1 year), we don't need to bring
         the division product to exponent of 1 / N of years:
 
-        Math.pow((this.endingPrice / this.startingPrice), 1 / 1) - 1
+        Math.pow((this.endingPrice / this.startingPrice), 1 / N of years) - 1
 
         We can simply:
 
