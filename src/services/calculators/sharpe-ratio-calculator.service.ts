@@ -10,6 +10,7 @@ On Sharpe Ratio: https://www.investopedia.com/terms/s/sharperatio.asp
 */
 
 import { IBenchmarkPrice, ITickerPrice } from  '../../interfaces/ticker.interface';
+import { CalculatorHelperService } from './calculator-helper.service';
 
 export class SharpeRatioCalculatorService {
 
@@ -17,13 +18,11 @@ export class SharpeRatioCalculatorService {
 
     benchmarkPricesTTM: IBenchmarkPrice[];
 
-    tickerRateOfReturn: number;
-
-    benchmarkRateOfReturn: number;
-
     tickerStandardDeviation: number;
 
-    constructor(benchmarkPrices: IBenchmarkPrice[], standardDeviation: number) {
+    constructor(tickerPrices: ITickerPrice[], benchmarkPrices: IBenchmarkPrice[], standardDeviation: number) {
+
+        this.tickerPricesTTM = tickerPrices;
 
         this.benchmarkPricesTTM = benchmarkPrices;
 
@@ -32,7 +31,25 @@ export class SharpeRatioCalculatorService {
 
     public calculateSharpeRatio(): number {
 
-        const sharpeRatio = (this.tickerRateOfReturn - this.benchmarkRateOfReturn) / this.tickerStandardDeviation;
+        const tickerEndingPrice = this.tickerPricesTTM[this.tickerPricesTTM.length - 1].adjusted_close;
+
+        const tickerStartingPrice = this.tickerPricesTTM[0].adjusted_close;
+
+        const tickerRateOfReturn = CalculatorHelperService.calculateRateOfReturn(
+            tickerEndingPrice,
+            tickerStartingPrice
+        );
+
+        const benchmarkEndingPrice = this.benchmarkPricesTTM[this.benchmarkPricesTTM.length - 1].adjClose;
+
+        const benchmarkStartingPrice = this.benchmarkPricesTTM[0].adjClose;
+
+        const benchmarkRateOfReturn = CalculatorHelperService.calculateRateOfReturn(
+            benchmarkEndingPrice,
+            benchmarkStartingPrice
+        );
+
+        const sharpeRatio = (tickerRateOfReturn - benchmarkRateOfReturn) / this.tickerStandardDeviation;
 
         console.log('Calculated Sharpe Ratio');
 
