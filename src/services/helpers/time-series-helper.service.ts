@@ -15,6 +15,9 @@ import { ITickerPrice } from '../../interfaces/ticker.interface';
 
 /*
 TODO: TTM does not include current month!
+
+TODO: build method that would actully return two data points [number, number]
+rather than margins
 */
 export class TimeSeriesHelperService {
 
