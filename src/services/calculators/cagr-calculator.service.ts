@@ -4,22 +4,9 @@ CAGR = ( [ (Ending Price / Starting Price) ^ (1 / N of years to look back) ] - 1
 On CAGR: https://www.investopedia.com/terms/c/cagr.asp
 */
 
-import { ITickerPrice } from '../../interfaces/ticker.interface';
-
-import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
-
 export class CAGRCalculatorService {
 
-    prices: ITickerPrice[];
-
-    constructor(prices: ITickerPrice[]) {
-
-        this.prices = prices;
-    }
-
-    public calculateCAGR(): number {
-
-        const [endingPrice, startingPrice] = TimeSeriesHelperService.getEndingAndStartingPrice(this.prices);
+    static calculateCAGR(endingPrice: number, startingPrice: number): number {
 
         /*
         Since we're calculating CAGR over TTM (1 year), we don't need to bring

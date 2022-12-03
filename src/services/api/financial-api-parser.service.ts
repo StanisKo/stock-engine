@@ -30,8 +30,6 @@ export class FinancialApiParserService {
 
     rawTickerData: ITickerFinancialData;
 
-    cagrCalculatorService: CAGRCalculatorService;
-
     standardDeviationCalculatorService: StandardDeviationCalculatorService;
 
     sharpeRatioCalculatorService: SharpeRatioCalculatorService;
@@ -50,12 +48,17 @@ export class FinancialApiParserService {
         */
         const tickerTTMPrices = TimeSeriesHelperService.sliceDataSetIntoTTM(prices);
 
-        this.cagrCalculatorService = new CAGRCalculatorService(tickerTTMPrices);
+        const [tickerEndingPrice, tickerStartingPrice] = TimeSeriesHelperService.getEndingAndStartingPrice(
+            tickerTTMPrices
+        );
 
-        const cagr = this.cagrCalculatorService.calculateCAGR();
+        const cagr = CAGRCalculatorService.calculateCAGR(tickerEndingPrice, tickerStartingPrice);
 
         this.extractedTickerData.cagr = cagr;
 
+        /*
+        Initialize risk map to extract into
+        */
         this.extractedTickerData.risk = {
             standardDeviation: 0,
             sharpeRatio: 0,
