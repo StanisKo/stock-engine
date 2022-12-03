@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
 /*
-
 Sharpe Ratio = (Ticker Rate of Return - Benchmark Rate of Return) / Ticker Standard Deviation
 
-As our risk-free investment benchmark we take SP500's rate of return
+Sharpe Ratio has to be calculated over period of time,
+in our case -- TTM, Trailing Twelve Month RoR of ticker and benchmark
 
 On Sharpe Ratio: https://www.investopedia.com/terms/s/sharperatio.asp
 */

@@ -36,6 +36,21 @@ export class FinancialApiService {
         return fundametals;
     }
 
+    /*
+    We request ticker prices since IPO date
+    */
+    private async requestHistoricalTickerPrices(): Promise<ITickerPrice[]> {
+
+        const request = await fetch(`${this.financialDataApiUrl}/eod/${this.ticker}.US?fmt=json&api_token=demo`);
+
+        const prices = await request.json() as ITickerPrice[];
+
+        return prices;
+    }
+
+    /*
+    We request benchmark prices as TTM
+    */
     private async requestBenchmarkPrices(): Promise<IBenchmarkPrice[]> {
 
         const [oneYearBack, now] = TimeSeriesHelperService.returnTTMMargin('MM-DD-YYYY');
@@ -51,15 +66,6 @@ export class FinancialApiService {
         ) as IBenchmarkPrice[];
 
         return benchmarkPrices;
-    }
-
-    private async requestHistoricalTickerPrices(): Promise<ITickerPrice[]> {
-
-        const request = await fetch(`${this.financialDataApiUrl}/eod/${this.ticker}.US?fmt=json&api_token=demo`);
-
-        const prices = await request.json() as ITickerPrice[];
-
-        return prices;
     }
 
     public async requestFinancicalTickerData(): Promise<ITickerFinancialData> {
