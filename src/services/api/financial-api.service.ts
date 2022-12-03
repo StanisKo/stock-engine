@@ -23,7 +23,7 @@ export class FinancialApiService {
 
         this.ticker = ticker;
 
-        this.financialDataApiUrl = process.env.aFINANCIAL_DATA_API_URL || '';
+        this.financialDataApiUrl = process.env.FINANCIAL_DATA_API_URL || '';
     }
 
     private async requestFundamentalsTickerData(): Promise<ITickerFundamentals> {
