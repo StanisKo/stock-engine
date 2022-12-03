@@ -13,11 +13,11 @@ import moment from 'moment';
 
 import { ITickerPrice } from '../../interfaces/ticker.interface';
 
-/*
-TODO: TTM does not include current month!
-*/
 export class TimeSeriesHelperService {
 
+    /*
+    TODO: TTM does not include current month!
+    */
     static getTTMMargin(): [string, string] {
 
         const now = moment();

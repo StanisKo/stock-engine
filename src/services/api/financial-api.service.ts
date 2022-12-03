@@ -14,7 +14,7 @@ export class FinancialApiService {
 
     ticker: string;
 
-    financialDataApiUrl: string;
+    fundametalsDataApiUrl: string;
 
     ttmMargin: [string, string];
 
@@ -24,14 +24,14 @@ export class FinancialApiService {
 
         this.ticker = ticker;
 
-        this.financialDataApiUrl = process.env.FINANCIAL_DATA_API_URL || '';
+        this.fundametalsDataApiUrl = process.env.FUNDAMENTALS_DATA_API_URL || '';
 
         this.ttmMargin = TimeSeriesHelperService.getTTMMargin();
     }
 
     private async requestFundamentalsTickerData(): Promise<ITickerFundamentals> {
 
-        const request = await fetch(`${this.financialDataApiUrl}/fundamentals/${this.ticker}.US?api_token=demo`);
+        const request = await fetch(`${this.fundametalsDataApiUrl}/${this.ticker}.US?api_token=demo`);
 
         const fundametals = await request.json() as ITickerFundamentals;
 
