@@ -13,7 +13,7 @@ import {
 
 export class FinancialApiService {
 
-    static benchmarkTicker = process.env['^GSPC'] || '';
+    static benchmarkTicker = process.env.BENCHMARK_TICKER || '';
 
     ticker: string;
 
