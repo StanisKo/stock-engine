@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
 /*
@@ -12,9 +13,9 @@ import moment from 'moment';
 
 export class TimeSeriesHelperService {
 
-    static sliceDataSetIntoTTM(prices: ITickerPrice[]): ITickerPrice[] {
+    static returnTTMMargin(format: 'YYYY-MM-DD' | 'MM-DD-YYYY'): [oneYearBack: string, now: string] {
 
-        const now = new Date();
+        const now = moment();
 
         let oneYearBack = moment(now).subtract(1, 'year');
 
@@ -30,9 +31,14 @@ export class TimeSeriesHelperService {
             oneYearBack = oneYearBack.subtract(2, 'day');
         }
 
-        const oneYearBackAsString = oneYearBack.format('YYYY-MM-DD');
+        return [oneYearBack.format(format), now.format(format)];
+    }
 
-        const startingPrice = prices.find(price => price.date === oneYearBackAsString);
+    static sliceDataSetIntoTTM(prices: ITickerPrice[]): ITickerPrice[] {
+
+        const [oneYearBack, _] = TimeSeriesHelperService.returnTTMMargin('YYYY-MM-DD');
+
+        const startingPrice = prices.find(price => price.date === oneYearBack);
 
         return prices.slice(prices.indexOf(startingPrice!) ?? 0);
     }
