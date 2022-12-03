@@ -8,8 +8,6 @@ On Sharpe Ratio: https://www.investopedia.com/terms/s/sharperatio.asp
 
 import { IBenchmarkPrice } from  '../../interfaces/ticker.interface';
 
-import { CalculatorHelperService } from './calculator-helper.service';
-
 export class SharpeRatioCalculatorService {
 
     benchmarkPrices: IBenchmarkPrice[];
@@ -29,14 +27,7 @@ export class SharpeRatioCalculatorService {
 
     public calculateSharpeRatio(): number {
 
-        const endingPrice = this.benchmarkPrices[this.benchmarkPrices.length - 1].adjClose!;
-
-        const startingPrice = this.benchmarkPrices[0].adjClose!;
-
-        const benchmarkRateOfReturn = CalculatorHelperService.calculatRateOfReturnOverBenchmark(
-            endingPrice,
-            startingPrice
-        );
+        const benchmarkRateOfReturn = 1;
 
         const sharpeRatio = (this.cagr - benchmarkRateOfReturn) / this.standardDeviation;
 
