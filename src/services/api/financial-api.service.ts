@@ -9,7 +9,7 @@ import {
     ITickerPrice,
     ITickerFinancialData,
     IBenchmarkPrice
-} from '../interfaces/ticker.interface';
+} from '../../interfaces/ticker.interface';
 
 export class FinancialApiService {
 

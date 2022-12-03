@@ -12,16 +12,16 @@ Makes use of calculator service to calculate missing ratios
 Returns values back to the caller in the shape of interface that adheres to Industry Profile schema
 */
 
-import { IIndustryProfile } from '../interfaces/industry-profile.interface';
+import { IIndustryProfile } from '../../interfaces/industry-profile.interface';
 
-import { ITickerFinancialData } from '../interfaces/ticker.interface';
+import { ITickerFinancialData } from '../../interfaces/ticker.interface';
 
-import { CAGRCalculatorService } from './calculators/cagr-calculator.service';
+import { CAGRCalculatorService } from '../calculators/cagr-calculator.service';
 
-import { StandardDeviationCalculatorService } from './calculators/standard-deviation-calculator.service';
+import { StandardDeviationCalculatorService } from '../calculators/standard-deviation-calculator.service';
 
-import { SharpeRatioCalculatorService } from './calculators/sharpe-ratio-calculator.service';
-import { TimeSeriesHelperService } from './helpers/time-series-helper.service';
+import { SharpeRatioCalculatorService } from '../calculators/sharpe-ratio-calculator.service';
+import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 
 export class FinancialApiParserService {
 
