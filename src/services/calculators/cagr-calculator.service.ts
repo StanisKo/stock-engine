@@ -22,18 +22,17 @@ export class CAGRCalculatorService {
     public calculateCAGR(): number {
 
         /*
-        Here, bringing the diff between ending price and starting price to the exponent
-        of 1 divided by number of years to look back is unnecessary, since we're always
-        calculating one year back
+        Since we're calculating CAGR over TTM (1 year), we don't need to bring
+        the division product to exponent of 1 / N of years:
 
-        Yet, kept if business logic will change (V1, 01-12-2022)
+        Math.pow((this.endingPrice / this.startingPrice), 1 / 1) - 1
 
-        Otherwise, the expression would be:
+        We can simply:
 
         ((this.endingPrice / this.startingPrice) - 1) * 100
         */
         const cagr =  (
-            Math.pow((this.endingPrice / this.startingPrice), 1 / 1) - 1
+            ((this.endingPrice / this.startingPrice) - 1)
         ) * 100;
 
         console.log('Calculated CAGR');
