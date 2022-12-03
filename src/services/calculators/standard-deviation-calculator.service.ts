@@ -66,9 +66,9 @@ export class StandardDeviationCalculatorService {
             /*
             Otherwise, calculate percentange change over each period
             */
-            const currentPrice = prices[i].adjusted_close;
+            const currentPrice = prices[i].adjClose;
 
-            const previousPrice = prices[i - 1].adjusted_close;
+            const previousPrice = prices[i - 1].adjClose;
 
             const percentageChange = ((currentPrice - previousPrice) / previousPrice) * 100;
 

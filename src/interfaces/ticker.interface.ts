@@ -10,7 +10,7 @@ export interface ITickerFundamentals {
 
 export interface ITickerPrice {
 
-    date: string;
+    date: Date;
 
     open: number;
 
@@ -20,7 +20,7 @@ export interface ITickerPrice {
 
     close: number;
 
-    adjusted_close: number;
+    adjClose: number;
 
     volume: number;
 }

@@ -14,9 +14,9 @@ export class CAGRCalculatorService {
 
     constructor(prices: ITickerPrice[]) {
 
-        this.startingPrice = prices[0].adjusted_close;
+        this.startingPrice = prices[0].adjClose;
 
-        this.endingPrice = prices[prices.length - 1].adjusted_close;
+        this.endingPrice = prices[prices.length - 1].adjClose;
     }
 
     public calculateCAGR(): number {

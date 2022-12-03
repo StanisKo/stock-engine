@@ -10,6 +10,7 @@ On Sharpe Ratio: https://www.investopedia.com/terms/s/sharperatio.asp
 */
 
 import { IBenchmarkPrice, ITickerPrice } from  '../../interfaces/ticker.interface';
+
 import { CalculatorHelperService } from '../helpers/calculator-helper.service';
 
 export class SharpeRatioCalculatorService {
@@ -31,9 +32,9 @@ export class SharpeRatioCalculatorService {
 
     public calculateSharpeRatio(): number {
 
-        const tickerEndingPrice = this.tickerPricesTTM[this.tickerPricesTTM.length - 1].adjusted_close;
+        const tickerEndingPrice = this.tickerPricesTTM[this.tickerPricesTTM.length - 1].adjClose;
 
-        const tickerStartingPrice = this.tickerPricesTTM[0].adjusted_close;
+        const tickerStartingPrice = this.tickerPricesTTM[0].adjClose;
 
         const tickerRateOfReturn = CalculatorHelperService.calculateRateOfReturn(
             tickerEndingPrice,

@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
+import moment from 'moment';
 import fetch from 'node-fetch';
 import yahooFinance from 'yahoo-finance2';
 
@@ -39,11 +42,18 @@ export class FinancialApiService {
     /*
     We request ticker prices since IPO date
     */
-    private async requestHistoricalTickerPrices(): Promise<ITickerPrice[]> {
+    private async requestHistoricalTickerPrices(tickerIpoDate: string): Promise<ITickerPrice[]> {
+        const [_, now] = TimeSeriesHelperService.returnTTMMargin('MM-DD-YYYY');
 
-        const request = await fetch(`${this.financialDataApiUrl}/eod/${this.ticker}.US?fmt=json&api_token=demo`);
-
-        const prices = await request.json() as ITickerPrice[];
+        const prices = await yahooFinance.historical(
+            this.ticker,
+            {
+                period1: moment(tickerIpoDate).format('MM-DD-YYYY'),
+                period2: now,
+                interval: '1d',
+                includeAdjustedClose: true
+            }
+        ) as ITickerPrice[];
 
         return prices;
     }
@@ -72,7 +82,7 @@ export class FinancialApiService {
 
         const fundamentals = await this.requestFundamentalsTickerData();
 
-        const prices = await this.requestHistoricalTickerPrices();
+        const prices = await this.requestHistoricalTickerPrices(fundamentals.General.IPODate);
 
         const benchmarkPrices = await this.requestBenchmarkPrices();
 

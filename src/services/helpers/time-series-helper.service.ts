@@ -45,7 +45,7 @@ export class TimeSeriesHelperService {
         */
         const [oneYearBack, _] = TimeSeriesHelperService.returnTTMMargin('YYYY-MM-DD');
 
-        const startingPrice = prices.find(price => price.date === oneYearBack);
+        const startingPrice = prices.find(price => moment(price.date).format('YYYY-MM-DD') === oneYearBack);
 
         return prices.slice(prices.indexOf(startingPrice!) ?? 0);
     }
