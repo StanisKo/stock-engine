@@ -10,7 +10,7 @@ import moment from 'moment';
 
 export class TimeSeriesHelperService {
 
-    sliceDataSetIntoTTM(prices: ITickerPrice[]): ITickerPrice[] {
+    static sliceDataSetIntoTTM(prices: ITickerPrice[]): ITickerPrice[] {
 
         const now = new Date();
 

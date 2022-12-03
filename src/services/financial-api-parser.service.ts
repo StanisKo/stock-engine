@@ -21,6 +21,7 @@ import { CAGRCalculatorService } from './calculators/cagr-calculator.service';
 import { StandardDeviationCalculatorService } from './calculators/standard-deviation-calculator.service';
 
 import { SharpeRatioCalculatorService } from './calculators/sharpe-ratio-calculator.service';
+import { TimeSeriesHelperService } from './calculators/time-series-helper.service';
 
 export class FinancialApiParserService {
 
@@ -45,7 +46,7 @@ export class FinancialApiParserService {
 
         console.log('Started parsing the data');
 
-        const { fundamentals, prices, riskFreeBenchmarkPrices } = this.rawTickerData;
+        const { fundamentals, prices, benchmarkPrices } = this.rawTickerData;
 
         this.extractedTickerData.industry = fundamentals.General.Industry;
 
@@ -71,9 +72,11 @@ export class FinancialApiParserService {
 
         this.extractedTickerData.risk.standardDeviation = standardDeviation;
 
+        const tickerPricesTTM = TimeSeriesHelperService.sliceDataSetIntoTTM(prices);
+
         this.sharpeRatioCalculatorService = new SharpeRatioCalculatorService(
-            riskFreeBenchmarkPrices,
-            cagr,
+            tickerPricesTTM,
+            benchmarkPrices,
             standardDeviation
         );
 
