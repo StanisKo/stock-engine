@@ -21,7 +21,7 @@ import { CAGRCalculatorService } from './calculators/cagr-calculator.service';
 import { StandardDeviationCalculatorService } from './calculators/standard-deviation-calculator.service';
 
 import { SharpeRatioCalculatorService } from './calculators/sharpe-ratio-calculator.service';
-import { TimeSeriesHelperService } from './calculators/time-series-helper.service';
+import { TimeSeriesHelperService } from './helpers/time-series-helper.service';
 
 export class FinancialApiParserService {
 

@@ -2,6 +2,8 @@
 
 /*
 Slices incoming (historical dataset) into TTM subset
+
+TTM: Trailing Twelve Months
 */
 
 import { ITickerPrice } from '../../interfaces/ticker.interface';

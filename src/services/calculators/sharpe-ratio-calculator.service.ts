@@ -10,7 +10,7 @@ On Sharpe Ratio: https://www.investopedia.com/terms/s/sharperatio.asp
 */
 
 import { IBenchmarkPrice, ITickerPrice } from  '../../interfaces/ticker.interface';
-import { CalculatorHelperService } from './calculator-helper.service';
+import { CalculatorHelperService } from '../helpers/calculator-helper.service';
 
 export class SharpeRatioCalculatorService {
 
