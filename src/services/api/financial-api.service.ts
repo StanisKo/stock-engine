@@ -10,9 +10,9 @@ import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 
 export class FinancialApiService {
 
-    benchmarkTicker: string;
-
     ticker: string;
+
+    benchmarkTicker: string;
 
     fundametalsDataApiUrl: string;
 
@@ -20,9 +20,9 @@ export class FinancialApiService {
 
     constructor(ticker: string) {
 
-        this.benchmarkTicker = process.env.BENCHMARK_TICKER || '';
-
         this.ticker = ticker;
+
+        this.benchmarkTicker = process.env.BENCHMARK_TICKER || '';
 
         this.fundametalsDataApiUrl = process.env.FUNDAMENTALS_DATA_API_URL || '';
 
