@@ -22,7 +22,21 @@ export class TimeSeriesHelperService {
 
         const lastDateOfPreviousMonth = moment().subtract(1, 'month').endOf('month');
 
-        const lastDayOfSameMonthOneYearBack = moment(lastDateOfPreviousMonth).subtract(1, 'year').endOf('month');
+        let lastDayOfSameMonthOneYearBack = moment(lastDateOfPreviousMonth).subtract(1, 'year').endOf('month');
+
+        /*
+        If day of the week one year back falls on the weekend,
+        take last adjacent Friday
+        */
+        const dayOfTheWeekOneYearBack = lastDateOfPreviousMonth.day();
+
+        if ([5, 6].includes(dayOfTheWeekOneYearBack)) {
+
+            lastDayOfSameMonthOneYearBack = lastDayOfSameMonthOneYearBack.subtract(
+                {5: 1, 6: 2}[dayOfTheWeekOneYearBack],
+                'day'
+            );
+        }
 
         return [lastDayOfSameMonthOneYearBack.format('MM-DD-YYYY'), lastDateOfPreviousMonth.format('MM-DD-YYYY')];
     }
