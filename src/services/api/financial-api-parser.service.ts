@@ -119,6 +119,8 @@ export class FinancialApiParserService {
 
         this.extractedTickerData.marketCap = this.fundamentals.Highlights.MarketCapitalization;
 
+        this.extractedTickerData.risk.beta = this.fundamentals.Technicals.Beta;
+
         /*
         Calculate and fill missing fields
         */
