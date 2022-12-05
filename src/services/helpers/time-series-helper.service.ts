@@ -12,8 +12,8 @@ TTM: Trailing Twelve Months
 
 TTM margin example:
 
-If we're running trailing 12 months in July 2020, our starting date will be July 1, 2019
-Our ending date will be the last day of the month just completed — June 30, 2020
+If we're running trailing 12 months in July 2020, our starting date is July 1, 2019
+Our ending date is the last day of the month just completed — June 30, 2020
 */
 
 import moment from 'moment';
