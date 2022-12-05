@@ -43,8 +43,6 @@ export class TimeSeriesHelperService {
             );
         }
 
-        console.log([firstDayOfSameMonthOneYearBack.format('MM-DD-YYYY'), firstDayOfThisMonth.format('MM-DD-YYYY')]);
-
         return [firstDayOfSameMonthOneYearBack.format('MM-DD-YYYY'), firstDayOfThisMonth.format('MM-DD-YYYY')];
     }
 
