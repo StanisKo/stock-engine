@@ -1,5 +1,5 @@
 /*
-Alpha = R – Rf – beta (Rm-Rf)
+Alpha = (R – Rf) – beta * (Rm - Rf)
 
 R represents the portfolio return
 
