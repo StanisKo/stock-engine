@@ -6,7 +6,7 @@ Returns TTM margin (starting price date, ending price date)
 
 Returns starting and ending price based on provided set
 
-Slices incoming (historical dataset) into TTM subset
+Slices incoming dataset into TTM subset
 
 TTM: Trailing Twelve Months
 
