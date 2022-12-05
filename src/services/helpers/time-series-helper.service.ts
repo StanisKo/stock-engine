@@ -15,7 +15,7 @@ import { ITickerPrice } from '../../interfaces/ticker.interface';
 
 export class TimeSeriesHelperService {
 
-    static getTTMMargin(): [string, string] {
+    static getTTMMargin(): [start: string, end: string] {
 
         const lastDateOfPreviousMonth = moment().subtract(1, 'month').endOf('month');
 
@@ -38,9 +38,9 @@ export class TimeSeriesHelperService {
         return [lastDayOfSameMonthOneYearBack.format('MM-DD-YYYY'), lastDateOfPreviousMonth.format('MM-DD-YYYY')];
     }
 
-    static getEndingAndStartingPrice(prices: ITickerPrice[]): [number, number] {
+    static getStartingAndEndingPrice(prices: ITickerPrice[]): [number, number] {
 
-        return [prices[prices.length - 1].adjClose, prices[0].adjClose];
+        return [prices[0].adjClose, prices[prices.length - 1].adjClose];
     }
 
     static sliceDataSetIntoTTM(prices: ITickerPrice[]): ITickerPrice[] {

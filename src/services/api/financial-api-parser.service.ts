@@ -46,7 +46,7 @@ export class FinancialApiParserService {
         */
         const tickerTTMPrices = TimeSeriesHelperService.sliceDataSetIntoTTM(prices);
 
-        const [tickerEndingPrice, tickerStartingPrice] = TimeSeriesHelperService.getEndingAndStartingPrice(
+        const [tickerStartingPrice, tickerEndingPrice] = TimeSeriesHelperService.getStartingAndEndingPrice(
             tickerTTMPrices
         );
 
@@ -77,7 +77,7 @@ export class FinancialApiParserService {
         /*
         Calculate sharpe ratio over ticker TTM prices and benchmark prices (that are TTM by default)
         */
-        const [benchmarkEndingPrice, benchmarkStartingPrice] = TimeSeriesHelperService.getEndingAndStartingPrice(
+        const [benchmarkStartingPrice, benchmarkEndingPrice] = TimeSeriesHelperService.getStartingAndEndingPrice(
             benchmarkTTMPrices
         );
 
