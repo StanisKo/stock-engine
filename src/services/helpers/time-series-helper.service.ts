@@ -38,7 +38,7 @@ export class TimeSeriesHelperService {
         return [firstDayOfSameMonthOneYearBack.format('MM-DD-YYYY'), firstDayOfThisMonth.format('MM-DD-YYYY')];
     }
 
-    static getStartingAndEndingPrice(prices: ITickerPrice[]): [number, number] {
+    static getStartingAndEndingPrice(prices: ITickerPrice[]): [startingPrice: number, endingPrice: number] {
 
         return [prices[0].adjClose, prices[prices.length - 1].adjClose];
     }
