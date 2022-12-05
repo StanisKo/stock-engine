@@ -28,8 +28,6 @@ export class FinancialApiParserService {
 
     rawTickerData: ITickerFinancialData;
 
-    standardDeviationCalculatorService: StandardDeviationCalculatorService;
-
     constructor(rawTickerData: ITickerFinancialData) {
 
         this.extractedTickerData = {} as IIndustryProfile;
