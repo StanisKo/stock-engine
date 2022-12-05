@@ -75,7 +75,7 @@ export class FinancialApiParserService {
         this.extractedTickerData.cagr = cagr;
 
         /*
-        Calculate standard deviation over entire dataset of ticker prices (since IPO date until upper TTM margin)
+        Calculate standard deviation over entire dataset of ticker prices (since IPO date)
         */
 
         const standardDeviation = StandardDeviationCalculatorService.calculateStandardDeviation(this.prices);
