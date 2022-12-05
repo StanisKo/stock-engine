@@ -43,8 +43,6 @@ export class TimeSeriesHelperService {
         */
         const [firstDayOfCurrentMonthOneYearBack, lastDayOfLastMonth] = TimeSeriesHelperService.getTTMMargin();
 
-        console.log(firstDayOfCurrentMonthOneYearBack, lastDayOfLastMonth);
-
         /*
         Define lookup lambdas
         */
@@ -53,8 +51,6 @@ export class TimeSeriesHelperService {
             const priceYearAndMonth = `${priceDate.getFullYear()}-${priceDate.getMonth() + 1}`;
 
             const [month, _, year] = firstDayOfCurrentMonthOneYearBack.split('-');
-
-            console.log('Start', `${year}-${month}`);
 
             const lowerMarginYearAndMonth = `${year}-${month}`;
 
@@ -74,8 +70,8 @@ export class TimeSeriesHelperService {
             Yet, since prices are sorted ascending, the lookup
             will return the first date of last month
 
-            Therefore, we lookup by + 1 month and then decrement the index,
-            moving from first date of next month, to last date of last month
+            Therefore, we lookup by + 1 month, and slice ommitting the last
+            index will then return us last date of last month
             */
             const upperMarginYearAndMonth = `${year}-${Number(month) + 1}`;
 
@@ -86,9 +82,6 @@ export class TimeSeriesHelperService {
 
         const endingPrice = prices.find(price => endingPriceLookup(price.date));
 
-        /*
-        And here is the decrement
-        */
-        return prices.slice(prices.indexOf(startingPrice!), prices.indexOf(endingPrice!) - 1);
+        return prices.slice(prices.indexOf(startingPrice!), prices.indexOf(endingPrice!));
     }
 }
