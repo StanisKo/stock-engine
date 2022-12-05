@@ -9,25 +9,24 @@ Returns starting and ending price based on provided set
 Slices incoming (historical dataset) into TTM subset
 
 TTM: Trailing Twelve Months
+
+TTM margin example:
+
+If we're running trailing 12 months in July 2020, our starting date will be July 1, 2019
+Our ending date will be the last day of the month just completed — June 30, 2020
 */
 
 import moment from 'moment';
 
 import { ITickerPrice } from '../../interfaces/ticker.interface';
 
-/*
-In other words, if you are running your trailing 12 months reports in July 2020,
-your starting date will be July 1, 2019.
-Your ending date will be the last day of the month just completed — in this example, June 30, 2020
-*/
-
 export class TimeSeriesHelperService {
 
     static getTTMMargin(): [start: string, end: string] {
 
-        const lastDayOfLastMonth = moment().subtract(1, 'month').endOf('month');
-
         let firstDayOfCurrentMonthOneYearBack = moment().subtract(1, 'year').startOf('month');
+
+        const lastDayOfLastMonth = moment().subtract(1, 'month').endOf('month');
 
         /*
         If day of the week one year back falls on the weekend,
