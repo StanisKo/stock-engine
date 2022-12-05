@@ -9,9 +9,9 @@ Beta represents the systematic risk of a portfolio
 
 Rm represents the benchmark return
 
-Simply, this can also be CAGR of the asset - CAGR of the index?
-
 On Alpha: https://www.investopedia.com/terms/a/alpha.asp
+
+TODO: implement above, don't use CAGR, use SP500 RoR and US 10Y treasury yield
 */
 
 export class AlphaCalculatorService {
