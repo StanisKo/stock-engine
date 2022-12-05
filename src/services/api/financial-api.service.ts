@@ -16,8 +16,6 @@ export class FinancialApiService {
 
     fundametalsDataApiUrl: string;
 
-    ttmMargin: [string, string];
-
     constructor(ticker: string) {
 
         this.ticker = ticker;
@@ -25,8 +23,6 @@ export class FinancialApiService {
         this.benchmarkTicker = process.env.BENCHMARK_TICKER || '';
 
         this.fundametalsDataApiUrl = process.env.FUNDAMENTALS_DATA_API_URL || '';
-
-        this.ttmMargin = TimeSeriesHelperService.getTTMMargin();
     }
 
     private async requestFundamentalsTickerData(): Promise<ITickerFundamentals> {
@@ -39,17 +35,15 @@ export class FinancialApiService {
     }
 
     /*
-    We request ticker prices since IPO date until upper TTM margin
+    We request ticker prices since IPO until latest price available
     */
     private async requestHistoricalTickerPrices(tickerIpoDate: string): Promise<ITickerPrice[]> {
-
-        const [_, now] = this.ttmMargin;
 
         const prices = await yahooFinance.historical(
             this.ticker,
             {
                 period1: moment(tickerIpoDate).format('MM-DD-YYYY'),
-                period2: now,
+                period2: moment().format('MM-DD-YYYY'),
                 interval: '1d',
                 includeAdjustedClose: true
             }
@@ -63,7 +57,7 @@ export class FinancialApiService {
     */
     private async requestBenchmarkPrices(): Promise<ITickerPrice[]> {
 
-        const [oneYearBack, now] = this.ttmMargin;
+        const [oneYearBack, now] = TimeSeriesHelperService.getTTMMargin();
 
         const benchmarkPrices = await yahooFinance.historical(
             this.benchmarkTicker,

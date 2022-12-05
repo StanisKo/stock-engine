@@ -24,23 +24,9 @@ export class TimeSeriesHelperService {
 
     static getTTMMargin(): [start: string, end: string] {
 
-        let firstDayOfCurrentMonthOneYearBack = moment().subtract(1, 'year').startOf('month');
+        const firstDayOfCurrentMonthOneYearBack = moment().subtract(1, 'year').startOf('month');
 
         const lastDayOfLastMonth = moment().subtract(1, 'month').endOf('month');
-
-        /*
-        If day of the week one year back falls on the weekend,
-        take last adjacent Friday
-        */
-        const dayOfTheWeekOneYearBack = firstDayOfCurrentMonthOneYearBack.day();
-
-        if ([5, 6].includes(dayOfTheWeekOneYearBack)) {
-
-            firstDayOfCurrentMonthOneYearBack = firstDayOfCurrentMonthOneYearBack.subtract(
-                {5: 1, 6: 2}[dayOfTheWeekOneYearBack],
-                'day'
-            );
-        }
 
         return [firstDayOfCurrentMonthOneYearBack.format('MM-DD-YYYY'), lastDayOfLastMonth.format('MM-DD-YYYY')];
     }
@@ -52,10 +38,57 @@ export class TimeSeriesHelperService {
 
     static sliceDataSetIntoTTM(prices: ITickerPrice[]): ITickerPrice[] {
 
-        const [oneYearBack, _] = TimeSeriesHelperService.getTTMMargin();
+        /*
+        Get margins
+        */
+        const [firstDayOfCurrentMonthOneYearBack, lastDayOfLastMonth] = TimeSeriesHelperService.getTTMMargin();
 
-        const startingPrice = prices.find(price => moment(price.date).format('MM-DD-YYYY') === oneYearBack);
+        console.log(firstDayOfCurrentMonthOneYearBack, lastDayOfLastMonth);
 
-        return prices.slice(prices.indexOf(startingPrice!) ?? 0);
+        /*
+        Define lookup lambdas
+        */
+        const startingPriceLookup = (priceDate: Date): boolean => {
+
+            const priceYearAndMonth = `${priceDate.getFullYear()}-${priceDate.getMonth() + 1}`;
+
+            const [month, _, year] = firstDayOfCurrentMonthOneYearBack.split('-');
+
+            console.log('Start', `${year}-${month}`);
+
+            const lowerMarginYearAndMonth = `${year}-${month}`;
+
+            return priceYearAndMonth === lowerMarginYearAndMonth;
+        };
+
+        const endingPriceLookup = (priceDate: Date): boolean => {
+
+            const priceYearAndMonth = `${priceDate.getFullYear()}-${priceDate.getMonth() + 1}`;
+
+            const [month, _, year] = lastDayOfLastMonth.split('-');
+
+            /*
+            Here we actually want next month after the upper limit,
+            since, in the end, we want the last day of last month
+
+            Yet, since prices are sorted ascending, the lookup
+            will return the first date of last month
+
+            Therefore, we lookup by + 1 month and then decrement the index,
+            moving from first date of next month, to last date of last month
+            */
+            const upperMarginYearAndMonth = `${year}-${Number(month) + 1}`;
+
+            return priceYearAndMonth === upperMarginYearAndMonth;
+        };
+
+        const startingPrice = prices.find(price => startingPriceLookup(price.date));
+
+        const endingPrice = prices.find(price => endingPriceLookup(price.date));
+
+        /*
+        And here is the decrement
+        */
+        return prices.slice(prices.indexOf(startingPrice!), prices.indexOf(endingPrice!) - 1);
     }
 }
