@@ -61,21 +61,21 @@ export class FinancialApiParserService {
 
     private calculateAndFillMissingMeasurements(): void {
 
-        /*
-        Calculate CAGR over ticker TTM prices
-        */
         const tickerTTMPrices = TimeSeriesHelperService.sliceDataSetIntoTTM(this.prices);
 
         const [tickerStartingPrice, tickerEndingPrice] = TimeSeriesHelperService.getStartingAndEndingPrice(
             tickerTTMPrices
         );
 
+        /*
+        Calculate CAGR over ticker TTM prices
+        */
         const cagr = CAGRCalculatorService.calculateCAGR(tickerEndingPrice, tickerStartingPrice);
 
         this.extractedTickerData.cagr = cagr;
 
         /*
-        Calculate standard deviation over entire dataset of ticker prices (since IPO date)
+        Calculate standard deviation over entire dataset of ticker prices (since IPO date until upper TTM margin)
         */
 
         const standardDeviation = StandardDeviationCalculatorService.calculateStandardDeviation(this.prices);

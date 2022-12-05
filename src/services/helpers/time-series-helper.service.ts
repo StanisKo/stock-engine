@@ -25,25 +25,25 @@ export class TimeSeriesHelperService {
 
     static getTTMMargin(): [start: string, end: string] {
 
-        const firstDayOfThisMonth = moment().subtract(1, 'month').endOf('month');
+        const lastDayOfLastMonth = moment().subtract(1, 'month').endOf('month');
 
-        let firstDayOfSameMonthOneYearBack = moment().subtract(1, 'year').startOf('month');
+        let firstDayOfCurrentMonthOneYearBack = moment().subtract(1, 'year').startOf('month');
 
         /*
         If day of the week one year back falls on the weekend,
         take last adjacent Friday
         */
-        const dayOfTheWeekOneYearBack = firstDayOfSameMonthOneYearBack.day();
+        const dayOfTheWeekOneYearBack = firstDayOfCurrentMonthOneYearBack.day();
 
         if ([5, 6].includes(dayOfTheWeekOneYearBack)) {
 
-            firstDayOfSameMonthOneYearBack = firstDayOfSameMonthOneYearBack.subtract(
+            firstDayOfCurrentMonthOneYearBack = firstDayOfCurrentMonthOneYearBack.subtract(
                 {5: 1, 6: 2}[dayOfTheWeekOneYearBack],
                 'day'
             );
         }
 
-        return [firstDayOfSameMonthOneYearBack.format('MM-DD-YYYY'), firstDayOfThisMonth.format('MM-DD-YYYY')];
+        return [firstDayOfCurrentMonthOneYearBack.format('MM-DD-YYYY'), lastDayOfLastMonth.format('MM-DD-YYYY')];
     }
 
     static getStartingAndEndingPrice(prices: ITickerPrice[]): [startingPrice: number, endingPrice: number] {
