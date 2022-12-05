@@ -110,7 +110,7 @@ export class FinancialApiParserService {
 
         const alpha = AlphaCalculatorService.calculateAlpha(tickerCagr, benchmarkCagr);
 
-        console.log(alpha);
+        this.extractedTickerData.risk.alpha = alpha;
     }
 
     public parseTickerData(): void {
