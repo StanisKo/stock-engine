@@ -8,7 +8,7 @@ import { ITickerFundamentals, ITickerPrice, ITickerFinancialData } from '../../i
 
 import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 
-export class FinancialApiService {
+export class FinancialApiConnectorService {
 
     ticker: string;
 
@@ -57,17 +57,14 @@ export class FinancialApiService {
     */
     private async requestBenchmarkPrices(): Promise<ITickerPrice[]> {
 
-        let [firstDayOfCurrentMonthOneYearBack, lastDayOfLastMonth] = TimeSeriesHelperService.getTTMMargin();
-
         /*
-        It seems that for benchmark ticker API returns values one day into past,
-        so we need to do additional ops for the sake of precision
+        API returns values one day into past, so we need to adapt our margins
         */
-        firstDayOfCurrentMonthOneYearBack = moment(
-            firstDayOfCurrentMonthOneYearBack, 'MM-DD-YYYY').add(1, 'day').format('MM-DD-YYYY');
+        const withOneDayForward = true;
 
-        lastDayOfLastMonth = moment(
-            lastDayOfLastMonth, 'MM-DD-YYYY').add(1, 'day').format('MM-DD-YYYY');
+        const [firstDayOfCurrentMonthOneYearBack, lastDayOfLastMonth] = TimeSeriesHelperService.getTTMMargin(
+            withOneDayForward
+        );
 
         const benchmarkPrices = await yahooFinance.historical(
             this.benchmarkTicker,

@@ -14,20 +14,20 @@ Saves the ticker data for potential further usage
 
 import { ServiceResponse } from '../../dtos/serviceResponse';
 
-import { FinancialApiService } from '../api/financial-api.service';
+import { FinancialApiConnectorService } from '../api/financial-api-connector.service';
 
 import { FinancialApiParserService } from '../api/financial-api-parser.service';
 
 
 export class IndustryProfileService {
 
-    financialApiService: FinancialApiService;
+    financialApiConnectorService: FinancialApiConnectorService;
 
     financialApiParserService: FinancialApiParserService;
 
     constructor(ticker: string) {
 
-        this.financialApiService = new FinancialApiService(ticker);
+        this.financialApiConnectorService = new FinancialApiConnectorService(ticker);
     }
 
     public async createIndustryProfileFromTicker(): Promise<ServiceResponse> {
@@ -35,7 +35,7 @@ export class IndustryProfileService {
         const response = new ServiceResponse();
 
         try {
-            const tickerFinancialData = await this.financialApiService.requestFinancicalTickerData();
+            const tickerFinancialData = await this.financialApiConnectorService.requestFinancicalTickerData();
 
             this.financialApiParserService = new FinancialApiParserService(tickerFinancialData);
 

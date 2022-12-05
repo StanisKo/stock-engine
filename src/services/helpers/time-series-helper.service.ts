@@ -22,11 +22,18 @@ import { ITickerPrice } from '../../interfaces/ticker.interface';
 
 export class TimeSeriesHelperService {
 
-    static getTTMMargin(): [start: string, end: string] {
+    static getTTMMargin(withOneDayForward = false): [start: string, end: string] {
 
-        const firstDayOfCurrentMonthOneYearBack = moment().subtract(1, 'year').startOf('month');
+        let firstDayOfCurrentMonthOneYearBack = moment().subtract(1, 'year').startOf('month');
 
-        const lastDayOfLastMonth = moment().subtract(1, 'month').endOf('month');
+        let lastDayOfLastMonth = moment().subtract(1, 'month').endOf('month');
+
+        if (withOneDayForward) {
+
+            firstDayOfCurrentMonthOneYearBack = firstDayOfCurrentMonthOneYearBack.add(1, 'day');
+
+            lastDayOfLastMonth = lastDayOfLastMonth.add(1, 'day');
+        }
 
         return [firstDayOfCurrentMonthOneYearBack.format('MM-DD-YYYY'), lastDayOfLastMonth.format('MM-DD-YYYY')];
     }

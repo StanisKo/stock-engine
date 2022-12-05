@@ -80,8 +80,7 @@ export class FinancialApiParserService {
 
         const standardDeviation = StandardDeviationCalculatorService.calculateStandardDeviation(this.prices);
 
-        this.extractedTickerData.risk.standardDeviation =
-            StandardDeviationCalculatorService.calculateStandardDeviation(this.prices);
+        this.extractedTickerData.risk.standardDeviation = standardDeviation;
 
         /*
         Calculate sharpe ratio over ticker TTM prices and benchmark prices (that are TTM by default)
