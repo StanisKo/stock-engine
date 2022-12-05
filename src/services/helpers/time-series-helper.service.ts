@@ -20,23 +20,11 @@ export class TimeSeriesHelperService {
     */
     static getTTMMargin(): [string, string] {
 
-        const now = moment();
+        const lastDateOfPreviousMonth = moment().subtract(1, 'month').endOf('month');
 
-        let oneYearBack = moment(now).subtract(1, 'year');
+        const firstDayOfMonthOneYearBack = moment(lastDateOfPreviousMonth).subtract(1, 'year').startOf('month');
 
-        const dayOfWeekOneYearBack = oneYearBack.day();
-
-        if (dayOfWeekOneYearBack === 5) {
-
-            oneYearBack = oneYearBack.subtract(1, 'day');
-        }
-
-        if (dayOfWeekOneYearBack === 6) {
-
-            oneYearBack = oneYearBack.subtract(2, 'day');
-        }
-
-        return [oneYearBack.format('MM-DD-YYYY'), now.format('MM-DD-YYYY')];
+        return [firstDayOfMonthOneYearBack.format('MM-DD-YYYY'), lastDateOfPreviousMonth.format('MM-DD-YYYY')];
     }
 
     static getEndingAndStartingPrice(prices: ITickerPrice[]): [number, number] {

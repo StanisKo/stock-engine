@@ -13,6 +13,9 @@ import { CalculatorHelperService } from '../helpers/calculator-helper.service';
 
 export class SharpeRatioCalculatorService {
 
+    /*
+    Don't like it, keep static, but rewrite signature, don't need to copy all these ints into scope
+    */
     static calculateSharpeRatio(
         tickerEndingPrice: number,
         tickerStartingPrice: number,
