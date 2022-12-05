@@ -39,7 +39,7 @@ export class FinancialApiService {
     }
 
     /*
-    We request ticker prices since IPO date
+    We request ticker prices since IPO date until upper TTM margin
     */
     private async requestHistoricalTickerPrices(tickerIpoDate: string): Promise<ITickerPrice[]> {
 

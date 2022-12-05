@@ -15,13 +15,19 @@ import moment from 'moment';
 
 import { ITickerPrice } from '../../interfaces/ticker.interface';
 
+/*
+In other words, if you are running your trailing 12 months reports in July 2020,
+your starting date will be July 1, 2019.
+Your ending date will be the last day of the month just completed — in this example, June 30, 2020
+*/
+
 export class TimeSeriesHelperService {
 
     static getTTMMargin(): [start: string, end: string] {
 
-        const firstDayOfThisMonth = moment().startOf('month');
+        const firstDayOfThisMonth = moment().subtract(1, 'month').endOf('month');
 
-        let firstDayOfSameMonthOneYearBack = moment(firstDayOfThisMonth).subtract(1, 'year').startOf('month');
+        let firstDayOfSameMonthOneYearBack = moment().subtract(1, 'year').startOf('month');
 
         /*
         If day of the week one year back falls on the weekend,
@@ -36,6 +42,8 @@ export class TimeSeriesHelperService {
                 'day'
             );
         }
+
+        console.log([firstDayOfSameMonthOneYearBack.format('MM-DD-YYYY'), firstDayOfThisMonth.format('MM-DD-YYYY')]);
 
         return [firstDayOfSameMonthOneYearBack.format('MM-DD-YYYY'), firstDayOfThisMonth.format('MM-DD-YYYY')];
     }

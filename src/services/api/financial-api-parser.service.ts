@@ -13,7 +13,7 @@ Returns values back to the caller in the shape of interface that adheres to Indu
 */
 
 import { IIndustryProfile } from '../../interfaces/industry-profile.interface';
-import { ITickerFinancialData, ITickerPrice } from '../../interfaces/ticker.interface';
+import { ITickerFinancialData, ITickerFundamentals, ITickerPrice } from '../../interfaces/ticker.interface';
 
 import { CAGRCalculatorService } from '../calculators/cagr-calculator.service';
 import { StandardDeviationCalculatorService } from '../calculators/standard-deviation-calculator.service';
@@ -28,11 +28,21 @@ export class FinancialApiParserService {
 
     rawTickerData: ITickerFinancialData;
 
+    fundamentals: ITickerFundamentals;
+
+    prices: ITickerPrice[];
+
+    benchmarkPrices: ITickerPrice[];
+
     constructor(rawTickerData: ITickerFinancialData) {
 
         this.extractedTickerData = {} as IIndustryProfile;
 
-        this.rawTickerData = rawTickerData;
+        this.fundamentals = rawTickerData.fundamentals;
+
+        this.prices = rawTickerData.prices;
+
+        this.benchmarkPrices = rawTickerData.benchmarkPrices;
     }
 
     private initializeSectionsToFill(): void {
@@ -49,12 +59,12 @@ export class FinancialApiParserService {
         };
     }
 
-    private calculateAndFillMissingMeasurements(prices: ITickerPrice[], benchmarkTTMPrices: ITickerPrice[]): void {
+    private calculateAndFillMissingMeasurements(): void {
 
         /*
         Calculate CAGR over ticker TTM prices
         */
-        const tickerTTMPrices = TimeSeriesHelperService.sliceDataSetIntoTTM(prices);
+        const tickerTTMPrices = TimeSeriesHelperService.sliceDataSetIntoTTM(this.prices);
 
         const [tickerStartingPrice, tickerEndingPrice] = TimeSeriesHelperService.getStartingAndEndingPrice(
             tickerTTMPrices
@@ -68,16 +78,16 @@ export class FinancialApiParserService {
         Calculate standard deviation over entire dataset of ticker prices (since IPO date)
         */
 
-        const standardDeviation = StandardDeviationCalculatorService.calculateStandardDeviation(prices);
+        const standardDeviation = StandardDeviationCalculatorService.calculateStandardDeviation(this.prices);
 
         this.extractedTickerData.risk.standardDeviation =
-            StandardDeviationCalculatorService.calculateStandardDeviation(prices);
+            StandardDeviationCalculatorService.calculateStandardDeviation(this.prices);
 
         /*
         Calculate sharpe ratio over ticker TTM prices and benchmark prices (that are TTM by default)
         */
         const [benchmarkStartingPrice, benchmarkEndingPrice] = TimeSeriesHelperService.getStartingAndEndingPrice(
-            benchmarkTTMPrices
+            this.benchmarkPrices
         );
 
         const tickerRateOfReturn = CalculatorHelperService.calculateRateOfReturn(
@@ -101,21 +111,19 @@ export class FinancialApiParserService {
 
         console.log('Started parsing the data');
 
-        const { fundamentals, prices, benchmarkPrices } = this.rawTickerData;
-
         this.initializeSectionsToFill();
 
         /*
         Extract available fields
         */
-        this.extractedTickerData.industry = fundamentals.General.Industry;
+        this.extractedTickerData.industry = this.fundamentals.General.Industry;
 
-        this.extractedTickerData.marketCap = fundamentals.Highlights.MarketCapitalization;
+        this.extractedTickerData.marketCap = this.fundamentals.Highlights.MarketCapitalization;
 
         /*
         Calculate and fill missing fields
         */
-        this.calculateAndFillMissingMeasurements(prices, benchmarkPrices);
+        this.calculateAndFillMissingMeasurements();
 
         console.log(this.extractedTickerData);
     }
