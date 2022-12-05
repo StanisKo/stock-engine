@@ -15,9 +15,6 @@ import { ITickerPrice } from '../../interfaces/ticker.interface';
 
 export class TimeSeriesHelperService {
 
-    /*
-    TODO: TTM does not include current month!
-    */
     static getTTMMargin(): [string, string] {
 
         const lastDateOfPreviousMonth = moment().subtract(1, 'month').endOf('month');
