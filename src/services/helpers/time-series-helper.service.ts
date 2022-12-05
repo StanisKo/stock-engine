@@ -22,9 +22,9 @@ export class TimeSeriesHelperService {
 
         const lastDateOfPreviousMonth = moment().subtract(1, 'month').endOf('month');
 
-        const firstDayOfMonthOneYearBack = moment().subtract(1, 'year').startOf('month');
+        const lastDayOfSameMonthOneYearBack = moment(lastDateOfPreviousMonth).subtract(1, 'year').endOf('month');
 
-        return [firstDayOfMonthOneYearBack.format('MM-DD-YYYY'), lastDateOfPreviousMonth.format('MM-DD-YYYY')];
+        return [lastDayOfSameMonthOneYearBack.format('MM-DD-YYYY'), lastDateOfPreviousMonth.format('MM-DD-YYYY')];
     }
 
     static getEndingAndStartingPrice(prices: ITickerPrice[]): [number, number] {
