@@ -18,6 +18,7 @@ import { ITickerFinancialData, ITickerFundamentals, ITickerPrice } from '../../i
 import { CAGRCalculatorService } from '../calculators/cagr-calculator.service';
 import { StandardDeviationCalculatorService } from '../calculators/standard-deviation-calculator.service';
 import { SharpeRatioCalculatorService } from '../calculators/sharpe-ratio-calculator.service';
+import { AlphaCalculatorService } from '../calculators/alpha-calculator.service';
 
 import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 import { CalculatorHelperService } from '../helpers/calculator-helper.service';
@@ -70,9 +71,9 @@ export class FinancialApiParserService {
         /*
         Calculate CAGR over ticker TTM prices
         */
-        const cagr = CAGRCalculatorService.calculateCAGR(tickerEndingPrice, tickerStartingPrice);
+        const tickerCagr = CAGRCalculatorService.calculateCAGR(tickerEndingPrice, tickerStartingPrice);
 
-        this.extractedTickerData.cagr = cagr;
+        this.extractedTickerData.cagr = tickerCagr;
 
         /*
         Calculate standard deviation over entire dataset of ticker prices (since IPO date)
@@ -104,6 +105,12 @@ export class FinancialApiParserService {
             benchmarkRateOfReturn,
             standardDeviation
         );
+
+        const benchmarkCagr = CAGRCalculatorService.calculateCAGR(benchmarkEndingPrice, benchmarkStartingPrice);
+
+        const alpha = AlphaCalculatorService.calculateAlpha(tickerCagr, benchmarkCagr);
+
+        console.log(alpha);
     }
 
     public parseTickerData(): void {
