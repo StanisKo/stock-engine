@@ -13,16 +13,14 @@ Returns values back to the caller in the shape of interface that adheres to Indu
 */
 
 import { IIndustryProfile } from '../../interfaces/industry-profile.interface';
-
 import { ITickerFinancialData, ITickerPrice } from '../../interfaces/ticker.interface';
 
 import { CAGRCalculatorService } from '../calculators/cagr-calculator.service';
-
 import { StandardDeviationCalculatorService } from '../calculators/standard-deviation-calculator.service';
-
 import { SharpeRatioCalculatorService } from '../calculators/sharpe-ratio-calculator.service';
 
 import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
+import { CalculatorHelperService } from '../helpers/calculator-helper.service';
 
 export class FinancialApiParserService {
 
@@ -39,7 +37,21 @@ export class FinancialApiParserService {
         this.rawTickerData = rawTickerData;
     }
 
-    private calculateAndExtractMissingMeasurements(prices: ITickerPrice[], benchmarkTTMPrices: ITickerPrice[]): void {
+    private initializeSectionsToFill(): void {
+
+        /*
+        Initialize risk map to fill
+        */
+        this.extractedTickerData.risk = {
+            standardDeviation: 0,
+            sharpeRatio: 0,
+            beta: 0,
+            alpha: 0,
+            rSquared: 0
+        };
+    }
+
+    private calculateAndFillMissingMeasurements(prices: ITickerPrice[], benchmarkTTMPrices: ITickerPrice[]): void {
 
         /*
         Calculate CAGR over ticker TTM prices
@@ -53,17 +65,6 @@ export class FinancialApiParserService {
         const cagr = CAGRCalculatorService.calculateCAGR(tickerEndingPrice, tickerStartingPrice);
 
         this.extractedTickerData.cagr = cagr;
-
-        /*
-        Initialize risk map to extract into
-        */
-        this.extractedTickerData.risk = {
-            standardDeviation: 0,
-            sharpeRatio: 0,
-            beta: 0,
-            alpha: 0,
-            rSquared: 0
-        };
 
         /*
         Calculate standard deviation over entire dataset of ticker prices (since IPO date)
@@ -81,11 +82,19 @@ export class FinancialApiParserService {
             benchmarkTTMPrices
         );
 
-        this.extractedTickerData.risk.sharpeRatio = SharpeRatioCalculatorService.calculateSharpeRatio(
+        const tickerRateOfReturn = CalculatorHelperService.calculateRateOfReturn(
             tickerEndingPrice,
-            tickerStartingPrice,
+            tickerStartingPrice
+        );
+
+        const benchmarkRateOfReturn = CalculatorHelperService.calculateRateOfReturn(
             benchmarkEndingPrice,
-            benchmarkStartingPrice,
+            benchmarkStartingPrice
+        );
+
+        this.extractedTickerData.risk.sharpeRatio = SharpeRatioCalculatorService.calculateSharpeRatio(
+            tickerRateOfReturn,
+            benchmarkRateOfReturn,
             standardDeviation
         );
     }
@@ -96,6 +105,8 @@ export class FinancialApiParserService {
 
         const { fundamentals, prices, benchmarkPrices } = this.rawTickerData;
 
+        this.initializeSectionsToFill();
+
         /*
         Extract available fields
         */
@@ -104,9 +115,9 @@ export class FinancialApiParserService {
         this.extractedTickerData.marketCap = fundamentals.Highlights.MarketCapitalization;
 
         /*
-        Calculate and extract missing fields
+        Calculate and fill missing fields
         */
-        this.calculateAndExtractMissingMeasurements(prices, benchmarkPrices);
+        this.calculateAndFillMissingMeasurements(prices, benchmarkPrices);
 
         console.log(this.extractedTickerData);
     }
