@@ -26,6 +26,8 @@ export class AlphaCalculatorService {
         beta: number
     ): number {
 
+        console.log('Calculated Alpha');
+
         /*
         Alpha is always expressed in decimals, therefore we divide the result by 100
         */
