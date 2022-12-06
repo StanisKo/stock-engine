@@ -94,7 +94,7 @@ export class FinancialApiConnectorService {
 
         const data = await request.json();
 
-        const indexer = data.dataset.column_names.indexOf('10 YR');
+        const indexer = data.dataset.column_names.indexOf('1 YR');
 
         const treasuryBondYield = data.dataset.data[0][indexer];
 

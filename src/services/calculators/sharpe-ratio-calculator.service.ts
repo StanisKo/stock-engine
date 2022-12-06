@@ -3,7 +3,7 @@ Sharpe Ratio = (Ticker Rate of Return - Risk Free Rate of Return) / Ticker Stand
 
 Sharpe Ratio has to be calculated over period of time, in our case -- TTM, Trailing Twelve Month RoR of ticker
 
-Our Risk Free Rate of Return is US 10 Year Treasury Bond Yield
+Our Risk Free Rate of Return is US 1 Year Treasury Bond Yield
 
 On Sharpe Ratio: https://www.investopedia.com/terms/s/sharperatio.asp
 
