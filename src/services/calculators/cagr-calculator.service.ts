@@ -17,6 +17,8 @@ export class CAGRCalculatorService {
         We can simply:
 
         ((this.endingPrice / this.startingPrice) - 1) * 100
+
+        Is kept here for the sake of potentially adjusting ranges in the future
         */
         const cagr = (
             ((endingPrice / startingPrice) - 1)
