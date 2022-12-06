@@ -8,7 +8,7 @@ R represents ticker rate of return
 
 Rf represents risk-free rate of return
 
-Beta represents the systematic risk of a portfolio
+Beta represents the systematic risk of a ticker
 
 Rm represents benchmark rate of return
 
