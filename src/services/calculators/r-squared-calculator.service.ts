@@ -14,6 +14,8 @@ On implementation:
 
 The goal is to find investments that will beat the market
 Look for lower r-squared because we're seeking stocks that don’t just match the index
+
+TODO: this is wrong
 */
 
 import { ITickerPrice } from '../../interfaces/ticker.interface';

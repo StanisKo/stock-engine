@@ -19,6 +19,7 @@ import { CAGRCalculatorService } from '../calculators/cagr-calculator.service';
 import { StandardDeviationCalculatorService } from '../calculators/standard-deviation-calculator.service';
 import { SharpeRatioCalculatorService } from '../calculators/sharpe-ratio-calculator.service';
 import { AlphaCalculatorService } from '../calculators/alpha-calculator.service';
+import { RSquaredCalculatorService } from '../calculators/r-squared-calculator.service';
 
 import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 import { CalculatorHelperService } from '../helpers/calculator-helper.service';
@@ -124,6 +125,13 @@ export class FinancialApiParserService {
         );
 
         this.extractedTickerData.risk.alpha = alpha;
+
+        /*
+        Calculate R-Squared over ticker TTM prices and benchmark TTM prices
+        */
+        const rSquared = RSquaredCalculatorService.calculateRSquared(tickerTTMPrices, this.benchmarkPrices);
+
+        this.extractedTickerData.risk.rSquared = rSquared;
     }
 
     public parseTickerData(): void {
