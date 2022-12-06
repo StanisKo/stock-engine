@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 /*
 Standard deviation — indicates how much the current return is deviating from its expected historical normal returns
 The higher standard deviation, the greater possible outcomes, both negative and positive.
@@ -47,7 +49,7 @@ export class StandardDeviationCalculatorService {
 
         const [returns, averageRateOfReturn] = CalculatorHelperService.calculateAverageRateOfReturn(prices);
 
-        const variance = CalculatorHelperService.calculateVariance(returns, averageRateOfReturn);
+        const [_, variance] = CalculatorHelperService.calculateVariance(returns, averageRateOfReturn);
 
         const standardDeviation = Math.sqrt(variance);
 
