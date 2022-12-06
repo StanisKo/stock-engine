@@ -16,6 +16,11 @@ On R-Squared: https://www.investopedia.com/terms/r/r-squared.asp
 
 On margins: https://groww.in/p/r-squared
 
+On implementation:
+
+https://www.myaccountingcourse.com/financial-ratios/r-squared
+https://www.titan.com/articles/what-is-r-squared
+
 The goal is to find investments that will beat the market
 Look for lower r-squared because we're seeking stocks that don’t just match the index
 */
