@@ -4,16 +4,18 @@
 R-Squared — measures how much the movement of the assets is influenced by the movement of the index.
 Ranges from 0 to 100.
 
-R-Squared = 1 – ( Sum of squared ticker returns (X) / Sum of squared benchmark returns (Y) )
-
-X is the dependant variable, Y is the predictor
+R-Squared = 1 - ( Explained Variance / Total Variance ) * 100
 
 On implementation:
 
-! https://www.educba.com/r-squared-formula/ !
+https://learn.robinhood.com/articles/1b0pKZVyHexpQy9MaTvlkC/what-is-r-squared/
+
+https://cdn.robinhood.com/learn_on_robinhood_assets/pdfs/instructions-r_squared_04-file.pdf
 
 The goal is to find investments that will beat the market
 Look for lower r-squared because we're seeking stocks that don’t just match the index
+
+On R-Squared: https://www.investopedia.com/terms/r/r-squared.asp
 
 TODO: this is wrong
 */
@@ -44,6 +46,6 @@ export class RSquaredCalculatorService {
             averagebenchmarkRateOfReturn
         );
 
-        return 1 - (sumOfSquaredTickerReturns / sumOfSquaredBenchmarkReturns);
+        return (1 - (sumOfSquaredBenchmarkReturns / sumOfSquaredTickerReturns)) * 100;
     }
 }
