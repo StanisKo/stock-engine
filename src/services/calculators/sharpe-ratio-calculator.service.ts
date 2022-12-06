@@ -7,8 +7,6 @@ as it indicates potential excess return relative to the volatility of the asset
 
 Sharpe Ratio = (Ticker Rate of Return - Risk Free Rate of Return) / Ticker Standard Deviation
 
-Sharpe Ratio has to be calculated over period of time, in our case -- TTM, Trailing Twelve Month RoR of ticker
-
 Our Risk Free Rate of Return is US 1 Year Treasury Bond Yield
 
 On Sharpe Ratio: https://www.investopedia.com/terms/s/sharperatio.asp
