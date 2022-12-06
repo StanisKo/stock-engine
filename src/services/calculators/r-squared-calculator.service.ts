@@ -7,6 +7,9 @@ R-Squared = 1 − (Total Variation / Unexplained Variation)
 On R-Squared: https://www.investopedia.com/terms/r/r-squared.asp
 
 On margins: https://groww.in/p/r-squared
+
+The goal is to find investments that will beat the market
+Expect lower r-squared because we're seeking stocks that don’t just match the index
 */
 
 export class RSquaredCalculatorService {
