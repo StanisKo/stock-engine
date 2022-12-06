@@ -46,9 +46,9 @@ export class CalculatorHelperService {
     /*
     To calculate variance we sum the squares of
     diffs between daily rate of return and average rate of return
-    and then divide it by count of daily returns
+    and then divide it by count of daily returns - 1
     */
-    static calculateVariance(returns: number[], averageRateOfReturn: number): [sumOfSquares: number, variance: number] {
+    static calculateVariance(returns: number[], averageRateOfReturn: number): number {
 
         let sumOfSquares = 0;
 
@@ -57,9 +57,8 @@ export class CalculatorHelperService {
             sumOfSquares += Math.pow(returns[i] - averageRateOfReturn, 2);
         }
 
-        /*
-        We need sum of squares for r-squared
-        */
-        return [sumOfSquares, sumOfSquares / returns.length - 1];
+        const variance = sumOfSquares / returns.length - 1;
+
+        return variance;
     }
 }
