@@ -13,7 +13,7 @@ export class CAGRCalculatorService {
     static calculateCAGR(endingPrice: number, startingPrice: number): number {
 
         /*
-        Since we're calculating CAGR over TTM (1 year), we don't need to bring
+        NOTE: we're calculating CAGR over TTM (1 year), we don't need to bring
         the division product to exponent of 1 / N of years:
 
         Math.pow((this.endingPrice / this.startingPrice), 1 / N of years) - 1
@@ -22,7 +22,9 @@ export class CAGRCalculatorService {
 
         ((this.endingPrice / this.startingPrice) - 1) * 100
 
-        Is kept here for the sake of potentially adjusting ranges in the future
+        In fact, we could've used normal Rate of Return calculation, yet,
+        we're keeping it here in case we'd like to adjust the timeframe in the future
+        (06-12-2022)
         */
         const cagr = (
             ((endingPrice / startingPrice) - 1)
