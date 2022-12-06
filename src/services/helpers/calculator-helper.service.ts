@@ -38,7 +38,7 @@ export class CalculatorHelperService {
         }
 
         /*
-        We need returns for standard deviation
+        We need returns for standard deviation and r-squared
         */
         return [returns, sumOfReturns / returns.length];
     }

@@ -17,7 +17,18 @@ The goal is to find investments that will beat the market
 Look for lower r-squared because we're seeking stocks that don’t just match the index
 */
 
+import { ITickerPrice } from '../../interfaces/ticker.interface';
+
+import { CalculatorHelperService } from '../helpers/calculator-helper.service';
+
 export class RSquaredCalculatorService {
 
+    static calculateRSquared(prices: ITickerPrice[]): number {
 
+        const [returns, averageRateOfReturn] = CalculatorHelperService.calculateAverageRateOfReturn(prices);
+
+        const variance = CalculatorHelperService.calculateVariance(returns, averageRateOfReturn);
+
+        return 0;
+    }
 }
