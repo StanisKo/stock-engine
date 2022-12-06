@@ -137,6 +137,9 @@ export class FinancialApiParserService {
         */
         this.extractedTickerData.industry = this.fundamentals.General.Industry;
 
+        /*
+        TODO: build helper for deducing label
+        */
         this.extractedTickerData.marketCap = this.fundamentals.Highlights.MarketCapitalization;
 
         this.extractedTickerData.risk.beta = this.fundamentals.Technicals.Beta;
