@@ -99,15 +99,23 @@ export class FinancialApiParserService {
             tickerStartingPrice
         );
 
+        const benchmarkRateOfReturn = CalculatorHelperService.calculateRateOfReturn(
+            benchmarkEndingPrice,
+            benchmarkStartingPrice
+        );
+
         this.extractedTickerData.risk.sharpeRatio = SharpeRatioCalculatorService.calculateSharpeRatio(
             tickerRateOfReturn,
             this.treasuryBondYield,
             standardDeviation
         );
 
-        const benchmarkCagr = CAGRCalculatorService.calculateCAGR(benchmarkEndingPrice, benchmarkStartingPrice);
-
-        const alpha = AlphaCalculatorService.calculateAlpha(tickerCagr, benchmarkCagr);
+        const alpha = AlphaCalculatorService.calculateAlpha(
+            tickerRateOfReturn,
+            benchmarkRateOfReturn,
+            this.treasuryBondYield,
+            this.extractedTickerData.risk.beta
+        );
 
         this.extractedTickerData.risk.alpha = alpha;
     }
