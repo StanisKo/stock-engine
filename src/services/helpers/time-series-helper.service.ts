@@ -75,9 +75,9 @@ export class TimeSeriesHelperService {
             since, in the end, we want the last day of last month
 
             Yet, since prices are sorted ascending, the lookup
-            will return the first date of last month
+            will return the first date of last month, if we were to use month of the upper limit
 
-            Therefore, we lookup by + 1 month, and slice ommitting the last
+            Therefore, we lookup by + 1 month, and slice() ommitting the last
             index will then return us last date of last month
             */
             const upperMarginYearAndMonth = `${year}-${Number(month) + 1}`;
