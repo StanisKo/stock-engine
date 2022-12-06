@@ -32,4 +32,6 @@ export interface ITickerFinancialData {
     prices: ITickerPrice[],
 
     benchmarkPrices: ITickerPrice[],
+
+    treasuryBondYield: number
 }

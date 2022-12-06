@@ -16,6 +16,10 @@ export class FinancialApiConnectorService {
 
     fundametalsDataApiUrl: string;
 
+    usTreasuryBondYieldApiURL: string;
+
+    usTreasuryBondYieldApiKey: string;
+
     constructor(ticker: string) {
 
         this.ticker = ticker;
@@ -23,6 +27,10 @@ export class FinancialApiConnectorService {
         this.benchmarkTicker = process.env.BENCHMARK_TICKER || '';
 
         this.fundametalsDataApiUrl = process.env.FUNDAMENTALS_DATA_API_URL || '';
+
+        this.usTreasuryBondYieldApiURL = process.env.US_TREASURY_BOND_YIELD_API || '';
+
+        this.usTreasuryBondYieldApiKey = process.env.US_TREASURY_BOND_YIELD_API_KEY || '';
     }
 
     private async requestFundamentalsTickerData(): Promise<ITickerFundamentals> {
@@ -79,6 +87,20 @@ export class FinancialApiConnectorService {
         return benchmarkPrices;
     }
 
+    private async requestUSTreasuryBondYield(): Promise<number> {
+        const request = await fetch(
+            `${this.usTreasuryBondYieldApiURL}?limit=1&order=desc&api_key=${this.usTreasuryBondYieldApiKey}`
+        );
+
+        const data = await request.json();
+
+        const indexer = data.dataset.column_names.indexOf('10 YR');
+
+        const treasuryBondYield = data.dataset.data[0][indexer];
+
+        return treasuryBondYield;
+    }
+
     public async requestFinancicalTickerData(): Promise<ITickerFinancialData> {
 
         const fundamentals = await this.requestFundamentalsTickerData();
@@ -87,8 +109,12 @@ export class FinancialApiConnectorService {
 
         const benchmarkPrices = await this.requestBenchmarkPrices();
 
-        console.log(`${this.ticker}: Fundamentals, prices and benchmark data is successfully retrieved`);
+        const treasuryBondYield = await this.requestUSTreasuryBondYield();
 
-        return { fundamentals, prices, benchmarkPrices };
+        console.log(
+            `${this.ticker}: Fundamentals, prices, benchmark and treasury bond yield data is successfully retrieved`
+        );
+
+        return { fundamentals, prices, benchmarkPrices, treasuryBondYield };
     }
 }
