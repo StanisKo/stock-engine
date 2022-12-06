@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-
 /*
 Sharpe Ratio = (Ticker Rate of Return - Risk Free Rate of Return) / Ticker Standard Deviation
 
