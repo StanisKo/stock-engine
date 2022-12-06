@@ -4,9 +4,12 @@ Ranges from 0 to 100.
 
 R-Squared = 1 − (Total Variation / Unexplained Variation)
 
-To calculate the total variance, you would subtract the average actual value from each of the actual values,
+To calculate the total variance,
+we would subtract the average rate of return
+from each of the actual (daily) returns of the ticker;
 square the results and sum them
-From there, divide the first sum of errors (unexplained variance) by the second sum (total variance),
+
+From there, we divide the first sum of errors (unexplained variance) by the second sum (total variance),
 subtract the result from one, and you have the R-squared
 
 On R-Squared: https://www.investopedia.com/terms/r/r-squared.asp
