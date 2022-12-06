@@ -75,9 +75,9 @@ export class FinancialApiParserService {
         /*
         Calculate CAGR over ticker TTM prices
         */
-        const tickerCagr = CAGRCalculatorService.calculateCAGR(tickerEndingPrice, tickerStartingPrice);
+        const cagr = CAGRCalculatorService.calculateCAGR(tickerStartingPrice, tickerEndingPrice);
 
-        this.extractedTickerData.cagr = tickerCagr;
+        this.extractedTickerData.cagr = cagr;
 
         /*
         Calculate standard deviation over entire dataset of ticker prices (since IPO date)
