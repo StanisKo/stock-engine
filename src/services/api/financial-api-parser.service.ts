@@ -95,13 +95,13 @@ export class FinancialApiParserService {
         );
 
         const tickerRateOfReturn = CalculatorHelperService.calculateRateOfReturn(
-            tickerEndingPrice,
-            tickerStartingPrice
+            tickerStartingPrice,
+            tickerEndingPrice
         );
 
         const benchmarkRateOfReturn = CalculatorHelperService.calculateRateOfReturn(
-            benchmarkEndingPrice,
-            benchmarkStartingPrice
+            benchmarkStartingPrice,
+            benchmarkEndingPrice
         );
 
         this.extractedTickerData.risk.sharpeRatio = SharpeRatioCalculatorService.calculateSharpeRatio(
@@ -110,6 +110,10 @@ export class FinancialApiParserService {
             standardDeviation
         );
 
+        /*
+        Calculate alpha over ticker rate of return, benchmark rate of return,
+        risk-free rate (US Treasury 1YR bond yield), and ticker's beta
+        */
         const alpha = AlphaCalculatorService.calculateAlpha(
             tickerRateOfReturn,
             benchmarkRateOfReturn,

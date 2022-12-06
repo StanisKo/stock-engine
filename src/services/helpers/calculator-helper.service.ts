@@ -2,7 +2,7 @@ import { ITickerPrice } from '../../interfaces/ticker.interface';
 
 export class CalculatorHelperService {
 
-    static calculateRateOfReturn(endingPrice: number, startingPrice: number): number {
+    static calculateRateOfReturn(startingPrice: number, endingPrice: number): number {
 
         return ((endingPrice - startingPrice) / startingPrice) * 100;
     }
