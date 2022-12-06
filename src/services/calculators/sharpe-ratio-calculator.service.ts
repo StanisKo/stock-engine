@@ -1,4 +1,10 @@
 /*
+Sharpe Ratio — measures rate of return on the asset above risk-free investment,
+such as treasury bonds or cash
+In other words, measures whether the risk is justified against investing into risk-free assets
+A Sharpe Ratio above 1.0 is considered good,
+as it indicates potential excess return relative to the volatility of the asset
+
 Sharpe Ratio = (Ticker Rate of Return - Risk Free Rate of Return) / Ticker Standard Deviation
 
 Sharpe Ratio has to be calculated over period of time, in our case -- TTM, Trailing Twelve Month RoR of ticker

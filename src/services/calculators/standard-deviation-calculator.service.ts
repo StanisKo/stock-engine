@@ -1,4 +1,7 @@
 /*
+Standard deviation — indicates how much the current return is deviating from its expected historical normal returns
+The higher standard deviation, the greater possible outcomes, both negative and positive.
+
 Standard Deviation is the square root of Variance
 
 Therefore, in order to get to SD we need to calculate V

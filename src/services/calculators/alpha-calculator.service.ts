@@ -1,4 +1,7 @@
 /*
+Alpha — measures excess returns/losses against the return of the index
+Expressed in a decimal (0.N) that is a percentage of over or under performance
+
 Alpha = (R – Rf) – beta * (Rm - Rf)
 
 R represents ticker rate of return
