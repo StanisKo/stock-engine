@@ -42,4 +42,23 @@ export class CalculatorHelperService {
         */
         return [returns, sumOfReturns / returns.length];
     }
+
+    /*
+    To calculate variance we sum the squares of
+    diffs between daily rate of return and average rate of return
+    and then divide it by count of daily returns
+    */
+    static calculateVariance(returns: number[], averageRateOfReturn: number): number {
+
+        let sumOfSquares = 0;
+
+        for (let i = 0; i < returns.length; i++) {
+
+            sumOfSquares += Math.pow(returns[i] - averageRateOfReturn, 2);
+        }
+
+        const variance = sumOfSquares / returns.length - 1;
+
+        return variance;
+    }
 }
