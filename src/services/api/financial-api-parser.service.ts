@@ -35,6 +35,8 @@ export class FinancialApiParserService {
 
     benchmarkPrices: ITickerPrice[];
 
+    treasuryBondYield: number;
+
     constructor(rawTickerData: ITickerFinancialData) {
 
         this.extractedTickerData = {} as IIndustryProfile;
@@ -44,6 +46,8 @@ export class FinancialApiParserService {
         this.prices = rawTickerData.prices;
 
         this.benchmarkPrices = rawTickerData.benchmarkPrices;
+
+        this.treasuryBondYield = rawTickerData.treasuryBondYield;
     }
 
     private initializeSectionsToFill(): void {
@@ -95,14 +99,9 @@ export class FinancialApiParserService {
             tickerStartingPrice
         );
 
-        const benchmarkRateOfReturn = CalculatorHelperService.calculateRateOfReturn(
-            benchmarkEndingPrice,
-            benchmarkStartingPrice
-        );
-
         this.extractedTickerData.risk.sharpeRatio = SharpeRatioCalculatorService.calculateSharpeRatio(
             tickerRateOfReturn,
-            benchmarkRateOfReturn,
+            this.treasuryBondYield,
             standardDeviation
         );
 
