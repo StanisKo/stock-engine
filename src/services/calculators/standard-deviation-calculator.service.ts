@@ -33,6 +33,8 @@ ARoR = SUM(RoR) / N(RoR) where N is count of datapoints we have
 ****
 
 On Standard Deviation: https://www.investopedia.com/terms/s/standarddeviation.asp
+
+TODO: how to use (check r squared)
 */
 
 import { ITickerPrice } from '../../interfaces/ticker.interface';

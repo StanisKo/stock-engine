@@ -6,6 +6,8 @@ It represents one of the most accurate ways to calculate and determine returns f
 CAGR = ( [ (Ending Price / Starting Price) ^ (1 / N of years to look back) ] - 1) * 100
 
 On CAGR: https://www.investopedia.com/terms/c/cagr.asp
+
+TODO: how to use (check r squared)
 */
 
 export class CAGRCalculatorService {

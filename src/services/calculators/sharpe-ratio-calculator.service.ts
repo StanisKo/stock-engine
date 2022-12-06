@@ -12,6 +12,8 @@ Our Risk Free Rate of Return is US 1 Year Treasury Bond Yield
 On Sharpe Ratio: https://www.investopedia.com/terms/s/sharperatio.asp
 
 On Treasury Bond Yield: https://www.investopedia.com/articles/investing/100814/why-10-year-us-treasury-rates-matter.asp
+
+TODO: how to use (check r squared)
 */
 
 export class SharpeRatioCalculatorService {

@@ -13,6 +13,8 @@ Beta represents the systematic risk of a ticker
 Rm represents benchmark rate of return
 
 On Alpha: https://www.investopedia.com/terms/a/alpha.asp
+
+TODO: how to use (check r squared)
 */
 
 export class AlphaCalculatorService {
