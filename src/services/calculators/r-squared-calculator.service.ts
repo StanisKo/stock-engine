@@ -28,7 +28,7 @@ export class RSquaredCalculatorService {
 
         let sumOfTickerReturns = 0, sumOfBenchmarkReturns = 0, sumOfMultipliedReturns = 0;
 
-        let sumOfSquaredTickerReturns = 0, squaredSumOfBenchmarkReturns = 0;
+        let sumOfSquaredTickerReturns = 0, sumOfSquaredBenchmarkReturns = 0;
 
         /*
         We first loop through returns, sum both datasets against themselves,
@@ -45,7 +45,7 @@ export class RSquaredCalculatorService {
 
             sumOfSquaredTickerReturns += Math.pow(tickerReturns[i], 2);
 
-            squaredSumOfBenchmarkReturns += Math.pow(benchmarkReturns[i], 2);
+            sumOfSquaredBenchmarkReturns += Math.pow(benchmarkReturns[i], 2);
         }
 
         /*
@@ -61,7 +61,7 @@ export class RSquaredCalculatorService {
             N * sumOfSquaredTickerReturns - Math.pow(sumOfTickerReturns, 2);
 
         const benchmarkDiffBetweenSumOfSquaredAndSquaredSum =
-            N * squaredSumOfBenchmarkReturns - Math.pow(sumOfBenchmarkReturns, 2);
+            N * sumOfSquaredBenchmarkReturns - Math.pow(sumOfBenchmarkReturns, 2);
 
         /*
         Finally, we calculate correlation coefficient
