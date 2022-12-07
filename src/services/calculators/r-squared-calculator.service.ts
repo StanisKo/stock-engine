@@ -24,21 +24,43 @@ export class RSquaredCalculatorService {
 
     static calculateRSquared(prices: ITickerPrice[], benchmarkPrices: ITickerPrice[]): number {
 
-        /*
-        Returns of both index and ticker are the basis
-        */
-
-        const explainedVariance = 1;
-
-        const [tickerReturns, averageTickerRateOfReturn] = CalculatorHelperService.calculateAverageRateOfReturn(
+        const [tickerReturns, tickerAverageRateOfReturn] = CalculatorHelperService.calculateAverageRateOfReturn(
             prices
         );
 
-        const totalVariance = CalculatorHelperService.calculateVariance(
-            tickerReturns,
-            averageTickerRateOfReturn
+        const [benchmarkReturns, benchmarkAverageRateOfReturn] = CalculatorHelperService.calculateAverageRateOfReturn(
+            benchmarkPrices
         );
 
-        return 0;
+        const tickerStandardDeviation = CalculatorHelperService.calculateStandardDeviation(
+            tickerReturns,
+            tickerAverageRateOfReturn
+        );
+
+        const benchmarkStandardDeviation = CalculatorHelperService.calculateStandardDeviation(
+            benchmarkReturns,
+            benchmarkAverageRateOfReturn
+        );
+
+        let sumOfMultipliedDifferences = 0;
+
+        for (let i = 0; i < tickerReturns.length; i++) {
+
+            const multipliedDifference =
+                (tickerReturns[i] - tickerAverageRateOfReturn) * (benchmarkReturns[i] - benchmarkAverageRateOfReturn);
+
+            sumOfMultipliedDifferences += multipliedDifference;
+        }
+
+        const differencesDividedByDeviations =
+            sumOfMultipliedDifferences / (tickerStandardDeviation * benchmarkStandardDeviation);
+
+        const correlation = differencesDividedByDeviations / tickerReturns.length - 1;
+
+        const rSquared = Math.pow(correlation, 2);
+
+        console.log(rSquared);
+
+        return rSquared;
     }
 }
