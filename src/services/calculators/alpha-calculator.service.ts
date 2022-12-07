@@ -29,10 +29,11 @@ export class AlphaCalculatorService {
         console.log('Calculated Alpha');
 
         /*
-        Alpha is always expressed in decimals, therefore we divide the result by 100
+        NOTE: we do not express alhpa in decimals (therefore, no division by 100)
+        we want to see immediate percentage value
         */
         return (
             (tickerRateOfReturn - treasuryBondYield) - beta * (benchmarkRateOfReturn - treasuryBondYield)
-        ) / 100;
+        );
     }
 }
