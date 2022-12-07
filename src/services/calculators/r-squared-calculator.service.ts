@@ -22,7 +22,7 @@ import { CalculatorHelperService } from '../helpers/calculator-helper.service';
 
 export class RSquaredCalculatorService {
 
-    private static calculateCorrelationCoefficient(tickerReturns: number[], benchmarkReturns: number[]): number {
+    private static calculateCorrelation(tickerReturns: number[], benchmarkReturns: number[]): number {
 
         const N = tickerReturns.length;
 
@@ -64,13 +64,13 @@ export class RSquaredCalculatorService {
             N * sumOfSquaredBenchmarkReturns - Math.pow(sumOfBenchmarkReturns, 2);
 
         /*
-        Finally, we calculate correlation coefficient
+        Finally, we calculate correlation
         */
-        const correlationCoefficient = covariance / Math.sqrt(
+        const correlation = covariance / Math.sqrt(
             tickerDiffBetweenSumOfSquaresAndSquaredSum * benchmarkDiffBetweenSumOfSquaredAndSquaredSum
         );
 
-        return correlationCoefficient;
+        return correlation;
     }
 
     static calculateRSquared(prices: ITickerPrice[], benchmarkPrices: ITickerPrice[]): number {
@@ -83,7 +83,7 @@ export class RSquaredCalculatorService {
             benchmarkPrices
         );
 
-        const correlation = RSquaredCalculatorService.calculateCorrelationCoefficient(
+        const correlation = RSquaredCalculatorService.calculateCorrelation(
             tickerReturns,
             benchmarkReturns
         );
