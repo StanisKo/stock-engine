@@ -44,6 +44,10 @@ export class CalculatorHelperService {
     }
 
     /*
+    Move this back to SD!
+    */
+
+    /*
     To calculate variance we sum the squares of
     diffs between daily rate of return and average rate of return
     and then divide it by count of daily returns - 1
