@@ -55,7 +55,34 @@ export class RSquaredCalculatorService {
 
     private static calculateCorrelationCoefficient(tickerReturns: number[], benchmarkReturns: number[]): number {
 
-        return 0;
+        const N = tickerReturns.length;
+
+        let sumOfTickerReturns = 0, sumOfBenchmarkReturns = 0, sumOfMultipliedReturns = 0;
+
+        let squareSumOfTickerReturns = 0, squareSumOfBenchmarkReturns = 0;
+
+        for(let i = 0; i < N; i++){
+
+            sumOfTickerReturns += tickerReturns[i];
+
+            sumOfBenchmarkReturns += benchmarkReturns[i];
+
+            sumOfMultipliedReturns += tickerReturns[i] * benchmarkReturns[i];
+
+            squareSumOfTickerReturns += Math.pow(tickerReturns[i], 2);
+
+            squareSumOfBenchmarkReturns += Math.pow(benchmarkReturns[i], 2);
+        }
+
+        const covariance = (N * sumOfMultipliedReturns - sumOfTickerReturns * sumOfBenchmarkReturns);
+
+        const correlation = covariance /
+                   Math.sqrt(
+                       (N * squareSumOfTickerReturns - Math.pow(sumOfTickerReturns, 2))
+                        * (N * squareSumOfBenchmarkReturns - Math.pow(sumOfBenchmarkReturns, 2))
+                   );
+
+        return correlation;
     }
 
     static calculateRSquared(prices: ITickerPrice[], benchmarkPrices: ITickerPrice[]): number {
