@@ -56,6 +56,8 @@ export class RSquaredCalculatorService {
         /*
         Then find diffs between sum of squared returns
         and the square of the returns' sum for each set
+
+        THESE ARE STANDARD DEVIATIONS OF RETURNS, NOT PRICES (reuse sd!)
         */
         const tickerDiffBetweenSumOfSquaresAndSquaredSum =
             N * sumOfSquaredTickerReturns - Math.pow(sumOfTickerReturns, 2);
