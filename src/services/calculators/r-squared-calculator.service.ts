@@ -43,11 +43,11 @@ export class RSquaredCalculatorService {
             squareSumOfBenchmarkReturns += Math.pow(benchmarkReturns[i], 2);
         }
 
-        const covariance = (N * sumOfMultipliedReturns - sumOfTickerReturns * sumOfBenchmarkReturns);
+        const covariance = N * sumOfMultipliedReturns - sumOfTickerReturns * sumOfBenchmarkReturns;
 
-        const tickerStandardDeviation = (N * squareSumOfTickerReturns - Math.pow(sumOfTickerReturns, 2));
+        const tickerStandardDeviation = N * squareSumOfTickerReturns - Math.pow(sumOfTickerReturns, 2);
 
-        const benchmarkStandardDeviation = (N * squareSumOfBenchmarkReturns - Math.pow(sumOfBenchmarkReturns, 2));
+        const benchmarkStandardDeviation = N * squareSumOfBenchmarkReturns - Math.pow(sumOfBenchmarkReturns, 2);
 
         const correlationCoefficient = covariance / Math.sqrt(tickerStandardDeviation * benchmarkStandardDeviation);
 
