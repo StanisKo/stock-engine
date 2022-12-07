@@ -4,17 +4,13 @@
 R-Squared — measures how much the movement of the assets is influenced by the movement of the index.
 Ranges from 0 to 100.
 
-R-Squared = 1 - ( Explained Variance / Total Variance ) * 100
-
-NOTE: There might be the other way via correlation
-
-On implementation:
-
-https://learn.robinhood.com/articles/1b0pKZVyHexpQy9MaTvlkC/what-is-r-squared/
-
-https://cdn.robinhood.com/learn_on_robinhood_assets/pdfs/instructions-r_squared_04-file.pdf
+R-Squared = r^2
 
 On R-Squared: https://www.investopedia.com/terms/r/r-squared.asp
+
+On Correlation: https://www.investopedia.com/terms/c/correlationcoefficient.asp
+
+Thank you: https://github.com/rubenvar/calculate-correlation/blob/main/lib/correlation.js
 
 The goal is to find investments that will beat the market
 Look for lower r-squared because we're seeking stocks that don’t just match the index

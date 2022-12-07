@@ -61,4 +61,13 @@ export class CalculatorHelperService {
 
         return variance;
     }
+
+    static calculateStandardDeviation(returns: number[], averageRateOfReturn: number): number {
+
+        const variance = CalculatorHelperService.calculateVariance(returns, averageRateOfReturn);
+
+        const standardDeviation = Math.sqrt(variance);
+
+        return standardDeviation;
+    }
 }

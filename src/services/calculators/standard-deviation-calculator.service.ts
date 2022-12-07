@@ -49,9 +49,7 @@ export class StandardDeviationCalculatorService {
 
         const [returns, averageRateOfReturn] = CalculatorHelperService.calculateAverageRateOfReturn(prices);
 
-        const variance = CalculatorHelperService.calculateVariance(returns, averageRateOfReturn);
-
-        const standardDeviation = Math.sqrt(variance);
+        const standardDeviation = CalculatorHelperService.calculateStandardDeviation(returns, averageRateOfReturn);
 
         console.log('Calculated Standard Deviation');
 
