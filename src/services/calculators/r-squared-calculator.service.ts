@@ -28,8 +28,13 @@ export class RSquaredCalculatorService {
 
         let sumOfTickerReturns = 0, sumOfBenchmarkReturns = 0, sumOfMultipliedReturns = 0;
 
-        let squareSumOfTickerReturns = 0, squareSumOfBenchmarkReturns = 0;
+        let sumOfSquaredTickerReturns = 0, squaredSumOfBenchmarkReturns = 0;
 
+        /*
+        We first loop through returns, sum both datasets against themselves,
+        sum the products of multiplication between each ticker-benchmark return pair,
+        and sum the squares of each instance within each dataset
+        */
         for(let i = 0; i < N; i++){
 
             sumOfTickerReturns += tickerReturns[i];
@@ -38,18 +43,32 @@ export class RSquaredCalculatorService {
 
             sumOfMultipliedReturns += tickerReturns[i] * benchmarkReturns[i];
 
-            squareSumOfTickerReturns += Math.pow(tickerReturns[i], 2);
+            sumOfSquaredTickerReturns += Math.pow(tickerReturns[i], 2);
 
-            squareSumOfBenchmarkReturns += Math.pow(benchmarkReturns[i], 2);
+            squaredSumOfBenchmarkReturns += Math.pow(benchmarkReturns[i], 2);
         }
 
+        /*
+        We then calculate covariance between ticker-benchmark returns
+        */
         const covariance = N * sumOfMultipliedReturns - sumOfTickerReturns * sumOfBenchmarkReturns;
 
-        const tickerStandardDeviation = N * squareSumOfTickerReturns - Math.pow(sumOfTickerReturns, 2);
+        /*
+        Then find diffs between sum of squared returns
+        and the square of the returns' sum for each set
+        */
+        const tickerDiffBetweenSumOfSquaresAndSquaredSum =
+            N * sumOfSquaredTickerReturns - Math.pow(sumOfTickerReturns, 2);
 
-        const benchmarkStandardDeviation = N * squareSumOfBenchmarkReturns - Math.pow(sumOfBenchmarkReturns, 2);
+        const benchmarkDiffBetweenSumOfSquaredAndSquaredSum =
+            N * squaredSumOfBenchmarkReturns - Math.pow(sumOfBenchmarkReturns, 2);
 
-        const correlationCoefficient = covariance / Math.sqrt(tickerStandardDeviation * benchmarkStandardDeviation);
+        /*
+        Finally, we calculate correlation coefficient
+        */
+        const correlationCoefficient = covariance / Math.sqrt(
+            tickerDiffBetweenSumOfSquaresAndSquaredSum * benchmarkDiffBetweenSumOfSquaredAndSquaredSum
+        );
 
         return correlationCoefficient;
     }
