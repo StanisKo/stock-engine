@@ -20,7 +20,7 @@ import { CalculatorHelperService } from '../helpers/calculator-helper.service';
 
 export class RSquaredCalculatorService {
 
-    private static calculateCorrelationCoefficient(X: number[], Y: number[], n: number): number {
+    private static foo(X: number[], Y: number[], n: number): number {
          
         let sum_X = 0, sum_Y = 0, sum_XY = 0;
         let squareSum_X = 0, squareSum_Y = 0;
@@ -53,45 +53,24 @@ export class RSquaredCalculatorService {
         return corr;
     }
 
+    private static calculateCorrelationCoefficient(tickerReturns: number[], benchmarkReturns: number[]): number {
+
+        return 0;
+    }
+
     static calculateRSquared(prices: ITickerPrice[], benchmarkPrices: ITickerPrice[]): number {
 
-        const [tickerReturns, tickerAverageRateOfReturn] = CalculatorHelperService.calculateAverageRateOfReturn(
+        const [tickerReturns] = CalculatorHelperService.calculateAverageRateOfReturn(
             prices
         );
 
-        const [benchmarkReturns, benchmarkAverageRateOfReturn] = CalculatorHelperService.calculateAverageRateOfReturn(
+        const [benchmarkReturns] = CalculatorHelperService.calculateAverageRateOfReturn(
             benchmarkPrices
         );
 
-        // const tickerStandardDeviation = CalculatorHelperService.calculateStandardDeviation(
-        //     tickerReturns,
-        //     tickerAverageRateOfReturn
-        // );
-
-        // const benchmarkStandardDeviation = CalculatorHelperService.calculateStandardDeviation(
-        //     benchmarkReturns,
-        //     benchmarkAverageRateOfReturn
-        // );
-
-        // let sumOfMultipliedDifferences = 0;
-
-        // for (let i = 0; i < tickerReturns.length; i++) {
-
-        //     const multipliedDifference =
-        //         (tickerReturns[i] - tickerAverageRateOfReturn) * (benchmarkReturns[i] - benchmarkAverageRateOfReturn);
-
-        //     sumOfMultipliedDifferences += multipliedDifference;
-        // }
-
-        // const differencesDividedByDeviations =
-        //     sumOfMultipliedDifferences / (tickerStandardDeviation * benchmarkStandardDeviation);
-
-        // const correlation = differencesDividedByDeviations / tickerReturns.length - 1;
-
         const correlation = RSquaredCalculatorService.calculateCorrelationCoefficient(
             tickerReturns,
-            benchmarkReturns,
-            tickerReturns.length
+            benchmarkReturns
         );
 
         const rSquared = Math.pow(correlation, 2) * 100;

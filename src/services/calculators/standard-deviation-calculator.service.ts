@@ -45,11 +45,32 @@ import { CalculatorHelperService } from '../helpers/calculator-helper.service';
 
 export class StandardDeviationCalculatorService {
 
+    /*
+    To calculate variance we sum the squares of
+    diffs between daily rate of return and average rate of return
+    and then divide it by count of daily returns - 1
+    */
+    private static calculateVariance(returns: number[], averageRateOfReturn: number): number {
+
+        let sumOfSquares = 0;
+
+        for (let i = 0; i < returns.length; i++) {
+
+            sumOfSquares += Math.pow(returns[i] - averageRateOfReturn, 2);
+        }
+
+        const variance = sumOfSquares / returns.length - 1;
+
+        return variance;
+    }
+
     static calculateStandardDeviation(prices: ITickerPrice[]): number {
 
         const [returns, averageRateOfReturn] = CalculatorHelperService.calculateAverageRateOfReturn(prices);
 
-        const standardDeviation = CalculatorHelperService.calculateStandardDeviation(returns, averageRateOfReturn);
+        const variance = this.calculateVariance(returns, averageRateOfReturn);
+
+        const standardDeviation = Math.sqrt(variance);
 
         console.log('Calculated Standard Deviation');
 
