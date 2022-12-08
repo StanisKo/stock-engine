@@ -84,6 +84,14 @@ export class FinancialApiParserService {
             returnOnEquity: 0,
             profitMargin: 0
         };
+
+        /*
+        Initialize liquidity map to fill
+        */
+        this.extractedTickerData.liquidity = {
+            currentRatio: 0,
+            quickRatio: 0
+        };
     }
 
     private calculateAndFillMissingMeasurements(): void {
@@ -201,5 +209,11 @@ export class FinancialApiParserService {
         this.calculateAndFillMissingMeasurements();
 
         console.log(this.extractedTickerData);
+
+        const lastAnnualBalanceSheet = this.fundamentals.Financials.Balance_Sheet.yearly[
+            Object.keys(this.fundamentals.Financials.Balance_Sheet.yearly)[0]
+        ];
+
+        console.log(lastAnnualBalanceSheet);
     }
 }
