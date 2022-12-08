@@ -16,11 +16,15 @@ SD = Standard Deviation
 
 r (Correlation) = Covariance(TR, TB) / SD of TR * SD of BR
 
-Covariance = 
+N = Dataset Size
+
+Covariance = N * SUM(TR * BR) - SUM(TR) * SUM(BR)
 
 On R-Squared: https://www.investopedia.com/terms/r/r-squared.asp
 
 On Correlation: https://www.investopedia.com/terms/c/correlationcoefficient.asp
+
+On Covariance: https://www.investopedia.com/terms/c/covariance.asp
 
 The goal is to find investments that will beat the market
 Look for lower r-squared because we're seeking stocks that don’t just match the index
