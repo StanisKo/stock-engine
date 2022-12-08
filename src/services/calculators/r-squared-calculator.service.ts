@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 /*
 R-Squared — measures how much the movement of the assets is influenced by the movement of the index.
 Ranges from 0 to 100.
