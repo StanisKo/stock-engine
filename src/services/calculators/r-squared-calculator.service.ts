@@ -32,6 +32,10 @@ GOAL:
 
 Find investments that will beat the market
 We're looking for LOWEST R-Qquared since we need stocks that deviate from the index (market)
+
+R-Squared Ranges:
+    * >= 85 && <= 100: Closely correlates with index (influenced by 85-100%)
+    * <= 70: Does not perform like index (influenced by 70% or less)
 */
 
 import { ITickerPrice } from '../../interfaces/ticker.interface';

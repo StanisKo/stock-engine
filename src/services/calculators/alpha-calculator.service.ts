@@ -21,6 +21,10 @@ GOAL:
 
 Find investments that outperform the market
 We're looking for HIGHEST Alpha since we need stocks that perform better than index (market)
+
+Alpha Ranges:
+    * > 0: Outperforms the index
+    * < 0: Underperforms the index.
 */
 
 export class AlphaCalculatorService {
