@@ -24,8 +24,12 @@ On Correlation: https://www.investopedia.com/terms/c/correlationcoefficient.asp
 
 On Covariance: https://www.investopedia.com/terms/c/covariance.asp
 
-The goal is to find investments that will beat the market
-Look for lower r-squared because we're seeking stocks that don’t just match the index
+****
+
+GOAL:
+
+Find investments that will beat the market
+We're looking for lowest r-squared since we need stocks that deviate from the index (market)
 */
 
 import { ITickerPrice } from '../../interfaces/ticker.interface';
