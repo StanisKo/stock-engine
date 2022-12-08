@@ -1,16 +1,17 @@
 /*
 Alpha — measures excess returns/losses against the return of the index
-Expressed in a decimal (0.N) that is a percentage of over or under performance
 
-Alpha = (R – Rf) – beta * (Rm - Rf)
+Alpha = (R – Rf) – Beta * (Rm - Rf)
 
-R represents ticker rate of return
+R = Ticker Rate of Return
 
-Rf represents risk-free rate of return
+Rf = Risk-Free Rate of Return
 
-Beta represents the systematic risk of a ticker
+Beta = Systematic Risk of a Ticker
 
-Rm represents benchmark rate of return
+Rm = Benchmark Rate of Return
+
+****
 
 On Alpha: https://www.investopedia.com/terms/a/alpha.asp
 

@@ -14,9 +14,11 @@ SD = Standard Deviation
 
 r (Correlation) = Covariance(TR, TB) / SD of TR * SD of BR
 
+Covariance = N * SUM(TR * BR) - SUM(TR) * SUM(BR)
+
 N = Dataset Size
 
-Covariance = N * SUM(TR * BR) - SUM(TR) * SUM(BR)
+****
 
 On R-Squared: https://www.investopedia.com/terms/r/r-squared.asp
 

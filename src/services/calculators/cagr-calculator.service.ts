@@ -1,13 +1,22 @@
 /*
-Compound Annual Growth Rate (CAGR) —mean annual growth rate of an investment
-over a specified period of time longer than one year
+Compound Annual Growth Rate (CAGR) — mean annual growth rate of an investment
+over a specified period of time longer than one year* (check comment inside class)
+
 It represents one of the most accurate ways to calculate and determine returns for an asset
 
 CAGR = ( [ (Ending Price / Starting Price) ^ (1 / N of years to look back) ] - 1) * 100
 
+****
+
 On CAGR: https://www.investopedia.com/terms/c/cagr.asp
 
-TODO: how to use (check r squared)
+****
+
+GOAL:
+
+Find investments that are more profitable within the timeframe than peers
+We're looking for HIGHEST CAGR since we need stocks that perfrom better
+than other stocks in the given industry
 */
 
 export class CAGRCalculatorService {
