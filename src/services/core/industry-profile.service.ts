@@ -3,7 +3,10 @@ Iteration 1:
 
 Accepts a ticker that serves as an input for sculpting the profile for given industry
 
-Fetches financial data on the ticker (fundamentals, prices)
+Fetches financial data on the ticker (fundamentals, prices, benchmark prices, risk free rate)
+
+TODO: during bulk processing, there is no need to fetch benchmark prices and risk-free rate for
+every ticker
 
 Makes use of Parser Service to match API response with our own schema
 
@@ -12,22 +15,22 @@ Creates and saves industry profile
 Saves the ticker data for potential further usage
 */
 
-import { ServiceResponse } from '../dtos/serviceResponse';
+import { ServiceResponse } from '../../dtos/serviceResponse';
 
-import { FinancialApiService } from './financial-api.service';
+import { FinancialApiConnectorService } from '../api/financial-api-connector.service';
 
-import { FinancialApiParserService } from './financial-api-parser.service';
+import { FinancialApiParserService } from '../api/financial-api-parser.service';
 
 
 export class IndustryProfileService {
 
-    financialApiService: FinancialApiService;
+    financialApiConnectorService: FinancialApiConnectorService;
 
     financialApiParserService: FinancialApiParserService;
 
     constructor(ticker: string) {
 
-        this.financialApiService = new FinancialApiService(ticker);
+        this.financialApiConnectorService = new FinancialApiConnectorService(ticker);
     }
 
     public async createIndustryProfileFromTicker(): Promise<ServiceResponse> {
@@ -35,7 +38,7 @@ export class IndustryProfileService {
         const response = new ServiceResponse();
 
         try {
-            const tickerFinancialData = await this.financialApiService.requestFinancicalTickerData();
+            const tickerFinancialData = await this.financialApiConnectorService.requestFinancicalTickerData();
 
             this.financialApiParserService = new FinancialApiParserService(tickerFinancialData);
 

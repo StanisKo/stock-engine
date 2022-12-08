@@ -1,72 +1,44 @@
 /*
+Compound Annual Growth Rate (CAGR) — mean annual growth rate of an investment
+over a specified period of time longer than one year* (check comment inside class)
+
+It represents one of the most accurate ways to calculate and determine returns for an asset
+
 CAGR = ( [ (Ending Price / Starting Price) ^ (1 / N of years to look back) ] - 1) * 100
 
+****
+
 On CAGR: https://www.investopedia.com/terms/c/cagr.asp
+
+****
+
+GOAL:
+
+Find investments that are more profitable within the timeframe than peers
+We're looking for HIGHEST CAGR since we need stocks that perfrom better
+than other stocks in the given industry
 */
-
-import moment from 'moment';
-
-import { ITickerPrice } from '../../interfaces/ticker.interface';
 
 export class CAGRCalculatorService {
 
-    startingPrice: number;
-
-    endingPrice: number;
-
-    constructor(prices: ITickerPrice[]) {
+    static calculateCAGR(startingPrice: number, endingPrice: number): number {
 
         /*
-        As we're calculating CAGR on year-to-date basis, we need the price
-        exactly on year back
+        NOTE: we're calculating CAGR over TTM (1 year), we don't need to bring
+        the division product to exponent of 1 / N of years:
 
-        Yet, there are some edge cases: if one year back falls on Saturday or Sunday,
-        we need to take the price from the adjacent Friday
-        */
+        Math.pow((this.endingPrice / this.startingPrice), 1 / N of years) - 1
 
-        const now = new Date();
-
-        let oneYearBack = moment(now).subtract(1, 'year');
-
-        const dayOfWeekOneYearBack = oneYearBack.day();
-
-        if (dayOfWeekOneYearBack === 5) {
-
-            oneYearBack = oneYearBack.subtract(1, 'day');
-        }
-
-        if (dayOfWeekOneYearBack === 6) {
-
-            oneYearBack = oneYearBack.subtract(2, 'day');
-        }
-
-        const oneYearBackAsString = oneYearBack.format('YYYY-MM-DD');
-
-        /*
-        Knowing the precise date, we can now define the starting price
-        as well as ending price
-        */
-
-        this.startingPrice = prices.find(price => price.date === oneYearBackAsString)?.adjusted_close || 0;
-
-        this.endingPrice = prices[prices.length - 1].adjusted_close;
-    }
-
-    public calculateCAGR(): number {
-
-        /*
-        Here, bringing the diff between ending price and starting price to the exponent
-        of 1 divided by number of years to look back is unnecessary, since we're always
-        calculating one year back
-
-        Yet, kept if business logic will change (V1, 01-12-2022)
-
-        Otherwise, the expression would be:
+        We can simply:
 
         ((this.endingPrice / this.startingPrice) - 1) * 100
+
+        In fact, we could've used normal Rate of Return calculation, yet,
+        we're keeping it here in case we'd like to adjust the timeframe in the future
+        (06-12-2022)
         */
-        const cagr =  (
-            Math.pow((this.endingPrice / this.startingPrice), 1 / 1) - 1
+        const cagr = (
+            ((endingPrice / startingPrice) - 1)
         ) * 100;
 
         console.log('Calculated CAGR');

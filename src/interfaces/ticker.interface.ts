@@ -10,7 +10,7 @@ export interface ITickerFundamentals {
 
 export interface ITickerPrice {
 
-    date: string;
+    date: Date;
 
     open: number;
 
@@ -20,26 +20,9 @@ export interface ITickerPrice {
 
     close: number;
 
-    adjusted_close: number;
+    adjClose: number;
 
     volume: number;
-}
-
-export interface IBenchmarkPrice {
-
-    date: Date,
-
-    open: number,
-
-    high: number,
-
-    low: number,
-
-    close: number,
-
-    adjClose: number,
-
-    volume: number
 }
 
 export interface ITickerFinancialData {
@@ -48,5 +31,7 @@ export interface ITickerFinancialData {
 
     prices: ITickerPrice[],
 
-    riskFreeBenchmarkPrices: IBenchmarkPrice[],
+    benchmarkPrices: ITickerPrice[],
+
+    treasuryBondYield: number
 }
