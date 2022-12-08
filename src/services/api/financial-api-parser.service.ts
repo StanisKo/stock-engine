@@ -164,6 +164,23 @@ export class FinancialApiParserService {
         this.extractedTickerData.risk.beta = this.fundamentals.Technicals.Beta;
 
         /*
+        We, of course, use trailing PE
+
+        NOTE: this is also available at this.fundamentals.Valuation.TrailingPE
+        */
+        this.extractedTickerData.valuation.priceToEarning = this.fundamentals.Highlights.PERatio;
+
+        this.extractedTickerData.valuation.priceToEarningsGrowth = this.fundamentals.Highlights.PEGRatio;
+
+        this.extractedTickerData.valuation.priceToSales = this.fundamentals.Valuation.PriceSalesTTM;
+
+        this.extractedTickerData.valuation.priceToBook = this.fundamentals.Valuation.PriceBookMRQ;
+
+        this.extractedTickerData.valuation.dividendYield = this.fundamentals.Highlights.DividendYield;
+
+        this.extractedTickerData.valuation.dividendPayout = this.fundamentals.SplitsDividends.PayoutRatio;
+
+        /*
         Calculate and fill missing fields
         */
         this.calculateAndFillMissingMeasurements();
