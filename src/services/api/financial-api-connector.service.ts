@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import moment from 'moment';
 import fetch from 'node-fetch';
 import yahooFinance from 'yahoo-finance2';

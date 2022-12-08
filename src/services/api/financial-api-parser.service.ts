@@ -7,7 +7,7 @@ Accepts raw ticker data
 
 Extracts fields necessary for industry profile
 
-Makes use of calculator service to calculate missing ratios
+Makes use of calculator services to calculate missing ratios
 
 Returns values back to the caller in the shape of interface that adheres to Industry Profile schema
 */
@@ -76,9 +76,8 @@ export class FinancialApiParserService {
         /*
         Calculate CAGR over ticker TTM prices
         */
-        const cagr = CAGRCalculatorService.calculateCAGR(tickerStartingPrice, tickerEndingPrice);
 
-        this.extractedTickerData.cagr = cagr;
+        this.extractedTickerData.cagr = CAGRCalculatorService.calculateCAGR(tickerStartingPrice, tickerEndingPrice);
 
         /*
         Calculate standard deviation over entire dataset of ticker prices (since IPO date)
@@ -117,21 +116,21 @@ export class FinancialApiParserService {
             benchmarkEndingPrice
         );
 
-        const alpha = AlphaCalculatorService.calculateAlpha(
+        this.extractedTickerData.risk.alpha = AlphaCalculatorService.calculateAlpha(
             tickerRateOfReturn,
             benchmarkRateOfReturn,
             this.treasuryBondYield,
             this.extractedTickerData.risk.beta
         );
 
-        this.extractedTickerData.risk.alpha = alpha;
-
         /*
         Calculate R-Squared over ticker TTM prices and benchmark TTM prices
         */
-        const rSquared = RSquaredCalculatorService.calculateRSquared(tickerTTMPrices, this.benchmarkPrices);
 
-        this.extractedTickerData.risk.rSquared = rSquared;
+        this.extractedTickerData.risk.rSquared = RSquaredCalculatorService.calculateRSquared(
+            tickerTTMPrices,
+            this.benchmarkPrices
+        );
     }
 
     public parseTickerData(): void {
