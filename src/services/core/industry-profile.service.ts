@@ -3,7 +3,10 @@ Iteration 1:
 
 Accepts a ticker that serves as an input for sculpting the profile for given industry
 
-Fetches financial data on the ticker (fundamentals, prices)
+Fetches financial data on the ticker (fundamentals, prices, benchmark prices, risk free rate)
+
+TODO: during bulk processing, there is no need to fetch benchmark prices and risk-free rate for
+every ticker
 
 Makes use of Parser Service to match API response with our own schema
 
