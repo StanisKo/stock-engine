@@ -29,7 +29,7 @@ On Covariance: https://www.investopedia.com/terms/c/covariance.asp
 GOAL:
 
 Find investments that will beat the market
-We're looking for lowest r-squared since we need stocks that deviate from the index (market)
+We're looking for LOWEST r-squared since we need stocks that deviate from the index (market)
 */
 
 import { ITickerPrice } from '../../interfaces/ticker.interface';

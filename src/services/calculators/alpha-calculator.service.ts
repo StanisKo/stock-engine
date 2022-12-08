@@ -14,7 +14,12 @@ Rm represents benchmark rate of return
 
 On Alpha: https://www.investopedia.com/terms/a/alpha.asp
 
-TODO: how to use (check r squared)
+****
+
+GOAL:
+
+Find investments that outperform the market
+We're looking for HIGHEST alpha since we need stocks that perform better than index (market)
 */
 
 export class AlphaCalculatorService {
