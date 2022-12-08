@@ -75,6 +75,15 @@ export class FinancialApiParserService {
             dividendYield: 0,
             dividendPayout: 0
         };
+
+        /*
+        Initialize profitability map to fill
+        */
+        this.extractedTickerData.profitability = {
+            returnOnAssets: 0,
+            returnOnEquity: 0,
+            profitMargin: 0
+        };
     }
 
     private calculateAndFillMissingMeasurements(): void {
@@ -179,6 +188,12 @@ export class FinancialApiParserService {
         this.extractedTickerData.valuation.dividendYield = this.fundamentals.Highlights.DividendYield;
 
         this.extractedTickerData.valuation.dividendPayout = this.fundamentals.SplitsDividends.PayoutRatio;
+
+        this.extractedTickerData.profitability.returnOnAssets = this.fundamentals.Highlights.ReturnOnAssetsTTM;
+
+        this.extractedTickerData.profitability.returnOnEquity = this.fundamentals.Highlights.ReturnOnEquityTTM;
+
+        this.extractedTickerData.profitability.profitMargin = this.fundamentals.Highlights.ProfitMargin;
 
         /*
         Calculate and fill missing fields
