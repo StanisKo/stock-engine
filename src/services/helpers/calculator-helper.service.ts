@@ -42,4 +42,13 @@ export class CalculatorHelperService {
         */
         return [returns, sumOfReturns / returns.length];
     }
+
+    static calculateStandardDeviationOverReturns(
+        datasetSize: number,
+        sumOfReturns: number,
+        sumOfSquaredReturns: number
+    ): number {
+
+        return datasetSize * sumOfSquaredReturns - Math.pow(sumOfReturns, 2);
+    }
 }

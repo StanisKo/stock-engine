@@ -8,6 +8,16 @@ NOTE: We're using correlation-based formula to calculate r-squared:
 
 R-Squared = r^2
 
+TR = Ticker Returns
+
+BR = Benchmark Returns
+
+SD = Standard Deviation
+
+r (Correlation) = Covariance(TR, TB) / SD of TR * SD of BR
+
+Covariance = 
+
 On R-Squared: https://www.investopedia.com/terms/r/r-squared.asp
 
 On Correlation: https://www.investopedia.com/terms/c/correlationcoefficient.asp
@@ -54,22 +64,27 @@ export class RSquaredCalculatorService {
         const covariance = N * sumOfMultipliedReturns - sumOfTickerReturns * sumOfBenchmarkReturns;
 
         /*
-        Then find diffs between sum of squared returns
-        and the square of the returns' sum for each set
-
-        THESE ARE STANDARD DEVIATIONS OF RETURNS, NOT PRICES (reuse sd!)
+        Then find standard deviation of returns
         */
-        const tickerDiffBetweenSumOfSquaresAndSquaredSum =
-            N * sumOfSquaredTickerReturns - Math.pow(sumOfTickerReturns, 2);
+        const standardDeviationOfTickerReturns =
+            CalculatorHelperService.calculateStandardDeviationOverReturns(
+                N,
+                sumOfTickerReturns,
+                sumOfSquaredTickerReturns
+            );
 
-        const benchmarkDiffBetweenSumOfSquaredAndSquaredSum =
-            N * sumOfSquaredBenchmarkReturns - Math.pow(sumOfBenchmarkReturns, 2);
+        const standardDeviationOfBenchmarkReturns =
+            CalculatorHelperService.calculateStandardDeviationOverReturns(
+                N,
+                sumOfBenchmarkReturns,
+                sumOfSquaredBenchmarkReturns
+            );
 
         /*
         Finally, we calculate correlation
         */
         const correlation = covariance / Math.sqrt(
-            tickerDiffBetweenSumOfSquaresAndSquaredSum * benchmarkDiffBetweenSumOfSquaredAndSquaredSum
+            standardDeviationOfTickerReturns * standardDeviationOfBenchmarkReturns
         );
 
         return correlation;
