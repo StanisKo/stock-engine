@@ -31,7 +31,7 @@ On Covariance: https://www.investopedia.com/terms/c/covariance.asp
 GOAL:
 
 Find investments that will beat the market
-We're looking for LOWEST R-Qquared since we need stocks that deviate from the index (market)
+We're looking for LOWEST R-Squared since we need stocks that deviate from the index (market)
 
 R-Squared Ranges:
     * >= 85 && <= 100: Closely correlates with index (influenced by 85-100%)

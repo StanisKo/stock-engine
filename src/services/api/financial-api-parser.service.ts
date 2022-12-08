@@ -63,6 +63,18 @@ export class FinancialApiParserService {
             alpha: 0,
             rSquared: 0
         };
+
+        /*
+        Initialize valuation map to fill
+        */
+        this.extractedTickerData.valuation = {
+            priceToEarning: 0,
+            priceToEarningsGrowth: 0,
+            priceToSales: 0,
+            priceToBook: 0,
+            dividendYield: 0,
+            dividendPayout: 0
+        };
     }
 
     private calculateAndFillMissingMeasurements(): void {
