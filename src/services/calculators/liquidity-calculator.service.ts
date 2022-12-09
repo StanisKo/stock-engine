@@ -15,4 +15,14 @@ export class LiquidityCalculatorService {
 
         return currentAssets / currentLiabilities;
     }
+
+    static calculateQuickRatio(
+        cashAndEquivalents: number,
+        marketableSecurities: number,
+        accountReceivable: number,
+        currentLiabilities: number
+    ): number {
+
+        return (cashAndEquivalents + marketableSecurities + accountReceivable) / currentLiabilities;
+    }
 }
