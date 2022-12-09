@@ -174,9 +174,8 @@ export class FinancialApiParserService {
         );
 
         this.extractedTickerData.liquidity.quickRatio = LiquidityCalculatorService.calculateQuickRatio(
-            Number(lastAnnualBalanceSheet.cash),
             Number(lastAnnualBalanceSheet.cashAndEquivalents),
-            Number(lastAnnualBalanceSheet.commonStock) + Number(lastAnnualBalanceSheet.shortTermInvestments),
+            Number(lastAnnualBalanceSheet.cashAndShortTermInvestments),
             Number(lastAnnualBalanceSheet.netReceivables),
             Number(lastAnnualBalanceSheet.totalCurrentLiabilities)
         );
