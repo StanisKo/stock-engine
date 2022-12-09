@@ -10,11 +10,7 @@ Quick Ratio = Quick Assets / Current Liabilities
 
 Quick Assets = Cash + Cash Equivalents + Marketable Securities + Net Receivables
 
-NOTE:
-
-API provides Cash and Cash Equivalents as cashAndEquivalents
-
-API provides Marketable Securities as cashAndShortTermInvestments
+NOTE: API provides Cash, Cash Equivalents and Marketable Securities as cashAndShortTermInvestments
 
 ****
 
@@ -31,12 +27,11 @@ export class LiquidityCalculatorService {
     }
 
     static calculateQuickRatio(
-        cashAndEquivalents: number,
         cashAndShortTermInvestments: number,
-        accountReceivable: number,
+        netReceivables: number,
         currentLiabilities: number
     ): number {
 
-        return (cashAndEquivalents + cashAndShortTermInvestments + accountReceivable) / currentLiabilities;
+        return (cashAndShortTermInvestments + netReceivables) / currentLiabilities;
     }
 }
