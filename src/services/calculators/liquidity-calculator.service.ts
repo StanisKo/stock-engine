@@ -6,7 +6,15 @@ Current Ratio = Current Assets / Current Liabilities
 
 Quick Ratio similar to Current Ratio, but is more conservative. As a rule, lower than Current Ratio
 
-Quick Ratio = (Cash & Equivalents + Marketable Securities + Account Receivable) / Current Liabilities
+Quick Ratio = Quick Assets / Current Liabilities
+
+Quick Assets = Cash + Cash & Equivalents + Marketable Securities + Net Receivables
+
+****
+
+On marketable securities: https://www.investopedia.com/terms/m/marketablesecurities.asp
+
+On quick assets: https://www.investopedia.com/terms/q/quickratio.asp
 */
 
 export class LiquidityCalculatorService {
@@ -17,12 +25,13 @@ export class LiquidityCalculatorService {
     }
 
     static calculateQuickRatio(
+        cash: number,
         cashAndEquivalents: number,
         marketableSecurities: number,
         accountReceivable: number,
         currentLiabilities: number
     ): number {
 
-        return (cashAndEquivalents + marketableSecurities + accountReceivable) / currentLiabilities;
+        return (cash + cashAndEquivalents + marketableSecurities + accountReceivable) / currentLiabilities;
     }
 }

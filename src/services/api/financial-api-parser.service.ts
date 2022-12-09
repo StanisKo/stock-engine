@@ -162,8 +162,22 @@ export class FinancialApiParserService {
             this.benchmarkPrices
         );
 
+        /*
+        Calculate Liqudity based on last annual balance sheet
+        */
+
+        console.log(lastAnnualBalanceSheet);
+
         this.extractedTickerData.liquidity.currentRatio = LiquidityCalculatorService.calculateCurrentRatio(
             Number(lastAnnualBalanceSheet.totalCurrentAssets),
+            Number(lastAnnualBalanceSheet.totalCurrentLiabilities)
+        );
+
+        this.extractedTickerData.liquidity.quickRatio = LiquidityCalculatorService.calculateQuickRatio(
+            Number(lastAnnualBalanceSheet.cash),
+            Number(lastAnnualBalanceSheet.cashAndEquivalents),
+            Number(lastAnnualBalanceSheet.commonStock) + Number(lastAnnualBalanceSheet.shortTermInvestments),
+            Number(lastAnnualBalanceSheet.netReceivables),
             Number(lastAnnualBalanceSheet.totalCurrentLiabilities)
         );
     }
@@ -209,6 +223,9 @@ export class FinancialApiParserService {
 
         this.extractedTickerData.profitability.profitMargin = this.fundamentals.Highlights.ProfitMargin;
 
+        /*
+        Get the last annual balance sheet necessary for liquidity and debt calculations
+        */
         const lastAnnualBalanceSheet = this.fundamentals.Financials.Balance_Sheet.yearly[
             Object.keys(this.fundamentals.Financials.Balance_Sheet.yearly)[0]
         ];
