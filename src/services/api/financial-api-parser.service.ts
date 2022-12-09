@@ -163,10 +163,8 @@ export class FinancialApiParserService {
         );
 
         /*
-        Calculate Liqudity based on last annual balance sheet
+        Calculate Liquidity based on last annual balance sheet
         */
-
-        console.log(lastAnnualBalanceSheet);
 
         this.extractedTickerData.liquidity.currentRatio = LiquidityCalculatorService.calculateCurrentRatio(
             Number(lastAnnualBalanceSheet.totalCurrentAssets),
