@@ -20,6 +20,7 @@ import { StandardDeviationCalculatorService } from '../calculators/standard-devi
 import { SharpeRatioCalculatorService } from '../calculators/sharpe-ratio-calculator.service';
 import { AlphaCalculatorService } from '../calculators/alpha-calculator.service';
 import { RSquaredCalculatorService } from '../calculators/r-squared-calculator.service';
+import { LiquidityCalculatorService } from '../calculators/liquidity-calculator.service';
 
 import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 import { CalculatorHelperService } from '../helpers/calculator-helper.service';
@@ -94,7 +95,7 @@ export class FinancialApiParserService {
         };
     }
 
-    private calculateAndFillMissingMeasurements(): void {
+    private calculateAndFillMissingMeasurements(lastAnnualBalanceSheet: ITickerFundamentals): void {
 
         const tickerTTMPrices = TimeSeriesHelperService.sliceDataSetIntoTTM(this.prices);
 
@@ -160,6 +161,11 @@ export class FinancialApiParserService {
             tickerTTMPrices,
             this.benchmarkPrices
         );
+
+        this.extractedTickerData.liquidity.currentRatio = LiquidityCalculatorService.calculateCurrentRatio(
+            Number(lastAnnualBalanceSheet.totalCurrentAssets),
+            Number(lastAnnualBalanceSheet.totalCurrentLiabilities)
+        );
     }
 
     public parseTickerData(): void {
@@ -203,17 +209,15 @@ export class FinancialApiParserService {
 
         this.extractedTickerData.profitability.profitMargin = this.fundamentals.Highlights.ProfitMargin;
 
-        /*
-        Calculate and fill missing fields
-        */
-        this.calculateAndFillMissingMeasurements();
-
-        console.log(this.extractedTickerData);
-
         const lastAnnualBalanceSheet = this.fundamentals.Financials.Balance_Sheet.yearly[
             Object.keys(this.fundamentals.Financials.Balance_Sheet.yearly)[0]
         ];
 
-        console.log(lastAnnualBalanceSheet);
+        /*
+        Calculate and fill missing fields
+        */
+        this.calculateAndFillMissingMeasurements(lastAnnualBalanceSheet);
+
+        console.log(this.extractedTickerData);
     }
 }
