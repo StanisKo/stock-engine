@@ -183,7 +183,9 @@ export interface IIndustryProfile {
         /*
         Denotes how much interest you earn from dividends.
 
-        Target: <= 5% && > Peers
+        Target: <= 5% && > Industry Peers
+
+        NOTE: we do not concern ourselves with dividends yet
         */
         dividendYield: number,
 
@@ -192,6 +194,8 @@ export interface IIndustryProfile {
         Helps to understand if company can sustain its dividend payouts in the future.
 
         Target: >= 50% && <= 70%
+
+        NOTE: we do not concern ourselves with dividends yet
         */
         dividendPayout: number
     },
