@@ -248,6 +248,12 @@ export interface IIndustryProfile {
         where short-term obligations are debt due within 1 year period.
 
         Target: > Industry Peers
+
+        Find investments whose companies are safe from the prospects of bancruptcy
+        and are not burdened by debt
+
+        We're looking for HIGHEST Current Ratio, since we want stocks whose issuers
+        have little to no issues managing their leverage
         */
         currentRatio: number,
 
