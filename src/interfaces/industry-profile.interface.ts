@@ -236,7 +236,7 @@ export interface IIndustryProfile {
 
         Find investments that have the highest potential to be profitable based on company's operations
 
-        We're looking for HIGHEST Profit Margin, since we need stocks whose companies make most profit
+        We're looking for HIGHEST Profit Margin, since we need stocks whose issuers make most profit
         */
         profitMargin: number
     },
