@@ -1,4 +1,6 @@
 /*
+TODO: add missing ratios, clean up comments, prepare everything for V1 (bulk ingest and sorting)
+
 NOTE: at this point in time, all of the measurement and ratios fields are optional,
 since companies do not expose everything in their financial statements and,
 therefore, not all values are available via the API
