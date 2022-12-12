@@ -56,6 +56,13 @@ export interface IIndustryProfile {
         /*
         Indicates how much the current return is deviating from its expected historical normal returns.
         The higher standard deviation, the greater possible outcomes, both negative and positive.
+
+        Target: > Market Peers
+
+        Find investments that have potential for exponential growth
+
+        We're looking for HIGHEST Standard Deviation since we need stocks that
+        can potentially outperform their expected historical normal returns
         */
         standardDeviation: number,
 
@@ -65,7 +72,11 @@ export interface IIndustryProfile {
         A Sharpe Ratio above 1.0 is considered good, as it indicates potential excess return
         relative to the volatility of the asset.
 
-        Target: > 1.0
+        Target: > 1.0 && > Market Peers
+
+        Find investments that justify the risk of investing
+        We're looking for HIGHEST Sharpe Ratio since we need stocks that are safer than investing
+        into risk-free assets (bonds, cash, gold, etc.)
         */
         sharpeRatio: number,
 

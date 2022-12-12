@@ -20,10 +20,10 @@ On Standard Deviation: https://www.investopedia.com/terms/s/standarddeviation.as
 
 GOAL:
 
-Find investments that are predictable and do not fall into extremes
+Find investments that have potential for exponential growth
 
-We're looking for AVERAGE Standard Deviation since we need stocks that do not
-deviate strongly from their expected historical normal returns
+We're looking for HIGHEST Standard Deviation since we need stocks that
+can potentially outperform their expected historical normal returns
 */
 
 import { ITickerPrice } from '../../interfaces/ticker.interface';
