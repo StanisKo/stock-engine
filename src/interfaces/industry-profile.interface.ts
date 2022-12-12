@@ -7,22 +7,7 @@ TODO: think of weights ratios might have
 
 TODO: restructure in preparation for V1
 
-NOTE: at this point in time, all of the measurement and ratios fields are optional,
-since companies do not expose everything in their financial statements and,
-therefore, not all values are available via the API
-
-NOTE: it might be the case we'd need to calculate some missing values, provided
-API delivers financial documents (balance sheet, income statement, cash flow statement)
-
-NOTE: Since all values except those under risk must be compared with the same industry,
-we should aspire for creating only one profile per industry
-
-Iteration 0 (24-11-2022):
-
-At this point in time we have only 2 profiles, both sculpted from my core positions:
-NIO and APPS -- Automotive and Digital Advertising, respectively
-
-This might/will change with further business ideas
+TODO: rename to IStockProfile
 */
 
 export interface IIndustryProfile {
