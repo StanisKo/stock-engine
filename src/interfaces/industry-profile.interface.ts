@@ -261,6 +261,8 @@ export interface IIndustryProfile {
         Similar to Current Ratio, but is more conservative. As a rule, lower than Current Ratio.
 
         Target: > Industry Peers
+
+        See Current Ratio
         */
         quickRatio: number
     },
