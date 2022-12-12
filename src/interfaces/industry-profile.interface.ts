@@ -250,10 +250,9 @@ export interface IIndustryProfile {
         Target: > Industry Peers
 
         Find investments whose companies are safe from the prospects of bancruptcy
-        and are not burdened by debt
 
         We're looking for HIGHEST Current Ratio, since we want stocks whose issuers
-        have little to no issues managing their leverage
+        have little to no issues managing their short-term capital
         */
         currentRatio: number,
 
@@ -275,6 +274,11 @@ export interface IIndustryProfile {
         Displays company’s ability to service it’s long-term debt obligations. The lower the number, the better.
 
         Target: < Industry Peers
+
+        Find investments that have sensible leverage and are not burdened by debt
+
+        We're looking for LOWEST D/E since we want stocks whose issuers have prospects
+        to continue into the future without defaulting on their obligations
         */
         debtToEquity: number,
 
