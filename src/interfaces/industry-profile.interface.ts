@@ -219,7 +219,12 @@ export interface IIndustryProfile {
         Displays how effective the company is using its investment from shareholders to generate income.
         The higher the number, the better.
 
-        Target: > Peers
+        Target: > Industry Peers
+
+        Find investments that have the highest potential to be profitable based on issued shares
+
+        We're looking for HIGHEST ROE, since we need stocks whose common stock is managed
+        in the most profitable manner
         */
         returnOnEquity: number,
 
