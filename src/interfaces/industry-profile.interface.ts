@@ -17,7 +17,7 @@ API delivers financial documents (balance sheet, income statement, cash flow sta
 NOTE: Since all values except those under risk must be compared with the same industry,
 we should aspire for creating only one profile per industry
 
-Iteration 1 (24-11-2022):
+Iteration 0 (24-11-2022):
 
 At this point in time we have only 2 profiles, both sculpted from my core positions:
 NIO and APPS -- Automotive and Digital Advertising, respectively
