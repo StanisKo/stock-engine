@@ -21,6 +21,7 @@ import { SharpeRatioCalculatorService } from '../calculators/sharpe-ratio-calcul
 import { AlphaCalculatorService } from '../calculators/alpha-calculator.service';
 import { RSquaredCalculatorService } from '../calculators/r-squared-calculator.service';
 import { LiquidityCalculatorService } from '../calculators/liquidity-calculator.service';
+import { DebtCalculatorService } from '../calculators/debt-calculator.service';
 
 import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 import { CalculatorHelperService } from '../helpers/calculator-helper.service';
@@ -102,7 +103,10 @@ export class FinancialApiParserService {
         };
     }
 
-    private calculateAndFillMissingMeasurements(lastAnnualBalanceSheet: ITickerFundamentals): void {
+    private calculateAndFillMissingMeasurements(
+        lastAnnualBalanceSheet: ITickerFundamentals,
+        lastAnnualIncomeStatement: ITickerFundamentals
+    ): void {
 
         const tickerTTMPrices = TimeSeriesHelperService.sliceDataSetIntoTTM(this.prices);
 
@@ -183,6 +187,15 @@ export class FinancialApiParserService {
             Number(lastAnnualBalanceSheet.netReceivables),
             Number(lastAnnualBalanceSheet.totalCurrentLiabilities)
         );
+
+        /*
+        Calculate Debt based on last annual balance sheet and income statement
+        */
+
+        this.extractedTickerData.debt.debtToEquity = DebtCalculatorService.calculateDebtToEquity(
+            Number(lastAnnualBalanceSheet.totalLiab),
+            Number(lastAnnualBalanceSheet.totalStockholderEquity)
+        );
     }
 
     public parseTickerData(): void {
@@ -240,7 +253,7 @@ export class FinancialApiParserService {
         /*
         Calculate and fill missing fields
         */
-        this.calculateAndFillMissingMeasurements(lastAnnualBalanceSheet);
+        this.calculateAndFillMissingMeasurements(lastAnnualBalanceSheet, lastAnnualIncomeStatement);
 
         console.log(this.extractedTickerData);
     }
