@@ -26,7 +26,7 @@ export interface IIndustryProfile {
 
       Find investments that historically are most profitable
 
-      We're looking for HIGHEST CAGR since we need stocks that are more profitables
+      We're looking for HIGHEST CAGR since we need stocks that are more profitable
       than others on the market
       */
       cagr: number,
@@ -52,7 +52,7 @@ export interface IIndustryProfile {
 
         Target: > Market Peers
 
-        Find investments that have potential for exponential growth
+        Find investments that have potential for fast growth
 
         We're looking for HIGHEST Standard Deviation since we need stocks that
         can potentially outperform their expected historical normal returns
@@ -123,7 +123,7 @@ export interface IIndustryProfile {
         
         Target: < 70% && < Market Peers
 
-        Find investments that will beat the market
+        Find investments that do not follow the market
 
         We're looking for LOWEST R-Squared since we need stocks that deviate from the index (market)
         */
