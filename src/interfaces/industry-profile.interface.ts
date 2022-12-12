@@ -247,14 +247,14 @@ export interface IIndustryProfile {
         Denotes company’s capacity to meet it’s short-term obligations (debt),
         where short-term obligations are debt due within 1 year period.
 
-        Target: > Peers
+        Target: > Industry Peers
         */
         currentRatio: number,
 
         /*
         Similar to Current Ratio, but is more conservative. As a rule, lower than Current Ratio.
 
-        Target: > Peers
+        Target: > Industry Peers
         */
         quickRatio: number
     },
@@ -266,7 +266,7 @@ export interface IIndustryProfile {
         and the amount of capital contributed by shareholders (equity).
         Displays company’s ability to service it’s long-term debt obligations. The lower the number, the better.
 
-        Target: < Peers
+        Target: < Industry Peers
         */
         debtToEquity: number,
 
@@ -276,7 +276,7 @@ export interface IIndustryProfile {
         times the company can pay its obligations using its earnings.
         The higher the number, the better
 
-        Target: > 1.0 && > Peers
+        Target: > 1.0 && > Industry Peers
         */
         interestCoverage: number
     }
