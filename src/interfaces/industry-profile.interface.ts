@@ -34,8 +34,7 @@ export interface IIndustryProfile {
       /*
       Size measurement of the stock
 
-      No target: all small, medium and large caps have a potential to be profitable
-      investments
+      No target: all small, medium and large caps have a potential to be profitable investments
       */
       marketCap: {
 
