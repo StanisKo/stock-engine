@@ -206,7 +206,12 @@ export interface IIndustryProfile {
         Displays how effectively the company is using its assets to generate income.
         The higher the number, the better.
 
-        Target: > Peers
+        Target: > Industry Peers
+
+        Find investments that have the highest potential to be profitable based on company's assets
+
+        We're looking for HIGHEST ROA, since we need stocks whose assets are managed
+        in the most profitable manner
         */
         returnOnAssets: number,
 
