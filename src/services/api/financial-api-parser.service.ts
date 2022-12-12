@@ -93,6 +93,13 @@ export class FinancialApiParserService {
             currentRatio: 0,
             quickRatio: 0
         };
+
+        /*
+        Initialize debt map to fill
+        */
+        this.extractedTickerData.debt = {
+            debtToEquity: 0
+        };
     }
 
     private calculateAndFillMissingMeasurements(lastAnnualBalanceSheet: ITickerFundamentals): void {
