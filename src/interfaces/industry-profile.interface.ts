@@ -175,7 +175,10 @@ export interface IIndustryProfile {
         debtToEquity: number,
 
         /*
-        NOTE: WIP
+        Measures how easily a company can pay interest on its outstanding debt.
+        It represents how many (typically the number of quarters or fiscal years)
+        times the company can pay its obligations using its earnings.
+        The higher the number, the better
         */
         interestCoverage: number
     }

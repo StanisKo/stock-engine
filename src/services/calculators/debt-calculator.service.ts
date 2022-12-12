@@ -1,10 +1,13 @@
 /*
-
-Debt to Equity Measures the relationship between the amount of capital that has been borrowed (debt),
+Debt to Equity measures the relationship between the amount of capital that has been borrowed (debt),
 and the amount of capital contributed by shareholders (equity)
-Displays company’s ability to service it’s long-term debt obligations. The lower the number, the better
+Displays company’s ability to service it’s long-term debt obligations
+The lower the number, the better
 
-Interest Coverage
+Interest Coverage measures how easily a company can pay interest on its outstanding debt
+It represents how many (typically the number of quarters or fiscal years)
+times the company can pay its obligations using its earnings
+The higher the number, the better
 
 ****
 
