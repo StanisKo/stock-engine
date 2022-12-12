@@ -221,7 +221,8 @@ export interface IIndustryProfile {
 
         Target: > Industry Peers
 
-        Find investments that have the highest potential to be profitable based on issued shares
+        Find investments that have the highest potential to be profitable based on capital gained from
+        issued shares
 
         We're looking for HIGHEST ROE, since we need stocks whose common stock is managed
         in the most profitable manner
@@ -231,7 +232,11 @@ export interface IIndustryProfile {
         /*
         Denotes how much profit company makes after deducting liabilites.
 
-        Target: > Peers
+        Target: > Industry Peers
+
+        Find investments that have the highest potential to be profitable based on company's operations
+
+        We're looking for HIGHEST Profit Margin, since we need stocks whose companies make most profit
         */
         profitMargin: number
     },
