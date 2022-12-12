@@ -233,6 +233,10 @@ export class FinancialApiParserService {
             Object.keys(this.fundamentals.Financials.Balance_Sheet.yearly)[0]
         ];
 
+        const lastAnnualIncomeStatement = this.fundamentals.Financials.Income_Statement.yearly[
+            Object.keys(this.fundamentals.Financials.Income_Statement.yearly)[0]
+        ];
+
         /*
         Calculate and fill missing fields
         */
