@@ -173,6 +173,10 @@ export interface IIndustryProfile {
         Reflects how stock is priced against company’s actual worth.
 
         Target: < 1.0 && < Industry Peers
+
+        Find investments that cost as little as possible against their actual value as a company
+
+        We're looking for LOWEST P/B, since we need stocks that are undervalues for their value as a company
         */
         priceToBook: number,
 
