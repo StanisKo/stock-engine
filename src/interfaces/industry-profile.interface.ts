@@ -22,7 +22,7 @@ export interface IIndustryProfile {
       over a specified period of time longer than one year.
       It represents one of the most accurate ways to calculate and determine returns for an asset.
 
-      Target: > Peers
+      Target: > Industry Peers
 
       Find investments that historically are most profitable
 
