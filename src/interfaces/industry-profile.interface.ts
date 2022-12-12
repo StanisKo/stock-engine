@@ -75,6 +75,7 @@ export interface IIndustryProfile {
         Target: > 1.0 && > Market Peers
 
         Find investments that justify the risk of investing
+
         We're looking for HIGHEST Sharpe Ratio since we need stocks that are safer than investing
         into risk-free assets (bonds, cash, gold, etc.)
         */
@@ -91,8 +92,13 @@ export interface IIndustryProfile {
             * == 1.0: Mirrors the volatility of the index.
             * > 1.0: More volatile than the index.
             * < 0: Moves opposite direction of the index (very rare).
-        
-        Target: > 1.0
+
+        Target: > 1.0 && > Market Peers
+
+        Find investments that have potential to grow faster than the market
+
+        We're looking for HIGHEST Beta since we need stocks that
+        can move more intensely (faster) than the market
         */
         beta: number,
 
@@ -105,8 +111,12 @@ export interface IIndustryProfile {
         Alpha Ranges:
             * > 0: Outperforms the index
             * < 0: Underperforms the index.
-        
-        Target: > 0
+
+        Target: > 0 && > Market Peers
+
+        Find investments that outperform the market
+
+        We're looking for HIGHEST Alpha since we need stocks that perform better than index (market)
         */
         alpha: number,
 
@@ -118,7 +128,11 @@ export interface IIndustryProfile {
             * >= 85% && <= 100%: Closely correlates with index (influenced by 85-100%).
             * <= 70%: Does not perform like index (influenced by 70% or less).
         
-        Target: < Peers && < 70%
+        Target: < 70% && < Market Peers
+
+        Find investments that will beat the market
+
+        We're looking for LOWEST R-Squared since we need stocks that deviate from the index (market)
         */
         rSquared: number
     },
