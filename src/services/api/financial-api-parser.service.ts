@@ -246,7 +246,7 @@ export class FinancialApiParserService {
         this.extractedTickerData.profitability.profitMargin = this.fundamentals.Highlights.ProfitMargin;
 
         /*
-        Get the last annual balance sheet necessary for liquidity and debt calculations
+        Get the last annual balance sheet and income statement necessary for liquidity and debt calculations
         */
         const lastAnnualBalanceSheet = this.fundamentals.Financials.Balance_Sheet.yearly[
             Object.keys(this.fundamentals.Financials.Balance_Sheet.yearly)[0]
