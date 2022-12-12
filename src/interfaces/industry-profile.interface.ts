@@ -36,6 +36,8 @@ export interface IIndustryProfile {
       Compound Annual Growth Rate (CAGR) — mean annual growth rate of an investment
       over a specified period of time longer than one year.
       It represents one of the most accurate ways to calculate and determine returns for an asset.
+
+      Target: > Peers
       */
       cagr: number,
 
@@ -62,6 +64,8 @@ export interface IIndustryProfile {
         In other words, measures whether the risk is justified against investing into risk-free assets.
         A Sharpe Ratio above 1.0 is considered good, as it indicates potential excess return
         relative to the volatility of the asset.
+
+        Target: > 1.0
         */
         sharpeRatio: number,
 
@@ -76,6 +80,8 @@ export interface IIndustryProfile {
             * == 1.0: Mirrors the volatility of the index.
             * > 1.0: More volatile than the index.
             * < 0: Moves opposite direction of the index (very rare).
+        
+        Target: > 1.0
         */
         beta: number,
 
@@ -83,9 +89,13 @@ export interface IIndustryProfile {
         Measures excess returns/losses against the return of the index.
         Expressed in a decimal (0.N) that is a percentage of over or under performance.
 
+        NOTE: we express alpha in direct percentage
+
         Alpha Ranges:
             * > 0: Outperforms the index
             * < 0: Underperforms the index.
+        
+        Target: > 0
         */
         alpha: number,
 
@@ -94,8 +104,10 @@ export interface IIndustryProfile {
         Ranges from 0 to 100.
 
         R-Squared Ranges:
-            * >= 85 && <= 100: Closely correlates with index (influenced by 85-100%).
-            * <= 70: Does not perform like index (influenced by 70% or less).
+            * >= 85% && <= 100%: Closely correlates with index (influenced by 85-100%).
+            * <= 70%: Does not perform like index (influenced by 70% or less).
+        
+        Target: < Peers && < 70%
         */
         rSquared: number
     },
@@ -105,12 +117,16 @@ export interface IIndustryProfile {
         /*
         Denotes the price you pay for $1 of earnings.
         Rule of thumb — stocks trading at a lower P/E ratio than their industry peers are considered value stocks.
+
+        Target: < Peers
         */
         priceToEarning: number,
 
         /*
         Helps to understand future growth prospects of the company and its stock.
         The lower the number, the better.
+
+        Target: < Peers && < 1.0
         */
         priceToEarningsGrowth: number,
 
@@ -118,23 +134,31 @@ export interface IIndustryProfile {
         Denotes the price you pay for $1 of sales.
         Reflects how good stock performs against the sales operations of the business.
         Considered to be more reliable.
+
+        Target: < Peers
         */
         priceToSales: number,
 
         /*
         Denotes the price you pay for $1 of equity, a.k.a. book value (assets - liabilities).
         Reflects how stock is priced against company’s actual worth.
+
+        Target: < Peers && < 1.0
         */
         priceToBook: number,
 
         /*
         Denotes how much interest you earn from dividends.
+
+        Target: <= 5% && > Peers
         */
         dividendYield: number,
 
         /*
         A percentage of profit distributed to investors.
         Helps to understand if company can sustain its dividend payouts in the future.
+
+        Target: >= 50% && <= 70%
         */
         dividendPayout: number
     },
@@ -144,17 +168,23 @@ export interface IIndustryProfile {
         /*
         Displays how effectively the company is using its assets to generate income.
         The higher the number, the better.
+
+        Target: > Peers
         */
         returnOnAssets: number,
 
         /*
         Displays how effective the company is using its investment from shareholders to generate income.
         The higher the number, the better.
+
+        Target: > Peers
         */
         returnOnEquity: number,
 
         /*
         Denotes how much profit company makes after deducting liabilites.
+
+        Target: > Peers
         */
         profitMargin: number
     },
@@ -164,11 +194,15 @@ export interface IIndustryProfile {
         /*
         Denotes company’s capacity to meet it’s short-term obligations (debt),
         where short-term obligations are debt due within 1 year period.
+
+        Target: > Peers
         */
         currentRatio: number,
 
         /*
         Similar to Current Ratio, but is more conservative. As a rule, lower than Current Ratio.
+
+        Target: > Peers
         */
         quickRatio: number
     },
@@ -179,6 +213,8 @@ export interface IIndustryProfile {
         Measures the relationship between the amount of capital that has been borrowed (debt),
         and the amount of capital contributed by shareholders (equity).
         Displays company’s ability to service it’s long-term debt obligations. The lower the number, the better.
+
+        Target: < Peers
         */
         debtToEquity: number,
 
@@ -187,6 +223,8 @@ export interface IIndustryProfile {
         It represents how many (typically the number of quarters or fiscal years)
         times the company can pay its obligations using its earnings.
         The higher the number, the better
+
+        Target: > Peers && > 1.0
         */
         interestCoverage: number
     }
