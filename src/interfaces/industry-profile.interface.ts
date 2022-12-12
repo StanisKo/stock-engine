@@ -136,7 +136,11 @@ export interface IIndustryProfile {
         Denotes the price you pay for $1 of earnings.
         Rule of thumb — stocks trading at a lower P/E ratio than their industry peers are considered value stocks.
 
-        Target: < Peers
+        Target: < Industry Peers
+
+        Find investments that cost as little as possible against their potential
+
+        We're looking for LOWEST P/E, since we need stocks that are undervalued for their performance
         */
         priceToEarning: number,
 
