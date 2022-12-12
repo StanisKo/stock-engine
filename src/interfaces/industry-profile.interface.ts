@@ -151,7 +151,7 @@ export interface IIndustryProfile {
         Helps to understand future growth prospects of the company and its stock.
         The lower the number, the better.
 
-        Target: < Peers && < 1.0
+        Target: < 1.0 && < Peers
         */
         priceToEarningsGrowth: number,
 
@@ -168,7 +168,7 @@ export interface IIndustryProfile {
         Denotes the price you pay for $1 of equity, a.k.a. book value (assets - liabilities).
         Reflects how stock is priced against company’s actual worth.
 
-        Target: < Peers && < 1.0
+        Target: < 1.0 && < Peers
         */
         priceToBook: number,
 
@@ -249,7 +249,7 @@ export interface IIndustryProfile {
         times the company can pay its obligations using its earnings.
         The higher the number, the better
 
-        Target: > Peers && > 1.0
+        Target: > 1.0 && > Peers
         */
         interestCoverage: number
     }
