@@ -5,6 +5,8 @@ TODO: for every ratio out there, there has to be comparison logic in comments!
 
 TODO: think of weights ratios might have
 
+TODO: restructure in preparation for V1
+
 NOTE: at this point in time, all of the measurement and ratios fields are optional,
 since companies do not expose everything in their financial statements and,
 therefore, not all values are available via the API
