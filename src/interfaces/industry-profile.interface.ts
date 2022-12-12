@@ -289,6 +289,10 @@ export interface IIndustryProfile {
         The higher the number, the better
 
         Target: > 1.0 && > Industry Peers
+
+        Find investments that make enough money to service their long-term debt
+
+        We're looking for HIGHEST Interest Coverage as it is an indicator of company's survivability
         */
         interestCoverage: number
     }
