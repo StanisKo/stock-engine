@@ -172,7 +172,12 @@ export interface IIndustryProfile {
         and the amount of capital contributed by shareholders (equity).
         Displays company’s ability to service it’s long-term debt obligations. The lower the number, the better.
         */
-        debtToEquity: number
+        debtToEquity: number,
+
+        /*
+        NOTE: WIP
+        */
+        interestCoverage: number
     }
 }
 

@@ -99,7 +99,8 @@ export class FinancialApiParserService {
         Initialize debt map to fill
         */
         this.extractedTickerData.debt = {
-            debtToEquity: 0
+            debtToEquity: 0,
+            interestCoverage: 0
         };
     }
 
@@ -195,6 +196,11 @@ export class FinancialApiParserService {
         this.extractedTickerData.debt.debtToEquity = DebtCalculatorService.calculateDebtToEquity(
             Number(lastAnnualBalanceSheet.totalLiab),
             Number(lastAnnualBalanceSheet.totalStockholderEquity)
+        );
+
+        this.extractedTickerData.debt.interestCoverage = DebtCalculatorService.calculateInterestCoverage(
+            Number(lastAnnualIncomeStatement.ebit),
+            Number(lastAnnualIncomeStatement.interestExpense)
         );
     }
 

@@ -1,3 +1,12 @@
+/*
+
+****
+
+On Debt to Equity: https://www.investopedia.com/terms/d/debtequityratio.asp
+
+On Interest Coverage: https://www.investopedia.com/terms/i/interestcoverageratio.asp
+*/
+
 export class DebtCalculatorService {
 
     static calculateDebtToEquity(totalLiabilities: number, totalStockholderEquity: number): number {
@@ -5,8 +14,8 @@ export class DebtCalculatorService {
         return totalLiabilities / totalStockholderEquity;
     }
 
-    static calculateInterestCoverage(ebitda: number, interestExpense: number): number {
+    static calculateInterestCoverage(ebit: number, interestExpense: number): number {
 
-        return ebitda / interestExpense;
+        return ebit / interestExpense;
     }
 }
