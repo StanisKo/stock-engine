@@ -23,11 +23,19 @@ export interface IIndustryProfile {
       It represents one of the most accurate ways to calculate and determine returns for an asset.
 
       Target: > Peers
+
+      Find investments that historically are most profitable
+
+      We're looking for HIGHEST CAGR since we need stocks that are more profitables
+      than others on the market
       */
       cagr: number,
 
       /*
       Size measurement of the stock
+
+      No target: all small, medium and large caps have a potential to be profitable
+      investments
       */
       marketCap: {
 
