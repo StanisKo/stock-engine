@@ -138,9 +138,9 @@ export interface IIndustryProfile {
 
         Target: < Industry Peers
 
-        Find investments that cost as little as possible against their potential
+        Find investments that cost as little as possible against their performance
 
-        We're looking for LOWEST P/E, since we need stocks that are undervalued for their performance
+        We're looking for LOWEST P/E, since we need stocks that are undervalued for their perfomance
         */
         priceToEarning: number,
 
@@ -148,7 +148,11 @@ export interface IIndustryProfile {
         Helps to understand future growth prospects of the company and its stock.
         The lower the number, the better.
 
-        Target: < 1.0 && < Peers
+        Target: < 1.0 && < Industry Peers
+
+        Find investments that cost as little as possible against their potential
+
+        We're looking for LOWEST PEG, since we need stocks that are undervalued for their future performance
         */
         priceToEarningsGrowth: number,
 
@@ -157,7 +161,11 @@ export interface IIndustryProfile {
         Reflects how good stock performs against the sales operations of the business.
         Considered to be more reliable.
 
-        Target: < Peers
+        Target: < Industry Peers
+
+        Find investments that cost as little as possible against their sales
+
+        We're looking for LOWEST P/S, since we need stocks that are undervalued for their sales operations
         */
         priceToSales: number,
 
@@ -165,7 +173,7 @@ export interface IIndustryProfile {
         Denotes the price you pay for $1 of equity, a.k.a. book value (assets - liabilities).
         Reflects how stock is priced against company’s actual worth.
 
-        Target: < 1.0 && < Peers
+        Target: < 1.0 && < Industry Peers
         */
         priceToBook: number,
 
