@@ -184,6 +184,7 @@ export class FinancialApiParserService {
             EVRCalculatorService.calculateEnterpriseValueToRevenue(
                 Number(this.fundamentals.Highlights.MarketCapitalization),
                 Number(lastAnnualBalanceSheet.shortLongTermDebtTotal),
+                Number(lastAnnualBalanceSheet.cash),
                 Number(lastAnnualBalanceSheet.cashAndEquivalents),
                 Number(lastAnnualIncomeStatement.totalRevenue)
             );
