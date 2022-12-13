@@ -180,12 +180,14 @@ export class FinancialApiParserService {
         Calculate EV/R based on market cap, last annual balance sheet and income statement
         */
 
+        console.log(lastAnnualBalanceSheet);
+
         this.extractedTickerData.valuation.enterpriseValueToRevenue =
             EVRCalculatorService.calculateEnterpriseValueToRevenue(
-                this.fundamentals.Highlights.MarketCapitalization,
-                lastAnnualBalanceSheet.shortLongTermDebtTotal,
-                lastAnnualBalanceSheet.cashAndEquivalents,
-                lastAnnualIncomeStatement.totalRevenue
+                Number(this.fundamentals.Highlights.MarketCapitalization),
+                Number(lastAnnualBalanceSheet.shortLongTermDebtTotal),
+                Number(lastAnnualBalanceSheet.cashAndEquivalents),
+                Number(lastAnnualIncomeStatement.totalRevenue)
             );
 
         /*

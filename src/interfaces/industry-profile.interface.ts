@@ -185,7 +185,7 @@ export interface IIndustryProfile {
         One of several fundamental indicators that investors use to determine whether a stock is priced fairly.
         The lower the better, in that, a lower EV/R signals a company is undervalued.
 
-        Target: < Industry Peers
+        Target: > 1 && < 3 && < Industry Peers
 
         Find investments that are undervalued for their enterprise value
 
