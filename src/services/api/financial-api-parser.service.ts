@@ -74,6 +74,7 @@ export class FinancialApiParserService {
             priceToEarningsGrowth: 0,
             priceToSales: 0,
             priceToBook: 0,
+            enterpriseValueToRevenue: 0,
             dividendYield: 0,
             dividendPayout: 0
         };

@@ -181,6 +181,13 @@ export interface IIndustryProfile {
         priceToBook: number,
 
         /*
+        Denotes the total enterprise worth in comparison to its revenue.
+
+        Target: >= Industry Peers
+        */
+        enterpriseValueToRevenue: number,
+
+        /*
         Denotes how much interest you earn from dividends.
 
         Target: <= 5% && > Industry Peers
