@@ -182,8 +182,17 @@ export interface IIndustryProfile {
 
         /*
         Denotes the total enterprise worth in comparison to its revenue.
+        One of several fundamental indicators that investors use to determine whether a stock is priced fairly.
+        The lower the better, in that, a lower EV/R signals a company is undervalued.
 
-        Target: >= Industry Peers
+        Target: < Industry Peers
+
+        Find investments that are undervalued for their enterprise value
+
+        We're looking for LOWEST EV/R, since we need stocks that are undervalues for their value as a company
+
+        NOTE: similar to P/B, yet used more to evaluate early-stage/growth companies that might not have much
+        of assets behind them
         */
         enterpriseValueToRevenue: number,
 
