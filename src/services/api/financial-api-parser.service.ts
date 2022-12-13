@@ -22,6 +22,7 @@ import { AlphaCalculatorService } from '../calculators/alpha-calculator.service'
 import { RSquaredCalculatorService } from '../calculators/r-squared-calculator.service';
 import { LiquidityCalculatorService } from '../calculators/liquidity-calculator.service';
 import { DebtCalculatorService } from '../calculators/debt-calculator.service';
+import { EVRCalculatorService } from '../calculators/evr-calculator.service';
 
 import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 import { CalculatorHelperService } from '../helpers/calculator-helper.service';
@@ -174,6 +175,18 @@ export class FinancialApiParserService {
             tickerTTMPrices,
             this.benchmarkPrices
         );
+
+        /*
+        Calculate EV/R based on market cap, last annual balance sheet and income statement
+        */
+
+        this.extractedTickerData.valuation.enterpriseValueToRevenue =
+            EVRCalculatorService.calculateEnterpriseValueToRevenue(
+                this.fundamentals.Highlights.MarketCapitalization,
+                lastAnnualBalanceSheet.shortLongTermDebtTotal,
+                lastAnnualBalanceSheet.cashAndEquivalents,
+                lastAnnualIncomeStatement.totalRevenue
+            );
 
         /*
         Calculate Liquidity based on last annual balance sheet
