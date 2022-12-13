@@ -180,14 +180,13 @@ export class FinancialApiParserService {
         Calculate EV/R based on market cap, last annual balance sheet and income statement
         */
 
-        this.extractedTickerData.valuation.enterpriseValueToRevenue =
-            EVRCalculatorService.calculateEnterpriseValueToRevenue(
-                Number(this.fundamentals.Highlights.MarketCapitalization),
-                Number(lastAnnualBalanceSheet.shortLongTermDebtTotal),
-                Number(lastAnnualBalanceSheet.cash),
-                Number(lastAnnualBalanceSheet.cashAndEquivalents),
-                Number(lastAnnualIncomeStatement.totalRevenue)
-            );
+        this.extractedTickerData.valuation.enterpriseValueToRevenue = EVRCalculatorService.calculateEVR(
+            Number(this.fundamentals.Highlights.MarketCapitalization),
+            Number(lastAnnualBalanceSheet.shortLongTermDebtTotal),
+            Number(lastAnnualBalanceSheet.cash),
+            Number(lastAnnualBalanceSheet.cashAndEquivalents),
+            Number(lastAnnualIncomeStatement.totalRevenue)
+        );
 
         /*
         Calculate Liquidity based on last annual balance sheet
@@ -199,7 +198,9 @@ export class FinancialApiParserService {
         );
 
         this.extractedTickerData.liquidity.quickRatio = LiquidityCalculatorService.calculateQuickRatio(
-            Number(lastAnnualBalanceSheet.cashAndShortTermInvestments),
+            Number(lastAnnualBalanceSheet.cash),
+            Number(lastAnnualBalanceSheet.cashAndEquivalents),
+            Number(lastAnnualBalanceSheet.shortTermInvestments),
             Number(lastAnnualBalanceSheet.netReceivables),
             Number(lastAnnualBalanceSheet.totalCurrentLiabilities)
         );
