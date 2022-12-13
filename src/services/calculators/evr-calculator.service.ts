@@ -15,8 +15,6 @@ export class EVRCalculatorService {
         revenue: number
     ): number {
 
-        console.log((marketCap + debt - cashAndEquivalents) / revenue);
-
         return (marketCap + debt - cashAndEquivalents) / revenue;
     }
 }
