@@ -18,8 +18,7 @@ import { ApiConnectorService } from './api-connector.service';
 
 import { DataParserService } from './data-parser.service';
 
-
-export class IndustryProfileService {
+export class StockProfileService {
 
     apiConnectorService: ApiConnectorService;
 
@@ -30,7 +29,7 @@ export class IndustryProfileService {
         this.apiConnectorService = new ApiConnectorService(ticker);
     }
 
-    public async createIndustryProfileFromTicker(): Promise<ServiceResponse> {
+    public async createStockProfile(): Promise<ServiceResponse> {
 
         const response = new ServiceResponse();
 

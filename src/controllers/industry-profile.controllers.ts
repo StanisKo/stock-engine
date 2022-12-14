@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { IndustryProfileService } from '../services/core/industry-profile.service';
+import { StockProfileService } from '../services/core/stock-profile.service';
 
 export const createIndustryProfileFromTicker = async (
     request: Request, response: Response): Promise<Response> => {
@@ -15,9 +15,9 @@ export const createIndustryProfileFromTicker = async (
         );
     }
 
-    const industryProfileService = new IndustryProfileService(ticker as string);
+    const industryProfileService = new StockProfileService(ticker as string);
 
-    const serviceResponse = await industryProfileService.createIndustryProfileFromTicker();
+    const serviceResponse = await industryProfileService.createStockProfile();
 
     return response.status(200).json(serviceResponse);
 };
