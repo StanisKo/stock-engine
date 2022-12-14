@@ -17,20 +17,20 @@ Saves the ticker data for potential further usage
 
 import { ServiceResponse } from '../../dtos/serviceResponse';
 
-import { FinancialApiConnectorService } from '../api/financial-api-connector.service';
+import { ApiConnectorService } from './api-connector.service';
 
 import { DataParserService } from './data-parser.service';
 
 
 export class IndustryProfileService {
 
-    financialApiConnectorService: FinancialApiConnectorService;
+    apiConnectorService: ApiConnectorService;
 
     dataParserService: DataParserService;
 
     constructor(ticker: string) {
 
-        this.financialApiConnectorService = new FinancialApiConnectorService(ticker);
+        this.apiConnectorService = new ApiConnectorService(ticker);
     }
 
     public async createIndustryProfileFromTicker(): Promise<ServiceResponse> {
@@ -38,7 +38,7 @@ export class IndustryProfileService {
         const response = new ServiceResponse();
 
         try {
-            const tickerFinancialData = await this.financialApiConnectorService.requestFinancicalTickerData();
+            const tickerFinancialData = await this.apiConnectorService.requestFinancicalTickerData();
 
             this.dataParserService = new DataParserService(tickerFinancialData);
 

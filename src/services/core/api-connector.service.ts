@@ -1,7 +1,3 @@
-/*
-TODO: rename to api connector and move into core
-*/
-
 import moment from 'moment';
 import fetch from 'node-fetch';
 import yahooFinance from 'yahoo-finance2';
@@ -10,7 +6,7 @@ import { ITickerFundamentals, ITickerPrice, ITickerFinancialData } from '../../i
 
 import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 
-export class FinancialApiConnectorService {
+export class ApiConnectorService {
 
     ticker: string;
 
