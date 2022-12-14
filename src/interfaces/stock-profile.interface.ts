@@ -195,6 +195,19 @@ export interface IStockProfile {
         of assets behind them
         */
         enterpriseValueToRevenue: number,
+
+        /*
+        Denotes the total enterprise worth in comparison to its EBITDA.
+
+        Similar to EV/R, but is more conservative.
+
+        Target: < 10 && < Industry Peers
+
+        Find investments that are undervalued for their earnings
+
+        We're looking for LOWEST EV/EBITDA, since we need stocks that are undervalues for their earnings
+        */
+        enterpriseValueToEbitda: number
     },
 
     dividends: {

@@ -74,7 +74,8 @@ export class DataParserService {
             priceToEarningsGrowth: 0,
             priceToSales: 0,
             priceToBook: 0,
-            enterpriseValueToRevenue: 0
+            enterpriseValueToRevenue: 0,
+            enterpriseValueToEbitda: 0
         };
 
         /*
