@@ -47,7 +47,7 @@ export class StockProfileService {
 
             response.success = false;
 
-            response.message = 'Failed to create industry profile from provided ticker';
+            response.message = 'Failed to create stock profile from provided ticker';
         }
 
         return response;
