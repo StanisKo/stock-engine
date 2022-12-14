@@ -74,7 +74,13 @@ export class DataParserService {
             priceToEarningsGrowth: 0,
             priceToSales: 0,
             priceToBook: 0,
-            enterpriseValueToRevenue: 0,
+            enterpriseValueToRevenue: 0
+        };
+
+        /*
+        Initialize dividends map to fill
+        */
+        this.extractedTickerData.dividends = {
             dividendYield: 0,
             dividendPayout: 0
         };
@@ -249,9 +255,9 @@ export class DataParserService {
 
         this.extractedTickerData.valuation.priceToBook = this.fundamentals.Valuation.PriceBookMRQ;
 
-        this.extractedTickerData.valuation.dividendYield = this.fundamentals.Highlights.DividendYield;
+        this.extractedTickerData.dividends.dividendYield = this.fundamentals.Highlights.DividendYield;
 
-        this.extractedTickerData.valuation.dividendPayout = this.fundamentals.SplitsDividends.PayoutRatio;
+        this.extractedTickerData.dividends.dividendPayout = this.fundamentals.SplitsDividends.PayoutRatio;
 
         this.extractedTickerData.profitability.returnOnAssets = this.fundamentals.Highlights.ReturnOnAssetsTTM;
 

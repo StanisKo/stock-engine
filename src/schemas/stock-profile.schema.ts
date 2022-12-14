@@ -87,16 +87,17 @@ const industryProfileSchema = new mongoose.Schema<IStockProfileSchema>(
             enterpriseValueToRevenue: {
                 type: Number,
                 required: true
-            },
+            }
+        },
+
+        dividends: {
 
             dividendYield: {
-                type: Number,
-                required: true
+                type: Number
             },
 
             dividendPayout: {
-                type: Number,
-                required: true
+                type: Number
             }
         },
 

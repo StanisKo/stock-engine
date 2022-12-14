@@ -195,6 +195,9 @@ export interface IStockProfile {
         of assets behind them
         */
         enterpriseValueToRevenue: number,
+    },
+
+    dividends: {
 
         /*
         Denotes how much interest you earn from dividends.
@@ -214,7 +217,7 @@ export interface IStockProfile {
         NOTE: we do not concern ourselves with dividends yet
         */
         dividendPayout: number
-    },
+    }
 
     profitability: {
 
