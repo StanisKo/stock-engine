@@ -19,14 +19,14 @@ import { ServiceResponse } from '../../dtos/serviceResponse';
 
 import { FinancialApiConnectorService } from '../api/financial-api-connector.service';
 
-import { FinancialApiParserService } from '../api/financial-api-parser.service';
+import { DataParserService } from './data-parser.service';
 
 
 export class IndustryProfileService {
 
     financialApiConnectorService: FinancialApiConnectorService;
 
-    financialApiParserService: FinancialApiParserService;
+    dataParserService: DataParserService;
 
     constructor(ticker: string) {
 
@@ -40,9 +40,9 @@ export class IndustryProfileService {
         try {
             const tickerFinancialData = await this.financialApiConnectorService.requestFinancicalTickerData();
 
-            this.financialApiParserService = new FinancialApiParserService(tickerFinancialData);
+            this.dataParserService = new DataParserService(tickerFinancialData);
 
-            this.financialApiParserService.parseTickerData();
+            this.dataParserService.parseTickerData();
 
             response.success = true;
         }

@@ -1,8 +1,6 @@
 /*
 Iteration 1
 
-A helper service that:
-
 Accepts raw ticker data
 
 Extracts fields necessary for industry profile
@@ -10,8 +8,6 @@ Extracts fields necessary for industry profile
 Makes use of calculator services to calculate missing ratios
 
 Returns values back to the caller in the shape of interface that adheres to Industry Profile schema
-
-TODO: should be renamed to data parser and moved into core
 */
 
 import { IIndustryProfile } from '../../interfaces/industry-profile.interface';
@@ -30,7 +26,7 @@ import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 import { CalculatorHelperService } from '../helpers/calculator-helper.service';
 import { MarketCapLabelService } from '../helpers/market-cap-label.service';
 
-export class FinancialApiParserService {
+export class DataParserService {
 
     extractedTickerData: IIndustryProfile;
 
@@ -245,11 +241,6 @@ export class FinancialApiParserService {
 
         this.extractedTickerData.risk.beta = this.fundamentals.Technicals.Beta;
 
-        /*
-        We, of course, use trailing PE
-
-        NOTE: this is also available at this.fundamentals.Valuation.TrailingPE
-        */
         this.extractedTickerData.valuation.priceToEarning = this.fundamentals.Highlights.PERatio;
 
         this.extractedTickerData.valuation.priceToEarningsGrowth = this.fundamentals.Highlights.PEGRatio;
