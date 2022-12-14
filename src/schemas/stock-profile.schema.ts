@@ -4,111 +4,143 @@ import mongoose from 'mongoose';
 
 import { IStockProfileSchema } from '../interfaces/stock-profile.interface';
 
+import { MarketCapLabel } from '../enums';
+
 
 const industryProfileSchema = new mongoose.Schema<IStockProfileSchema>(
     {
         _id: { type: String, default: uuid.v4 },
 
         industry: {
-            type: String
+            type: String,
+            required: true
         },
 
         cagr: {
-            type: Number
+            type: Number,
+            required: true
         },
 
         marketCap: {
 
             label: {
-                type: String,
-                enum: ['small', 'medium', 'large']
+                type: MarketCapLabel,
+                required: true
             },
 
             value: {
-                type: Number
+                type: Number,
+                required: true
             }
         },
 
         risk: {
 
             standardDeviation: {
-                type: Number
+                type: Number,
+                required: true
             },
 
             sharpeRatio: {
-                type: Number
+                type: Number,
+                required: true
             },
 
             beta: {
-                type: Number
+                type: Number,
+                required: true
             },
 
             alpha: {
-                type: Number
+                type: Number,
+                required: true
             },
 
             rSquared: {
-                type: Number
+                type: Number,
+                required: true
             }
         },
 
         valuation: {
 
             priceToEarning: {
-                type: Number
+                type: Number,
+                required: true
             },
 
             priceToEarningsGrowth: {
-                type: Number
+                type: Number,
+                required: true
             },
 
             priceToSales: {
-                type: Number
+                type: Number,
+                required: true
             },
 
             priceToBook: {
-                type: Number
+                type: Number,
+                required: true
+            },
+
+            enterpriseValueToRevenue: {
+                type: Number,
+                required: true
             },
 
             dividendYield: {
-                type: Number
+                type: Number,
+                required: true
             },
 
             dividendPayout: {
-                type: Number
+                type: Number,
+                required: true
             }
         },
 
         profitability: {
 
             returnOnAssets: {
-                type: Number
+                type: Number,
+                required: true
             },
 
             returnOnEquity: {
-                type: Number
+                type: Number,
+                required: true
             },
 
             profitMargin: {
-                type: Number
+                type: Number,
+                required: true
             }
         },
 
         liquidity: {
 
             currentRatio: {
-                type: Number
+                type: Number,
+                required: true
             },
 
             quickRatio: {
-                type: Number
+                type: Number,
+                required: true
             }
         },
 
         debt: {
 
             debtToEquity: {
-                type: Number
+                type: Number,
+                required: true
+            },
+
+            interestCoverage: {
+                type: Number,
+                required: true
             }
         }
 
