@@ -12,7 +12,7 @@ TODO: rename to IStockProfile
 
 import { MarketCapLabel } from '../enums';
 
-export interface IIndustryProfile {
+export interface IStockProfile {
 
       /*
       ALL RATIOS EXCEPT RISK MUST BE COMPARED WITHIN THE SAME INDUSTRY
@@ -316,7 +316,7 @@ export interface IIndustryProfile {
     }
 }
 
-export interface IIndustryProfileSchema extends IIndustryProfile {
+export interface IStockProfileSchema extends IStockProfile {
 
     _id: string
 }

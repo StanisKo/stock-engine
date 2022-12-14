@@ -2,10 +2,10 @@ import * as uuid from 'uuid';
 
 import mongoose from 'mongoose';
 
-import { IIndustryProfileSchema } from '../interfaces/industry-profile.interface';
+import { IStockProfileSchema } from '../interfaces/stock-profile.interface';
 
 
-const industryProfileSchema = new mongoose.Schema<IIndustryProfileSchema>(
+const industryProfileSchema = new mongoose.Schema<IStockProfileSchema>(
     {
         _id: { type: String, default: uuid.v4 },
 
@@ -114,7 +114,7 @@ const industryProfileSchema = new mongoose.Schema<IIndustryProfileSchema>(
 
     },
 
-    { collection: 'IndustryProfiles', timestamps: true }
+    { collection: 'StockProfiles', timestamps: true }
 );
 
-export const IndustryProfile = mongoose.model('IndustryProfile', industryProfileSchema);
+export const IndustryProfile = mongoose.model('StockProfile', industryProfileSchema);

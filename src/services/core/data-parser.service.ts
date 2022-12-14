@@ -10,7 +10,7 @@ Makes use of calculator services to calculate missing ratios
 Returns values back to the caller in the shape of interface that adheres to Industry Profile schema
 */
 
-import { IIndustryProfile } from '../../interfaces/industry-profile.interface';
+import { IStockProfile } from '../../interfaces/stock-profile.interface';
 import { ITickerFinancialData, ITickerFundamentals, ITickerPrice } from '../../interfaces/ticker.interface';
 
 import { CAGRCalculatorService } from '../calculators/cagr-calculator.service';
@@ -28,7 +28,7 @@ import { MarketCapLabelService } from '../helpers/market-cap-label.service';
 
 export class DataParserService {
 
-    extractedTickerData: IIndustryProfile;
+    extractedTickerData: IStockProfile;
 
     rawTickerData: ITickerFinancialData;
 
@@ -42,7 +42,7 @@ export class DataParserService {
 
     constructor(rawTickerData: ITickerFinancialData) {
 
-        this.extractedTickerData = {} as IIndustryProfile;
+        this.extractedTickerData = {} as IStockProfile;
 
         this.fundamentals = rawTickerData.fundamentals;
 
