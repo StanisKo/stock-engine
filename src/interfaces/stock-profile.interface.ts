@@ -12,38 +12,38 @@ import { MarketCapLabel } from '../enums';
 
 export interface IStockProfile {
 
-      /*
-      ALL RATIOS EXCEPT RISK MUST BE COMPARED WITHIN THE SAME INDUSTRY
-      */
-      industry: string,
+    /*
+    ALL RATIOS EXCEPT RISK MUST BE COMPARED WITHIN THE SAME INDUSTRY
+    */
+    industry: string,
 
-      /*
-      Compound Annual Growth Rate (CAGR) — mean annual growth rate of an investment
-      over a specified period of time longer than one year.
-      It represents one of the most accurate ways to calculate and determine returns for an asset.
+    /*
+    Compound Annual Growth Rate (CAGR) — mean annual growth rate of an investment
+    over a specified period of time longer than one year.
+    It represents one of the most accurate ways to calculate and determine returns for an asset.
 
-      Target: > Industry Peers
+    Target: > Industry Peers
 
-      Find investments that historically are most profitable
+    Find investments that historically are most profitable
 
-      We're looking for HIGHEST CAGR since we need stocks that are more profitable
-      than others on the market
-      */
-      cagr: number,
+    We're looking for HIGHEST CAGR since we need stocks that are more profitable
+    than others on the market
+    */
+    cagr: number,
 
-      /*
-      Size measurement of the stock
+    /*
+    Size measurement of the stock
 
-      No target: all small, medium and large caps have a potential to be profitable investments
-      */
-      marketCap: {
+    No target: all small, medium and large caps have a potential to be profitable investments
+    */
+    marketCap: {
 
-        value: number,
+    value: number,
 
-        label: MarketCapLabel
-      },
+    label: MarketCapLabel
+    },
 
-      risk: {
+    risk: {
 
         /*
         Indicates how much the current return is deviating from its expected historical normal returns.
