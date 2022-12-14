@@ -1,3 +1,7 @@
+/*
+TODO: in V1 we don't need to request benchmark prices and treasury bond yield for every ticker, rework
+*/
+
 import moment from 'moment';
 import fetch from 'node-fetch';
 import yahooFinance from 'yahoo-finance2';
