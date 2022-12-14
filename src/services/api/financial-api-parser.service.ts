@@ -10,6 +10,8 @@ Extracts fields necessary for industry profile
 Makes use of calculator services to calculate missing ratios
 
 Returns values back to the caller in the shape of interface that adheres to Industry Profile schema
+
+TODO: should be renamed to data parser and moved into core
 */
 
 import { IIndustryProfile } from '../../interfaces/industry-profile.interface';
