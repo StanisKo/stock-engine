@@ -11,6 +11,11 @@ const industryProfileSchema = new mongoose.Schema<IStockProfileSchema>(
     {
         _id: { type: String, default: uuid.v4 },
 
+        ticker: {
+            type: String,
+            required: true
+        },
+
         industry: {
             type: String,
             required: true

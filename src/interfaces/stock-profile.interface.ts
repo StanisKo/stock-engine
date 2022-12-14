@@ -12,10 +12,13 @@ import { MarketCapLabel } from '../enums';
 
 export interface IStockProfile {
 
+    ticker: string,
+
+    industry: string,
+
     /*
     ALL RATIOS EXCEPT RISK MUST BE COMPARED WITHIN THE SAME INDUSTRY
     */
-    industry: string,
 
     /*
     Compound Annual Growth Rate (CAGR) — mean annual growth rate of an investment

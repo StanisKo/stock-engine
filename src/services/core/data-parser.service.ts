@@ -243,6 +243,8 @@ export class DataParserService {
         /*
         Extract available fields
         */
+        this.extractedTickerData.ticker = this.fundamentals.General.Code;
+
         this.extractedTickerData.industry = this.fundamentals.General.Industry;
 
         this.extractedTickerData.marketCap = {
