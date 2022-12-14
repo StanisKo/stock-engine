@@ -13,3 +13,7 @@ Engine makes use of several third-party APIs to fetch stocks' financial data, cr
 
 Then, most most profitable stocks per industry are sorted against each other to arrive to most profitable
 stocks on the market
+
+# Sorting
+
+Quick Sort on Binary Search Tree
