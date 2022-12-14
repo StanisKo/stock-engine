@@ -20,7 +20,7 @@ import { AlphaCalculatorService } from '../calculators/alpha-calculator.service'
 import { RSquaredCalculatorService } from '../calculators/r-squared-calculator.service';
 import { LiquidityCalculatorService } from '../calculators/liquidity-calculator.service';
 import { DebtCalculatorService } from '../calculators/debt-calculator.service';
-import { EVRCalculatorService } from '../calculators/evr-calculator.service';
+import { ValuationCalculatorService } from '../calculators/valuation-calculator.service';
 
 import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 import { CalculatorHelperService } from '../helpers/calculator-helper.service';
@@ -183,15 +183,23 @@ export class DataParserService {
         );
 
         /*
-        Calculate EV/R based on market cap, last annual balance sheet and income statement
-        */
+        Calculate EV based on market cap and last annual balance shee
 
-        this.extractedTickerData.valuation.enterpriseValueToRevenue = EVRCalculatorService.calculateEVR(
+        Then calculate EVR and EVEBITDA based on revenue and EBITDA (last annual income statement), respectively
+        */
+        ValuationCalculatorService.calculateEnterpriseValue(
             Number(this.fundamentals.Highlights.MarketCapitalization),
             Number(lastAnnualBalanceSheet.shortLongTermDebtTotal),
             Number(lastAnnualBalanceSheet.cash),
-            Number(lastAnnualBalanceSheet.cashAndEquivalents),
+            Number(lastAnnualBalanceSheet.cashAndEquivalents)
+        );
+
+        this.extractedTickerData.valuation.enterpriseValueToRevenue = ValuationCalculatorService.calculateEVR(
             Number(lastAnnualIncomeStatement.totalRevenue)
+        );
+
+        this.extractedTickerData.valuation.enterpriseValueToEbitda = ValuationCalculatorService.calculateEVEBITDA(
+            Number(lastAnnualIncomeStatement.ebitda)
         );
 
         /*
