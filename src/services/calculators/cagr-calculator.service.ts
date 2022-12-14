@@ -41,8 +41,6 @@ export class CAGRCalculatorService {
             ((endingPrice / startingPrice) - 1)
         ) * 100;
 
-        console.log('Calculated CAGR');
-
         return cagr;
     }
 }

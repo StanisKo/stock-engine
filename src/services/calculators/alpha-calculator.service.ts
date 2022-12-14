@@ -36,8 +36,6 @@ export class AlphaCalculatorService {
         beta: number
     ): number {
 
-        console.log('Calculated Alpha');
-
         /*
         NOTE: we do not express alhpa in decimals (therefore, no division by 100)
         we want to see immediate percentage value

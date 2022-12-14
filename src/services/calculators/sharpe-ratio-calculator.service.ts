@@ -37,8 +37,6 @@ export class SharpeRatioCalculatorService {
 
         const sharpeRatio = (tickerRateOfReturn - treasuryBondYield) / tickerStandardDeviation;
 
-        console.log('Calculated Sharpe Ratio');
-
         return sharpeRatio;
     }
 

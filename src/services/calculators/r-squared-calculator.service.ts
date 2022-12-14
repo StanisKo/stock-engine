@@ -119,8 +119,6 @@ export class RSquaredCalculatorService {
 
         const rSquared = Math.pow(correlation, 2) * 100;
 
-        console.log('Calculated R-Squared');
-
         return rSquared;
     }
 }

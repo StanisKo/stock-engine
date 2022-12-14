@@ -59,8 +59,6 @@ export class StandardDeviationCalculatorService {
 
         const standardDeviation = Math.sqrt(variance);
 
-        console.log('Calculated Standard Deviation');
-
         return standardDeviation;
     }
 }
