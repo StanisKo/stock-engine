@@ -3,11 +3,11 @@ Iteration 1
 
 Accepts raw ticker data
 
-Extracts fields necessary for industry profile
+Extracts fields necessary for stock profile
 
 Makes use of calculator services to calculate missing ratios
 
-Returns values back to the caller in the shape of interface that adheres to Industry Profile schema
+Returns values back to the caller in the shape of interface that adheres to Stock Profile schema
 */
 
 import { IStockProfile } from '../../interfaces/stock-profile.interface';
