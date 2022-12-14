@@ -6,8 +6,6 @@ TODO: think of weights ratios will have!
 TODO: think how to apply weights to quick sort!
 
 TODO: restructure in preparation for V1
-
-TODO: rename to IStockProfile
 */
 
 import { MarketCapLabel } from '../enums';
