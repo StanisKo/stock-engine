@@ -4,7 +4,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
-import industryProfileRouter from './routes/industry-profile.routes';
+import industryProfileRouter from './routes/stock-profile.routes';
 
 export class Server {
 
