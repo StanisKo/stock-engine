@@ -28,6 +28,7 @@ import { EVRCalculatorService } from '../calculators/evr-calculator.service';
 
 import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 import { CalculatorHelperService } from '../helpers/calculator-helper.service';
+import { MarketCapLabelService } from '../helpers/market-cap-label.service';
 
 export class FinancialApiParserService {
 
@@ -233,10 +234,14 @@ export class FinancialApiParserService {
         */
         this.extractedTickerData.industry = this.fundamentals.General.Industry;
 
-        /*
-        TODO: build helper for deducing label
-        */
-        this.extractedTickerData.marketCap = this.fundamentals.Highlights.MarketCapitalization;
+        this.extractedTickerData.marketCap = {
+
+            value: this.fundamentals.Highlights.MarketCapitalization,
+
+            label: MarketCapLabelService.createMarketLevelCapLabel(
+                Number(this.fundamentals.Highlights.MarketCapitalization)
+            )
+        };
 
         this.extractedTickerData.risk.beta = this.fundamentals.Technicals.Beta;
 

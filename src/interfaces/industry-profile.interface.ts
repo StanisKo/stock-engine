@@ -1,14 +1,16 @@
 /*
 TODO: add missing ratios, clean up comments, prepare everything for V1 (bulk ingest and sorting)
 
-TODO: for every ratio out there, there has to be comparison logic in comments!
+TODO: think of weights ratios will have!
 
-TODO: think of weights ratios might have
+TODO: think how to apply weights to quick sort!
 
 TODO: restructure in preparation for V1
 
 TODO: rename to IStockProfile
 */
+
+import { MarketCapLabel } from '../enums';
 
 export interface IIndustryProfile {
 
@@ -38,7 +40,7 @@ export interface IIndustryProfile {
       */
       marketCap: {
 
-        label: 'small' | 'medium' | 'large',
+        label: MarketCapLabel,
 
         value: number
       },
