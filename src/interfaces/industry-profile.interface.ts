@@ -40,9 +40,9 @@ export interface IIndustryProfile {
       */
       marketCap: {
 
-        label: MarketCapLabel,
+        value: number,
 
-        value: number
+        label: MarketCapLabel
       },
 
       risk: {
