@@ -7,6 +7,8 @@ CC = Cash + Cash (And) Equivalents
 
 NOTE: API provides Debt as shortLongTermDebtTotal
 
+TODO: rename to valuation calculator and also include EV/EBITDA calculation
+
 ****
 
 On EV/R: https://www.investopedia.com/terms/e/ev-revenue-multiple.asp
