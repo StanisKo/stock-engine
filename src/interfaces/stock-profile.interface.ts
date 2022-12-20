@@ -211,6 +211,8 @@ export interface IStockProfile {
         We're looking for LOWEST EV/EBITDA, since we need stocks that are undervalues for their earnings
         */
         enterpriseValueToEbitda: number
+
+        priceToCashFlow: number
     },
 
     dividends: {
