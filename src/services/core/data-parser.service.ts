@@ -115,7 +115,8 @@ export class DataParserService {
 
     private calculateAndFillMissingMeasurements(
         lastAnnualBalanceSheet: ITickerFundamentals,
-        lastAnnualIncomeStatement: ITickerFundamentals
+        lastAnnualIncomeStatement: ITickerFundamentals,
+        lastAnnualCashFlowStatement: ITickerFundamentals
     ): void {
 
         const tickerTTMPrices = TimeSeriesHelperService.sliceDataSetIntoTTM(this.prices);
@@ -184,9 +185,12 @@ export class DataParserService {
         );
 
         /*
-        Calculate EV based on market cap and last annual balance shee
+        Calculate EV based on market cap and last annual balance sheet
 
-        Then calculate EVR and EVEBITDA based on revenue and EBITDA (last annual income statement), respectively
+        Calculate EVR and EVEBITDA based on revenue and EBITDA (last annual income statement)
+
+        Then calculate P/CF based on operating cash flow (last annual cash flow statement),
+        number of outstanding shares, and stock price
         */
         ValuationCalculatorService.calculateEnterpriseValue(
             Number(this.fundamentals.Highlights.MarketCapitalization),
@@ -201,6 +205,15 @@ export class DataParserService {
 
         this.extractedTickerData.valuation.enterpriseValueToEbitda = ValuationCalculatorService.calculateEVEBITDA(
             Number(lastAnnualIncomeStatement.ebitda)
+        );
+
+        /*
+        NOTE: WIP, price has to average over last 30 days
+        */
+        this.extractedTickerData.valuation.priceToCashFlow = ValuationCalculatorService.calculatePriceToCashFlow(
+            Number(lastAnnualCashFlowStatement.totalCashFromOperatingActivities),
+            Number(this.fundamentals.SharesStats.SharesOutstanding),
+            tickerEndingPrice
         );
 
         /*
@@ -293,12 +306,14 @@ export class DataParserService {
             Object.keys(this.fundamentals.Financials.Cash_Flow.yearly)[0]
         ];
 
-        console.log(lastAnnualCashFlowStatement);
-
         /*
         Calculate and fill missing fields
         */
-        this.calculateAndFillMissingMeasurements(lastAnnualBalanceSheet, lastAnnualIncomeStatement);
+        this.calculateAndFillMissingMeasurements(
+            lastAnnualBalanceSheet,
+            lastAnnualIncomeStatement,
+            lastAnnualCashFlowStatement
+        );
 
         console.log(this.extractedTickerData);
     }
