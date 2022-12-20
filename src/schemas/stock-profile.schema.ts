@@ -92,6 +92,11 @@ const industryProfileSchema = new mongoose.Schema<IStockProfileSchema>(
             enterpriseValueToRevenue: {
                 type: Number,
                 required: true
+            },
+
+            enterpriseValueToEbitda: {
+                type: Number,
+                required: true
             }
         },
 
