@@ -11,11 +11,17 @@ CC = Cash + Cash (And) Equivalents
 
 NOTE: API provides Debt as shortLongTermDebtTotal
 
+P/CF = SP / Operating Cash Flow per Share
+
+SP = Stock Price
+
 ****
 
 On EV/R: https://www.investopedia.com/terms/e/ev-revenue-multiple.asp
 
 On EV/EBITDA: https://www.investopedia.com/terms/e/ev-ebitda.asp
+
+On P/CF: https://www.investopedia.com/terms/p/price-to-cash-flowratio.asp
 */
 
 export class ValuationCalculatorService {
@@ -35,5 +41,10 @@ export class ValuationCalculatorService {
     static calculateEVEBITDA(ebitda: number): number {
 
         return ValuationCalculatorService.enterpriseValue / ebitda;
+    }
+
+    static calculatePriceToCashFlow(): number {
+
+        return 0;
     }
 }

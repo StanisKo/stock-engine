@@ -212,6 +212,11 @@ export interface IStockProfile {
         */
         enterpriseValueToEbitda: number
 
+        /*
+        Measures how much cash company is generating relative to its market value (its stock price)
+
+        A good alternative to P/E as cash flows are less susceptible to manipulation than earnings
+        */
         priceToCashFlow: number
     },
 
