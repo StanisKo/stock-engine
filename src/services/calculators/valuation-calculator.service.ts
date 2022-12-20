@@ -11,15 +11,15 @@ CC = Cash + Cash (And) Equivalents
 
 NOTE: API provides Debt as shortLongTermDebtTotal
 
-P/CF = SP / OCF per Share
+P/CF = SP / OCFPS
 
 SP = Stock Price
 
-OCF = Operating Cash Flow
+OCF = Operating Cash Flow Per Share
 
 * In order to avoid volatility in calculations, we must use average stock price over last 30 days
 
-* OCF per Share is calculated by dividing Operating Cash Flow by number of outstanding shares
+* OCFPS is calculated by dividing Operating Cash Flow (OCF) by number of outstanding shares
 
 NOTE: API provides Operating Cash Flow as totalCashFromOperatingActivities
 
