@@ -11,15 +11,17 @@ CC = Cash + Cash (And) Equivalents
 
 NOTE: API provides Debt as shortLongTermDebtTotal
 
-P/CF = SP / OCF
+P/CF = SP / OCF per Share
 
 SP = Stock Price
 
-OCF = Operating Cash Flow per Share
+OCF = Operating Cash Flow
 
 * In order to avoid volatility in calculations, we must use average stock price over last 30 days
 
-* OCF is calculated over TTM OCFs divided by number of outstanding shares
+* OCF per Share is calculated by dividing Operating Cash Flow by number of outstanding shares
+
+NOTE: API provides Operating Cash Flow as totalCashFromOperatingActivities
 
 ****
 
@@ -49,8 +51,10 @@ export class ValuationCalculatorService {
         return ValuationCalculatorService.enterpriseValue / ebitda;
     }
 
-    static calculatePriceToCashFlow(): number {
+    static calculatePriceToCashFlow(operatingCashFlow: number, outstandingShares: number, price: number): number {
 
-        return 0;
+        const operatingCashFlowPerShare = operatingCashFlow / outstandingShares;
+
+        return price / operatingCashFlowPerShare;
     }
 }

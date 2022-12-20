@@ -278,8 +278,8 @@ export class DataParserService {
         this.extractedTickerData.profitability.profitMargin = this.fundamentals.Highlights.ProfitMargin;
 
         /*
-        Get the last annual balance sheet and income statement necessary for
-        liquidity, valution and debt calculations
+        Get the last annual balance sheet, income statement and cash flow statement
+        necessary for liquidity, valution and debt calculations
         */
         const lastAnnualBalanceSheet = this.fundamentals.Financials.Balance_Sheet.yearly[
             Object.keys(this.fundamentals.Financials.Balance_Sheet.yearly)[0]
@@ -288,6 +288,12 @@ export class DataParserService {
         const lastAnnualIncomeStatement = this.fundamentals.Financials.Income_Statement.yearly[
             Object.keys(this.fundamentals.Financials.Income_Statement.yearly)[0]
         ];
+
+        const lastAnnualCashFlowStatement = this.fundamentals.Financials.Cash_Flow.yearly[
+            Object.keys(this.fundamentals.Financials.Cash_Flow.yearly)[0]
+        ];
+
+        console.log(lastAnnualCashFlowStatement);
 
         /*
         Calculate and fill missing fields
