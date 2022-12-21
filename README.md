@@ -66,6 +66,24 @@ A paid API (eodhistoricaldata.com) that delivers bulk fundamentals and financial
 
 # Flow & Output
 
-create profiles -> score profiles -> find most and least profitable stock per industry and, therefore, on the market
+Engine:
 
-This then helps to create diverse portfolio of winning stocks across the market
+1. Ingests bulk data on every ticker avaialable from API.
+
+2. Fetches benchmark prices and risk-free rate (bond yield).
+
+3. Groups ingested data by industries.
+
+4. For every stock extracts ratios available from the provider and calculates missing based on aforementioned sources -- creates profiles.
+
+<br />
+
+*N.B.: Fundamentals must always be compared within the same industry!*
+
+<br />
+
+5. Therefore: for each stock in each industry, compares profiles against each other and assigns them an arbitrary score between 0 and 100.
+
+6. Outputs stocks sorted by scores, where top are stocks that have highest potential to be profitable and bottom are those that are least promising, <b>across all industries</b>.
+
+*In such, top is used to create diverse portfolio of long-term investments and bottom is used to identify short-selling targets aimed at quick gains.*
