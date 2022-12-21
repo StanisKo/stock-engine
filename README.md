@@ -3,7 +3,37 @@
 <br />
 
 Engine revolves around so-called Stock Profiles: a set of measurements and ratios
-sculpted for every ticker based on fundamentals, prices, and issuer's financial papers -- balance sheet, income statement and cash flow statement
+sculpted for every stock based on prices, risk-free rates, benchmarks, and issuer's financial papers -- balance sheet, income statement and cash flow statement.
+
+<br />
+
+Aforementioned measurements and ratios are commonly known as *fundamentals* -- values that help evaluate the companies behind each stock.
+
+<br />
+
+Each set of fundamentals (profile) is divided into 6 categories:
+
+* Risk
+
+* Valuation
+
+* Profitability
+
+* Liquidity
+
+* Debt
+
+* Efficiency
+
+<br />
+
+*N.B.*: We also gauge data on dividends, but this does not influence engine's outpus and at this point in time kept strictly for curiosity.
+
+<br />
+
+Purposes of each category:
+
+* Risk 
 
 <br />
 
