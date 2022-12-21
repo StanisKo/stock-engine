@@ -127,8 +127,6 @@ export interface IStockProfile {
 
         Target: < Industry Peers
 
-        Find investments that cost as little as possible against their performance
-
         We're looking for LOWEST P/E, since we need stocks that are undervalued for their perfomance
         */
         priceToEarning: number,
@@ -139,9 +137,7 @@ export interface IStockProfile {
 
         Target: < 1.0 && < Industry Peers
 
-        Find investments that cost as little as possible against their potential
-
-        We're looking for LOWEST PEG, since we need stocks that are undervalued for their future performance
+        We're looking for LOWEST PEG, since we need stocks that are undervalued for their potential performance
         */
         priceToEarningsGrowth: number,
 
@@ -151,8 +147,6 @@ export interface IStockProfile {
         Considered to be more reliable.
 
         Target: < Industry Peers
-
-        Find investments that cost as little as possible against their sales
 
         We're looking for LOWEST P/S, since we need stocks that are undervalued for their sales operations
         */
@@ -164,8 +158,6 @@ export interface IStockProfile {
 
         Target: < 1.0 && < Industry Peers
 
-        Find investments that cost as little as possible against their actual value as a company
-
         We're looking for LOWEST P/B, since we need stocks that are undervalues for their value as a company
         */
         priceToBook: number,
@@ -176,8 +168,6 @@ export interface IStockProfile {
         The lower the better, in that, a lower EV/R signals a company is undervalued.
 
         Target: > 1 && < 3 && < Industry Peers
-
-        Find investments that are undervalued for their enterprise value
 
         We're looking for LOWEST EV/R, since we need stocks that are undervalues for their value as a company
 
@@ -192,8 +182,6 @@ export interface IStockProfile {
         Similar to EV/R, but is more conservative.
 
         Target: < 10 && < Industry Peers
-
-        Find investments that are undervalued for their earnings
 
         We're looking for LOWEST EV/EBITDA, since we need stocks that are undervalues for their earnings
         */
@@ -245,10 +233,8 @@ export interface IStockProfile {
 
         Target: > Industry Peers
 
-        Find investments that have the highest potential to be profitable based on company's assets
-
-        We're looking for HIGHEST ROA, since we need stocks whose assets are managed
-        in the most profitable manner
+        We're looking for HIGHEST ROA, since we need stocks that have the highest potential
+        to be profitable based on company's assets
         */
         returnOnAssets: number,
 
@@ -258,11 +244,8 @@ export interface IStockProfile {
 
         Target: > Industry Peers
 
-        Find investments that have the highest potential to be profitable based on capital gained from
-        issued shares
-
-        We're looking for HIGHEST ROE, since we need stocks whose common stock is managed
-        in the most profitable manner
+        We're looking for HIGHEST ROE, since we need stocks that have the highest potential
+        to be profitable based on capital gained from issued shares
         */
         returnOnEquity: number,
 
@@ -271,9 +254,8 @@ export interface IStockProfile {
 
         Target: > Industry Peers
 
-        Find investments that have the highest potential to be profitable based on company's operations
-
-        We're looking for HIGHEST Profit Margin, since we need stocks whose issuers make most profit
+        We're looking for HIGHEST Profit Margin, since we need stocks that have the highest potential
+        to be profitable based on company's operations
         */
         profitMargin: number
     },
@@ -286,10 +268,8 @@ export interface IStockProfile {
 
         Target: > Industry Peers
 
-        Find investments whose companies are safe from the prospects of bancruptcy
-
-        We're looking for HIGHEST Current Ratio, since we want stocks whose issuers
-        have little to no issues managing their short-term capital
+        We're looking for HIGHEST Current Ratio, since we need stocks whose companies
+        are safe from the prospects of bancruptcy
         */
         currentRatio: number,
 
@@ -312,10 +292,8 @@ export interface IStockProfile {
 
         Target: < Industry Peers
 
-        Find investments that have sensible leverage and are not burdened by debt
-
-        We're looking for LOWEST D/E since we want stocks whose issuers have prospects
-        to continue into the future without defaulting on their obligations
+        We're looking for LOWEST D/E since we need stocks whose companies
+        have sensible leverage and are not burdened by debt
         */
         debtToEquity: number,
 
@@ -327,9 +305,8 @@ export interface IStockProfile {
 
         Target: > 1.0 && > Industry Peers
 
-        Find investments that make enough money to service their long-term debt
-
-        We're looking for HIGHEST Interest Coverage as it is an indicator of company's survivability
+        We're looking for HIGHEST Interest Coverage, since we need stocks whose companies
+        make enough money to service their long-term debt
         */
         interestCoverage: number
     }
