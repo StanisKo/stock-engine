@@ -1,15 +1,3 @@
-/*
-TODO: add missing ratios, clean up comments, prepare everything for V1 (bulk ingest and sorting)
-
-TODO: think of weights ratios will have!
-
-TODO: think how to apply weights to quick sort!
-
-TODO: restructure in preparation for V1
-
-TODO: clean up those comments
-*/
-
 import { MarketCapLabel } from '../enums';
 
 export interface IStockProfile {
