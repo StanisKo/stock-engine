@@ -216,6 +216,14 @@ export interface IStockProfile {
         Measures how much cash company is generating relative to its market value (its stock price)
 
         A good alternative to P/E as cash flows are less susceptible to manipulation than earnings
+
+        Particularly useful for stocks that have positive cash flow but are not profitable yet
+
+        Target: < 10 && < Industry Peers
+
+        Find investments that are undervalued for their cash flow
+
+        We're looking for LOWEST P/CF, since we need stocks that are undervalued for their cash flow
         */
         priceToCashFlow: number
     },
