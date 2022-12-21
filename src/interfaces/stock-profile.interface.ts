@@ -1,3 +1,7 @@
+/*
+TODO: dividends should be the last section
+*/
+
 import { MarketCapLabel } from '../enums';
 
 export interface IStockProfile {

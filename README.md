@@ -27,19 +27,45 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
 <br />
 
-*N.B.*: We also gauge data on dividends, but this does not influence engine's outpus and at this point in time kept strictly for curiosity.
+*N.B.*: We also gauge data on dividends, but this does not influence engine's output and at this point in time kept strictly for curiosity.
 
 <br />
 
-Purposes of each category:
-
-* Risk 
+### Purposes of each category:
 
 <br />
 
-Engine makes use of several third-party APIs to fetch stocks' financial data, creates profiles and sorts stocks within the same industry, delivering (potentially) most profitable stocks for each industry
+WIP (aggregate interface comments)
 
 <br />
 
-Then, most most profitable stocks per industry are sorted against each other to arrive to most profitable
-stocks on the market
+# 3-rd Party APIs
+
+<br />
+
+Engine uses following data sources:
+
+<br />
+
+An open-source library to fetch stocks' historical prices and benchmark prices from Yahoo Finance.
+
+The choice of benchmark in our case is S&P500 (Standard and Poor 500) index that hosts 500 largest US companies.
+It is a common proxy of measuring stocks against the broader market.
+
+<br />
+
+A free NASDAQ API to fetch risk-free rates.
+
+The choice of risk-free asset in our case is US Treasury 1 Year Bond Yield.
+
+<br />
+
+A paid API (eodhistoricaldata.com) that delivers bulk fundamentals and financial documenents.
+
+<br />
+
+# Flow & Output
+
+create profiles -> score profiles -> find most and least profitable stock per industry and, therefore, on the market
+
+This then helps to create diverse portfolio of winning stocks across the market
