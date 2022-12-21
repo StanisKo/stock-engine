@@ -27,7 +27,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
 <br />
 
-*N.B.*: We also gauge data on dividends, but this does not influence engine's output and at this point in time kept strictly for curiosity.
+*N.B.*: We also gauge data on dividends, but this does not influence engine's output (yet) and at this point in time kept strictly for curiosity.
 
 <br />
 
@@ -56,11 +56,11 @@ It is a common proxy of measuring stocks against the broader market.
 
 A free NASDAQ API to fetch risk-free rates.
 
-The choice of risk-free asset in our case is US Treasury 1 Year Bond Yield.
+The choice of risk-free asset in our case is US Treasury 1 Year Bond.
 
 <br />
 
-A paid API (eodhistoricaldata.com) that delivers bulk fundamentals and financial documenents.
+A paid API (eodhistoricaldata.com) that delivers bulk fundamentals and financial documents.
 
 <br />
 
