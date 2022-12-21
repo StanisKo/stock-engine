@@ -17,7 +17,7 @@ SP = Stock Price
 
 OCF = Operating Cash Flow Per Share
 
-* In order to avoid volatility in calculations, we must use average stock price over last 30 days
+* TODO: In order to avoid volatility in calculations, we must use average stock price over last 30 days
 
 * OCFPS is calculated by dividing Operating Cash Flow (OCF) by number of outstanding shares
 

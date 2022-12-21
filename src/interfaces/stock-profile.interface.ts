@@ -6,6 +6,8 @@ TODO: think of weights ratios will have!
 TODO: think how to apply weights to quick sort!
 
 TODO: restructure in preparation for V1
+
+TODO: clean up those comments
 */
 
 import { MarketCapLabel } from '../enums';
@@ -27,10 +29,7 @@ export interface IStockProfile {
 
     Target: > Industry Peers
 
-    Find investments that historically are most profitable
-
-    We're looking for HIGHEST CAGR since we need stocks that are more profitable
-    than others on the market
+    We're looking for HIGHEST CAGR since we need stocks that historically are most profitable
     */
     cagr: number,
 
@@ -54,8 +53,6 @@ export interface IStockProfile {
 
         Target: > Market Peers
 
-        Find investments that have potential for fast growth
-
         We're looking for HIGHEST Standard Deviation since we need stocks that
         can potentially outperform their expected historical normal returns
         */
@@ -69,10 +66,7 @@ export interface IStockProfile {
 
         Target: > 1.0 && > Market Peers
 
-        Find investments that justify the risk of investing
-
-        We're looking for HIGHEST Sharpe Ratio since we need stocks that are safer than investing
-        into risk-free assets (bonds, cash, gold, etc.)
+        We're looking for HIGHEST Sharpe Ratio since we need stocks that justify the risk involved
         */
         sharpeRatio: number,
 
@@ -90,10 +84,7 @@ export interface IStockProfile {
 
         Target: > 1.0 && > Market Peers
 
-        Find investments that have potential to grow faster than the market
-
-        We're looking for HIGHEST Beta since we need stocks that
-        can move more intensely (faster) than the market
+        We're looking for HIGHEST Beta since we need stocks that have potential to grow faster than the market
         */
         beta: number,
 
@@ -109,9 +100,7 @@ export interface IStockProfile {
 
         Target: > 0 && > Market Peers
 
-        Find investments that outperform the market
-
-        We're looking for HIGHEST Alpha since we need stocks that perform better than index (market)
+        We're looking for HIGHEST Alpha since we need stocks that outperform the market (index)
         */
         alpha: number,
 
@@ -125,9 +114,7 @@ export interface IStockProfile {
         
         Target: < 70% && < Market Peers
 
-        Find investments that do not follow the market
-
-        We're looking for LOWEST R-Squared since we need stocks that deviate from the index (market)
+        We're looking for LOWEST R-Squared since we need stocks that deviate from the market (index)
         */
         rSquared: number
     },
