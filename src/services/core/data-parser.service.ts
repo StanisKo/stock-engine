@@ -80,14 +80,6 @@ export class DataParserService {
         };
 
         /*
-        Initialize dividends map to fill
-        */
-        this.extractedTickerData.dividends = {
-            dividendYield: 0,
-            dividendPayout: 0
-        };
-
-        /*
         Initialize profitability map to fill
         */
         this.extractedTickerData.profitability = {
@@ -110,6 +102,14 @@ export class DataParserService {
         this.extractedTickerData.debt = {
             debtToEquity: 0,
             interestCoverage: 0
+        };
+
+        /*
+        Initialize dividends map to fill
+        */
+        this.extractedTickerData.dividends = {
+            dividendYield: 0,
+            dividendPayout: 0
         };
     }
 
@@ -208,10 +208,10 @@ export class DataParserService {
         );
 
         /*
-        NOTE: WIP, price has to average over last 30 days
+        NOTE: WIP, price has to be an average over last 60 days
         */
         this.extractedTickerData.valuation.priceToCashFlow = ValuationCalculatorService.calculatePriceToCashFlow(
-            Number(lastAnnualCashFlowStatement.totalCashFromOperatingActivities),
+            Number(lastAnnualCashFlowStatement.freeCashFlow),
             Number(this.fundamentals.SharesStats.SharesOutstanding),
             tickerEndingPrice
         );
@@ -280,15 +280,15 @@ export class DataParserService {
 
         this.extractedTickerData.valuation.priceToBook = this.fundamentals.Valuation.PriceBookMRQ;
 
-        this.extractedTickerData.dividends.dividendYield = this.fundamentals.Highlights.DividendYield;
-
-        this.extractedTickerData.dividends.dividendPayout = this.fundamentals.SplitsDividends.PayoutRatio;
-
         this.extractedTickerData.profitability.returnOnAssets = this.fundamentals.Highlights.ReturnOnAssetsTTM;
 
         this.extractedTickerData.profitability.returnOnEquity = this.fundamentals.Highlights.ReturnOnEquityTTM;
 
         this.extractedTickerData.profitability.profitMargin = this.fundamentals.Highlights.ProfitMargin;
+
+        this.extractedTickerData.dividends.dividendYield = this.fundamentals.Highlights.DividendYield;
+
+        this.extractedTickerData.dividends.dividendPayout = this.fundamentals.SplitsDividends.PayoutRatio;
 
         /*
         Get the last annual balance sheet, income statement and cash flow statement

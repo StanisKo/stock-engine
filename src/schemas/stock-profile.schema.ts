@@ -105,17 +105,6 @@ const industryProfileSchema = new mongoose.Schema<IStockProfileSchema>(
             }
         },
 
-        dividends: {
-
-            dividendYield: {
-                type: Number
-            },
-
-            dividendPayout: {
-                type: Number
-            }
-        },
-
         profitability: {
 
             returnOnAssets: {
@@ -158,8 +147,18 @@ const industryProfileSchema = new mongoose.Schema<IStockProfileSchema>(
                 type: Number,
                 required: true
             }
-        }
+        },
 
+        dividends: {
+
+            dividendYield: {
+                type: Number
+            },
+
+            dividendPayout: {
+                type: Number
+            }
+        }
     },
 
     { collection: 'StockProfiles', timestamps: true }

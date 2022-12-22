@@ -195,28 +195,6 @@ export interface IStockProfile {
         priceToCashFlow: number
     },
 
-    dividends: {
-
-        /*
-        Denotes how much interest you earn from dividends.
-
-        Target: <= 5% && > Industry Peers
-
-        NOTE: we do not concern ourselves with dividends yet
-        */
-        dividendYield: number,
-
-        /*
-        A percentage of profit distributed to investors.
-        Helps to understand if company can sustain its dividend payouts in the future.
-
-        Target: >= 50% && <= 70%
-
-        NOTE: we do not concern ourselves with dividends yet
-        */
-        dividendPayout: number
-    }
-
     profitability: {
 
         /*
@@ -301,6 +279,28 @@ export interface IStockProfile {
         make enough money to service their long-term debt
         */
         interestCoverage: number
+    }
+
+    dividends: {
+
+        /*
+        Denotes how much interest you earn from dividends.
+
+        Target: <= 5% && > Industry Peers
+
+        NOTE: we do not concern ourselves with dividends yet
+        */
+        dividendYield: number,
+
+        /*
+        A percentage of profit distributed to investors.
+        Helps to understand if company can sustain its dividend payouts in the future.
+
+        Target: >= 50% && <= 70%
+
+        NOTE: we do not concern ourselves with dividends yet
+        */
+        dividendPayout: number
     }
 }
 
