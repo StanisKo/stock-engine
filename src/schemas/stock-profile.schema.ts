@@ -99,7 +99,7 @@ const industryProfileSchema = new mongoose.Schema<IStockProfileSchema>(
                 required: true
             },
 
-            priceToCashFlow: {
+            priceToFreeCashFlow: {
                 type: Number,
                 required: true
             }

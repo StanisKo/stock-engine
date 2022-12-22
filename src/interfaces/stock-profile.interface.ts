@@ -188,9 +188,9 @@ export interface IStockProfile {
 
         Target: < 10 && < Industry Peers
 
-        We're looking for LOWEST P/CF, since we need stocks that are undervalued for their cash flow
+        We're looking for LOWEST P/FCF, since we need stocks that are undervalued for their free cash flow
         */
-        priceToCashFlow: number
+        priceToFreeCashFlow: number
     },
 
     profitability: {

@@ -76,7 +76,7 @@ export class DataParserService {
             priceToBook: 0,
             enterpriseValueToRevenue: 0,
             enterpriseValueToEbitda: 0,
-            priceToCashFlow: 0
+            priceToFreeCashFlow: 0
         };
 
         /*
@@ -201,7 +201,7 @@ export class DataParserService {
 
         Calculate EVR and EVEBITDA based on revenue and EBITDA (last annual income statement)
 
-        Then calculate P/CF based on free cash flow (last annual cash flow statement),
+        Then calculate P/FCF based on free cash flow (last annual cash flow statement),
         number of outstanding shares (last annual balance sheet), and stock price (average of last 60 trading days)
         */
         ValuationCalculatorService.calculateEnterpriseValue(
@@ -219,17 +219,21 @@ export class DataParserService {
             Number(lastAnnualIncomeStatement.ebitda)
         );
 
-        const pricesForLastSixtyTradingDays = TimeSeriesHelperService.sliceDatasetIntoLastNTradingDays(this.prices, 60);
-
-        const averagePriceOfLastSixtyTradingDays = CalculatorHelperService.calculateAveragePrice(
-            pricesForLastSixtyTradingDays
+        const pricesOverLastSixtyTradingDays = TimeSeriesHelperService.sliceDatasetIntoLastNTradingDays(
+            this.prices,
+            60
         );
 
-        this.extractedTickerData.valuation.priceToCashFlow = ValuationCalculatorService.calculatePriceToCashFlow(
-            Number(lastAnnualCashFlowStatement.freeCashFlow),
-            Number(lastAnnualBalanceSheet.commonStockSharesOutstanding),
-            averagePriceOfLastSixtyTradingDays
+        const averagePriceOverLastSixtyTradingDays = CalculatorHelperService.calculateAveragePrice(
+            pricesOverLastSixtyTradingDays
         );
+
+        this.extractedTickerData.valuation.priceToFreeCashFlow =
+            ValuationCalculatorService.calculatePriceToFreeCashFlow(
+                Number(lastAnnualCashFlowStatement.freeCashFlow),
+                Number(lastAnnualBalanceSheet.commonStockSharesOutstanding),
+                averagePriceOverLastSixtyTradingDays
+            );
 
         /*
         Calculate Liquidity based on last annual balance sheet
