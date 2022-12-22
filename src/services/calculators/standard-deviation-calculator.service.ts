@@ -15,15 +15,6 @@ ARoR = SUM(RoR) / N(RoR) where N is count of datapoints we have
 ****
 
 On Standard Deviation: https://www.investopedia.com/terms/s/standarddeviation.asp
-
-****
-
-GOAL:
-
-Find investments that have potential for exponential growth
-
-We're looking for HIGHEST Standard Deviation since we need stocks that
-can potentially outperform their expected historical normal returns
 */
 
 import { ITickerPrice } from '../../interfaces/ticker.interface';

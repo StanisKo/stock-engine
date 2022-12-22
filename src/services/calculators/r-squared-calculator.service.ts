@@ -25,17 +25,6 @@ On R-Squared: https://www.investopedia.com/terms/r/r-squared.asp
 On Correlation: https://www.investopedia.com/terms/c/correlationcoefficient.asp
 
 On Covariance: https://www.investopedia.com/terms/c/covariance.asp
-
-****
-
-GOAL:
-
-Find investments that will beat the market
-We're looking for LOWEST R-Squared since we need stocks that deviate from the index (market)
-
-R-Squared Ranges:
-    * >= 85 && <= 100: Closely correlates with index (influenced by 85-100%)
-    * <= 70: Does not perform like index (influenced by 70% or less)
 */
 
 import { ITickerPrice } from '../../interfaces/ticker.interface';

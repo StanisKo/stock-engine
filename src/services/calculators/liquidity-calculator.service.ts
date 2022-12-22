@@ -12,9 +12,13 @@ Quick Assets = Cash + Cash Equivalents + Marketable Securities + Net Receivables
 
 ****
 
-On marketable securities: https://www.investopedia.com/terms/m/marketablesecurities.asp
+On Current Ratio: https://www.investopedia.com/terms/c/currentratio.asp
 
-On quick assets: https://www.investopedia.com/terms/q/quickratio.asp
+On Quick Ratio: https://www.investopedia.com/terms/q/quickratio.asp
+
+On Marketable Securities: https://www.investopedia.com/terms/m/marketablesecurities.asp
+
+On Quick Assets: https://www.investopedia.com/terms/q/quickratio.asp
 */
 
 export class LiquidityCalculatorService {

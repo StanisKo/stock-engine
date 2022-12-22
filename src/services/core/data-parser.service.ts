@@ -152,7 +152,8 @@ export class DataParserService {
         this.extractedTickerData.risk.standardDeviation = standardDeviation;
 
         /*
-        Calculate sharpe ratio over ticker TTM prices and risk-free rate (US Treasury 1YR bond yield)
+        Calculate sharpe ratio over ticker rate of return, risk-free rate (US Treasury 1YR bond yield)
+        and standard deviation
         */
 
         const tickerRateOfReturn = CalculatorHelperService.calculateRateOfReturn(
