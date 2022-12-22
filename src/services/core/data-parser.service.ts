@@ -202,7 +202,7 @@ export class DataParserService {
         Calculate EVR and EVEBITDA based on revenue and EBITDA (last annual income statement)
 
         Then calculate P/CF based on free cash flow (last annual cash flow statement),
-        number of outstanding shares (last annual balance sheet), and stock price (average of last 60 days)
+        number of outstanding shares (last annual balance sheet), and stock price (average of last 60 trading days)
         */
         ValuationCalculatorService.calculateEnterpriseValue(
             Number(this.fundamentals.Highlights.MarketCapitalization),
@@ -219,13 +219,10 @@ export class DataParserService {
             Number(lastAnnualIncomeStatement.ebitda)
         );
 
-        /*
-        NOTE: WIP, price has to be an average over last 60 days! (currently we're using last from TTM)
-        */
         this.extractedTickerData.valuation.priceToCashFlow = ValuationCalculatorService.calculatePriceToCashFlow(
             Number(lastAnnualCashFlowStatement.freeCashFlow),
             Number(lastAnnualBalanceSheet.commonStockSharesOutstanding),
-            tickerEndingPrice
+            this.prices[this.prices.length - 1].adjClose
         );
 
         /*

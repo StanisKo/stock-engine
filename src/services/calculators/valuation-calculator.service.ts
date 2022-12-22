@@ -19,7 +19,7 @@ FCF = Free Cash Flow Per Share
 
 * FCF is calculated by dividing Free Cash Flow by number of outstanding shares
 
-* In order to avoid volatility in calculations, we use average stock price over last 60 days
+* In order to avoid volatility in calculations, we use average stock price over last 60 trading days
 
 NOTE: We use Free Cash Flow and not Operating Cash Flow, since Free Cash Flow does not include CAPEX
 (Capital Expenditures) and, therefore, is more conservative measure
