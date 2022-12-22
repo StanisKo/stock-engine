@@ -11,7 +11,7 @@ export interface IStockProfile {
     industry: string,
 
     /*
-    ALL RATIOS EXCEPT RISK MUST BE COMPARED WITHIN THE SAME INDUSTRY
+    ALL RATIOS MUST BE COMPARED WITHIN THE SAME INDUSTRY
     */
 
     /*

@@ -131,7 +131,7 @@ export class DataParserService {
             Object.keys(this.fundamentals.Financials.Cash_Flow.yearly)[0]
         ];
 
-        const tickerTTMPrices = TimeSeriesHelperService.sliceDataSetIntoTTM(this.prices);
+        const tickerTTMPrices = TimeSeriesHelperService.sliceDatasetIntoTTM(this.prices);
 
         const [tickerStartingPrice, tickerEndingPrice] = TimeSeriesHelperService.getStartingAndEndingPrice(
             tickerTTMPrices
@@ -219,10 +219,16 @@ export class DataParserService {
             Number(lastAnnualIncomeStatement.ebitda)
         );
 
+        const pricesForLastSixtyTradingDays = TimeSeriesHelperService.sliceDatasetIntoLastNTradingDays(this.prices, 60);
+
+        const averagePriceOfLastSixtyTradingDays = CalculatorHelperService.calculateAveragePrice(
+            pricesForLastSixtyTradingDays
+        );
+
         this.extractedTickerData.valuation.priceToCashFlow = ValuationCalculatorService.calculatePriceToCashFlow(
             Number(lastAnnualCashFlowStatement.freeCashFlow),
             Number(lastAnnualBalanceSheet.commonStockSharesOutstanding),
-            this.prices[this.prices.length - 1].adjClose
+            averagePriceOfLastSixtyTradingDays
         );
 
         /*

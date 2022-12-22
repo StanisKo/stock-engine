@@ -43,7 +43,7 @@ export class TimeSeriesHelperService {
         return [prices[0].adjClose, prices[prices.length - 1].adjClose];
     }
 
-    static sliceDataSetIntoTTM(prices: ITickerPrice[]): ITickerPrice[] {
+    static sliceDatasetIntoTTM(prices: ITickerPrice[]): ITickerPrice[] {
 
         /*
         Get margins
@@ -90,5 +90,10 @@ export class TimeSeriesHelperService {
         const endingPrice = prices.find(price => endingPriceLookup(price.date));
 
         return prices.slice(prices.indexOf(startingPrice!), prices.indexOf(endingPrice!));
+    }
+
+    static sliceDatasetIntoLastNTradingDays(prices: ITickerPrice[], days: number): ITickerPrice[] {
+
+        return prices.slice(prices.length - 1 - days);
     }
 }
