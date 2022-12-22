@@ -51,4 +51,16 @@ export class CalculatorHelperService {
 
         return datasetSize * sumOfSquaredReturns - Math.pow(sumOfReturns, 2);
     }
+
+    static calculateAveragePrice(prices: ITickerPrice[]): number {
+
+        let sum = 0;
+
+        for (let i = 0; i < prices.length; i++) {
+
+            sum += prices[i].adjClose;
+        }
+
+        return sum / prices.length;
+    }
 }

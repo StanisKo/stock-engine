@@ -1,3 +1,7 @@
+/*
+TODO: in V1 we don't need to request benchmark prices and treasury bond yield for every ticker, rework
+*/
+
 import moment from 'moment';
 import fetch from 'node-fetch';
 import yahooFinance from 'yahoo-finance2';
@@ -6,7 +10,7 @@ import { ITickerFundamentals, ITickerPrice, ITickerFinancialData } from '../../i
 
 import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 
-export class FinancialApiConnectorService {
+export class ApiConnectorService {
 
     ticker: string;
 

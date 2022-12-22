@@ -9,14 +9,6 @@ CAGR = ( [ (Ending Price / Starting Price) ^ (1 / N of years to look back) ] - 1
 ****
 
 On CAGR: https://www.investopedia.com/terms/c/cagr.asp
-
-****
-
-GOAL:
-
-Find investments that are more profitable within the timeframe than peers
-We're looking for HIGHEST CAGR since we need stocks that perfrom better
-than other stocks in the given industry
 */
 
 export class CAGRCalculatorService {
@@ -40,8 +32,6 @@ export class CAGRCalculatorService {
         const cagr = (
             ((endingPrice / startingPrice) - 1)
         ) * 100;
-
-        console.log('Calculated CAGR');
 
         return cagr;
     }

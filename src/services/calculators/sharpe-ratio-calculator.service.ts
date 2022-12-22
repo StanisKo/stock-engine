@@ -17,14 +17,6 @@ NOTE: Our Risk-Free Rate of Return is US 1 Year Treasury Bond Yield
 On Sharpe Ratio: https://www.investopedia.com/terms/s/sharperatio.asp
 
 On Treasury Bond Yield: https://www.investopedia.com/articles/investing/100814/why-10-year-us-treasury-rates-matter.asp
-
-****
-
-GOAL:
-
-Find investments that justify the risk of investing
-We're looking for HIGHEST Sharpe Ratio since we need stocks that are safer than investing
-into risk-free assets (bonds, cash, gold, etc.)
 */
 
 export class SharpeRatioCalculatorService {
@@ -36,8 +28,6 @@ export class SharpeRatioCalculatorService {
     ): number {
 
         const sharpeRatio = (tickerRateOfReturn - treasuryBondYield) / tickerStandardDeviation;
-
-        console.log('Calculated Sharpe Ratio');
 
         return sharpeRatio;
     }
