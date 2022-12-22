@@ -52,9 +52,9 @@ export class ValuationCalculatorService {
         return ValuationCalculatorService.enterpriseValue / ebitda;
     }
 
-    static calculatePriceToCashFlow(freeCashFlow: number, outstandingShares: number, price: number): number {
+    static calculatePriceToCashFlow(freeCashFlow: number, sharesOutstanding: number, price: number): number {
 
-        const freeCashFlowPerShare = freeCashFlow / outstandingShares;
+        const freeCashFlowPerShare = freeCashFlow / sharesOutstanding;
 
         return price / freeCashFlowPerShare;
     }
