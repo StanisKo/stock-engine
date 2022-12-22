@@ -202,7 +202,7 @@ export class DataParserService {
         Calculate EVR and EVEBITDA based on revenue and EBITDA (last annual income statement)
 
         Then calculate P/CF based on free cash flow (last annual cash flow statement),
-        number of outstanding shares (last annual balance sheet), and stock price
+        number of outstanding shares (last annual balance sheet), and stock price (average of last 60 days)
         */
         ValuationCalculatorService.calculateEnterpriseValue(
             Number(this.fundamentals.Highlights.MarketCapitalization),

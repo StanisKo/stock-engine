@@ -21,7 +21,7 @@ FCF = Free Cash Flow Per Share
 
 * In order to avoid volatility in calculations, we use average stock price over last 60 days
 
-NOTE: We use Free Cash Flow and not Operating Cash Flow, since free cash flow does not include CAPEX
+NOTE: We use Free Cash Flow and not Operating Cash Flow, since Free Cash Flow does not include CAPEX
 (Capital Expenditures) and, therefore, is more conservative measure
 
 ****
@@ -31,6 +31,8 @@ On EV/R: https://www.investopedia.com/terms/e/ev-revenue-multiple.asp
 On EV/EBITDA: https://www.investopedia.com/terms/e/ev-ebitda.asp
 
 On P/CF: https://www.investopedia.com/terms/p/price-to-cash-flowratio.asp
+
+On FCF: https://www.investopedia.com/ask/answers/033015/what-formula-calculating-free-cash-flow.asp
 */
 
 export class ValuationCalculatorService {

@@ -188,8 +188,6 @@ export interface IStockProfile {
 
         Target: < 10 && < Industry Peers
 
-        Find investments that are undervalued for their cash flow
-
         We're looking for LOWEST P/CF, since we need stocks that are undervalued for their cash flow
         */
         priceToCashFlow: number
