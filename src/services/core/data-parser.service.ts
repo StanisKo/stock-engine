@@ -119,6 +119,7 @@ export class DataParserService {
         Get the last annual balance sheet, income statement and cash flow statement
         necessary for liquidity, valution and debt calculations
         */
+
         const lastAnnualBalanceSheet = this.fundamentals.Financials.Balance_Sheet.yearly[
             Object.keys(this.fundamentals.Financials.Balance_Sheet.yearly)[0]
         ];
@@ -205,6 +206,7 @@ export class DataParserService {
         Then calculate P/FCF based on free cash flow (last annual cash flow statement),
         number of outstanding shares (last annual balance sheet), and stock price (average of last 60 trading days)
         */
+
         ValuationCalculatorService.calculateEnterpriseValue(
             Number(this.fundamentals.Highlights.MarketCapitalization),
             Number(lastAnnualBalanceSheet.shortLongTermDebtTotal),
