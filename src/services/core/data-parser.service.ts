@@ -113,11 +113,23 @@ export class DataParserService {
         };
     }
 
-    private calculateAndFillMissingMeasurements(
-        lastAnnualBalanceSheet: ITickerFundamentals,
-        lastAnnualIncomeStatement: ITickerFundamentals,
-        lastAnnualCashFlowStatement: ITickerFundamentals
-    ): void {
+    private calculateAndFillMissingMeasurements(): void {
+
+        /*
+        Get the last annual balance sheet, income statement and cash flow statement
+        necessary for liquidity, valution and debt calculations
+        */
+        const lastAnnualBalanceSheet = this.fundamentals.Financials.Balance_Sheet.yearly[
+            Object.keys(this.fundamentals.Financials.Balance_Sheet.yearly)[0]
+        ];
+
+        const lastAnnualIncomeStatement = this.fundamentals.Financials.Income_Statement.yearly[
+            Object.keys(this.fundamentals.Financials.Income_Statement.yearly)[0]
+        ];
+
+        const lastAnnualCashFlowStatement = this.fundamentals.Financials.Cash_Flow.yearly[
+            Object.keys(this.fundamentals.Financials.Cash_Flow.yearly)[0]
+        ];
 
         const tickerTTMPrices = TimeSeriesHelperService.sliceDataSetIntoTTM(this.prices);
 
@@ -189,8 +201,8 @@ export class DataParserService {
 
         Calculate EVR and EVEBITDA based on revenue and EBITDA (last annual income statement)
 
-        Then calculate P/CF based on operating cash flow (last annual cash flow statement),
-        number of outstanding shares, and stock price
+        Then calculate P/CF based on free cash flow (last annual cash flow statement),
+        number of outstanding shares (last annual balance sheet), and stock price
         */
         ValuationCalculatorService.calculateEnterpriseValue(
             Number(this.fundamentals.Highlights.MarketCapitalization),
@@ -208,11 +220,11 @@ export class DataParserService {
         );
 
         /*
-        NOTE: WIP, price has to be an average over last 60 days
+        NOTE: WIP, price has to be an average over last 60 days! (currently we're using last from TTM)
         */
         this.extractedTickerData.valuation.priceToCashFlow = ValuationCalculatorService.calculatePriceToCashFlow(
             Number(lastAnnualCashFlowStatement.freeCashFlow),
-            Number(this.fundamentals.SharesStats.SharesOutstanding),
+            Number(lastAnnualBalanceSheet.commonStockSharesOutstanding),
             tickerEndingPrice
         );
 
@@ -291,29 +303,9 @@ export class DataParserService {
         this.extractedTickerData.dividends.dividendPayout = this.fundamentals.SplitsDividends.PayoutRatio;
 
         /*
-        Get the last annual balance sheet, income statement and cash flow statement
-        necessary for liquidity, valution and debt calculations
-        */
-        const lastAnnualBalanceSheet = this.fundamentals.Financials.Balance_Sheet.yearly[
-            Object.keys(this.fundamentals.Financials.Balance_Sheet.yearly)[0]
-        ];
-
-        const lastAnnualIncomeStatement = this.fundamentals.Financials.Income_Statement.yearly[
-            Object.keys(this.fundamentals.Financials.Income_Statement.yearly)[0]
-        ];
-
-        const lastAnnualCashFlowStatement = this.fundamentals.Financials.Cash_Flow.yearly[
-            Object.keys(this.fundamentals.Financials.Cash_Flow.yearly)[0]
-        ];
-
-        /*
         Calculate and fill missing fields
         */
-        this.calculateAndFillMissingMeasurements(
-            lastAnnualBalanceSheet,
-            lastAnnualIncomeStatement,
-            lastAnnualCashFlowStatement
-        );
+        this.calculateAndFillMissingMeasurements();
 
         console.log(this.extractedTickerData);
     }
