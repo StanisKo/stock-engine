@@ -15,7 +15,7 @@ P/FCF = SP / FCF
 
 SP = Stock Price
 
-FCF = Free Cash Flow Per Share
+FCF = Free Cash Flow (Per Share)
 
 In order to avoid volatility in calculations, we use average stock price over last 60 trading days
 
