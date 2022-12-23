@@ -292,6 +292,18 @@ export interface IStockProfile {
         */
         assetTurnover: number,
 
+        /*
+        Measures how good the company is at cycling through the inventory
+
+        In other words: how fast the company is at selling already produced products
+
+        The higher the number, the better
+
+        Target > Industry Peers
+
+        We're looking for HIGHEST Inventory Turnover, since we need stocks whose companies
+        sell their products faster than competitors
+        */
         inventoryTurnover: number
     },
 
