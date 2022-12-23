@@ -105,6 +105,14 @@ export class DataParserService {
         };
 
         /*
+        Initialize efficiency map to fill
+        */
+        this.extractedTickerData.efficiency = {
+            assetTurnover: 0,
+            inventoryTurnover: 0
+        };
+
+        /*
         Initialize dividends map to fill
         */
         this.extractedTickerData.dividends = {
@@ -131,6 +139,8 @@ export class DataParserService {
         const lastAnnualCashFlowStatement = this.fundamentals.Financials.Cash_Flow.yearly[
             Object.keys(this.fundamentals.Financials.Cash_Flow.yearly)[0]
         ];
+
+        console.log(lastAnnualBalanceSheet);
 
         const tickerTTMPrices = TimeSeriesHelperService.sliceDatasetIntoTTM(this.prices);
 
