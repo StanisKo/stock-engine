@@ -3,7 +3,7 @@ version: '3.8'
 services:
   database:
       image: mongo
-      command: --quiet
+      command: --quiet --logpath /dev/null
       container_name: database
       restart: always
       ports:
@@ -15,6 +15,15 @@ services:
       volumes:
         - ./mongo/create-user.js:/docker-entrypoint-initdb.d/create-user.js:ro
         - ./docker/data/mongo/db:/data/db
+
+  engine:
+    container_name: engine.dev
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+    - /engine/node_modules
+    - ./:/engine
 
   database-client:
     image: mongo-express
@@ -30,3 +39,4 @@ services:
       - database
     depends_on:
       - database
+    restart: unless-stopped
