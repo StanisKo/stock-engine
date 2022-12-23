@@ -141,8 +141,6 @@ export class DataParserService {
             Object.keys(this.fundamentals.Financials.Cash_Flow.yearly)[0]
         ];
 
-        console.log(lastAnnualBalanceSheet);
-
         const tickerTTMPrices = TimeSeriesHelperService.sliceDatasetIntoTTM(this.prices);
 
         const [tickerStartingPrice, tickerEndingPrice] = TimeSeriesHelperService.getStartingAndEndingPrice(
