@@ -5,7 +5,7 @@ Inventory Turnover: COGS / Average Value of Inventory
 
 COGS = Cost of Goods Sold
 
-NOTE: API provides Total Annual Sales as totalRevenue
+NOTE: API provides Total Annual Sales as totalRevenue, COGS as costOfRevenue
 
 ****
 

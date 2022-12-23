@@ -126,7 +126,7 @@ export class DataParserService {
 
         /*
         Get the last annual balance sheet, income statement and cash flow statement
-        necessary for liquidity, valution and debt calculations
+        necessary for liquidity, valution, debt, and efficiency calculations
         */
 
         const lastAnnualBalanceSheet = this.fundamentals.Financials.Balance_Sheet.yearly[
@@ -140,6 +140,8 @@ export class DataParserService {
         const lastAnnualCashFlowStatement = this.fundamentals.Financials.Cash_Flow.yearly[
             Object.keys(this.fundamentals.Financials.Cash_Flow.yearly)[0]
         ];
+
+        console.log(lastAnnualBalanceSheet);
 
         const tickerTTMPrices = TimeSeriesHelperService.sliceDatasetIntoTTM(this.prices);
 
@@ -285,6 +287,11 @@ export class DataParserService {
         this.extractedTickerData.efficiency.assetTurnover = EfficiencyCalculatorService.calculateAssetTurnover(
             Number(lastAnnualIncomeStatement.totalRevenue),
             Number(lastAnnualBalanceSheet.totalAssets)
+        );
+
+        this.extractedTickerData.efficiency.inventoryTurnover = EfficiencyCalculatorService.calculateInventoryTurnover(
+            Number(lastAnnualIncomeStatement.costOfRevenue),
+            Number(lastAnnualBalanceSheet.inventory)
         );
     }
 
