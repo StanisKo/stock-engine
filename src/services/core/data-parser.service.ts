@@ -21,6 +21,7 @@ import { RSquaredCalculatorService } from '../calculators/r-squared-calculator.s
 import { LiquidityCalculatorService } from '../calculators/liquidity-calculator.service';
 import { DebtCalculatorService } from '../calculators/debt-calculator.service';
 import { ValuationCalculatorService } from '../calculators/valuation-calculator.service';
+import { EfficiencyCalculatorService } from '../calculators/efficiency-calculator.service';
 
 import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 import { CalculatorHelperService } from '../helpers/calculator-helper.service';
@@ -139,8 +140,6 @@ export class DataParserService {
         const lastAnnualCashFlowStatement = this.fundamentals.Financials.Cash_Flow.yearly[
             Object.keys(this.fundamentals.Financials.Cash_Flow.yearly)[0]
         ];
-
-        console.log(lastAnnualBalanceSheet);
 
         const tickerTTMPrices = TimeSeriesHelperService.sliceDatasetIntoTTM(this.prices);
 
@@ -277,6 +276,15 @@ export class DataParserService {
         this.extractedTickerData.debt.interestCoverage = DebtCalculatorService.calculateInterestCoverage(
             Number(lastAnnualIncomeStatement.ebit),
             Number(lastAnnualIncomeStatement.interestExpense)
+        );
+
+        /*
+        Calculate Efficiency on last annual income statement and balance sheet
+        */
+
+        this.extractedTickerData.efficiency.assetTurnover = EfficiencyCalculatorService.calculateAssetTurnover(
+            Number(lastAnnualIncomeStatement.totalRevenue),
+            Number(lastAnnualBalanceSheet.totalAssets)
         );
     }
 
