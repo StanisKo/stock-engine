@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "nodemon --watch src -e ts, --exec yarn start",
+    "dev": "nodemon --watch src -e ts --delay 0.25, --exec yarn start",
     "start": "tsc && node ./build/index.js"
   },
   "dependencies": {
