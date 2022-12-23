@@ -182,7 +182,7 @@ export interface IStockProfile {
 
         Particularly useful for stocks that have positive cash flow but are not profitable yet
 
-        Target: < 10 && < Industry Peers
+        Target: < 5 && < Industry Peers
 
         We're looking for LOWEST P/FCF, since we need stocks that are undervalued for their free cash flow
         */
