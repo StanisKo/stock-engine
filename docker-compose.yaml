@@ -16,15 +16,6 @@ services:
         - ./mongo/create-user.js:/docker-entrypoint-initdb.d/create-user.js:ro
         - ./docker/data/mongo/db:/data/db
 
-  engine:
-    container_name: engine.dev
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-    volumes:
-    - /engine/node_modules
-    - ./:/engine
-
   database-client:
     image: mongo-express
     container_name: database-client
