@@ -84,7 +84,9 @@ Each set of fundamentals (profile) is divided into 6 categories:
 * *Sharpe Ratio*
 
   Measures rate of return on the asset above risk-free investment, such as treasury bonds or cash.
+
   In other words, measures whether the risk is justified against investing into risk-free assets.
+
   A Sharpe Ratio above 1.0 is considered good, as it indicates potential excess return
   relative to the volatility of the asset.
 
@@ -114,10 +116,11 @@ Each set of fundamentals (profile) is divided into 6 categories:
 * *Beta*
 
   Measures volatility of an asset against the broader index (S&P 500, Dow Jones, Nasdaq, etc.).
+
   Displays the intensity of movement, not the direction: the asset moves in the same direction as index,
   either slower, same, or faster.
 
-  We're looking for HIGHEST Beta since we need stocks that have potential to grow faster than the market
+  We're looking for HIGHEST Beta since we need stocks that have potential to grow faster than the market.
 
   <br />
 
@@ -132,6 +135,36 @@ Each set of fundamentals (profile) is divided into 6 categories:
   <br />
 
   On Beta: https://www.investopedia.com/terms/b/beta.asp
+
+<br />
+
+* *Alpha*
+
+  Measures excess returns/losses against the return of the index.
+
+  Expressed in a decimal (0.N) that is a percentage of over or under performance.
+
+  <b>NOTE:</b> we express alpha in direct percentage.
+
+  We're looking for HIGHEST Alpha since we need stocks that outperform the market (index).
+
+  <br />
+
+  Target: > 0 && > Industry Peers
+
+  <br />
+
+  Formula:
+  ```
+  Alpha = (Ticker RoR – Risk-Free RoR) – Beta * (Benchmark RoR - Ticker RoR)
+
+  Where Benchmark RoR is Rate of Return on S&P500 index (ticker: ^GSPC)
+  ```
+
+  <br />
+
+  On Alpha: https://www.investopedia.com/terms/a/alpha.asp
+
 
 <br />
 
