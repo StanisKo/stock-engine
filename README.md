@@ -39,10 +39,6 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
 <br />
 
-Risk category includes following rations:
-
-<br />
-
 * *Standard Deviation*
 
   Indicates how much the current return on the stock is deviating from its expected historical normal returns.
@@ -112,6 +108,30 @@ Risk category includes following rations:
   <br />
 
   On Sharpe Ratio: https://www.investopedia.com/terms/s/sharperatio.asp
+
+<br />
+
+* *Beta*
+
+  Measures volatility of an asset against the broader index (S&P 500, Dow Jones, Nasdaq, etc.).
+  Displays the intensity of movement, not the direction: the asset moves in the same direction as index,
+  either slower, same, or faster.
+
+  We're looking for HIGHEST Beta since we need stocks that have potential to grow faster than the market
+
+  <br />
+
+  Target: > 1.0 && > Industry Peers
+
+  <br />
+
+  ```
+  No formula: Beta is available directly from API
+  ```
+
+  <br />
+
+  On Beta: https://www.investopedia.com/terms/b/beta.asp
 
 <br />
 
