@@ -85,6 +85,36 @@ Risk category includes following rations:
 
 <br />
 
+* *Sharpe Ratio*
+
+  Measures rate of return on the asset above risk-free investment, such as treasury bonds or cash.
+  In other words, measures whether the risk is justified against investing into risk-free assets.
+  A Sharpe Ratio above 1.0 is considered good, as it indicates potential excess return
+  relative to the volatility of the asset.
+
+  We're looking for HIGHEST Sharpe Ratio since we need stocks that justify the risk involved.
+
+  <br />
+
+  Target: > 1.0 && > Industry Peers
+
+  <br />
+
+  Formula:
+
+  ```
+  SR = (Ticker RoR - Risk-Free RoR) / Ticker SD
+
+
+  Where Risk-Free RoR is Rate of Return on Risk-Free Asset -- US Treasury 1 Year Bond Yield
+  ```
+
+  <br />
+
+  On Sharpe Ratio: https://www.investopedia.com/terms/s/sharperatio.asp
+
+<br />
+
 # 3-rd Party APIs
 
 <br />
