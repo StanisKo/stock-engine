@@ -9,7 +9,7 @@ sculpted for every stock based on prices, risk-free rates, benchmarks, and issue
 
 Aforementioned measurements and ratios are commonly known as *fundamentals* -- values that help evaluate the companies behind each stock.
 
-All fundamentals that form profiles must be compared withint the same industry.
+All fundamentals that form profiles must be compared within the same industry.
 
 <br />
 
