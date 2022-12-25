@@ -1,4 +1,4 @@
-# Stock Profiles
+# Core
 
 <br />
 
@@ -8,6 +8,24 @@ sculpted for every stock based on prices, risk-free rates, benchmarks, and issue
 <br />
 
 Aforementioned measurements and ratios are commonly known as *fundamentals* -- values that help evaluate the companies behind each stock.
+
+All fundamentals that form profiles must be compared withint the same industry.
+
+<br />
+
+Engine, therefore, sculpts profiles for each stock in each industry available from the API, compares profiles ratio-by-ratio and scores them by assigning an arbitrary number between 0 and 100.
+
+<br />
+
+These scores then yield an output  where top are stocks that have highest potential to be profitable and bottom are those that are least promising, <b>across all industries</b>.
+
+<br />
+
+*In such, top is used to create diverse portfolio of long-term investments and bottom is used to identify short-selling targets aimed at quick gains.*
+
+<br />
+
+# Stock Profiles
 
 <br />
 
@@ -192,27 +210,3 @@ The choice of risk-free asset in our case is US Treasury 1 Year Bond.
 A paid API (eodhistoricaldata.com) that delivers bulk fundamentals and financial documents.
 
 <br />
-
-# Flow & Output
-
-Engine:
-
-1. Ingests bulk data on every ticker avaialable from API.
-
-2. Fetches benchmark prices and risk-free rate (bond yield).
-
-3. Groups ingested data by industries.
-
-4. For every stock extracts ratios available from the provider and calculates missing based on aforementioned sources -- creates profiles.
-
-<br />
-
-*N.B.: Fundamentals must always be compared within the same industry!*
-
-<br />
-
-5. Therefore: for each stock in each industry, compares profiles against each other and assigns them an arbitrary score between 0 and 100.
-
-6. Outputs stocks sorted by scores, where top are stocks that have highest potential to be profitable and bottom are those that are least promising, <b>across all industries</b>.
-
-*In such, top is used to create diverse portfolio of long-term investments and bottom is used to identify short-selling targets aimed at quick gains.*
