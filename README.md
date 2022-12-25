@@ -185,6 +185,49 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   On Alpha: https://www.investopedia.com/terms/a/alpha.asp
 
+<br />
+
+* *R-Squared*
+
+  Measures how much the movement of the assets is influenced by the movement of the index. Ranges from 0 to 100 (percent).
+
+  We're looking for LOWEST R-Squared since we need stocks that deviate from the market (index).
+
+  <br />
+
+  Target: < 70% && < Industry Peers
+
+  <br />
+
+  Formula:
+  ```
+  NOTE: We're using correlation-based formula to calculate r-squared:
+
+  R-Squared = r^2
+
+  r (Correlation) = Covariance(TR, TB) / SD of TR * SD of BR
+
+  Covariance = N * SUM(TR * BR) - SUM(TR) * SUM(BR)
+
+  Where TR is Ticker Returns
+
+  Where BR is Benchmark Returns
+
+  Where SD is Standard Deviation
+
+  Where N is Dataset Size
+  ```
+
+  <br />
+
+  On R-Squared: https://www.investopedia.com/terms/r/r-squared.asp
+
+  On Correlation: https://www.investopedia.com/terms/c/correlationcoefficient.asp
+
+  On Covariance: https://www.investopedia.com/terms/c/covariance.asp
+
+<br />
+
 
 <br />
 
