@@ -31,11 +31,57 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
 <br />
 
-### Purposes of each category:
+### Ratios of Each Category and Their Purposes:
 
 <br />
 
-WIP (aggregate interface comments)
+<b>Risk</b>
+
+<br />
+
+Risk category includes following rations:
+
+<br />
+
+* *Standard Deviation*
+
+  Indicates how much the current return on the stock is deviating from its expected historical normal returns.
+
+  The higher standard deviation, the greater possible outcomes, both negative and positive.
+
+  In such, we're looking for HIGHEST Standard Deviation since we need stocks that can potentially outperform their expected historical normal returns.
+
+  <br />
+
+  Target: > Industry Peers
+
+  <br />
+
+  Formula:
+
+  <br />
+
+  ```
+  SD = SQRT(V)
+
+  Where SD is Standard Deviation and V is Variance
+
+  V = SUM(RoR - ARoR) ^ 2 / N(RoR) - 1
+
+  Where RoR is Rate of Return and ARoR is Average Rate of Return
+
+  RoR = (P2 - P1) / P1 * 100
+
+  Where P2 is Nth price and P1 is previous (we calculate daily RoR over whole dataset of prices since IPO)
+
+  ARoR = SUM(RoR) / N(RoR)
+
+  Where N is count of datapoints we have
+  ```
+
+  <br />
+
+  On Standard Deviation: https://www.investopedia.com/terms/s/standarddeviation.asp
 
 <br />
 
