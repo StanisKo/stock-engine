@@ -9,6 +9,8 @@ sculpted for every stock based on prices, risk-free rates, benchmarks, and issue
 
 Aforementioned measurements and ratios are commonly known as *fundamentals* -- values that help evaluate the companies behind each stock.
 
+<br />
+
 All fundamentals that form profiles must be compared within the same industry.
 
 <br />
@@ -194,19 +196,20 @@ Engine uses following data sources:
 
 <br />
 
-An open-source library to fetch stocks' historical prices and benchmark prices from Yahoo Finance.
+1. An open-source library to fetch stocks' historical prices and benchmark prices from Yahoo Finance.
 
-The choice of benchmark in our case is S&P500 (Standard and Poor 500) index that hosts 500 largest US companies.
-It is a common proxy of measuring stocks against the broader market.
+   The choice of benchmark in our case is S&P500 (Standard and Poor 500) index that hosts 500 largest US companies.
 
-<br />
-
-A free NASDAQ API to fetch risk-free rates.
-
-The choice of risk-free asset in our case is US Treasury 1 Year Bond.
+   It is a common proxy of measuring stocks against the broader market.
 
 <br />
 
-A paid API (eodhistoricaldata.com) that delivers bulk fundamentals and financial documents.
+2. A free NASDAQ API to fetch risk-free rates.
+
+   The choice of risk-free asset in our case is US Treasury 1 Year Bond.
+
+<br />
+
+3. A paid API (eodhistoricaldata.com) that delivers bulk fundamentals and financial documents.
 
 <br />
