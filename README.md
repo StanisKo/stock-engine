@@ -19,7 +19,7 @@ Engine, therefore, sculpts profiles for each stock in each industry available fr
 
 <br />
 
-These scores then yield an output  where top are stocks that have highest potential to be profitable and bottom are those that are least promising, <b>across all industries</b>.
+These scores then yield an output where top are stocks that have highest potential to be profitable and bottom are those that are least promising, <b>across all industries</b>.
 
 <br />
 
