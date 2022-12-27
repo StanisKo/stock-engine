@@ -39,7 +39,7 @@ export interface IStockProfile {
         Indicates how much the current return is deviating from its expected historical normal returns.
         The higher standard deviation, the greater possible outcomes, both negative and positive.
 
-        Target: > Market Peers
+        Target: > Industry Peers
 
         We're looking for HIGHEST Standard Deviation since we need stocks that
         can potentially outperform their expected historical normal returns
@@ -52,7 +52,7 @@ export interface IStockProfile {
         A Sharpe Ratio above 1.0 is considered good, as it indicates potential excess return
         relative to the volatility of the asset.
 
-        Target: > 1.0 && > Market Peers
+        Target: > 1.0 && > Industry Peers
 
         We're looking for HIGHEST Sharpe Ratio since we need stocks that justify the risk involved
         */
@@ -70,7 +70,7 @@ export interface IStockProfile {
             * > 1.0: More volatile than the index.
             * < 0: Moves opposite direction of the index (very rare).
 
-        Target: > 1.0 && > Market Peers
+        Target: > 1.0 && > Industry Peers
 
         We're looking for HIGHEST Beta since we need stocks that have potential to grow faster than the market
         */
@@ -86,7 +86,7 @@ export interface IStockProfile {
             * > 0: Outperforms the index
             * < 0: Underperforms the index.
 
-        Target: > 0 && > Market Peers
+        Target: > 0 && > Industry Peers
 
         We're looking for HIGHEST Alpha since we need stocks that outperform the market (index)
         */
@@ -100,7 +100,7 @@ export interface IStockProfile {
             * >= 85% && <= 100%: Closely correlates with index (influenced by 85-100%).
             * <= 70%: Does not perform like index (influenced by 70% or less).
         
-        Target: < 70% && < Market Peers
+        Target: < 70% && < Industry Peers
 
         We're looking for LOWEST R-Squared since we need stocks that deviate from the market (index)
         */
@@ -182,7 +182,7 @@ export interface IStockProfile {
 
         Particularly useful for stocks that have positive cash flow but are not profitable yet
 
-        Target: < 10 && < Industry Peers
+        Target: < 5 && < Industry Peers
 
         We're looking for LOWEST P/FCF, since we need stocks that are undervalued for their free cash flow
         */
@@ -273,7 +273,39 @@ export interface IStockProfile {
         make enough money to service their long-term debt
         */
         interestCoverage: number
-    }
+    },
+
+    efficiency: {
+
+        /*
+        Measures how good the company is at using its assets to sell its products
+
+        In other words: how fast the company is turning over assets in relation to sales;
+        for every $1 of assets it owns, how much $N it can generate in sales each year
+
+        The higher the number, the better
+
+        Target: > Industry Peers
+
+        We're looking for HIGHEST Asset Turnover, since we need stocks whose companies
+        generate more sales against the assets they own
+        */
+        assetTurnover: number,
+
+        /*
+        Measures how good the company is at cycling through the inventory
+
+        In other words: how fast the company is at selling already produced products
+
+        The higher the number, the better
+
+        Target: > Industry Peers
+
+        We're looking for HIGHEST Inventory Turnover, since we need stocks whose companies
+        sell their products faster than competitors
+        */
+        inventoryTurnover: number
+    },
 
     dividends: {
 

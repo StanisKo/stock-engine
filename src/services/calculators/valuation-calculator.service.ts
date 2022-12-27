@@ -25,8 +25,7 @@ We do not use original P/FCF formula (Market Cap / Free Cash Flow), since market
 bound to latest stock price
 
 Yet, since we want to smooth out volatility and produce more conservative number
-we use P/CF formula and swap Operating Cash Flow for Free Cash Flow
-
+we use P/CF formula and swap Operating Cash Flow per share for Free Cash Flow per share
 
 Reason is that P/CF can also be calculated as Market Cap / Operating Cash Flow, therefore,
 we can safely calculate P/FCF by using Free Cash Flow Per Share and Stock Price

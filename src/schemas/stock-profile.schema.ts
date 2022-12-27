@@ -149,6 +149,19 @@ const industryProfileSchema = new mongoose.Schema<IStockProfileSchema>(
             }
         },
 
+        efficiency: {
+
+            assetTurnover: {
+                type: Number,
+                required: true
+            },
+
+            inventoryTurnover: {
+                type: Number,
+                required: true
+            }
+        },
+
         dividends: {
 
             dividendYield: {
