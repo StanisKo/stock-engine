@@ -306,6 +306,30 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
+* *Price to Book*
+
+  Denotes the price you pay for $1 of equity, a.k.a. book value (assets - liabilities).
+
+  Reflects how stock is priced against company’s actual worth.
+
+  We're looking for LOWEST P/B, since we need stocks that are undervalues for their value as a company
+
+  <br />
+
+  Target: < 1.0 && < Industry Peers
+
+  <br />
+
+  ```
+  No formula: P/B ratio is available directly from API
+  ```
+
+  <br />
+
+  On Price to Book: https://www.investopedia.com/terms/p/price-to-bookratio.asp
+
+  <br />
+
 <br />
 
 # 3-rd Party APIs
