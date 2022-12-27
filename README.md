@@ -436,6 +436,35 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
+<b>Profitability</b>
+
+<br />
+
+* *Return on Assets*
+
+  Displays how effectively the company is using its assets to generate income.
+
+  The higher the number, the better.
+
+  We're looking for HIGHEST ROA, since we need stocks that have the highest potential to be profitable based on company's assets.
+
+  <br />
+
+  Target: > Industry Peers
+
+  <br />
+
+  ```
+  No formula: ROA is available directly from API
+  ```
+
+  <br />
+
+  On Return on Assets: https://www.investopedia.com/terms/r/returnonassets.asp
+
+  <br />
+
+
 <br />
 
 # 3-rd Party APIs
