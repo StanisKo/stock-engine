@@ -510,6 +510,31 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
+<b>Liquidity</b>
+
+* *Current Ratio*
+
+  Denotes company’s capacity to meet it’s short-term obligations (debt), where short-term obligations are debt due within 1 year period.
+
+  We're looking for HIGHEST Current Ratio, since we need stocks whose companies are safe from the prospects of bancruptcy.
+
+  <br />
+
+  Target: > Industry Peers
+
+  <br />
+
+  Formula:
+  ```
+  Current Ratio = Current Assets / Current Liabilities
+  ```
+
+  <br />
+
+  On Current Ratio: https://www.investopedia.com/terms/c/currentratio.asp
+
+  <br />
+
 <br />
 
 # 3-rd Party APIs
