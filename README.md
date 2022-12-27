@@ -264,7 +264,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
   
   The lower the number, the better.
 
-  We're looking for LOWEST PEG, since we need stocks that are undervalued for their potential performance
+  We're looking for LOWEST PEG, since we need stocks that are undervalued for their potential performance.
 
   <br />
 
@@ -280,6 +280,31 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   On Price to Earnings Growth: https://www.investopedia.com/terms/p/pegratio.asp
 
+<br />
+
+* *Price to Sales*
+
+  Denotes the price paid for $1 of sales.
+
+  Reflects how good stock performs against the sales operations of the business.
+
+  We're looking for LOWEST P/S, since we need stocks that are undervalued for their sales operations.
+
+  <br />
+
+  Target: < Industry Peers
+
+  <br />
+
+  ```
+  No formula: P/S ratio is available directly from API
+  ```
+
+  <br />
+
+  On Price to Sales: https://www.investopedia.com/terms/p/price-to-salesratio.asp
+
+  <br />
 
 <br />
 
