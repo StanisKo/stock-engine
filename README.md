@@ -597,6 +597,33 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
+* *Interest Coverage*
+
+  Measures how easily a company can pay interest on its outstanding debt.
+
+  It represents how many (typically the number of quarters or fiscal years) times the company can pay its obligations using its earnings.
+
+  The higher the number, the better.
+
+  We're looking for HIGHEST Interest Coverage, since we need stocks whose companies make enough money to service their long-term debt.
+
+  <br />
+
+  Target: > 1.0 && > Industry Peers
+
+  <br />
+
+  Formula:
+  ```
+  Interest Coverage = EBIT / Interest Expense
+  ```
+
+  <br />
+
+  On Interest Coverage: https://www.investopedia.com/terms/i/interestcoverageratio.asp
+
+  <br />
+
 <br />
 
 # 3-rd Party APIs
