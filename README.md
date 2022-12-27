@@ -535,6 +535,35 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
+* *Quick Ratio*
+
+  Similar to Current Ratio, but is more conservative. As a rule, lower than Current Ratio.
+
+  We're looking for HIGHEST Quick Ratio (see Current Ratio).
+
+  <br />
+
+  Target: > Industry Peers
+
+  <br />
+
+  Formula:
+  ```
+  Quick Ratio = Quick Assets / Current Liabilities
+
+  Quick Assets = Cash + Cash Equivalents + Marketable Securities + Net Receivables
+  ```
+
+  <br />
+
+  On Quick Ratio: https://www.investopedia.com/terms/q/quickratio.asp
+
+  On Marketable Securities: https://www.investopedia.com/terms/m/marketablesecurities.asp
+
+  On Quick Assets: https://www.investopedia.com/terms/q/quickratio.asp
+
+  <br />
+
 <br />
 
 # 3-rd Party APIs
