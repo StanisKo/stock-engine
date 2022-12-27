@@ -256,6 +256,30 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   On Price to Earnings: https://www.investopedia.com/terms/p/price-earningsratio.asp
 
+<br />
+
+* *Price to Earnings Growth*
+
+  Helps to understand future growth prospects of the company and its stock.
+  
+  The lower the number, the better.
+
+  We're looking for LOWEST PEG, since we need stocks that are undervalued for their potential performance
+
+  <br />
+
+  Target: < 1.0 && < Industry Peers
+
+  <br />
+
+  ```
+  No formula: PEG ratio is available directly from API
+  ```
+
+  <br />
+
+  On Price to Earnings Growth: https://www.investopedia.com/terms/p/pegratio.asp
+
 
 <br />
 
