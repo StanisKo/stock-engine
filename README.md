@@ -390,6 +390,52 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
+* *Price to Free Cash Flow*
+
+  Measures how much cash company is generating relative to its market value (its stock price).
+
+  A good alternative to P/E as cash flows are less susceptible to manipulation than earnings.
+
+  Particularly useful for stocks that have positive cash flow but are not profitable yet.
+
+  We're looking for LOWEST P/FCF, since we need stocks that are undervalued for their free cash flow
+
+  <br />
+
+  Target: < 5 && < Industry Peers
+
+  <br />
+
+  Formula:
+  ```
+  P/FCF = SP / FCF
+
+  SP = Stock Price
+
+  FCF = Free Cash Flow (Per Share)
+
+  In order to avoid volatility in calculations, we use average stock price over last 60 trading days.
+
+  FCF is calculated by dividing Free Cash Flow by number of outstanding shares.
+
+  We do not use original P/FCF formula (Market Cap / Free Cash Flow), since market cap is inherently
+  bound to latest stock price.
+
+  Yet, since we want to smooth out volatility and produce more conservative number
+  we use P/CF formula and swap Operating Cash Flow per share for Free Cash Flow per share.
+
+  Reason is that P/CF can also be calculated as Market Cap / Operating Cash Flow, therefore,
+  we can safely calculate P/FCF by using Free Cash Flow Per Share and Stock Price.
+  ```
+
+  <br />
+
+  On Price to Free Cash Flow: https://www.investopedia.com/terms/p/pricetofreecashflow.asp
+
+  On Price to (Operating) Cash Flow: https://www.investopedia.com/terms/p/price-to-cash-flowratio.asp
+
+  <br />
+
 <br />
 
 # 3-rd Party APIs
