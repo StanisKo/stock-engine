@@ -363,6 +363,33 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
+* *Enterprise Value to EBITDA*
+
+  Denotes the total enterprise worth in comparison to its EBITDA.
+
+  Similar to EV/R, but is more conservative.
+
+  We're looking for LOWEST EV/EBITDA, since we need stocks that are undervalues for their earnings.
+
+  <br />
+
+  Target: < 10 && < Industry Peers
+
+  <br />
+
+  Formula
+  ```
+  EV/EBITDA = EV / EBITDA
+
+  *Check EV/R
+  ```
+
+  <br />
+
+  On Enterprise Value to EBITDA: https://www.investopedia.com/terms/e/ev-ebitda.asp
+
+  <br />
+
 <br />
 
 # 3-rd Party APIs
