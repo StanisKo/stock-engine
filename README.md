@@ -228,6 +228,34 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
 <br />
 
+<b>Valuation</b>
+
+<br />
+
+* *Price to Earnings*
+
+  Denotes the price paid for $1 of earnings.
+
+  In other words: how much stock price relates to company's earnings.
+
+  Rule of thumb — stocks trading at a lower P/E ratio than their industry peers are considered value stocks.
+
+  We're looking for LOWEST P/E, since we need stocks that are undervalued for their perfomance.
+
+  <br />
+
+  Target: < Industry Peers
+
+  <br />
+
+  ```
+  No formula: P/E ratio is available directly from API
+  ```
+
+  <br />
+
+  On Price to Earnings: https://www.investopedia.com/terms/p/price-earningsratio.asp
+
 
 <br />
 
