@@ -4,10 +4,10 @@ FROM node:alpine
 
 WORKDIR /engine
 
-COPY package.json .
+COPY package.json tsconfig.json ./
 
 COPY ./src .
 
 RUN yarn install
 
-CMD ["yarn", "dev"]
+CMD ["yarn", "start"]
