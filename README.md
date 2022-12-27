@@ -512,6 +512,8 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
 <b>Liquidity</b>
 
+<br />
+
 * *Current Ratio*
 
   Denotes company’s capacity to meet it’s short-term obligations (debt), where short-term obligations are debt due within 1 year period.
@@ -561,6 +563,37 @@ Each set of fundamentals (profile) is divided into 6 categories:
   On Marketable Securities: https://www.investopedia.com/terms/m/marketablesecurities.asp
 
   On Quick Assets: https://www.investopedia.com/terms/q/quickratio.asp
+
+  <br />
+
+<b>Debt</b>
+
+<br />
+
+* *Debt to Equity*
+
+  Measures the relationship between the amount of capital that has been borrowed (debt), and the amount of capital contributed by shareholders (equity).
+  
+  Displays company’s ability to service it’s long-term debt obligations.
+  
+  The lower the number, the better.
+
+  We're looking for LOWEST D/E since we need stocks whose companies have sensible leverage and are not burdened by debt.
+
+  <br />
+
+  Target: < Industry Peers
+
+  <br />
+
+  Formula:
+  ```
+  Debt to Equity = Total Liabilities / Total Stockholder Equity
+  ```
+
+  <br />
+
+  On Debt to Equity: https://www.investopedia.com/terms/d/debtequityratio.asp
 
   <br />
 
