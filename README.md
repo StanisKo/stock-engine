@@ -487,6 +487,29 @@ Each set of fundamentals (profile) is divided into 6 categories:
   On Return on Equity: https://www.investopedia.com/terms/r/returnonequity.asp
 
   <br />
+
+* *Profit Margin*
+
+  Denotes how much profit company makes after deducting liabilites.
+
+  We're looking for HIGHEST Profit Margin, since we need stocks that have the highest potential to be profitable based on company's operations.
+
+  <br />
+
+  Target: > Industry Peers
+
+  <br />
+
+  ```
+  No formula: Profit Margin is available directly from API
+  ```
+
+  <br />
+
+  On Profit Margin: https://www.investopedia.com/terms/p/profitmargin.asp
+
+  <br />
+
 <br />
 
 # 3-rd Party APIs
