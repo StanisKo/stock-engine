@@ -299,7 +299,7 @@ export interface IStockProfile {
 
         The higher the number, the better
 
-        Target > Industry Peers
+        Target: > Industry Peers
 
         We're looking for HIGHEST Inventory Turnover, since we need stocks whose companies
         sell their products faster than competitors

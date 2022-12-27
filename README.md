@@ -655,6 +655,33 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
+* *Inventory Turnover*
+
+  Measures how good the company is at cycling through the inventory.
+
+  In other words: how fast the company is at selling already produced products.
+
+  The higher the number, the better.
+
+  We're looking for HIGHEST Inventory Turnover, since we need stocks whose companies sell their products faster than competitors.
+
+  <br />
+
+  Target: > Industry Peers
+
+  <br />
+
+  Formula:
+  ```
+  Inventory Turnover = COGS / Average Value of Inventory
+
+  COGS = Cost of Goods Sold
+  ```
+
+  <br />
+
+  On Inventory Turnover: https://www.investopedia.com/terms/i/inventoryturnover.asp
+
 <br />
 
 # 3-rd Party APIs

@@ -1,7 +1,7 @@
 /*
 Asset Turnover = Total Annual Sales / Average Total Assets
 
-Inventory Turnover: COGS / Average Value of Inventory
+Inventory Turnover = COGS / Average Value of Inventory
 
 COGS = Cost of Goods Sold
 
