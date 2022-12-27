@@ -312,7 +312,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   Reflects how stock is priced against company’s actual worth.
 
-  We're looking for LOWEST P/B, since we need stocks that are undervalues for their value as a company
+  We're looking for LOWEST P/B, since we need stocks that are undervalues for their value as a company.
 
   <br />
 
@@ -327,6 +327,39 @@ Each set of fundamentals (profile) is divided into 6 categories:
   <br />
 
   On Price to Book: https://www.investopedia.com/terms/p/price-to-bookratio.asp
+
+  <br />
+
+* *Enterprise Value to Revenue*
+
+  Denotes the total enterprise worth in comparison to its revenue.
+
+  One of several fundamental indicators that investors use to determine whether a stock is priced fairly.
+
+  The lower the better, in that, a lower EV/R signals a company is undervalued.
+
+  NOTE: similar to P/B, yet used more to evaluate early-stage/growth companies that might not have much of assets behind them
+
+  We're looking for LOWEST EV/R, since we need stocks that are undervalues for their value as a company.
+
+  <br />
+
+  Target: > 1 && < 3 && < Industry Peers
+
+  <br />
+
+  Formula
+  ```
+  EV/R = EV / Revenue
+
+  Where EV is Enterprise Value
+
+  EV = Market Capitalization + Debt - Cash - Cash Equivalents
+  ```
+
+  <br />
+
+  On Enterprise Value to Revenue: https://www.investopedia.com/terms/e/ev-revenue-multiple.asp
 
   <br />
 
