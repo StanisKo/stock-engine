@@ -120,6 +120,8 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   Formula:
 
+  <br />
+
   ```
   SR = (Ticker RoR - Risk-Free RoR) / Ticker SD
 
@@ -175,6 +177,8 @@ Each set of fundamentals (profile) is divided into 6 categories:
   <br />
 
   Formula:
+
+  <br />
   ```
   Alpha = (Ticker RoR – Risk-Free RoR) – Beta * (Benchmark RoR - Ticker RoR)
 
@@ -200,6 +204,8 @@ Each set of fundamentals (profile) is divided into 6 categories:
   <br />
 
   Formula:
+
+  <br />
   ```
   NOTE: We're using correlation-based formula to calculate r-squared:
 
@@ -348,7 +354,9 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Formula
+  Formula:
+
+  <br />
   ```
   EV/R = EV / Revenue
 
@@ -377,7 +385,9 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Formula
+  Formula:
+
+  <br />
   ```
   EV/EBITDA = EV / EBITDA
 
@@ -407,6 +417,8 @@ Each set of fundamentals (profile) is divided into 6 categories:
   <br />
 
   Formula:
+
+  <br />
   ```
   P/FCF = SP / FCF
 
@@ -527,6 +539,8 @@ Each set of fundamentals (profile) is divided into 6 categories:
   <br />
 
   Formula:
+
+  <br />
   ```
   Current Ratio = Current Assets / Current Liabilities
   ```
@@ -550,6 +564,8 @@ Each set of fundamentals (profile) is divided into 6 categories:
   <br />
 
   Formula:
+
+  <br />
   ```
   Quick Ratio = Quick Assets / Current Liabilities
 
@@ -587,6 +603,8 @@ Each set of fundamentals (profile) is divided into 6 categories:
   <br />
 
   Formula:
+
+  <br />
   ```
   Debt to Equity = Total Liabilities / Total Stockholder Equity
   ```
@@ -614,6 +632,8 @@ Each set of fundamentals (profile) is divided into 6 categories:
   <br />
 
   Formula:
+
+  <br />
   ```
   Interest Coverage = EBIT / Interest Expense
   ```
@@ -645,6 +665,8 @@ Each set of fundamentals (profile) is divided into 6 categories:
   <br />
 
   Formula:
+
+  <br />
   ```
   Asset Turnover = Total Annual Sales / Average Total Assets
   ```
@@ -672,6 +694,8 @@ Each set of fundamentals (profile) is divided into 6 categories:
   <br />
 
   Formula:
+
+  <br />
   ```
   Inventory Turnover = COGS / Average Value of Inventory
 
