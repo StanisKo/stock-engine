@@ -624,6 +624,37 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
+<b>Efficiency</b>
+
+<br />
+
+* *Asset Turnover*
+
+  Measures how good the company is at using its assets to sell its products.
+
+  In other words: how fast the company is turning over assets in relation to sales; for every $1 of assets it owns, how much $N it can generate in sales each year.
+
+  The higher the number, the better.
+
+  We're looking for HIGHEST Asset Turnover, since we need stocks whose companies generate more sales against the assets they own.
+
+  <br />
+
+  Target: > Industry Peers
+
+  <br />
+
+  Formula:
+  ```
+  Asset Turnover = Total Annual Sales / Average Total Assets
+  ```
+
+  <br />
+
+  On Asset Turnover: https://www.investopedia.com/terms/a/assetturnover.asp
+
+  <br />
+
 <br />
 
 # 3-rd Party APIs
