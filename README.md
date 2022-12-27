@@ -464,7 +464,29 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
+* *Return on Equity*
 
+  Displays how effective the company is using its investment from shareholders to generate income.
+
+  The higher the number, the better.
+
+  We're looking for HIGHEST ROE, since we need stocks that have the highest potential to be profitable based on capital gained from issued shares.
+
+  <br />
+
+  Target: > Industry Peers
+
+  <br />
+
+  ```
+  No formula: ROE is available directly from API
+  ```
+
+  <br />
+
+  On Return on Equity: https://www.investopedia.com/terms/r/returnonequity.asp
+
+  <br />
 <br />
 
 # 3-rd Party APIs
