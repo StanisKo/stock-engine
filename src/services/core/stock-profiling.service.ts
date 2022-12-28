@@ -21,6 +21,8 @@ export class StockProfilingService {
 
         try {
 
+            await this.apiConnectorService.requestBulkFundamentalsData();
+
             response.success = true;
         }
         catch (error) {

@@ -1,7 +1,3 @@
-/*
-TODO: in V1 we don't need to request benchmark prices and treasury bond yield for every ticker, rework
-*/
-
 import moment from 'moment';
 import fetch from 'node-fetch';
 import yahooFinance from 'yahoo-finance2';
@@ -11,6 +7,8 @@ import { ITickerFundamentals, ITickerPrice, ITickerFinancialData } from '../../i
 import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 
 export class ApiConnectorService {
+
+    static EXCHANGES = ['NASDAQ', 'NYSE', 'BATS','AMEX'];
 
     ticker: string;
 
@@ -37,11 +35,26 @@ export class ApiConnectorService {
         this.usTreasuryBondYieldApiKey = process.env.US_TREASURY_BOND_YIELD_API_KEY || '';
     }
 
-    private async requestBulkFundamentalsData(): Promise<ITickerFundamentals[]> {
+    async requestBulkFundamentalsData(): Promise<ITickerFundamentals[][]> {
 
-        const request = await fetch(
-            `${this.fundametalsDataApiUrl}/${this.ticker}.US?api_token=${this.fundametalsDataApiKey}`
-        );
+        const bulkFundamentals = [];
+
+        for (let i = 0; i < ApiConnectorService.EXCHANGES.length; i++) {
+
+            const exchange = ApiConnectorService.EXCHANGES[i];
+
+            const request = await fetch(
+                `${this.fundametalsDataApiUrl}/${exchange}?api_token=${this.fundametalsDataApiKey}&fmt=json`
+            );
+
+            const outputFromExchnage = await request.json() as ITickerFundamentals[];
+
+            console.log(outputFromExchnage);
+
+            bulkFundamentals.push(outputFromExchnage);
+        }
+
+        return bulkFundamentals;
     }
 
     private async requestFundamentalsTickerData(): Promise<ITickerFundamentals> {
