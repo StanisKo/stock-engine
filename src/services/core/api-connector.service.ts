@@ -51,6 +51,10 @@ export class ApiConnectorService {
         return outputFromExchnage;
     }
 
+    /*
+    TODO: you need to write it to the disk; the sheer volume of ingested data should not
+    be left to the chance of memory
+    */
     async ingestBulkFundamentalsData(): Promise<ITickerFundamentals[]> {
 
         /*
@@ -63,21 +67,18 @@ export class ApiConnectorService {
         */
         for (let i = 0; i < ApiConnectorService.EXCHANGES.length; i++) {
 
+            /*
+            API delivers packets in batches of 500, therefore, we keep requesting data from
+            exchange until it's fully saturated
+            */
             let outputAvailable = true;
 
-            /*
-            WIP
-            */
             if (i > 0) {
                 break;
             }
 
             const exchange = ApiConnectorService.EXCHANGES[i];
 
-            /*
-            API delivers packets in batches of 500, therefore, we keep requesting data from
-            exchange until it's fully saturated
-            */
             let offset = 0;
 
             while (outputAvailable) {
