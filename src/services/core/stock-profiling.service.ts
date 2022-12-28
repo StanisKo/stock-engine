@@ -30,7 +30,7 @@ export class StockProfilingService {
 
             response.success = false;
 
-            response.message = 'Failed to create stock profile from provided ticker';
+            response.message = 'Failed to ingest bulk data';
         }
 
         return response;

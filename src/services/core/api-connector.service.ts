@@ -86,6 +86,7 @@ export class ApiConnectorService {
                 const outputFromExchnage = await this.requestBulkFundamentalsData(exchange, offset);
 
                 if (Object.keys(outputFromExchnage).length) {
+
                     /*
                     Output from exchange is structured as { int: {} }, where int is index of the data packet
                     Therefore, before requesting the next batch, we flat out the output into initial collection
