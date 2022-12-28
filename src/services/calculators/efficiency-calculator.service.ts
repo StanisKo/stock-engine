@@ -23,6 +23,17 @@ export class EfficiencyCalculatorService {
 
     static calculateInventoryTurnover(costOfGoodsSold: number, averageValueOfInventory: number): number {
 
+        /*
+        If we're looking at a service company that does not have inventory, we return 0
+
+        This would not influence scoring, since such profile is compared with other profiles
+        in the same industry -- stocks that also do not have inventory
+        */
+        if (!averageValueOfInventory) {
+
+            return 0;
+        }
+
         return costOfGoodsSold / averageValueOfInventory;
     }
 }
