@@ -37,17 +37,33 @@ export class ApiConnectorService {
         this.usTreasuryBondYieldApiKey = process.env.US_TREASURY_BOND_YIELD_API_KEY || '';
     }
 
-    async requestBulkFundamentalsData(): Promise<ITickerFundamentals[]> {
+    private async requestBulkFundamentalsData(
+        exchange: string,
+        offset: number,
+    ): Promise<{ [key: number]: ITickerFundamentals }> {
+
+        const request = await fetch(
+            `${this.fundametalsDataApiUrl}/${exchange}?api_token=${this.fundametalsDataApiKey}&fmt=json&offset=${offset}&limit=500`
+        );
+
+        const outputFromExchnage = await request.json();
+
+        return outputFromExchnage;
+    }
+
+    async ingestBulkFundamentalsData(): Promise<ITickerFundamentals[]> {
 
         /*
-        Initialize collection to hold inputs
+        Initialize collection to hold API output
         */
         const bulkFundamentals = [];
 
         /*
-        Loop through every exchange (28-12-2022: only American exchanges for now)
+        Loop through every exchange
         */
         for (let i = 0; i < ApiConnectorService.EXCHANGES.length; i++) {
+
+            let outputAvailable = true;
 
             /*
             WIP
@@ -59,36 +75,26 @@ export class ApiConnectorService {
             const exchange = ApiConnectorService.EXCHANGES[i];
 
             /*
-            API delivers packets in batches of 500, therefore, we keep on requesting data from
+            API delivers packets in batches of 500, therefore, we keep requesting data from
             exchange until it's fully saturated
             */
             let offset = 0;
 
-            let limit = 500;
+            while (outputAvailable) {
 
-            const request = await fetch(
-                `${this.fundametalsDataApiUrl}/${exchange}?api_token=${this.fundametalsDataApiKey}&fmt=json&offset=${offset}&limit=${limit}`
-            );
+                const outputFromExchnage = await this.requestBulkFundamentalsData(exchange, offset);
 
-            /*
-            This won't work, request and then script multiple requests
-            */
-            while (request) {
-                const outputFromExchnage = await request.json() as ITickerFundamentals[];
+                if (Object.keys(outputFromExchnage).length) {
+                    /*
+                    Output from exchange is structured as { int: {} }, where int is index of the data packet
+                    Therefore, before requesting the next batch, we flat out the output into initial collection
+                    */
+                    bulkFundamentals.push(Object.values(outputFromExchnage));
 
-                /*
-                Output from exchange is structured as { int: {} }, where int is index of the data packet
-
-                Therefore, before requesting the next batch, we flat out the output into initial collection
-                */
-
-                console.log(Object.values(outputFromExchnage));
-
-                bulkFundamentals.push(Object.values(outputFromExchnage));
-
-                offset += 500;
-
-                limit += 500;
+                    offset += 500;
+                } else {
+                    outputAvailable = false;
+                }
             }
         }
 

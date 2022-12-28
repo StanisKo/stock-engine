@@ -21,7 +21,7 @@ export class StockProfilingService {
 
         try {
 
-            await this.apiConnectorService.requestBulkFundamentalsData();
+            await this.apiConnectorService.ingestBulkFundamentalsData();
 
             response.success = true;
         }
