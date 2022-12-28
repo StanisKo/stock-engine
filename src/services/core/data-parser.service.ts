@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 /*
 Iteration 1
 
@@ -240,12 +242,11 @@ export class DataParserService {
             pricesOverLastSixtyTradingDays
         );
 
-        this.extractedTickerData.valuation.priceToFreeCashFlow =
-            ValuationCalculatorService.calculatePriceToFreeCashFlow(
-                Number(lastAnnualCashFlowStatement.freeCashFlow),
-                Number(lastAnnualBalanceSheet.commonStockSharesOutstanding),
-                averagePriceOverLastSixtyTradingDays
-            );
+        this.extractedTickerData.valuation.priceToFreeCashFlow = ValuationCalculatorService.calculatePriceToFreeCashFlow(
+            Number(lastAnnualCashFlowStatement.freeCashFlow),
+            Number(lastAnnualBalanceSheet.commonStockSharesOutstanding),
+            averagePriceOverLastSixtyTradingDays
+        );
 
         /*
         Calculate Liquidity based on last annual balance sheet
