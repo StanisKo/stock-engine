@@ -39,6 +39,13 @@ export class ApiConnectorService {
         this.usTreasuryBondYieldApiKey = process.env.US_TREASURY_BOND_YIELD_API_KEY || '';
     }
 
+    private async requestBulkFundamentalsData(): Promise<ITickerFundamentals[]> {
+
+        const request = await fetch(
+            `${this.fundametalsDataApiUrl}/${this.ticker}.US?api_token=${this.fundametalsDataApiKey}`
+        );
+    }
+
     private async requestFundamentalsTickerData(): Promise<ITickerFundamentals> {
 
         const request = await fetch(

@@ -36,9 +36,9 @@ export class StockProfileService {
         try {
             const tickerFinancialData = await this.apiConnectorService.requestFinancicalTickerData();
 
-            this.dataParserService = new DataParserService(tickerFinancialData);
+            // this.dataParserService = new DataParserService(tickerFinancialData);
 
-            this.dataParserService.parseTickerData();
+            // this.dataParserService.parseTickerData();
 
             response.success = true;
         }
