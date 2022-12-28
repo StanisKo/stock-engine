@@ -4,6 +4,9 @@ import { ApiConnectorService } from './api-connector.service';
 
 import { DataParserService } from './data-parser.service';
 
+/*
+TODO: This should be an ingesting service
+*/
 export class StockProfilingService {
 
     apiConnectorService: ApiConnectorService;
