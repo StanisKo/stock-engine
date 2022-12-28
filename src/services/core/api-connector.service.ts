@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 import moment from 'moment';
 import fetch from 'node-fetch';
 import yahooFinance from 'yahoo-finance2';
@@ -35,23 +37,59 @@ export class ApiConnectorService {
         this.usTreasuryBondYieldApiKey = process.env.US_TREASURY_BOND_YIELD_API_KEY || '';
     }
 
-    async requestBulkFundamentalsData(): Promise<ITickerFundamentals[][]> {
+    async requestBulkFundamentalsData(): Promise<ITickerFundamentals[]> {
 
+        /*
+        Initialize collection to hold inputs
+        */
         const bulkFundamentals = [];
 
+        /*
+        Loop through every exchange (28-12-2022: only American exchanges for now)
+        */
         for (let i = 0; i < ApiConnectorService.EXCHANGES.length; i++) {
+
+            /*
+            WIP
+            */
+            if (i > 0) {
+                break;
+            }
 
             const exchange = ApiConnectorService.EXCHANGES[i];
 
+            /*
+            API delivers packets in batches of 500, therefore, we keep on requesting data from
+            exchange until it's fully saturated
+            */
+            let offset = 0;
+
+            let limit = 500;
+
             const request = await fetch(
-                `${this.fundametalsDataApiUrl}/${exchange}?api_token=${this.fundametalsDataApiKey}&fmt=json`
+                `${this.fundametalsDataApiUrl}/${exchange}?api_token=${this.fundametalsDataApiKey}&fmt=json&offset=${offset}&limit=${limit}`
             );
 
-            const outputFromExchnage = await request.json() as ITickerFundamentals[];
+            /*
+            This won't work, request and then script multiple requests
+            */
+            while (request) {
+                const outputFromExchnage = await request.json() as ITickerFundamentals[];
 
-            console.log(outputFromExchnage);
+                /*
+                Output from exchange is structured as { int: {} }, where int is index of the data packet
 
-            bulkFundamentals.push(outputFromExchnage);
+                Therefore, before requesting the next batch, we flat out the output into initial collection
+                */
+
+                console.log(Object.values(outputFromExchnage));
+
+                bulkFundamentals.push(Object.values(outputFromExchnage));
+
+                offset += 500;
+
+                limit += 500;
+            }
         }
 
         return bulkFundamentals;
