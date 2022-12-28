@@ -1,9 +1,9 @@
 import { Router } from 'express';
 
-import { createStockProfile } from '../controllers/stock-profile.controllers';
+import { profileStocks } from '../controllers/stock-profiling.controller';
 
 const router = Router();
 
-router.get('/create-stock-profile', createStockProfile);
+router.get('/profile-stocks', profileStocks);
 
 export default router;

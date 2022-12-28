@@ -24,9 +24,7 @@ export class ApiConnectorService {
 
     usTreasuryBondYieldApiKey: string;
 
-    constructor(ticker: string) {
-
-        this.ticker = ticker;
+    constructor() {
 
         this.benchmarkTicker = process.env.BENCHMARK_TICKER || '';
 
