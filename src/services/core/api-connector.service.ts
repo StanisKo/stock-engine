@@ -18,6 +18,8 @@ export class ApiConnectorService {
 
     fundametalsDataApiUrl: string;
 
+    fundametalsDataApiKey: string;
+
     usTreasuryBondYieldApiURL: string;
 
     usTreasuryBondYieldApiKey: string;
@@ -30,14 +32,18 @@ export class ApiConnectorService {
 
         this.fundametalsDataApiUrl = process.env.FUNDAMENTALS_DATA_API_URL || '';
 
-        this.usTreasuryBondYieldApiURL = process.env.US_TREASURY_BOND_YIELD_API || '';
+        this.fundametalsDataApiKey = process.env.FUNDAMENTALS_DATA_API_KEY || '';
+
+        this.usTreasuryBondYieldApiURL = process.env.US_TREASURY_BOND_YIELD_API_URL || '';
 
         this.usTreasuryBondYieldApiKey = process.env.US_TREASURY_BOND_YIELD_API_KEY || '';
     }
 
     private async requestFundamentalsTickerData(): Promise<ITickerFundamentals> {
 
-        const request = await fetch(`${this.fundametalsDataApiUrl}/${this.ticker}.US?api_token=demo`);
+        const request = await fetch(
+            `${this.fundametalsDataApiUrl}/${this.ticker}.US?api_token=${this.fundametalsDataApiKey}`
+        );
 
         const fundametals = await request.json() as ITickerFundamentals;
 
