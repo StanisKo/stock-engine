@@ -12,7 +12,7 @@ type FundamentalsApiResponse = { [key: number]: ITickerFundamentals };
 
 export class ApiConnectorService {
 
-    static EXCHANGES = ['NASDAQ', 'NYSE', 'BATS','AMEX'];
+    static EXCHANGES = process.env.EXCHANGES?.split(', ') ?? [];
 
     ticker: string;
 
