@@ -15,7 +15,7 @@ TODO: this should be static, since prices would be requested in loop for every s
 */
 export class ApiConnectorService {
 
-    static EXCHANGES = process.env.EXCHANGES?.split(', ') ?? [];
+    static EXCHANGES: string[];
 
     ticker: string;
 
@@ -30,6 +30,8 @@ export class ApiConnectorService {
     usTreasuryBondYieldApiKey: string;
 
     constructor() {
+
+        ApiConnectorService.EXCHANGES = process.env.EXCHANGES?.split(', ') ?? [];
 
         this.benchmarkTicker = process.env.BENCHMARK_TICKER || '';
 

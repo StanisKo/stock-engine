@@ -38,7 +38,9 @@ export class Server {
 
     private connectRoutes(): void {
 
-        this.application.use('', stockProfilingRouter, stockIngestingRouter);
+        this.application.use('', stockProfilingRouter);
+
+        this.application.use('', stockIngestingRouter);
     }
 
     private async establishDatabaseConnection(): Promise<void> {
