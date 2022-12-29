@@ -46,6 +46,8 @@ export class StockIngestingService {
 
                 industries[industry] = true;
 
+                console.log(industry);
+
                 industriesInsertOperations = [
                     ...industriesInsertOperations,
                     {
