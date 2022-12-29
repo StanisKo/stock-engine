@@ -131,6 +131,8 @@ export class DataParserService {
         necessary for liquidity, valution, debt, and efficiency calculations
 
         TODO: change indexing from current to yearly_last_0
+
+        TODO: work with last quarterly values!
         */
 
         const lastAnnualBalanceSheet = this.fundamentals.Financials.Balance_Sheet.yearly[
