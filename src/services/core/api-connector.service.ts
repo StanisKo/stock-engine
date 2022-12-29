@@ -50,59 +50,6 @@ export class ApiConnectorService {
         return outputFromExchnage;
     }
 
-    /*
-    TODO: you need to write it to the disk; the sheer volume of ingested data should not
-    be left to the chance of memory
-    */
-    public async ingestBulkFundamentalsData(): Promise<ITickerFundamentals[]> {
-
-        /*
-        Initialize collection to hold API output
-        */
-        const bulkFundamentals = [];
-
-        /*
-        Loop through every exchange
-        */
-        for (let i = 0; i < ApiConnectorService.EXCHANGES.length; i++) {
-
-            /*
-            API delivers packets in batches of 500, therefore, we keep requesting data from
-            exchange until it's fully saturated
-            */
-            let outputAvailable = true;
-
-            if (i > 0) {
-                break;
-            }
-
-            const exchange = ApiConnectorService.EXCHANGES[i];
-
-            let offset = 0;
-
-            while (outputAvailable) {
-
-                const outputFromExchnage = await this.requestBulkFundamentalsData(exchange, offset);
-
-                if (Object.keys(outputFromExchnage).length) {
-
-                    /*
-                    Output from exchange is structured as { int: {} }, where int is index of the data packet
-                    Therefore, before requesting the next batch, we flat out the output into initial collection
-                    */
-                    bulkFundamentals.push(Object.values(outputFromExchnage));
-
-                    offset += 500;
-                } else {
-
-                    outputAvailable = false;
-                }
-            }
-        }
-
-        return bulkFundamentals;
-    }
-
     private async requestFundamentalsTickerData(): Promise<ITickerFundamentals> {
 
         const request = await fetch(
@@ -188,5 +135,50 @@ export class ApiConnectorService {
         );
 
         return { fundamentals, prices, benchmarkPrices, treasuryBondYield };
+    }
+
+    public async ingestBulkFundamentalsData(): Promise<ITickerFundamentals[]> {
+
+        /*
+        Initialize collection to hold API output
+        */
+        const bulkFundamentals = [];
+
+        /*
+        Loop through every exchange
+        */
+        for (let i = 0; i < ApiConnectorService.EXCHANGES.length; i++) {
+
+            /*
+            API delivers packets in batches of 500, therefore, we keep requesting data from
+            exchange until it's fully saturated
+            */
+            let outputAvailable = true;
+
+            const exchange = ApiConnectorService.EXCHANGES[i];
+
+            let offset = 0;
+
+            while (outputAvailable) {
+
+                const outputFromExchnage = await this.requestBulkFundamentalsData(exchange, offset);
+
+                if (Object.keys(outputFromExchnage).length) {
+
+                    /*
+                    Output from exchange is structured as { int: {} }, where int is index of the data packet
+                    Therefore, before requesting the next batch, we flat out the output into initial collection
+                    */
+                    bulkFundamentals.push(Object.values(outputFromExchnage));
+
+                    offset += 500;
+                } else {
+
+                    outputAvailable = false;
+                }
+            }
+        }
+
+        return bulkFundamentals;
     }
 }
