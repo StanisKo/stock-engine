@@ -159,11 +159,6 @@ export class ApiConnectorService {
                     */
                     bulkFundamentals.push(...Object.entries(outputFromExchnage).map(output => output[1]));
 
-                    /*
-                    NOTE: remove me!
-                    */
-                    break;
-
                     offset += 500;
                 } else {
 

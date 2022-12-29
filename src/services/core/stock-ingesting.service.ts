@@ -39,14 +39,15 @@ export class StockIngestingService {
 
                 const industry = bulkFundamentalsData[i].General.Industry;
 
-                if (industries[industry]) {
+                /*
+                Besides the uniqueness check, weed out garbage data
+                */
+                if (!industry || industries[industry]) {
 
                     continue;
                 }
 
                 industries[industry] = true;
-
-                console.log(industry);
 
                 industriesInsertOperations = [
                     ...industriesInsertOperations,
@@ -69,7 +70,7 @@ export class StockIngestingService {
                 fundamentalsInsertOperations = [
                     ...fundamentalsInsertOperations,
                     {
-                        insertOne: { document: new Fundamentals({ ...bulkFundamentalsData[i] }) }
+                        insertOne: { document: new Fundamentals({ data: { ...bulkFundamentalsData[i] } }) }
                     }
                 ];
             }
