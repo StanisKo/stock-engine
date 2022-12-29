@@ -5,7 +5,8 @@ import { ApiConnectorService } from './api-connector.service';
 import { DataParserService } from './data-parser.service';
 
 /*
-TODO: This should be an ingesting service
+TODO: This should be an ingesting service; stock profiling should be mapped to a different
+endpoint and start a separate profiling process AFTER the ingest (write to disk) is done
 */
 export class StockProfilingService {
 
