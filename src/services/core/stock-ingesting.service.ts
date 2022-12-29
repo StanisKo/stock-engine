@@ -15,6 +15,10 @@ export class StockIngestingService {
 
         const response = new ServiceResponse();
 
+        const bulkFundamentalsData = await this.apiConnectorService.requestBulkFundamentalsData();
+
+        
+
         try {
 
             response.success = true;

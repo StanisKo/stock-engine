@@ -25,6 +25,9 @@ export interface ITickerPrice {
     volume: number;
 }
 
+/*
+TODO: remove and break down
+*/
 export interface ITickerFinancialData {
 
     fundamentals: ITickerFundamentals,

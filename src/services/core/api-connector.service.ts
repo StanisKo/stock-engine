@@ -4,7 +4,7 @@ import moment from 'moment';
 import fetch from 'node-fetch';
 import yahooFinance from 'yahoo-finance2';
 
-import { ITickerFundamentals, ITickerPrice, ITickerFinancialData } from '../../interfaces/ticker.interface';
+import { ITickerFundamentals, ITickerPrice } from '../../interfaces/ticker.interface';
 
 import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 
@@ -39,7 +39,7 @@ export class ApiConnectorService {
         this.usTreasuryBondYieldApiKey = process.env.US_TREASURY_BOND_YIELD_API_KEY || '';
     }
 
-    private async requestBulkFundamentalsData(exchange: string, offset: number): Promise<FundamentalsApiResponse> {
+    private async requestBulkFundamentals(exchange: string, offset: number): Promise<FundamentalsApiResponse> {
 
         const request = await fetch(
             `${this.fundametalsDataApiUrl}/${exchange}?api_token=${this.fundametalsDataApiKey}&fmt=json&offset=${offset}&limit=500`
@@ -50,7 +50,7 @@ export class ApiConnectorService {
         return outputFromExchnage;
     }
 
-    private async requestFundamentalsTickerData(): Promise<ITickerFundamentals> {
+    private async requestTickerFundamentals(): Promise<ITickerFundamentals> {
 
         const request = await fetch(
             `${this.fundametalsDataApiUrl}/${this.ticker}.US?api_token=${this.fundametalsDataApiKey}`
@@ -64,7 +64,7 @@ export class ApiConnectorService {
     /*
     We request ticker prices since IPO until latest price available
     */
-    private async requestHistoricalTickerPrices(tickerIpoDate: string): Promise<ITickerPrice[]> {
+    private async requestTickerPrices(tickerIpoDate: string): Promise<ITickerPrice[]> {
 
         const prices = await yahooFinance.historical(
             this.ticker,
@@ -120,24 +120,7 @@ export class ApiConnectorService {
         return treasuryBondYield;
     }
 
-    public async requestFinancicalTickerData(): Promise<ITickerFinancialData> {
-
-        const fundamentals = await this.requestFundamentalsTickerData();
-
-        const prices = await this.requestHistoricalTickerPrices(fundamentals.General.IPODate);
-
-        const benchmarkPrices = await this.requestBenchmarkPrices();
-
-        const treasuryBondYield = await this.requestUSTreasuryBondYield();
-
-        console.log(
-            `${this.ticker}: Fundamentals, prices, benchmark and treasury bond yield data is successfully retrieved`
-        );
-
-        return { fundamentals, prices, benchmarkPrices, treasuryBondYield };
-    }
-
-    public async ingestBulkFundamentalsData(): Promise<ITickerFundamentals[]> {
+    public async requestBulkFundamentalsData(): Promise<ITickerFundamentals[]> {
 
         /*
         Initialize collection to hold API output
@@ -161,7 +144,7 @@ export class ApiConnectorService {
 
             while (outputAvailable) {
 
-                const outputFromExchnage = await this.requestBulkFundamentalsData(exchange, offset);
+                const outputFromExchnage = await this.requestBulkFundamentals(exchange, offset);
 
                 if (Object.keys(outputFromExchnage).length) {
 
