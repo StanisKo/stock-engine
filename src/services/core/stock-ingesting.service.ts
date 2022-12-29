@@ -30,6 +30,8 @@ export class StockIngestingService {
             /*
             At this point we need to deduce unique industries across received data points
             and persist them for further operations
+
+            TODO: weed out shell companies!
             */
             const industries: { [key: string]: boolean } = {};
 
