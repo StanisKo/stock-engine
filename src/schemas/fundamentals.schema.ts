@@ -2,7 +2,9 @@ import * as uuid from 'uuid';
 
 import mongoose from 'mongoose';
 
-const fundamentalsSchema = new mongoose.Schema(
+import { IFundamentals } from '../interfaces/fundamentals.interface';
+
+const fundamentalsSchema = new mongoose.Schema<IFundamentals>(
     {
         _id: { type: String, default: uuid.v4 },
 

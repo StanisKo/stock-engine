@@ -3,6 +3,9 @@ import { AnyBulkWriteOperation } from 'mongodb';
 import { IIndustry } from '../../interfaces/industry.interface';
 import { Industry } from '../../schemas/industry.schema';
 
+import { IFundamentals } from '../../interfaces/fundamentals.interface';
+import { Fundamentals } from '../../schemas/fundamentals.schema';
+
 import { ServiceResponse } from '../../dtos/serviceResponse';
 
 import { ApiConnectorService } from './api-connector.service';
@@ -30,7 +33,7 @@ export class StockIngestingService {
             */
             const industries: { [key: string]: boolean } = {};
 
-            let insertOperations: AnyBulkWriteOperation<IIndustry>[] = [];
+            let industriesInsertOperations: AnyBulkWriteOperation<IIndustry>[] = [];
 
             for (let i = 0; i < bulkFundamentalsData.length; i++) {
 
@@ -43,15 +46,33 @@ export class StockIngestingService {
 
                 industries[industry] = true;
 
-                insertOperations = [
-                    ...insertOperations,
+                industriesInsertOperations = [
+                    ...industriesInsertOperations,
                     {
                         insertOne: { document: new Industry({ name: industry }) }
                     }
                 ];
             }
 
-            await Industry.bulkWrite(insertOperations);
+            await Industry.bulkWrite(industriesInsertOperations);
+
+            /*
+            Further, we need to store all of the requested fundamentals
+            */
+            
+            let fundamentalsInsertOperations: AnyBulkWriteOperation<IFundamentals>[] = [];
+
+            for (let i = 0; i < bulkFundamentalsData.length; i++) {
+
+                fundamentalsInsertOperations = [
+                    ...fundamentalsInsertOperations,
+                    {
+                        insertOne: { document: new Fundamentals({ ...bulkFundamentalsData[i] }) }
+                    }
+                ];
+            }
+
+            await Fundamentals.bulkWrite(fundamentalsInsertOperations);
 
             response.success = true;
         }
