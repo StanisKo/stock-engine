@@ -4,10 +4,6 @@ import { ApiConnectorService } from './api-connector.service';
 
 import { DataParserService } from './data-parser.service';
 
-/*
-TODO: This should be an ingesting service; stock profiling should be mapped to a different
-endpoint and start a separate profiling process AFTER the ingest (write to disk) is done
-*/
 export class StockProfilingService {
 
     apiConnectorService: ApiConnectorService;
@@ -25,16 +21,15 @@ export class StockProfilingService {
 
         try {
 
-            await this.apiConnectorService.ingestBulkFundamentalsData();
-
             response.success = true;
         }
         catch (error) {
+
             console.log(error);
 
             response.success = false;
 
-            response.message = 'Failed to ingest bulk data';
+            response.message = 'Failed to profile ingested stocks';
         }
 
         return response;
