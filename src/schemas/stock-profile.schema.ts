@@ -7,7 +7,7 @@ import { IStockProfileSchema } from '../interfaces/stock-profile.interface';
 import { MarketCapLabel } from '../enums';
 
 
-const industryProfileSchema = new mongoose.Schema<IStockProfileSchema>(
+const stockProfileSchema = new mongoose.Schema<IStockProfileSchema>(
     {
         _id: { type: String, default: uuid.v4 },
 
@@ -177,4 +177,4 @@ const industryProfileSchema = new mongoose.Schema<IStockProfileSchema>(
     { collection: 'StockProfiles', timestamps: true }
 );
 
-export const IndustryProfile = mongoose.model('StockProfile', industryProfileSchema);
+export const IndustryProfile = mongoose.model('StockProfile', stockProfileSchema);
