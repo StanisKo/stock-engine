@@ -137,6 +137,8 @@ export class DataParserService {
         TODO: consume those available on api, calculate otherwise
         This principle has to be applied to all datapoints:
         check for availability and consume, calculate otherwise!
+
+        TODO: adapt calculations to factor in for missing data
         */
 
         const lastAnnualBalanceSheet = this.fundamentals.Financials.Balance_Sheet.yearly[
