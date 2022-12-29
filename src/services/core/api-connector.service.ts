@@ -10,6 +10,9 @@ import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 
 type FundamentalsApiResponse = { [key: number]: ITickerFundamentals };
 
+/*
+TODO: this should be static, since prices would be requested in loop for every stock
+*/
 export class ApiConnectorService {
 
     static EXCHANGES = process.env.EXCHANGES?.split(', ') ?? [];

@@ -17,8 +17,6 @@ export class StockIngestingService {
 
         const bulkFundamentalsData = await this.apiConnectorService.requestBulkFundamentalsData();
 
-        
-
         try {
 
             response.success = true;
