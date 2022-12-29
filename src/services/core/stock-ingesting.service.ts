@@ -1,3 +1,7 @@
+import { Model } from 'mongoose';
+
+import { Industry } from '../../schemas/industry.schema';
+
 import { ServiceResponse } from '../../dtos/serviceResponse';
 
 import { ApiConnectorService } from './api-connector.service';
@@ -15,9 +19,40 @@ export class StockIngestingService {
 
         const response = new ServiceResponse();
 
-        const bulkFundamentalsData = await this.apiConnectorService.requestBulkFundamentalsData();
-
         try {
+
+            const bulkFundamentalsData = await this.apiConnectorService.requestBulkFundamentalsData();
+
+            /*
+            At this point we need to deduce unique industries across received data points
+            and persist them for further operations
+            */
+            const industries: string[] = [];
+
+            let insertOperations: { insertOne: { document: Model<typeof Industry> } }[] = [];
+
+            for (let i = 0; i < bulkFundamentalsData.length; i++) {
+
+                const industry = bulkFundamentalsData[i].General.Industry;
+
+                if (industries.includes(industry)) {
+
+                    continue;
+                }
+
+                industries.push(industry);
+
+                insertOperations = [
+                    ...insertOperations,
+                    {
+                        insertOne: {
+                            document: new Industry({ name: industry })
+                        }
+                    }
+                ];
+            }
+
+            await Industry.bulkWrite(insertOperations);
 
             response.success = true;
         }
