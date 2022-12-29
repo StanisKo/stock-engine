@@ -129,6 +129,8 @@ export class DataParserService {
         /*
         Get the last annual balance sheet, income statement and cash flow statement
         necessary for liquidity, valution, debt, and efficiency calculations
+
+        TODO: change indexing from current to yearly_last_0
         */
 
         const lastAnnualBalanceSheet = this.fundamentals.Financials.Balance_Sheet.yearly[
