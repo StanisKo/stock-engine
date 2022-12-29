@@ -133,6 +133,10 @@ export class DataParserService {
         TODO: change indexing from current to yearly_last_0
 
         TODO: work with last quarterly values!
+
+        TODO: consume those available on api, calculate otherwise
+        This principle has to be applied to all datapoints:
+        check for availability and consume, calculate otherwise!
         */
 
         const lastAnnualBalanceSheet = this.fundamentals.Financials.Balance_Sheet.yearly[
