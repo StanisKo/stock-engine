@@ -8,7 +8,7 @@ const industrySchema = new mongoose.Schema<IIndustry>(
     {
         _id: { type: String, default: uuid.v4 },
 
-        name: { type: String, required: true }
+        name: { type: String, required: true, unique: true }
     },
 
     { collection: 'Industries', timestamps: true }
