@@ -61,6 +61,8 @@ export class StockIngestingService {
 
             /*
             Further, we need to store all of the requested fundamentals
+
+            TODO: do not ingest garbage: if no industry amongst ingested industries, skip
             */
             
             let fundamentalsInsertOperations: AnyBulkWriteOperation<IFundamentals>[] = [];
