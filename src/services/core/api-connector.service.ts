@@ -54,7 +54,7 @@ export class ApiConnectorService {
     TODO: you need to write it to the disk; the sheer volume of ingested data should not
     be left to the chance of memory
     */
-    async ingestBulkFundamentalsData(): Promise<ITickerFundamentals[]> {
+    public async ingestBulkFundamentalsData(): Promise<ITickerFundamentals[]> {
 
         /*
         Initialize collection to hold API output
