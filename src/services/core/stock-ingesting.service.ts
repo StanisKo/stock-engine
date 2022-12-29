@@ -28,7 +28,7 @@ export class StockIngestingService {
             At this point we need to deduce unique industries across received data points
             and persist them for further operations
             */
-            const industries: string[] = [];
+            const industries: { [key: string]: boolean } = {};
 
             let insertOperations: AnyBulkWriteOperation<IIndustry>[] = [];
 
@@ -36,12 +36,12 @@ export class StockIngestingService {
 
                 const industry = bulkFundamentalsData[i].General.Industry;
 
-                if (industries.includes(industry)) {
+                if (industries[industry]) {
 
                     continue;
                 }
 
-                industries.push(industry);
+                industries[industry] = true;
 
                 insertOperations = [
                     ...insertOperations,
