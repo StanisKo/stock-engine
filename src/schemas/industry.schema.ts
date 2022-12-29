@@ -2,7 +2,9 @@ import * as uuid from 'uuid';
 
 import mongoose from 'mongoose';
 
-const industrySchema = new mongoose.Schema(
+import { IIndustry } from '../interfaces/industry.interface';
+
+const industrySchema = new mongoose.Schema<IIndustry>(
     {
         _id: { type: String, default: uuid.v4 },
 

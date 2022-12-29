@@ -1,5 +1,6 @@
-import { Model } from 'mongoose';
+import { AnyBulkWriteOperation } from 'mongodb';
 
+import { IIndustry } from '../../interfaces/industry.interface';
 import { Industry } from '../../schemas/industry.schema';
 
 import { ServiceResponse } from '../../dtos/serviceResponse';
@@ -29,7 +30,7 @@ export class StockIngestingService {
             */
             const industries: string[] = [];
 
-            let insertOperations: { insertOne: { document: Model<typeof Industry> } }[] = [];
+            let insertOperations: AnyBulkWriteOperation<IIndustry>[] = [];
 
             for (let i = 0; i < bulkFundamentalsData.length; i++) {
 
@@ -45,9 +46,7 @@ export class StockIngestingService {
                 insertOperations = [
                     ...insertOperations,
                     {
-                        insertOne: {
-                            document: new Industry({ name: industry })
-                        }
+                        insertOne: { document: new Industry({ name: industry }) }
                     }
                 ];
             }
