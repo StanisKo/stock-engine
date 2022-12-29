@@ -8,6 +8,8 @@ import { ITickerFundamentals, ITickerPrice, ITickerFinancialData } from '../../i
 
 import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 
+type FundamentalsApiResponse = { [key: number]: ITickerFundamentals };
+
 export class ApiConnectorService {
 
     static EXCHANGES = ['NASDAQ', 'NYSE', 'BATS','AMEX'];
@@ -37,10 +39,7 @@ export class ApiConnectorService {
         this.usTreasuryBondYieldApiKey = process.env.US_TREASURY_BOND_YIELD_API_KEY || '';
     }
 
-    private async requestBulkFundamentalsData(
-        exchange: string,
-        offset: number,
-    ): Promise<{ [key: number]: ITickerFundamentals }> {
+    private async requestBulkFundamentalsData(exchange: string, offset: number): Promise<FundamentalsApiResponse> {
 
         const request = await fetch(
             `${this.fundametalsDataApiUrl}/${exchange}?api_token=${this.fundametalsDataApiKey}&fmt=json&offset=${offset}&limit=500`
@@ -95,6 +94,7 @@ export class ApiConnectorService {
 
                     offset += 500;
                 } else {
+
                     outputAvailable = false;
                 }
             }
