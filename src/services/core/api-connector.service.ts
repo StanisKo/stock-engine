@@ -138,13 +138,6 @@ export class ApiConnectorService {
         for (let i = 0; i < ApiConnectorService.EXCHANGES.length; i++) {
 
             /*
-            NOTE: REMOVE ME
-            */
-            if (i > 0) {
-                break;
-            }
-
-            /*
             API delivers packets in batches of 500, therefore, we keep requesting data from
             exchange until it's fully saturated
             */
@@ -165,6 +158,11 @@ export class ApiConnectorService {
                     Therefore, before requesting the next batch, we flat out the output into initial collection
                     */
                     bulkFundamentals.push(...Object.entries(outputFromExchnage).map(output => output[1]));
+
+                    /*
+                    NOTE: remove me!
+                    */
+                    break;
 
                     offset += 500;
                 } else {
