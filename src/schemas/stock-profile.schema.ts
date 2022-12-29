@@ -177,4 +177,4 @@ const stockProfileSchema = new mongoose.Schema<IStockProfileSchema>(
     { collection: 'StockProfiles', timestamps: true }
 );
 
-export const IndustryProfile = mongoose.model('StockProfile', stockProfileSchema);
+export const StockProfile = mongoose.model('StockProfile', stockProfileSchema);
