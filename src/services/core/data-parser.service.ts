@@ -12,6 +12,8 @@ Makes use of calculator services to calculate missing ratios
 Returns values back to the caller in the shape of interface that adheres to Stock Profile schema
 
 TODO: this has to be smarten up, broken down and restructured
+
+Also renamed to something more sensible
 */
 
 import { IStockProfile } from '../../interfaces/stock-profile.interface';
