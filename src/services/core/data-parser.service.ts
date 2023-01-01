@@ -14,6 +14,10 @@ Returns values back to the caller in the shape of interface that adheres to Stoc
 TODO: this has to be smarten up, broken down and restructured
 
 Also renamed to something more sensible
+
+StockParserService
+
+called in loop for every ticker in batch by stock profiling worker
 */
 
 import { IStockProfile } from '../../interfaces/stock-profile.interface';
