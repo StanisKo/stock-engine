@@ -50,6 +50,10 @@ export class ApiConnectorService {
         return outputFromExchnage;
     }
 
+    /*
+    THIS doesn't work anymore; TODO: build scrutinized dev functionality to profile
+    individual tickets
+    */
     private async requestTickerFundamentals(): Promise<ITickerFundamentals> {
 
         const request = await fetch(
