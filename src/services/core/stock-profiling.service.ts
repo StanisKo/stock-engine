@@ -30,17 +30,18 @@ export class StockProfilingService {
             */
 
             /*
-            Query fundamentals and batch, or batch query and keep track of offset?
+            tickers = query()
 
-            for batch in batches:
+            batches = chunk(tickers)
 
-                worker.process(batch):
+            processes = []
 
-                    for ticker in batch:
+            for (let i = 0; i < batches.length; i++) {
 
-                        Request ticker pricess
+                processes.push(worker.process(batch))
+            }
 
-                        parser.parse(ticker, tickerPrices, benchmarkPrices, treasuryBondYield)
+            await Promise.allSettled(processes)
             */
 
             response.success = true;
