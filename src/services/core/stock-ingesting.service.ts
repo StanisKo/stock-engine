@@ -30,8 +30,6 @@ export class StockIngestingService {
             /*
             At this point we need to deduce unique industries across received data points
             and persist them for further operations
-
-            TODO: weed out shell companies!
             */
             const industries: { [key: string]: boolean } = {};
 
@@ -42,9 +40,10 @@ export class StockIngestingService {
                 const industry = bulkFundamentalsData[i].General.Industry;
 
                 /*
-                Besides the uniqueness check, weed out garbage data
+                Check if industry is provided, check if industry is not a shell company,
+                finally, check uniqueness
                 */
-                if (!industry || industries[industry]) {
+                if (!industry || industry === 'Shell Companies' || industries[industry]) {
 
                     continue;
                 }
@@ -63,13 +62,20 @@ export class StockIngestingService {
 
             /*
             Further, we need to store all of the requested fundamentals
-
-            TODO: do not ingest garbage: if no industry amongst ingested industries or shell company, skip
             */
             
             let fundamentalsInsertOperations: AnyBulkWriteOperation<IFundamentals>[] = [];
 
             for (let i = 0; i < bulkFundamentalsData.length; i++) {
+
+                /*
+                If currently iterated set of fundamentals does not meet our industry criteria,
+                weed it out -- garbage data
+                */
+                if (!industries[bulkFundamentalsData[i].General.Industry]) {
+
+                    continue;
+                }
 
                 fundamentalsInsertOperations = [
                     ...fundamentalsInsertOperations,
