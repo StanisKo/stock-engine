@@ -63,7 +63,7 @@ export class StockIngestingService {
             /*
             Further, we need to store all of the requested fundamentals
             */
-            
+
             let fundamentalsInsertOperations: AnyBulkWriteOperation<IFundamentals>[] = [];
 
             for (let i = 0; i < bulkFundamentalsData.length; i++) {
