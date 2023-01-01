@@ -10,6 +10,8 @@ Extracts fields necessary for stock profile
 Makes use of calculator services to calculate missing ratios
 
 Returns values back to the caller in the shape of interface that adheres to Stock Profile schema
+
+TODO: this has to be smarten up, broken down and restructured
 */
 
 import { IStockProfile } from '../../interfaces/stock-profile.interface';
@@ -129,6 +131,16 @@ export class DataParserService {
         /*
         Get the last annual balance sheet, income statement and cash flow statement
         necessary for liquidity, valution, debt, and efficiency calculations
+
+        TODO: change indexing from current to yearly_last_0
+
+        TODO: work with last quarterly values!
+
+        TODO: consume those available on api, calculate otherwise
+        This principle has to be applied to all datapoints:
+        check for availability and consume, calculate otherwise!
+
+        TODO: adapt calculations to factor in for missing data
         */
 
         const lastAnnualBalanceSheet = this.fundamentals.Financials.Balance_Sheet.yearly[

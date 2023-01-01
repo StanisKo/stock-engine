@@ -1,16 +1,21 @@
-/*
-TODO: in V1 we don't need to request benchmark prices and treasury bond yield for every ticker, rework
-*/
+/* eslint-disable max-len */
 
 import moment from 'moment';
 import fetch from 'node-fetch';
 import yahooFinance from 'yahoo-finance2';
 
-import { ITickerFundamentals, ITickerPrice, ITickerFinancialData } from '../../interfaces/ticker.interface';
+import { ITickerFundamentals, ITickerPrice } from '../../interfaces/ticker.interface';
 
 import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 
+type FundamentalsApiResponse = { [key: number]: ITickerFundamentals };
+
+/*
+TODO: this should be static, since prices would be requested in loop for every stock
+*/
 export class ApiConnectorService {
+
+    static EXCHANGES: string[];
 
     ticker: string;
 
@@ -24,9 +29,9 @@ export class ApiConnectorService {
 
     usTreasuryBondYieldApiKey: string;
 
-    constructor(ticker: string) {
+    constructor() {
 
-        this.ticker = ticker;
+        ApiConnectorService.EXCHANGES = process.env.EXCHANGES?.split(', ') ?? [];
 
         this.benchmarkTicker = process.env.BENCHMARK_TICKER || '';
 
@@ -39,7 +44,18 @@ export class ApiConnectorService {
         this.usTreasuryBondYieldApiKey = process.env.US_TREASURY_BOND_YIELD_API_KEY || '';
     }
 
-    private async requestFundamentalsTickerData(): Promise<ITickerFundamentals> {
+    private async requestBulkFundamentals(exchange: string, offset: number): Promise<FundamentalsApiResponse> {
+
+        const request = await fetch(
+            `${this.fundametalsDataApiUrl}/${exchange}?api_token=${this.fundametalsDataApiKey}&fmt=json&offset=${offset}&limit=500`
+        );
+
+        const outputFromExchnage = await request.json();
+
+        return outputFromExchnage;
+    }
+
+    private async requestTickerFundamentals(): Promise<ITickerFundamentals> {
 
         const request = await fetch(
             `${this.fundametalsDataApiUrl}/${this.ticker}.US?api_token=${this.fundametalsDataApiKey}`
@@ -53,7 +69,7 @@ export class ApiConnectorService {
     /*
     We request ticker prices since IPO until latest price available
     */
-    private async requestHistoricalTickerPrices(tickerIpoDate: string): Promise<ITickerPrice[]> {
+    private async requestTickerPrices(tickerIpoDate: string): Promise<ITickerPrice[]> {
 
         const prices = await yahooFinance.historical(
             this.ticker,
@@ -109,20 +125,48 @@ export class ApiConnectorService {
         return treasuryBondYield;
     }
 
-    public async requestFinancicalTickerData(): Promise<ITickerFinancialData> {
+    public async requestBulkFundamentalsData(): Promise<ITickerFundamentals[]> {
 
-        const fundamentals = await this.requestFundamentalsTickerData();
+        /*
+        Initialize collection to hold API output
+        */
+        const bulkFundamentals = [];
 
-        const prices = await this.requestHistoricalTickerPrices(fundamentals.General.IPODate);
+        /*
+        Loop through every exchange
+        */
+        for (let i = 0; i < ApiConnectorService.EXCHANGES.length; i++) {
 
-        const benchmarkPrices = await this.requestBenchmarkPrices();
+            /*
+            API delivers packets in batches of 500, therefore, we keep requesting data from
+            exchange until it's fully saturated
+            */
+            let outputAvailable = true;
 
-        const treasuryBondYield = await this.requestUSTreasuryBondYield();
+            const exchange = ApiConnectorService.EXCHANGES[i];
 
-        console.log(
-            `${this.ticker}: Fundamentals, prices, benchmark and treasury bond yield data is successfully retrieved`
-        );
+            let offset = 0;
 
-        return { fundamentals, prices, benchmarkPrices, treasuryBondYield };
+            while (outputAvailable) {
+
+                const outputFromExchnage = await this.requestBulkFundamentals(exchange, offset);
+
+                if (Object.keys(outputFromExchnage).length) {
+
+                    /*
+                    Output from exchange is structured as { int: {} }, where int is index of the data packet
+                    Therefore, before requesting the next batch, we flat out the output into initial collection
+                    */
+                    bulkFundamentals.push(...Object.entries(outputFromExchnage).map(output => output[1]));
+
+                    offset += 500;
+                } else {
+
+                    outputAvailable = false;
+                }
+            }
+        }
+
+        return bulkFundamentals;
     }
 }
