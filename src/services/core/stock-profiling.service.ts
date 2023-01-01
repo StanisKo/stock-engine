@@ -30,6 +30,15 @@ export class StockProfilingService {
             */
 
             /*
+            https://deepsource.io/blog/nodejs-worker-threads/
+
+            https://blog.logrocket.com/node-js-multithreading-worker-threads-why-they-matter/
+
+            On worker pools!:
+            https://www.npmjs.com/package/piscina
+            */
+
+            /*
             tickers = query()
 
             batches = chunk(tickers)
