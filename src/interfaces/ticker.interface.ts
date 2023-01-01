@@ -25,6 +25,8 @@ export interface ITickerPrice {
     volume: number;
 }
 
+export type FundamentalsApiResponse = { [key: number]: ITickerFundamentals };
+
 /*
 TODO: remove and break down
 */

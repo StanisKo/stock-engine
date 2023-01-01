@@ -4,15 +4,10 @@ import moment from 'moment';
 import fetch from 'node-fetch';
 import yahooFinance from 'yahoo-finance2';
 
-import { ITickerFundamentals, ITickerPrice } from '../../interfaces/ticker.interface';
+import { ITickerFundamentals, ITickerPrice, FundamentalsApiResponse } from '../../interfaces/ticker.interface';
 
 import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 
-type FundamentalsApiResponse = { [key: number]: ITickerFundamentals };
-
-/*
-TODO: this should be static, since prices would be requested in loop for every stock
-*/
 export class ApiConnectorService {
 
     static EXCHANGES: string[];
