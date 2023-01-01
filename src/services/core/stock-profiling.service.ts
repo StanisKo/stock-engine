@@ -29,22 +29,19 @@ export class StockProfilingService {
             Request benchmark prices, treasury bondy yield
             */
 
-            // let profiles = [];
-
-            const industriesToProcess = await Industry.find({}, { _id: false, name: true }).lean() as string[];
-
             /*
-            Batch query fundamentals (500)
+            Query fundamentals and batch, or batch query and keep track of offset?
 
-            Paralleize every batch with node events
+            for batch in batches:
+
+                worker.process(batch):
+
+                    for ticker in batch:
+
+                        Request ticker pricess
+
+                        parser.parse(ticker, tickerPrices, benchmarkPrices, treasuryBondYield)
             */
-
-            for (let i = 0; i < industriesToProcess.length; i++) {
-
-                const industry = industriesToProcess[i];
-
-                console.log(`Profiling ${industry}`);
-            }
 
             response.success = true;
         }
