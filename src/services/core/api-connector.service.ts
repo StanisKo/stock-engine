@@ -12,21 +12,19 @@ export class ApiConnectorService {
 
     static EXCHANGES: string[];
 
-    ticker: string;
+    static benchmarkTicker: string;
 
-    benchmarkTicker: string;
+    static fundametalsDataApiUrl: string;
 
-    fundametalsDataApiUrl: string;
+    static fundametalsDataApiKey: string;
 
-    fundametalsDataApiKey: string;
+    static usTreasuryBondYieldApiURL: string;
 
-    usTreasuryBondYieldApiURL: string;
+    static usTreasuryBondYieldApiKey: string;
 
-    usTreasuryBondYieldApiKey: string;
+    static {
 
-    constructor() {
-
-        ApiConnectorService.EXCHANGES = process.env.EXCHANGES?.split(', ') ?? [];
+        this.EXCHANGES = process.env.EXCHANGES?.split(', ') ?? [];
 
         this.benchmarkTicker = process.env.BENCHMARK_TICKER || '';
 
@@ -42,7 +40,7 @@ export class ApiConnectorService {
     private async requestBulkFundamentals(exchange: string, offset: number): Promise<FundamentalsApiResponse> {
 
         const request = await fetch(
-            `${this.fundametalsDataApiUrl}/${exchange}?api_token=${this.fundametalsDataApiKey}&fmt=json&offset=${offset}&limit=500`
+            `${ApiConnectorService.fundametalsDataApiUrl}/${exchange}?api_token=${ApiConnectorService.fundametalsDataApiKey}&fmt=json&offset=${offset}&limit=500`
         );
 
         const outputFromExchnage = await request.json();
@@ -50,14 +48,10 @@ export class ApiConnectorService {
         return outputFromExchnage;
     }
 
-    /*
-    THIS doesn't work anymore; TODO: build scrutinized dev functionality to profile
-    individual tickets
-    */
-    private async requestTickerFundamentals(): Promise<ITickerFundamentals> {
+    private async requestTickerFundamentals(ticker: string): Promise<ITickerFundamentals> {
 
         const request = await fetch(
-            `${this.fundametalsDataApiUrl}/${this.ticker}.US?api_token=${this.fundametalsDataApiKey}`
+            `${ApiConnectorService.fundametalsDataApiUrl}/${ticker}.US?api_token=${ApiConnectorService.fundametalsDataApiKey}`
         );
 
         const fundametals = await request.json() as ITickerFundamentals;
@@ -68,10 +62,10 @@ export class ApiConnectorService {
     /*
     We request ticker prices since IPO until latest price available
     */
-    private async requestTickerPrices(tickerIpoDate: string): Promise<ITickerPrice[]> {
+    private async requestTickerPrices(ticker: string, tickerIpoDate: string): Promise<ITickerPrice[]> {
 
         const prices = await yahooFinance.historical(
-            this.ticker,
+            ticker,
             {
                 period1: moment(tickerIpoDate).format('MM-DD-YYYY'),
                 period2: moment().format('MM-DD-YYYY'),
@@ -98,7 +92,7 @@ export class ApiConnectorService {
         );
 
         const benchmarkPrices = await yahooFinance.historical(
-            this.benchmarkTicker,
+            ApiConnectorService.benchmarkTicker,
             {
                 period1: firstDayOfCurrentMonthOneYearBack,
                 period2: lastDayOfLastMonth,
@@ -112,7 +106,7 @@ export class ApiConnectorService {
 
     private async requestUSTreasuryBondYield(): Promise<number> {
         const request = await fetch(
-            `${this.usTreasuryBondYieldApiURL}?limit=1&order=desc&api_key=${this.usTreasuryBondYieldApiKey}`
+            `${ApiConnectorService.usTreasuryBondYieldApiURL}?limit=1&order=desc&api_key=${ApiConnectorService.usTreasuryBondYieldApiKey}`
         );
 
         const data = await request.json();
