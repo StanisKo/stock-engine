@@ -14,6 +14,8 @@ Therefore, each ratio is checked:
 3. if not (enough data), marked as N/A, leading to the discarding of stock
 
 TODO: this has to be smarten up, broken down and restructured
+
+TODO: there has to be discard mechanism
 */
 
 import { IStockProfile } from '../../interfaces/stock-profile.interface';
