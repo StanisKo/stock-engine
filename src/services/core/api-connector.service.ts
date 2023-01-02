@@ -10,17 +10,17 @@ import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 
 export class ApiConnectorService {
 
-    static EXCHANGES: string[];
+    private static EXCHANGES: string[];
 
-    static benchmarkTicker: string;
+    private static benchmarkTicker: string;
 
-    static fundametalsDataApiUrl: string;
+    private static fundametalsDataApiUrl: string;
 
-    static fundametalsDataApiKey: string;
+    private static fundametalsDataApiKey: string;
 
-    static usTreasuryBondYieldApiURL: string;
+    private static usTreasuryBondYieldApiURL: string;
 
-    static usTreasuryBondYieldApiKey: string;
+    private static usTreasuryBondYieldApiKey: string;
 
     static {
 
@@ -37,7 +37,7 @@ export class ApiConnectorService {
         this.usTreasuryBondYieldApiKey = process.env.US_TREASURY_BOND_YIELD_API_KEY || '';
     }
 
-    private async requestBulkFundamentals(exchange: string, offset: number): Promise<FundamentalsApiResponse> {
+    public static async requestBulkFundamentals(exchange: string, offset: number): Promise<FundamentalsApiResponse> {
 
         const request = await fetch(
             `${ApiConnectorService.fundametalsDataApiUrl}/${exchange}?api_token=${ApiConnectorService.fundametalsDataApiKey}&fmt=json&offset=${offset}&limit=500`
@@ -48,21 +48,31 @@ export class ApiConnectorService {
         return outputFromExchnage;
     }
 
-    private async requestTickerFundamentals(ticker: string): Promise<ITickerFundamentals> {
+    /*
+    On this:
+
+    Bulk endpoint point does not (yet) deliver IPODate, in such, we are forced to request
+    it from individual ticker fundamentals' endpoint
+
+    At least we can filter by Field::Field
+
+    Sigh, this has to be improved
+    */
+    public static async requestTickerIPODate(ticker: string): Promise<string> {
 
         const request = await fetch(
-            `${ApiConnectorService.fundametalsDataApiUrl}/${ticker}.US?api_token=${ApiConnectorService.fundametalsDataApiKey}`
+            `${ApiConnectorService.fundametalsDataApiUrl}/${ticker}.US?api_token=${ApiConnectorService.fundametalsDataApiKey}&filter=General::IPODate`
         );
 
-        const fundametals = await request.json() as ITickerFundamentals;
+        const tickerIpoDate = await request.json();
 
-        return fundametals;
+        return tickerIpoDate;
     }
 
     /*
     We request ticker prices since IPO until latest price available
     */
-    private async requestTickerPrices(ticker: string, tickerIpoDate: string): Promise<ITickerPrice[]> {
+    public static async requestTickerPrices(ticker: string, tickerIpoDate: string): Promise<ITickerPrice[]> {
 
         const prices = await yahooFinance.historical(
             ticker,
@@ -80,7 +90,7 @@ export class ApiConnectorService {
     /*
     We request benchmark prices as TTM
     */
-    private async requestBenchmarkPrices(): Promise<ITickerPrice[]> {
+    public static async requestBenchmarkPrices(): Promise<ITickerPrice[]> {
 
         /*
         API returns values one day into past, so we need to adapt our margins
@@ -104,7 +114,7 @@ export class ApiConnectorService {
         return benchmarkPrices;
     }
 
-    private async requestUSTreasuryBondYield(): Promise<number> {
+    public static async requestUSTreasuryBondYield(): Promise<number> {
         const request = await fetch(
             `${ApiConnectorService.usTreasuryBondYieldApiURL}?limit=1&order=desc&api_key=${ApiConnectorService.usTreasuryBondYieldApiKey}`
         );
@@ -118,7 +128,7 @@ export class ApiConnectorService {
         return treasuryBondYield;
     }
 
-    public async requestBulkFundamentalsData(): Promise<ITickerFundamentals[]> {
+    public static async requestBulkFundamentalsData(): Promise<ITickerFundamentals[]> {
 
         /*
         Initialize collection to hold API output

@@ -1,22 +1,14 @@
-import { Industry } from '../../schemas/industry.schema';
+// import { Industry } from '../../schemas/industry.schema';
 
-import { Fundamentals } from '../../schemas/fundamentals.schema';
+// import { Fundamentals } from '../../schemas/fundamentals.schema';
 
 import { ServiceResponse } from '../../dtos/serviceResponse';
 
 import { ApiConnectorService } from './api-connector.service';
 
-import { DataParserService } from './data-parser.service';
-
 export class StockProfilingService {
 
-    apiConnectorService: ApiConnectorService;
-
-    dataParserService: DataParserService;
-
     constructor() {
-
-        this.apiConnectorService = new ApiConnectorService();
     }
 
     public async profileStocks(): Promise<ServiceResponse> {
@@ -31,6 +23,10 @@ export class StockProfilingService {
 
             Request benchmark prices, treasury bondy yield
             */
+            const benchmarkPrices = await ApiConnectorService.requestBenchmarkPrices();
+
+            const treasuryBondYield = await ApiConnectorService.requestUSTreasuryBondYield();
+
 
             /*
             https://deepsource.io/blog/nodejs-worker-threads/
