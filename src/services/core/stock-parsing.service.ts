@@ -1,27 +1,23 @@
 /* eslint-disable max-len */
 
 /*
-Iteration 1
+Some ratios are either present or missing for different stocks;
+there are ratios that always missing and we need to calculate them
 
-Accepts raw ticker data
+Not all companies going through parser adher to GAAP (Generally Accepted Accounting Principiles)
+and in such they do not expose key (in out case) financial figures
 
-Extracts fields necessary for stock profile
+Therefore, each ratio is checked:
 
-Makes use of calculator services to calculate missing ratios
-
-Returns values back to the caller in the shape of interface that adheres to Stock Profile schema
+1. On availability to be consumed
+2. If not, calculated
+3. if not (enough data), marked as N/A, leading to the discarding of stock
 
 TODO: this has to be smarten up, broken down and restructured
-
-Also renamed to something more sensible
-
-StockParsingService
-
-called in loop for every ticker in batch by stock profiling worker
 */
 
 import { IStockProfile } from '../../interfaces/stock-profile.interface';
-import { ITickerFinancialData, ITickerFundamentals, ITickerPrice } from '../../interfaces/ticker.interface';
+import { ITickerFundamentals, ITickerPrice } from '../../interfaces/ticker.interface';
 
 import { CAGRCalculatorService } from '../calculators/cagr-calculator.service';
 import { StandardDeviationCalculatorService } from '../calculators/standard-deviation-calculator.service';
@@ -37,31 +33,33 @@ import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 import { CalculatorHelperService } from '../helpers/calculator-helper.service';
 import { MarketCapLabelService } from '../helpers/market-cap-label.service';
 
-export class DataParserService {
+export class StockParsingService {
 
-    extractedTickerData: IStockProfile;
+    static benchmarkPrices: ITickerPrice[];
 
-    rawTickerData: ITickerFinancialData;
+    static treasuryBondYield: number;
+
 
     fundamentals: ITickerFundamentals;
 
     prices: ITickerPrice[];
 
-    benchmarkPrices: ITickerPrice[];
+    extractedTickerData: IStockProfile;
 
-    treasuryBondYield: number;
+    constructor(fundamentals: ITickerFundamentals, prices: ITickerPrice[]) {
 
-    constructor(rawTickerData: ITickerFinancialData) {
+        this.fundamentals = fundamentals;
+
+        this.prices = prices;
 
         this.extractedTickerData = {} as IStockProfile;
+    }
 
-        this.fundamentals = rawTickerData.fundamentals;
+    public static _inititializeStatic(benchmarkPrices: ITickerPrice[], treasuryBondYield: number): void {
 
-        this.prices = rawTickerData.prices;
+        this.benchmarkPrices = benchmarkPrices;
 
-        this.benchmarkPrices = rawTickerData.benchmarkPrices;
-
-        this.treasuryBondYield = rawTickerData.treasuryBondYield;
+        this.treasuryBondYield = treasuryBondYield;
     }
 
     private initializeSectionsToFill(): void {
@@ -140,13 +138,7 @@ export class DataParserService {
 
         TODO: change indexing from current to yearly_last_0
 
-        TODO: work with last quarterly values!
-
-        TODO: consume those available on api, calculate otherwise
-        This principle has to be applied to all datapoints:
-        check for availability and consume, calculate otherwise!
-
-        TODO: adapt calculations to factor in for missing data
+        TODO: work with last quarterly values
         */
 
         const lastAnnualBalanceSheet = this.fundamentals.Financials.Balance_Sheet.yearly[
@@ -193,7 +185,7 @@ export class DataParserService {
 
         this.extractedTickerData.risk.sharpeRatio = SharpeRatioCalculatorService.calculateSharpeRatio(
             tickerRateOfReturn,
-            this.treasuryBondYield,
+            StockParsingService.treasuryBondYield,
             standardDeviation
         );
 
@@ -203,7 +195,7 @@ export class DataParserService {
         */
 
         const [benchmarkStartingPrice, benchmarkEndingPrice] = TimeSeriesHelperService.getStartingAndEndingPrice(
-            this.benchmarkPrices
+            StockParsingService.benchmarkPrices
         );
 
         const benchmarkRateOfReturn = CalculatorHelperService.calculateRateOfReturn(
@@ -214,7 +206,7 @@ export class DataParserService {
         this.extractedTickerData.risk.alpha = AlphaCalculatorService.calculateAlpha(
             tickerRateOfReturn,
             benchmarkRateOfReturn,
-            this.treasuryBondYield,
+            StockParsingService.treasuryBondYield,
             this.extractedTickerData.risk.beta
         );
 
@@ -224,7 +216,7 @@ export class DataParserService {
 
         this.extractedTickerData.risk.rSquared = RSquaredCalculatorService.calculateRSquared(
             tickerTTMPrices,
-            this.benchmarkPrices
+            StockParsingService.benchmarkPrices
         );
 
         /*
@@ -312,7 +304,7 @@ export class DataParserService {
         );
     }
 
-    public parseTickerData(): void {
+    public parse(): IStockProfile {
 
         console.log('Started parsing the data');
 
@@ -360,5 +352,7 @@ export class DataParserService {
         this.calculateAndFillMissingMeasurements();
 
         console.log(this.extractedTickerData);
+
+        return this.extractedTickerData;
     }
 }

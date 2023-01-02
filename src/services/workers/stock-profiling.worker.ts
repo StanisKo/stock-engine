@@ -3,14 +3,17 @@
 import { IStockProfile } from '../../interfaces/stock-profile.interface';
 
 import { IFundamentals } from '../../interfaces/fundamentals.interface';
+
 import { ApiConnectorService } from '../core/api-connector.service';
+
+import { StockParsingService } from '../core/stock-parsing.service';
 
 /*
 A meta-layer function sole purpose of which is to process batch of given fundamentals by using StockParsingService
 
 Called in parallel on every batch by StockProfilingService
 */
-export default async (batch: IFundamentals[], benchmarkPrices: ITickerPrice[], treasuryBondYield: number): Promise<IStockProfile[]> => {
+export default async (batch: IFundamentals[]): Promise<IStockProfile[]> => {
 
     const stockProfiles: IStockProfile[] = [];
 
@@ -18,9 +21,6 @@ export default async (batch: IFundamentals[], benchmarkPrices: ITickerPrice[], t
 
         const set = batch[i];
 
-        /*
-        Request ticker prices
-        */
         const tickerIpoDate = await ApiConnectorService.requestTickerIPODate(set.data.General.Code);
 
         const tickerPrices  = await ApiConnectorService.requestTickerPrices(
@@ -28,12 +28,9 @@ export default async (batch: IFundamentals[], benchmarkPrices: ITickerPrice[], t
             tickerIpoDate
         );
 
-        /*
-        Pass fundamentals, prices, benchmark prices and yield into parser
+        const stockParsingService = new StockParsingService(set, tickerPrices);
 
-        Consume profile from parser and return
-        */
-        const profile = {} as IStockProfile;
+        const profile = stockParsingService.parse();
 
         stockProfiles.push(profile);
     }

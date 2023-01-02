@@ -6,10 +6,9 @@ import { ServiceResponse } from '../../dtos/serviceResponse';
 
 import { ApiConnectorService } from './api-connector.service';
 
-export class StockProfilingService {
+import { StockParsingService } from './stock-parsing.service';
 
-    constructor() {
-    }
+export class StockProfilingService {
 
     public async profileStocks(): Promise<ServiceResponse> {
 
@@ -27,6 +26,7 @@ export class StockProfilingService {
 
             const treasuryBondYield = await ApiConnectorService.requestUSTreasuryBondYield();
 
+            StockParsingService._inititializeStatic(benchmarkPrices, treasuryBondYield);
 
             /*
             https://deepsource.io/blog/nodejs-worker-threads/
