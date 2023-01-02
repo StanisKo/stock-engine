@@ -26,6 +26,9 @@ export class StockProfilingService {
         try {
 
             /*
+            TODO: worker, adapt api connector, rename parser, glue things together,
+            rework parser
+
             Request benchmark prices, treasury bondy yield
             */
 
