@@ -4,6 +4,12 @@ import { IStockProfile } from '../../interfaces/stock-profile.interface';
 
 import { IFundamentals } from '../../interfaces/fundamentals.interface';
 
+/*
+A meta-layer function sole purpose of which is to process batch of given fundamentals
+by using StockParsingService
+
+Called in parallel on every batch by StockProfilingService
+*/
 export default async (batch: IFundamentals[], benchmarkPrices: ITickerPrice[], treasuryBondYield: number): Promise<IStockProfile[]> => {
 
     const stockProfiles: IStockProfile[] = [];

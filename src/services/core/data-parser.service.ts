@@ -15,7 +15,7 @@ TODO: this has to be smarten up, broken down and restructured
 
 Also renamed to something more sensible
 
-StockParserService
+StockParsingService
 
 called in loop for every ticker in batch by stock profiling worker
 */
