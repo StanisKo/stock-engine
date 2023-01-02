@@ -4,34 +4,27 @@ import moment from 'moment';
 import fetch from 'node-fetch';
 import yahooFinance from 'yahoo-finance2';
 
-import { ITickerFundamentals, ITickerPrice } from '../../interfaces/ticker.interface';
+import { ITickerFundamentals, ITickerPrice, FundamentalsApiResponse } from '../../interfaces/ticker.interface';
 
 import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 
-type FundamentalsApiResponse = { [key: number]: ITickerFundamentals };
-
-/*
-TODO: this should be static, since prices would be requested in loop for every stock
-*/
 export class ApiConnectorService {
 
-    static EXCHANGES: string[];
+    private static EXCHANGES: string[];
 
-    ticker: string;
+    private static benchmarkTicker: string;
 
-    benchmarkTicker: string;
+    private static fundametalsDataApiUrl: string;
 
-    fundametalsDataApiUrl: string;
+    private static fundametalsDataApiKey: string;
 
-    fundametalsDataApiKey: string;
+    private static usTreasuryBondYieldApiURL: string;
 
-    usTreasuryBondYieldApiURL: string;
+    private static usTreasuryBondYieldApiKey: string;
 
-    usTreasuryBondYieldApiKey: string;
+    static {
 
-    constructor() {
-
-        ApiConnectorService.EXCHANGES = process.env.EXCHANGES?.split(', ') ?? [];
+        this.EXCHANGES = process.env.EXCHANGES?.split(', ') ?? [];
 
         this.benchmarkTicker = process.env.BENCHMARK_TICKER || '';
 
@@ -44,10 +37,10 @@ export class ApiConnectorService {
         this.usTreasuryBondYieldApiKey = process.env.US_TREASURY_BOND_YIELD_API_KEY || '';
     }
 
-    private async requestBulkFundamentals(exchange: string, offset: number): Promise<FundamentalsApiResponse> {
+    public static async requestBulkFundamentals(exchange: string, offset: number): Promise<FundamentalsApiResponse> {
 
         const request = await fetch(
-            `${this.fundametalsDataApiUrl}/${exchange}?api_token=${this.fundametalsDataApiKey}&fmt=json&offset=${offset}&limit=500`
+            `${ApiConnectorService.fundametalsDataApiUrl}/${exchange}?api_token=${ApiConnectorService.fundametalsDataApiKey}&fmt=json&offset=${offset}&limit=500`
         );
 
         const outputFromExchnage = await request.json();
@@ -55,24 +48,34 @@ export class ApiConnectorService {
         return outputFromExchnage;
     }
 
-    private async requestTickerFundamentals(): Promise<ITickerFundamentals> {
+    /*
+    On this:
+
+    Bulk endpoint point does not (yet) deliver IPODate, in such, we are forced to request
+    it from individual ticker fundamentals' endpoint
+
+    At least we can filter by Field::Field
+
+    Sigh, this has to be improved
+    */
+    public static async requestTickerIPODate(ticker: string): Promise<string> {
 
         const request = await fetch(
-            `${this.fundametalsDataApiUrl}/${this.ticker}.US?api_token=${this.fundametalsDataApiKey}`
+            `${ApiConnectorService.fundametalsDataApiUrl}/${ticker}.US?api_token=${ApiConnectorService.fundametalsDataApiKey}&filter=General::IPODate`
         );
 
-        const fundametals = await request.json() as ITickerFundamentals;
+        const tickerIpoDate = await request.json();
 
-        return fundametals;
+        return tickerIpoDate;
     }
 
     /*
     We request ticker prices since IPO until latest price available
     */
-    private async requestTickerPrices(tickerIpoDate: string): Promise<ITickerPrice[]> {
+    public static async requestTickerPrices(ticker: string, tickerIpoDate: string): Promise<ITickerPrice[]> {
 
         const prices = await yahooFinance.historical(
-            this.ticker,
+            ticker,
             {
                 period1: moment(tickerIpoDate).format('MM-DD-YYYY'),
                 period2: moment().format('MM-DD-YYYY'),
@@ -87,7 +90,7 @@ export class ApiConnectorService {
     /*
     We request benchmark prices as TTM
     */
-    private async requestBenchmarkPrices(): Promise<ITickerPrice[]> {
+    public static async requestBenchmarkPrices(): Promise<ITickerPrice[]> {
 
         /*
         API returns values one day into past, so we need to adapt our margins
@@ -99,7 +102,7 @@ export class ApiConnectorService {
         );
 
         const benchmarkPrices = await yahooFinance.historical(
-            this.benchmarkTicker,
+            ApiConnectorService.benchmarkTicker,
             {
                 period1: firstDayOfCurrentMonthOneYearBack,
                 period2: lastDayOfLastMonth,
@@ -111,9 +114,9 @@ export class ApiConnectorService {
         return benchmarkPrices;
     }
 
-    private async requestUSTreasuryBondYield(): Promise<number> {
+    public static async requestUSTreasuryBondYield(): Promise<number> {
         const request = await fetch(
-            `${this.usTreasuryBondYieldApiURL}?limit=1&order=desc&api_key=${this.usTreasuryBondYieldApiKey}`
+            `${ApiConnectorService.usTreasuryBondYieldApiURL}?limit=1&order=desc&api_key=${ApiConnectorService.usTreasuryBondYieldApiKey}`
         );
 
         const data = await request.json();
@@ -125,7 +128,7 @@ export class ApiConnectorService {
         return treasuryBondYield;
     }
 
-    public async requestBulkFundamentalsData(): Promise<ITickerFundamentals[]> {
+    public static async requestBulkFundamentalsData(): Promise<ITickerFundamentals[]> {
 
         /*
         Initialize collection to hold API output

@@ -7,3 +7,7 @@ FUTURE:
 * Factor in sentiment analysis
 
 * Factor in short interest
+
+****
+
+* Tests
