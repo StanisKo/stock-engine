@@ -43,14 +43,13 @@ export class StockProfilingService {
 
             batches = chunk(tickers)
 
-            processes = []
+            pool = new Piscina()
 
-            for (let i = 0; i < batches.length; i++) {
+            options = { filename: resolve(__dirname, '../workers/stock-profiling.worker.ts') }
 
-                processes.push(worker.process(batch))
-            }
+            result = await Promise.all(batches.map(batch => pool.run(batch, options)))
 
-            await Promise.allSettled(processes)
+            result = result.flatMap()
             */
 
             response.success = true;
