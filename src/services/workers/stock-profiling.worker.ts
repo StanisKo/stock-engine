@@ -35,8 +35,6 @@ export default async (batch: IFundamentals[]): Promise<IStockProfile[]> => {
     */
     const { benchmarkPrices, treasuryBondYield } = workerData;
 
-    console.log(treasuryBondYield);
-
     for (let i = 0; i < batch.length; i++) {
 
         const set = batch[i];
