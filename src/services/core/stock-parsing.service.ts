@@ -33,31 +33,27 @@ import { MarketCapLabelService } from '../helpers/market-cap-label.service';
 
 export class StockParsingService {
 
-    static benchmarkPrices: ITickerPrice[];
-
-    static treasuryBondYield: number;
-
-
     fundamentals: ITickerFundamentals;
 
     prices: ITickerPrice[];
 
+    benchmarkPrices: ITickerPrice[];
+
+    treasuryBondYield: number;
+
     stockProfile: IStockProfile;
 
-    constructor(fundamentals: ITickerFundamentals, prices: ITickerPrice[]) {
+    constructor(fundamentals: ITickerFundamentals, prices: ITickerPrice[], benchmarkPrices: ITickerPrice[], treasuryBondYield: number) {
 
         this.fundamentals = fundamentals;
 
         this.prices = prices;
 
-        this.stockProfile = {} as IStockProfile;
-    }
-
-    public static inititializeSharedFields(benchmarkPrices: ITickerPrice[], treasuryBondYield: number): void {
-
         this.benchmarkPrices = benchmarkPrices;
 
         this.treasuryBondYield = treasuryBondYield;
+
+        this.stockProfile = {} as IStockProfile;
     }
 
     private initializeSectionsToFill(): void {
@@ -192,7 +188,7 @@ export class StockParsingService {
 
         this.stockProfile.risk.sharpeRatio = SharpeRatioCalculatorService.calculateSharpeRatio(
             tickerRateOfReturn,
-            StockParsingService.treasuryBondYield,
+            this.treasuryBondYield,
             standardDeviation
         );
 
@@ -202,7 +198,7 @@ export class StockParsingService {
         */
 
         const [benchmarkStartingPrice, benchmarkEndingPrice] = TimeSeriesHelperService.getStartingAndEndingPrice(
-            StockParsingService.benchmarkPrices
+            this.benchmarkPrices
         );
 
         const benchmarkRateOfReturn = CalculatorHelperService.calculateRateOfReturn(
@@ -213,7 +209,7 @@ export class StockParsingService {
         this.stockProfile.risk.alpha = AlphaCalculatorService.calculateAlpha(
             tickerRateOfReturn,
             benchmarkRateOfReturn,
-            StockParsingService.treasuryBondYield,
+            this.treasuryBondYield,
             this.stockProfile.risk.beta
         );
 
@@ -223,7 +219,7 @@ export class StockParsingService {
 
         this.stockProfile.risk.rSquared = RSquaredCalculatorService.calculateRSquared(
             tickerTTMPrices,
-            StockParsingService.benchmarkPrices
+            this.benchmarkPrices
         );
 
         /*

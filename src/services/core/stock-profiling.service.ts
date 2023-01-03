@@ -12,8 +12,6 @@ import { ServiceResponse } from '../../dtos/serviceResponse';
 
 import { ApiConnectorService } from './api-connector.service';
 
-import { StockParsingService } from './stock-parsing.service';
-
 /*
 Temp:
 
@@ -36,8 +34,6 @@ export class StockProfilingService {
             const benchmarkPrices = await ApiConnectorService.requestBenchmarkPrices();
 
             const treasuryBondYield = await ApiConnectorService.requestUSTreasuryBondYield();
-
-            StockParsingService.inititializeSharedFields(benchmarkPrices, treasuryBondYield);
 
             /*
             We need to process all of them anyways
@@ -62,7 +58,8 @@ export class StockProfilingService {
 
             const workerPoolOptions = {
                 filename: resolve(__dirname, '../workers/stock-profiling.worker.ts'),
-                concurrentTasksPerWorker: 2
+                concurrentTasksPerWorker: 2,
+                workerData: { benchmarkPrices, treasuryBondYield }
             };
 
             const workerPool = new Piscina(workerPoolOptions);

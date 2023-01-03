@@ -1,5 +1,7 @@
 /* eslint-disable max-len */
 
+import { workerData } from 'node:worker_threads';
+
 import { IStockProfile } from '../../interfaces/stock-profile.interface';
 
 import { IFundamentals } from '../../interfaces/fundamentals.interface';
@@ -16,10 +18,10 @@ Called in parallel on every batch by StockProfilingService
 export default async (batch: IFundamentals[]): Promise<IStockProfile[]> => {
 
     /*
-    Since threads do not share memery with each other (unless explicitly specified),
+    Since threads do not share memory with each other (unless explicitly specified),
     we don't have access to connector from the main thread
 
-    Worked threads support cloning of simple objects, or transfer of buffers
+    Worker threads support cloning of simple objects, or transfer of buffers
 
     None of these approaches are capable of sharing a static (initialized) class,
     therefore, we have no other way, but initialize it within the context of current thread
@@ -27,6 +29,13 @@ export default async (batch: IFundamentals[]): Promise<IStockProfile[]> => {
     ApiConnectorService.initializeSharedFields();
 
     const stockProfiles: IStockProfile[] = [];
+
+    /*
+    Fortunately, we can share previously requested benchmark prices and treasury bond yield
+    */
+    const { benchmarkPrices, treasuryBondYield } = workerData;
+
+    console.log(treasuryBondYield);
 
     for (let i = 0; i < batch.length; i++) {
 
@@ -39,7 +48,7 @@ export default async (batch: IFundamentals[]): Promise<IStockProfile[]> => {
             tickerIpoDate
         );
 
-        const stockParsingService = new StockParsingService(set, tickerPrices);
+        const stockParsingService = new StockParsingService(set.data, tickerPrices, benchmarkPrices, treasuryBondYield);
 
         const profile = stockParsingService.parseOutStockProfile();
 
