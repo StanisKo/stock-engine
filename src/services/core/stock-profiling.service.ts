@@ -42,7 +42,9 @@ export class StockProfilingService {
             /*
             We need to process all of them anyways
             */
-            const fundamentals = await Fundamentals.find({});
+            // const fundamentals = await Fundamentals.find({});
+
+            const fundamentals = await Fundamentals.find({ 'data.General.Code': 'AAPL' });
 
             /*
             We batch by 500 sets
