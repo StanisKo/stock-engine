@@ -60,16 +60,19 @@ export class StockProfilingService {
                 );
             }
 
-            const workerPoolOptions = { filename: resolve(__dirname, '../workers/stock-profiling.worker.ts') };
+            const workerPoolOptions = {
+                filename: resolve(__dirname, '../workers/stock-profiling.worker.ts'),
+                concurrentTasksPerWorker: 2
+            };
 
-            const workerPool = new Piscina();
+            const workerPool = new Piscina(workerPoolOptions);
 
             /*
             For every batch, start its own separate process (worker) to profile through bathces
             in parallel
             */
             let stockProfiles = await Promise.all(
-                batches.map(batch => workerPool.run(batch, workerPoolOptions))
+                batches.map(batch => workerPool.run(batch))
             );
 
             stockProfiles = stockProfiles.flat() as IStockProfile[];

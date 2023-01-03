@@ -15,6 +15,17 @@ Called in parallel on every batch by StockProfilingService
 */
 export default async (batch: IFundamentals[]): Promise<IStockProfile[]> => {
 
+    /*
+    Since threads do not share memery with each other (unless explicitly specified),
+    we don't have access to connector from the main thread
+
+    Worked threads support cloning of simple objects, or transfer of buffers
+
+    None of these approaches are capable of sharing a static (initialized) class,
+    therefore, we have no other way, but initialize it within the context of current thread
+    */
+    ApiConnectorService.initializeSharedFields();
+
     const stockProfiles: IStockProfile[] = [];
 
     for (let i = 0; i < batch.length; i++) {
