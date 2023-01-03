@@ -40,7 +40,7 @@ export class ApiConnectorService {
     public static async requestBulkFundamentals(exchange: string, offset: number): Promise<FundamentalsApiResponse> {
 
         const request = await fetch(
-            `${this.fundametalsDataApiUrl}/${exchange}?api_token=${this.fundametalsDataApiKey}&fmt=json&offset=${offset}&limit=500`
+            `${this.fundametalsDataApiUrl}/bulk-fundamentals/${exchange}?api_token=${this.fundametalsDataApiKey}&fmt=json&offset=${offset}&limit=500`
         );
 
         const outputFromExchnage = await request.json();
@@ -61,7 +61,7 @@ export class ApiConnectorService {
     public static async requestTickerIPODate(ticker: string): Promise<string> {
 
         const request = await fetch(
-            `${this.fundametalsDataApiUrl}/${ticker}.US?api_token=${this.fundametalsDataApiKey}&filter=General::IPODate`
+            `${this.fundametalsDataApiUrl}/fundamentals/${ticker}.US?api_token=${this.fundametalsDataApiKey}&filter=General::IPODate`
         );
 
         const tickerIpoDate = await request.json();
