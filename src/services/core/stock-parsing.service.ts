@@ -309,8 +309,6 @@ export class StockParsingService {
 
     public parseOutStockProfile(): IStockProfile {
 
-        console.log('Started parsing the data');
-
         this.initializeSectionsToFill();
 
         this.consumeOrCalculateVariableFields();
