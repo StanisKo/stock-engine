@@ -137,23 +137,13 @@ export class StockParsingService {
         /*
         Get the last annual balance sheet, income statement and cash flow statement
         necessary for liquidity, valution, debt, and efficiency calculations
-
-        TODO: change indexing from current to yearly_last_0
-
-        TODO: work with last quarterly values
         */
 
-        const lastAnnualBalanceSheet = this.fundamentals.Financials.Balance_Sheet.yearly[
-            Object.keys(this.fundamentals.Financials.Balance_Sheet.yearly)[0]
-        ];
+        const lastAnnualBalanceSheet = this.fundamentals.Financials.Balance_Sheet.quarterly_last_0;
 
-        const lastAnnualIncomeStatement = this.fundamentals.Financials.Income_Statement.yearly[
-            Object.keys(this.fundamentals.Financials.Income_Statement.yearly)[0]
-        ];
+        const lastAnnualIncomeStatement = this.fundamentals.Financials.Income_Statement.quarterly_last_0;
 
-        const lastAnnualCashFlowStatement = this.fundamentals.Financials.Cash_Flow.yearly[
-            Object.keys(this.fundamentals.Financials.Cash_Flow.yearly)[0]
-        ];
+        const lastAnnualCashFlowStatement = this.fundamentals.Financials.Cash_Flow.quarterly_last_0;
 
         const tickerTTMPrices = TimeSeriesHelperService.sliceDatasetIntoTTM(this.prices);
 
