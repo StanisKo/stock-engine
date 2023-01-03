@@ -4,8 +4,8 @@
 Some ratios are either present or missing for different stocks;
 there are ratios that always missing and we need to calculate them
 
-Not all companies going through parser adher to GAAP (Generally Accepted Accounting Principiles)
-and in such they do not expose key (in out case) financial figures
+Not all companies going through parser adhere to GAAP (Generally Accepted Accounting Principiles)
+and in such they do not expose key (in our case) financial figures
 
 Therefore, each ratio is checked:
 
