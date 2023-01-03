@@ -12,24 +12,6 @@ Therefore, each ratio is checked:
 1. On availability to be consumed
 2. If not, calculated
 3. if not (enough data), marked as N/A, leading to the discarding of stock
-
-On discarding:
-
-E.g.:
-
-@discard_decorator
-func() {
-
-    if NaN || Infinity {
-        discard via dec
-    }
-}
-
-This asks for grouping calculators
-
-Every calculator method has to have discard decorator, that would return N/A
-
-Also add decorators to setters?
 */
 
 import { IStockProfile } from '../../interfaces/stock-profile.interface';
