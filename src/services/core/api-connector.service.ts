@@ -40,7 +40,7 @@ export class ApiConnectorService {
     public static async requestBulkFundamentals(exchange: string, offset: number): Promise<FundamentalsApiResponse> {
 
         const request = await fetch(
-            `${ApiConnectorService.fundametalsDataApiUrl}/${exchange}?api_token=${ApiConnectorService.fundametalsDataApiKey}&fmt=json&offset=${offset}&limit=500`
+            `${this.fundametalsDataApiUrl}/${exchange}?api_token=${this.fundametalsDataApiKey}&fmt=json&offset=${offset}&limit=500`
         );
 
         const outputFromExchnage = await request.json();
@@ -60,8 +60,10 @@ export class ApiConnectorService {
     */
     public static async requestTickerIPODate(ticker: string): Promise<string> {
 
+        console.log(`${this.fundametalsDataApiUrl}/${ticker}.US?api_token=${this.fundametalsDataApiKey}&filter=General::IPODate`);
+
         const request = await fetch(
-            `${ApiConnectorService.fundametalsDataApiUrl}/${ticker}.US?api_token=${ApiConnectorService.fundametalsDataApiKey}&filter=General::IPODate`
+            `${this.fundametalsDataApiUrl}/${ticker}.US?api_token=${this.fundametalsDataApiKey}&filter=General::IPODate`
         );
 
         const tickerIpoDate = await request.json();
@@ -102,7 +104,7 @@ export class ApiConnectorService {
         );
 
         const benchmarkPrices = await yahooFinance.historical(
-            ApiConnectorService.benchmarkTicker,
+            this.benchmarkTicker,
             {
                 period1: firstDayOfCurrentMonthOneYearBack,
                 period2: lastDayOfLastMonth,
@@ -116,7 +118,7 @@ export class ApiConnectorService {
 
     public static async requestUSTreasuryBondYield(): Promise<number> {
         const request = await fetch(
-            `${ApiConnectorService.usTreasuryBondYieldApiURL}?limit=1&order=desc&api_key=${ApiConnectorService.usTreasuryBondYieldApiKey}`
+            `${this.usTreasuryBondYieldApiURL}?limit=1&order=desc&api_key=${this.usTreasuryBondYieldApiKey}`
         );
 
         const data = await request.json();
@@ -138,7 +140,7 @@ export class ApiConnectorService {
         /*
         Loop through every exchange
         */
-        for (let i = 0; i < ApiConnectorService.EXCHANGES.length; i++) {
+        for (let i = 0; i < this.EXCHANGES.length; i++) {
 
             /*
             API delivers packets in batches of 500, therefore, we keep requesting data from
@@ -146,7 +148,7 @@ export class ApiConnectorService {
             */
             let outputAvailable = true;
 
-            const exchange = ApiConnectorService.EXCHANGES[i];
+            const exchange = this.EXCHANGES[i];
 
             let offset = 0;
 
