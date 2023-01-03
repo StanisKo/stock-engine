@@ -37,7 +37,7 @@ export class StockProfilingService {
 
             const treasuryBondYield = await ApiConnectorService.requestUSTreasuryBondYield();
 
-            StockParsingService.inititializeStatic(benchmarkPrices, treasuryBondYield);
+            StockParsingService.inititializeSharedFields(benchmarkPrices, treasuryBondYield);
 
             /*
             We need to process all of them anyways

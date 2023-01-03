@@ -71,7 +71,7 @@ export class StockParsingService {
         this.stockProfile = {} as IStockProfile;
     }
 
-    public static inititializeStatic(benchmarkPrices: ITickerPrice[], treasuryBondYield: number): void {
+    public static inititializeSharedFields(benchmarkPrices: ITickerPrice[], treasuryBondYield: number): void {
 
         this.benchmarkPrices = benchmarkPrices;
 

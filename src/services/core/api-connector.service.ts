@@ -22,7 +22,7 @@ export class ApiConnectorService {
 
     private static usTreasuryBondYieldApiKey: string;
 
-    static {
+    public static initialize(): void {
 
         this.EXCHANGES = process.env.EXCHANGES?.split(', ') ?? [];
 
