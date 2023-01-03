@@ -22,7 +22,7 @@ export class ApiConnectorService {
 
     private static usTreasuryBondYieldApiKey: string;
 
-    public static initialize(): void {
+    public static initializeSharedFields(): void {
 
         this.EXCHANGES = process.env.EXCHANGES?.split(', ') ?? [];
 
@@ -59,8 +59,6 @@ export class ApiConnectorService {
     Sigh, this has to be improved
     */
     public static async requestTickerIPODate(ticker: string): Promise<string> {
-
-        console.log(`${this.fundametalsDataApiUrl}/${ticker}.US?api_token=${this.fundametalsDataApiKey}&filter=General::IPODate`);
 
         const request = await fetch(
             `${this.fundametalsDataApiUrl}/${ticker}.US?api_token=${this.fundametalsDataApiKey}&filter=General::IPODate`

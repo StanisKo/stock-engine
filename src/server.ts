@@ -62,7 +62,7 @@ export class Server {
 
         server.listen(this.port).on('listening', async () => {
 
-            ApiConnectorService.initialize();
+            ApiConnectorService.initializeSharedFields();
 
             console.log( `Engine is available on port ${this.port}`);
 
