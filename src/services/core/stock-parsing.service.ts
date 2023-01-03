@@ -317,7 +317,7 @@ export class StockParsingService {
         );
     }
 
-    public parseStockProfile(): IStockProfile {
+    public parseOutStockProfile(): IStockProfile {
 
         console.log('Started parsing the data');
 

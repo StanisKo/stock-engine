@@ -30,7 +30,7 @@ export default async (batch: IFundamentals[]): Promise<IStockProfile[]> => {
 
         const stockParsingService = new StockParsingService(set, tickerPrices);
 
-        const profile = stockParsingService.parseStockProfile();
+        const profile = stockParsingService.parseOutStockProfile();
 
         stockProfiles.push(profile);
     }
