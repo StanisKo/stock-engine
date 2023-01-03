@@ -12,20 +12,13 @@ import { ApiConnectorService } from './api-connector.service';
 
 export class StockIngestingService {
 
-    apiConnectorService: ApiConnectorService;
-
-    constructor() {
-
-        this.apiConnectorService = new ApiConnectorService();
-    }
-
     public async ingestStocks(): Promise<ServiceResponse> {
 
         const response = new ServiceResponse();
 
         try {
 
-            const bulkFundamentalsData = await this.apiConnectorService.requestBulkFundamentalsData();
+            const bulkFundamentalsData = await ApiConnectorService.requestBulkFundamentalsData();
 
             /*
             At this point we need to deduce unique industries across received data points
