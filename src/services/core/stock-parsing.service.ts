@@ -13,11 +13,23 @@ Therefore, each ratio is checked:
 2. If not, calculated
 3. if not (enough data), marked as N/A, leading to the discarding of stock
 
-TODO: this has to be smarten up, broken down and restructured
+On discarding:
 
-TODO: there has to be discard mechanism
+E.g.:
 
-TODO: logger
+@discard_decorator
+func() {
+
+    if NaN || Infinity {
+        discard via dec
+    }
+}
+
+This asks for grouping calculators
+
+Every calculator method has to have discard decorator, that would return N/A
+
+Also add decorators to setters?
 */
 
 import { IStockProfile } from '../../interfaces/stock-profile.interface';
