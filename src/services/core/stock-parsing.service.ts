@@ -16,6 +16,8 @@ Therefore, each ratio is checked:
 TODO: this has to be smarten up, broken down and restructured
 
 TODO: there has to be discard mechanism
+
+TODO: logger
 */
 
 import { IStockProfile } from '../../interfaces/stock-profile.interface';
@@ -57,7 +59,7 @@ export class StockParsingService {
         this.extractedTickerData = {} as IStockProfile;
     }
 
-    public static _inititializeStatic(benchmarkPrices: ITickerPrice[], treasuryBondYield: number): void {
+    public static inititializeStatic(benchmarkPrices: ITickerPrice[], treasuryBondYield: number): void {
 
         this.benchmarkPrices = benchmarkPrices;
 
@@ -296,7 +298,7 @@ export class StockParsingService {
         );
     }
 
-    public parse(): IStockProfile {
+    public parseStockProfile(): IStockProfile {
 
         console.log('Started parsing the data');
 
