@@ -68,9 +68,6 @@ export class StockParsingService {
 
     private initializeSectionsToFill(): void {
 
-        /*
-        Initialize risk map to fill
-        */
         this.stockProfile.risk = {
             standardDeviation: 0,
             sharpeRatio: 0,
@@ -79,9 +76,6 @@ export class StockParsingService {
             rSquared: 0
         };
 
-        /*
-        Initialize valuation map to fill
-        */
         this.stockProfile.valuation = {
             priceToEarning: 0,
             priceToEarningsGrowth: 0,
@@ -92,42 +86,27 @@ export class StockParsingService {
             priceToFreeCashFlow: 0
         };
 
-        /*
-        Initialize profitability map to fill
-        */
         this.stockProfile.profitability = {
             returnOnAssets: 0,
             returnOnEquity: 0,
             profitMargin: 0
         };
 
-        /*
-        Initialize liquidity map to fill
-        */
         this.stockProfile.liquidity = {
             currentRatio: 0,
             quickRatio: 0
         };
 
-        /*
-        Initialize debt map to fill
-        */
         this.stockProfile.debt = {
             debtToEquity: 0,
             interestCoverage: 0
         };
 
-        /*
-        Initialize efficiency map to fill
-        */
         this.stockProfile.efficiency = {
             assetTurnover: 0,
             inventoryTurnover: 0
         };
 
-        /*
-        Initialize dividends map to fill
-        */
         this.stockProfile.dividends = {
             dividendYield: 0,
             dividendPayout: 0
@@ -182,6 +161,10 @@ export class StockParsingService {
         const lastAnnualIncomeStatement = this.fundamentals.Financials.Income_Statement.quarterly_last_0;
 
         const lastAnnualCashFlowStatement = this.fundamentals.Financials.Cash_Flow.quarterly_last_0;
+
+        /*
+        Get ticker TTM prices
+        */
 
         const tickerTTMPrices = TimeSeriesHelperService.sliceDatasetIntoTTM(this.prices);
 
