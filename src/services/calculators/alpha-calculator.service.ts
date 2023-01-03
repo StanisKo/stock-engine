@@ -1,3 +1,5 @@
+import { discard } from '../../utils/discard.decorator';
+
 /*
 Alpha — measures excess returns/losses against the return of the index
 
@@ -18,6 +20,7 @@ On Alpha: https://www.investopedia.com/terms/a/alpha.asp
 
 export class AlphaCalculatorService {
 
+    @discard
     static calculateAlpha(
         tickerRateOfReturn: number,
         benchmarkRateOfReturn: number,

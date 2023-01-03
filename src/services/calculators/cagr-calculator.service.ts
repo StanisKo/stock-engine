@@ -1,3 +1,5 @@
+import { discard } from '../../utils/discard.decorator';
+
 /*
 Compound Annual Growth Rate (CAGR) — mean annual growth rate of an investment
 over a specified period of time longer than one year* (check comment inside class)
@@ -13,6 +15,7 @@ On CAGR: https://www.investopedia.com/terms/c/cagr.asp
 
 export class CAGRCalculatorService {
 
+    @discard
     static calculateCAGR(startingPrice: number, endingPrice: number): number {
 
         /*

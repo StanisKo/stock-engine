@@ -1,3 +1,5 @@
+import { discard } from '../../utils/discard.decorator';
+
 /*
 Debt to Equity measures the relationship between the amount of capital that has been borrowed (debt),
 and the amount of capital contributed by shareholders (equity)
@@ -18,11 +20,13 @@ On Interest Coverage: https://www.investopedia.com/terms/i/interestcoverageratio
 
 export class DebtCalculatorService {
 
+    @discard
     static calculateDebtToEquity(totalLiabilities: number, totalStockholderEquity: number): number {
 
         return totalLiabilities / totalStockholderEquity;
     }
 
+    @discard
     static calculateInterestCoverage(ebit: number, interestExpense: number): number {
 
         return ebit / interestExpense;
