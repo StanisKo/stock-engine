@@ -22,7 +22,7 @@ import { ITickerPrice } from '../../interfaces/ticker.interface';
 
 export class TimeSeriesHelperService {
 
-    static getTTMMargin(withOneDayForward = false): [start: string, end: string] {
+    public static getTTMMargin(withOneDayForward = false): [start: string, end: string] {
 
         let firstDayOfCurrentMonthOneYearBack = moment().subtract(1, 'year').startOf('month');
 
@@ -38,12 +38,12 @@ export class TimeSeriesHelperService {
         return [firstDayOfCurrentMonthOneYearBack.format('MM-DD-YYYY'), lastDayOfLastMonth.format('MM-DD-YYYY')];
     }
 
-    static getStartingAndEndingPrice(prices: ITickerPrice[]): [startingPrice: number, endingPrice: number] {
+    public static getStartingAndEndingPrice(prices: ITickerPrice[]): [startingPrice: number, endingPrice: number] {
 
         return [prices[0].adjClose, prices[prices.length - 1].adjClose];
     }
 
-    static sliceDatasetIntoTTM(prices: ITickerPrice[]): ITickerPrice[] {
+    public static sliceDatasetIntoTTM(prices: ITickerPrice[]): ITickerPrice[] {
 
         /*
         Get margins
@@ -92,7 +92,7 @@ export class TimeSeriesHelperService {
         return prices.slice(prices.indexOf(startingPrice!), prices.indexOf(endingPrice!));
     }
 
-    static sliceDatasetIntoLastNTradingDays(prices: ITickerPrice[], days: number): ITickerPrice[] {
+    public static sliceDatasetIntoLastNTradingDays(prices: ITickerPrice[], days: number): ITickerPrice[] {
 
         return prices.slice(prices.length - 1 - days);
     }
