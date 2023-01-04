@@ -8,6 +8,12 @@ import { ITickerFundamentals, ITickerPrice, FundamentalsApiResponse } from '../.
 
 import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 
+/*
+It might be the case that some values from bulk endpoint are missing, but present
+in sigle fundamentals endpoint. Therefore, we might request all tickers from US virtual
+exchange and then individually request each fundamentals
+*/
+
 export class ApiConnectorService {
 
     private static EXCHANGES: string[];
