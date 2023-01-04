@@ -62,6 +62,12 @@ export default async (batch: IFundamentals[]): Promise<IStockProfile[]> => {
         TODO: not all prices are available from yahoo (unauthorized, too much requests!)
 
         Think of substitute or workaround
+
+        https://stackoverflow.com/questions/62966122/yahoo-finance-cookie-not-valid
+
+        throttle the thing
+
+        https://github.com/seanmonstar/reqwest/issues/537
         */
 
         const stockParsingService = new StockParsingService(set.data, tickerPrices, benchmarkPrices, treasuryBondYield);
