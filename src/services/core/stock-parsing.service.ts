@@ -315,8 +315,6 @@ export class StockParsingService {
 
         this.calculateMissingFields();
 
-        console.log(this.stockProfile);
-
         return this.stockProfile;
     }
 }
