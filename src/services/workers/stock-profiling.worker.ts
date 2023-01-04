@@ -50,6 +50,14 @@ export default async (batch: IFundamentals[]): Promise<IStockProfile[]> => {
                 set.data.General.IPODate
             );
 
+            /*
+            Even if API responded OK, skip if there are no prices
+            */
+            if (!tickerPrices.length) {
+
+                throw Error();
+            }
+
         } catch (error) {
 
             /*
