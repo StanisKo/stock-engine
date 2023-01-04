@@ -84,19 +84,17 @@ export class TimeSeriesHelperService {
             let upperMarginYearAndMonth;
 
             /*
-            If we're on the last month, use values from margin
+            If we're on the last month, use next year, first month
             */
             if (month === '12') {
-                upperMarginYearAndMonth = `${year}-${month}`;
+                upperMarginYearAndMonth = `${Number(year) + 1}-01`;
             }
             /*
-            Otherwise, increment the month
+            Otherwise, use current year, increment the month
             */
             else {
                 upperMarginYearAndMonth = `${year}-${Number(month) + 1}`;
             }
-
-            console.log(upperMarginYearAndMonth);
 
             return priceYearAndMonth === upperMarginYearAndMonth;
         });
