@@ -56,7 +56,14 @@ export class TimeSeriesHelperService {
 
         const startingPrice = prices.findIndex(price => {
 
-            const priceYearAndMonth = `${price.date.getFullYear()}-${price.date.getMonth() + 1}`;
+            let priceMonth: string | number = price.date.getMonth() + 1;
+
+            /*
+            Pad with 0 to adhere to margin
+            */
+            priceMonth = priceMonth >= 10 ? priceMonth : `0${priceMonth}`;
+
+            const priceYearAndMonth = `${price.date.getFullYear()}-${priceMonth}`;
 
             const [month, _, year] = firstDayOfCurrentMonthOneYearBack.split('-');
 
@@ -67,7 +74,14 @@ export class TimeSeriesHelperService {
 
         const endingPrice = prices.findIndex(price => {
 
-            const priceYearAndMonth = `${price.date.getFullYear()}-${price.date.getMonth() + 1}`;
+            let priceMonth: string | number = price.date.getMonth() + 1;
+
+            /*
+            Pad with 0 to adhere to margin
+            */
+            priceMonth = priceMonth >= 10 ? priceMonth : `0${priceMonth}`;
+
+            const priceYearAndMonth = `${price.date.getFullYear()}-${priceMonth}`;
 
             const [month, _, year] = lastDayOfLastMonth.split('-');
 
@@ -94,7 +108,11 @@ export class TimeSeriesHelperService {
             Otherwise, use current year, increment the month
             */
             else {
-                upperMarginYearAndMonth = `${year}-${Number(month) + 1}`;
+                let nextMonth: string | number = Number(month);
+
+                nextMonth = nextMonth >= 10 ? nextMonth + 1 : `0${nextMonth + 1}`;
+
+                upperMarginYearAndMonth = `${year}-${nextMonth}`;
             }
 
             return priceYearAndMonth === upperMarginYearAndMonth;
