@@ -6,6 +6,8 @@ import { IStockProfile } from '../../interfaces/stock-profile.interface';
 
 import { IFundamentals } from '../../interfaces/fundamentals.interface';
 
+import { ITickerPrice } from '../../interfaces/ticker.interface';
+
 import { ApiConnectorService } from '../core/api-connector.service';
 
 import { StockParsingService } from '../core/stock-parsing.service';
@@ -39,10 +41,22 @@ export default async (batch: IFundamentals[]): Promise<IStockProfile[]> => {
 
         const set = batch[i];
 
-        const tickerPrices  = await ApiConnectorService.requestTickerPrices(
-            set.data.General.Code,
-            set.data.General.IPODate
-        );
+        let tickerPrices: ITickerPrice[] = [];
+
+        try {
+
+            tickerPrices  = await ApiConnectorService.requestTickerPrices(
+                set.data.General.Code,
+                set.data.General.IPODate
+            );
+
+        } catch (error) {
+
+            /*
+            If prices are unavailable for currently iterated ticker, skip the stock
+            */
+            continue;
+        }
 
         const stockParsingService = new StockParsingService(set.data, tickerPrices, benchmarkPrices, treasuryBondYield);
 

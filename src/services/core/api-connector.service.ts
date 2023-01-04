@@ -64,15 +64,27 @@ export class ApiConnectorService {
     */
     public static async requestTickerPrices(ticker: string, tickerIpoDate: string): Promise<ITickerPrice[]> {
 
-        const prices = await yahooFinance.historical(
-            ticker,
-            {
-                period1: moment(tickerIpoDate).format('MM-DD-YYYY'),
-                period2: moment().format('MM-DD-YYYY'),
-                interval: '1d',
-                includeAdjustedClose: true
-            }
-        ) as ITickerPrice[];
+        let prices: ITickerPrice[] = [];
+
+        try {
+
+            prices = await yahooFinance.historical(
+                ticker,
+                {
+                    period1: moment(tickerIpoDate).format('MM-DD-YYYY'),
+                    period2: moment().format('MM-DD-YYYY'),
+                    interval: '1d',
+                    includeAdjustedClose: true
+                }
+            ) as ITickerPrice[];
+
+        } catch (error) {
+
+            /*
+            Bubble up the error if prices are unavailable for provided ticker
+            */
+            throw new Error();
+        }
 
         return prices;
     }
