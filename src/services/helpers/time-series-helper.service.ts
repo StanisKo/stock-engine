@@ -54,7 +54,8 @@ export class TimeSeriesHelperService {
         Lookup starting and ending price
         */
 
-        const startingPrice = prices.find(price => {
+        const startingPrice = prices.findIndex(price => {
+
             const priceYearAndMonth = `${price.date.getFullYear()}-${price.date.getMonth() + 1}`;
 
             const [month, _, year] = firstDayOfCurrentMonthOneYearBack.split('-');
@@ -64,7 +65,7 @@ export class TimeSeriesHelperService {
             return priceYearAndMonth === lowerMarginYearAndMonth;
         });
 
-        const endingPrice = prices.find(price => {
+        const endingPrice = prices.findIndex(price => {
 
             const priceYearAndMonth = `${price.date.getFullYear()}-${price.date.getMonth() + 1}`;
 
@@ -99,7 +100,7 @@ export class TimeSeriesHelperService {
             return priceYearAndMonth === upperMarginYearAndMonth;
         });
 
-        return prices.slice(prices.indexOf(startingPrice!), prices.indexOf(endingPrice!));
+        return prices.slice(startingPrice, endingPrice);
     }
 
     public static sliceDatasetIntoLastNTradingDays(prices: ITickerPrice[], days: number): ITickerPrice[] {
