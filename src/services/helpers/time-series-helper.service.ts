@@ -118,7 +118,10 @@ export class TimeSeriesHelperService {
             return priceYearAndMonth === upperMarginYearAndMonth;
         });
 
-        return prices.slice(startingPrice, endingPrice);
+        /*
+        If no starting price one year back -- stock is young, grab the first index
+        */
+        return prices.slice(startingPrice < 0 ? 0 : startingPrice, endingPrice);
     }
 
     public static sliceDatasetIntoLastNTradingDays(prices: ITickerPrice[], days: number): ITickerPrice[] {

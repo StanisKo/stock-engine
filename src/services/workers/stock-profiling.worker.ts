@@ -58,6 +58,12 @@ export default async (batch: IFundamentals[]): Promise<IStockProfile[]> => {
             continue;
         }
 
+        /*
+        TODO: not all prices are available from yahoo (unauthorized, too much requests!)
+
+        Think of substitute or workaround
+        */
+
         const stockParsingService = new StockParsingService(set.data, tickerPrices, benchmarkPrices, treasuryBondYield);
 
         const profile = stockParsingService.parseOutStockProfile();
