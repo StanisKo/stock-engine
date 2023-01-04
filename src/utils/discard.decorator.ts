@@ -11,13 +11,15 @@ export const discard = (target: any, propertyKey: string, descriptor: PropertyDe
 
         /*
         Provide a new method that replaces the original method
+
+        NOTE: mind the syntax, it is required to pass original arguments into the method
         */
-        descriptor.value = (): number | string => {
+        descriptor.value = function (...originalArguments: any[]): number | string {
 
             /*
             Consume the result of original method
             */
-            const result = wrappedMethod.apply(target);
+            const result = wrappedMethod.apply(target, originalArguments);
 
             /*
             Check if result is NaN or infinity, or null, and if so -- replace with N/A
