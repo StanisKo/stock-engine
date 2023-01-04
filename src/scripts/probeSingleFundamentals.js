@@ -12,8 +12,8 @@ const fetch = require('node-fetch');
     Do whatever you need to do here
     */
     console.log(
-        res.Financials.Balance_Sheet.yearly[
-            Object.keys(res.Financials.Balance_Sheet.yearly)[0]
+        res.Financials.Income_Statement.yearly[
+            Object.keys(res.Financials.Income_Statement.yearly)[0]
         ]
     );
 })();
