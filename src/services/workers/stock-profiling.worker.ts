@@ -39,11 +39,9 @@ export default async (batch: IFundamentals[]): Promise<IStockProfile[]> => {
 
         const set = batch[i];
 
-        const tickerIpoDate = await ApiConnectorService.requestTickerIPODate(set.data.General.Code);
-
         const tickerPrices  = await ApiConnectorService.requestTickerPrices(
             set.data.General.Code,
-            tickerIpoDate
+            set.data.General.IPODate
         );
 
         const stockParsingService = new StockParsingService(set.data, tickerPrices, benchmarkPrices, treasuryBondYield);

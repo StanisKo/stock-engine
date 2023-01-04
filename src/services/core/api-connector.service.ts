@@ -48,20 +48,10 @@ export class ApiConnectorService {
         return outputFromExchnage;
     }
 
-    /*
-    On this:
-
-    Bulk endpoint point does not (yet) deliver IPODate, in such, we are forced to request
-    it from individual ticker fundamentals' endpoint
-
-    At least we can filter by Field::Field
-
-    Sigh, this has to be improved
-    */
-    public static async requestTickerIPODate(ticker: string): Promise<string> {
+    public static async requestTickerFundamentals(ticker: string): Promise<string> {
 
         const request = await fetch(
-            `${this.fundametalsDataApiUrl}/fundamentals/${ticker}.US?api_token=${this.fundametalsDataApiKey}&filter=General::IPODate`
+            `${this.fundametalsDataApiUrl}/fundamentals/${ticker}.US?api_token=${this.fundametalsDataApiKey}`
         );
 
         const tickerIpoDate = await request.json();
