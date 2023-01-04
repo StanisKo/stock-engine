@@ -64,6 +64,14 @@ export class StockIngestingService {
             for (let i = 0; i < bulkFundamentalsData.length; i++) {
 
                 /*
+                If ticker is delisted, weed it out -- garbage data
+                */
+                if (bulkFundamentalsData[i].General.IsDelisted) {
+
+                    continue;
+                }
+
+                /*
                 If currently iterated set of fundamentals does not meet our industry criteria,
                 weed it out -- garbage data
                 */
