@@ -146,11 +146,11 @@ export class StockParsingService {
         necessary for liquidity, valution, debt, and efficiency calculations
         */
 
-        const lastAnnualBalanceSheet = this.fundamentals.Financials.Balance_Sheet.quarterly_last_0;
+        const lastAnnualBalanceSheet = this.fundamentals.Financials.Balance_Sheet.yearly_last_0;
 
-        const lastAnnualIncomeStatement = this.fundamentals.Financials.Income_Statement.quarterly_last_0;
+        const lastAnnualIncomeStatement = this.fundamentals.Financials.Income_Statement.yearly_last_0;
 
-        const lastAnnualCashFlowStatement = this.fundamentals.Financials.Cash_Flow.quarterly_last_0;
+        const lastAnnualCashFlowStatement = this.fundamentals.Financials.Cash_Flow.yearly_last_0;
 
         /*
         Get ticker TTM prices
