@@ -8,6 +8,9 @@ const fetch = require('node-fetch');
 
     const res = await requst.json();
 
+    /*
+    Do whatever you need to do here
+    */
     console.log(
         res.Financials.Balance_Sheet.yearly[
             Object.keys(res.Financials.Balance_Sheet.yearly)[0]
