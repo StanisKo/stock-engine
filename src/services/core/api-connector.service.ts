@@ -8,12 +8,6 @@ import { ITickerFundamentals, ITickerPrice, FundamentalsApiResponse } from '../.
 
 import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 
-/*
-It might be the case that some values from bulk endpoint are missing, but present
-in sigle fundamentals endpoint. Therefore, we might request all tickers from US virtual
-exchange and then individually request each fundamentals
-*/
-
 export class ApiConnectorService {
 
     private static EXCHANGES: string[];
@@ -46,7 +40,7 @@ export class ApiConnectorService {
     public static async requestBulkFundamentals(exchange: string, offset: number): Promise<FundamentalsApiResponse> {
 
         const request = await fetch(
-            `${this.fundametalsDataApiUrl}/bulk-fundamentals/${exchange}?api_token=${this.fundametalsDataApiKey}&fmt=json&offset=${offset}&limit=500`
+            `${this.fundametalsDataApiUrl}/bulk-fundamentals/${exchange}?api_token=${this.fundametalsDataApiKey}&version=1.2&fmt=json&offset=${offset}&limit=500`
         );
 
         const outputFromExchnage = await request.json();
