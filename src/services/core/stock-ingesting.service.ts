@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 import { AnyBulkWriteOperation } from 'mongodb';
 
 import { IIndustry } from '../../interfaces/industry.interface';
@@ -66,6 +68,17 @@ export class StockIngestingService {
                 weed it out -- garbage data
                 */
                 if (!industries[bulkFundamentalsData[i].General.Industry]) {
+
+                    continue;
+                }
+
+                /*
+                If currently iterated set of fundamentals does not have IPO date,
+                or it is set for the future, weed it out -- garbage data
+                */
+                const tickerIPODate = moment(bulkFundamentalsData[i].General.IPODate);
+
+                if (!tickerIPODate.isValid() || tickerIPODate.isAfter(moment())) {
 
                     continue;
                 }
