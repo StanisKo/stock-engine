@@ -51,22 +51,22 @@ export class TimeSeriesHelperService {
         const [firstDayOfCurrentMonthOneYearBack, lastDayOfLastMonth] = TimeSeriesHelperService.getTTMMargin();
 
         /*
-        Define lookup lambdas
+        Lookup starting and ending price
         */
-        const startingPriceLookup = (priceDate: Date): boolean => {
 
-            const priceYearAndMonth = `${priceDate.getFullYear()}-${priceDate.getMonth() + 1}`;
+        const startingPrice = prices.find(price => {
+            const priceYearAndMonth = `${price.date.getFullYear()}-${price.date.getMonth() + 1}`;
 
             const [month, _, year] = firstDayOfCurrentMonthOneYearBack.split('-');
 
             const lowerMarginYearAndMonth = `${year}-${month}`;
 
             return priceYearAndMonth === lowerMarginYearAndMonth;
-        };
+        });
 
-        const endingPriceLookup = (priceDate: Date): boolean => {
+        const endingPrice = prices.find(price => {
 
-            const priceYearAndMonth = `${priceDate.getFullYear()}-${priceDate.getMonth() + 1}`;
+            const priceYearAndMonth = `${price.date.getFullYear()}-${price.date.getMonth() + 1}`;
 
             const [month, _, year] = lastDayOfLastMonth.split('-');
 
@@ -80,14 +80,11 @@ export class TimeSeriesHelperService {
             Therefore, we lookup by + 1 month, and slice() ommitting the last
             index will then return us last date of last month
             */
+
             const upperMarginYearAndMonth = `${year}-${Number(month) + 1}`;
 
             return priceYearAndMonth === upperMarginYearAndMonth;
-        };
-
-        const startingPrice = prices.find(price => startingPriceLookup(price.date));
-
-        const endingPrice = prices.find(price => endingPriceLookup(price.date));
+        });
 
         return prices.slice(prices.indexOf(startingPrice!), prices.indexOf(endingPrice!));
     }
