@@ -2,6 +2,8 @@
 
 import { workerData } from 'node:worker_threads';
 
+import { RateLimit } from 'async-sema';
+
 import { IStockProfile } from '../../interfaces/stock-profile.interface';
 
 import { IFundamentals } from '../../interfaces/fundamentals.interface';
@@ -11,6 +13,22 @@ import { ITickerPrice } from '../../interfaces/ticker.interface';
 import { ApiConnectorService } from '../core/api-connector.service';
 
 import { StockParsingService } from '../core/stock-parsing.service';
+
+/*
+TODO: not all prices are available from yahoo (unauthorized, too much requests!)
+
+Think of substitute or workaround
+
+https://stackoverflow.com/questions/62966122/yahoo-finance-cookie-not-valid
+
+throttle the thing
+
+https://github.com/seanmonstar/reqwest/issues/537
+
+https://dev.to/edefritz/throttle-a-series-of-fetch-requests-in-javascript-ka9
+
+use semaphor
+*/
 
 /*
 A meta-layer function sole purpose of which is to process batch of given fundamentals by using StockParsingService
@@ -37,6 +55,12 @@ export default async (batch: IFundamentals[]): Promise<IStockProfile[]> => {
     */
     const { benchmarkPrices, treasuryBondYield } = workerData;
 
+    /*
+    Since we're fetching prices for every ticker in loop, in parallel, the frequency overwhelmes
+    Yahoo API; therefore, we throttle request to 5 per second
+    */
+    const limit = RateLimit(5);
+
     for (let i = 0; i < batch.length; i++) {
 
         const set = batch[i];
@@ -44,6 +68,8 @@ export default async (batch: IFundamentals[]): Promise<IStockProfile[]> => {
         let tickerPrices: ITickerPrice[] = [];
 
         try {
+
+            await limit();
 
             tickerPrices  = await ApiConnectorService.requestTickerPrices(
                 set.data.General.Code,
@@ -57,18 +83,6 @@ export default async (batch: IFundamentals[]): Promise<IStockProfile[]> => {
             */
             continue;
         }
-
-        /*
-        TODO: not all prices are available from yahoo (unauthorized, too much requests!)
-
-        Think of substitute or workaround
-
-        https://stackoverflow.com/questions/62966122/yahoo-finance-cookie-not-valid
-
-        throttle the thing
-
-        https://github.com/seanmonstar/reqwest/issues/537
-        */
 
         const stockParsingService = new StockParsingService(set.data, tickerPrices, benchmarkPrices, treasuryBondYield);
 
