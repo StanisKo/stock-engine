@@ -72,8 +72,7 @@ export class StockIngestingService {
                 }
 
                 /*
-                If currently iterated set of fundamentals does not meet our industry criteria,
-                weed it out -- garbage data
+                If ticker does not meet our industry criteria, weed it out
                 */
                 if (!industries[bulkFundamentalsData[i].General.Industry]) {
 
@@ -81,8 +80,7 @@ export class StockIngestingService {
                 }
 
                 /*
-                If currently iterated set of fundamentals does not have IPO date,
-                or it is set for the future, weed it out -- garbage data
+                If ticker does not have IPO date, or it is set for the future, weed it out
                 */
                 const tickerIPODate = moment(bulkFundamentalsData[i].General.IPODate);
 

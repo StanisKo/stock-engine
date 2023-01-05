@@ -20,7 +20,7 @@ Called in parallel on every batch by StockProfilingService
 export default async (batch: IFundamentals[]): Promise<IStockProfile[]> => {
 
     /*
-    Since threads do not share memory with each other (unless explicitly specified),
+    Since threads do not share memory with each other,
     we don't have access to connector from the main thread
 
     Worker threads support cloning of simple objects, or transfer of buffers
