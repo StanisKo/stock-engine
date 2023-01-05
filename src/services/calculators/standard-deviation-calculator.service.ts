@@ -2,7 +2,7 @@
 
 import { discard } from '../../utils/discard.decorator';
 
-import { IGenericPrice, ITickerPrice } from '../../interfaces/ticker.interface';
+import { ITickerPrice, IGenericPrice } from '../../interfaces/ticker.interface';
 
 import { CalculatorHelperService } from '../helpers/calculator-helper.service';
 

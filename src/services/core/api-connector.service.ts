@@ -67,14 +67,14 @@ export class ApiConnectorService {
     /*
     We request ticker prices since IPO until latest price available
     */
-    public static async requestTickerPrices(ticker: string, exchange: string): Promise<ITickerPrice[]> {
+    public static async requestTickerPrices(ticker: string): Promise<ITickerPrice[]> {
 
         let prices: ITickerPrice[] = [];
 
         try {
 
             const request = await fetch(
-                `${this.fundametalsDataApiUrl}/eod/${ticker}.${exchange}?api_token=${this.fundametalsDataApiKey}`
+                `${this.fundametalsDataApiUrl}/eod/${ticker}.US?api_token=${this.fundametalsDataApiKey}&fmt=json`
             );
 
             prices = await request.json();

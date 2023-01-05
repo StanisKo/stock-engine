@@ -2,7 +2,7 @@
 
 import { workerData } from 'node:worker_threads';
 
-import { RateLimit } from 'async-sema';
+// import { RateLimit } from 'async-sema';
 
 import { IStockProfile } from '../../interfaces/stock-profile.interface';
 
@@ -43,7 +43,7 @@ export default async (batch: IFundamentals[]): Promise<IStockProfile[]> => {
     Since we're fetching prices for every ticker in loop, in parallel with our loops, the frequency
     might overwhelm API; therefore, we throttle requests to 1 per second
     */
-    const limit = RateLimit(1);
+    // const limit = RateLimit(1);
 
     for (let i = 0; i < batch.length; i++) {
 
@@ -53,11 +53,8 @@ export default async (batch: IFundamentals[]): Promise<IStockProfile[]> => {
 
         try {
 
-            await limit();
-
             tickerPrices  = await ApiConnectorService.requestTickerPrices(
                 set.data.General.Code,
-                set.data.General.Exchange
             );
 
         } catch (error) {
