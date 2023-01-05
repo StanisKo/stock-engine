@@ -55,6 +55,9 @@ export class CalculatorHelperService {
         return datasetSize * sumOfSquaredReturns - Math.pow(sumOfReturns, 2);
     }
 
+    /*
+    05-01-2023: used only for ticker prices
+    */
     static calculateAveragePrice(prices: ITickerPrice[]): number {
 
         let sum = 0;
