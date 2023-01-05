@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+/*
+Exists to mark uncalculatable fields (missing data) with N/A, leading to discard on
+database schema level
+
+Wraps original calculator method, consumes result, checks, returns N/A or original result
+*/
 export const Discard = (target: any, propertyKey: string, descriptor: PropertyDescriptor): void => {
 
     if (typeof descriptor.value === 'function') {
@@ -23,7 +29,6 @@ export const Discard = (target: any, propertyKey: string, descriptor: PropertyDe
 
             /*
             Check if result is NaN or infinity, or null, and if so -- replace with N/A
-            that leads to discard on database layer
             */
             if (isNaN(result) || !isFinite(result) || result === null) {
 
