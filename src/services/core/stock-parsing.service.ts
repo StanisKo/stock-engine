@@ -15,7 +15,7 @@ Therefore, each ratio is checked:
 */
 
 import { IStockProfile } from '../../interfaces/stock-profile.interface';
-import { ITickerFundamentals, ITickerPrice } from '../../interfaces/ticker.interface';
+import { ITickerFundamentals, ITickerPrice, IBenchmarkPrice, IGenericPrice } from '../../interfaces/ticker.interface';
 
 import { CAGRCalculatorService } from '../calculators/cagr-calculator.service';
 import { StandardDeviationCalculatorService } from '../calculators/standard-deviation-calculator.service';
@@ -37,13 +37,13 @@ export class StockParsingService {
 
     prices: ITickerPrice[];
 
-    benchmarkPrices: ITickerPrice[];
+    benchmarkPrices: IBenchmarkPrice[];
 
     treasuryBondYield: number;
 
     stockProfile: IStockProfile;
 
-    constructor(fundamentals: ITickerFundamentals, prices: ITickerPrice[], benchmarkPrices: ITickerPrice[], treasuryBondYield: number) {
+    constructor(fundamentals: ITickerFundamentals, prices: ITickerPrice[], benchmarkPrices: IBenchmarkPrice[], treasuryBondYield: number) {
 
         this.fundamentals = fundamentals;
 
@@ -159,7 +159,7 @@ export class StockParsingService {
         const tickerTTMPrices = TimeSeriesHelperService.sliceDatasetIntoTTM(this.prices);
 
         const [tickerStartingPrice, tickerEndingPrice] = TimeSeriesHelperService.getStartingAndEndingPrice(
-            tickerTTMPrices
+            tickerTTMPrices as unknown as IGenericPrice[]
         );
 
         /*
@@ -198,7 +198,7 @@ export class StockParsingService {
         */
 
         const [benchmarkStartingPrice, benchmarkEndingPrice] = TimeSeriesHelperService.getStartingAndEndingPrice(
-            this.benchmarkPrices
+            this.benchmarkPrices as unknown as IGenericPrice[]
         );
 
         const benchmarkRateOfReturn = CalculatorHelperService.calculateRateOfReturn(

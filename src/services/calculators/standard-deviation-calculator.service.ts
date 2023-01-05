@@ -2,7 +2,7 @@
 
 import { discard } from '../../utils/discard.decorator';
 
-import { ITickerPrice } from '../../interfaces/ticker.interface';
+import { IGenericPrice, ITickerPrice } from '../../interfaces/ticker.interface';
 
 import { CalculatorHelperService } from '../helpers/calculator-helper.service';
 
@@ -47,7 +47,9 @@ export class StandardDeviationCalculatorService {
     @discard
     static calculateStandardDeviation(prices: ITickerPrice[]): number {
 
-        const [returns, averageRateOfReturn] = CalculatorHelperService.calculateAverageRateOfReturn(prices);
+        const [returns, averageRateOfReturn] = CalculatorHelperService.calculateAverageRateOfReturn(
+            prices as unknown as IGenericPrice[]
+        );
 
         const variance = this.calculateVariance(returns, averageRateOfReturn);
 

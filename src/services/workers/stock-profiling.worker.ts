@@ -40,8 +40,8 @@ export default async (batch: IFundamentals[]): Promise<IStockProfile[]> => {
     const { benchmarkPrices, treasuryBondYield } = workerData;
 
     /*
-    Since we're fetching prices for every ticker in loop, in parallel, the frequency overwhelms
-    Yahoo API; therefore, we throttle requests to 1 per second
+    Since we're fetching prices for every ticker in loop, in parallel with our loops, the frequency
+    might overwhelm API; therefore, we throttle requests to 1 per second
     */
     const limit = RateLimit(1);
 
@@ -57,7 +57,7 @@ export default async (batch: IFundamentals[]): Promise<IStockProfile[]> => {
 
             tickerPrices  = await ApiConnectorService.requestTickerPrices(
                 set.data.General.Code,
-                set.data.General.IPODate
+                set.data.General.Exchange
             );
 
         } catch (error) {

@@ -1,10 +1,15 @@
 /* eslint-disable max-len */
 
-import moment from 'moment';
 import fetch from 'node-fetch';
+
 import yahooFinance from 'yahoo-finance2';
 
-import { ITickerFundamentals, ITickerPrice, FundamentalsApiResponse } from '../../interfaces/ticker.interface';
+import {
+    ITickerFundamentals,
+    ITickerPrice,
+    IBenchmarkPrice,
+    FundamentalsApiResponse
+} from '../../interfaces/ticker.interface';
 
 import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 
@@ -54,29 +59,25 @@ export class ApiConnectorService {
             `${this.fundametalsDataApiUrl}/fundamentals/${ticker}.US?api_token=${this.fundametalsDataApiKey}`
         );
 
-        const tickerIpoDate = await request.json();
+        const fundamentals = await request.json();
 
-        return tickerIpoDate;
+        return fundamentals;
     }
 
     /*
     We request ticker prices since IPO until latest price available
     */
-    public static async requestTickerPrices(ticker: string, tickerIpoDate: string): Promise<ITickerPrice[]> {
+    public static async requestTickerPrices(ticker: string, exchange: string): Promise<ITickerPrice[]> {
 
         let prices: ITickerPrice[] = [];
 
         try {
 
-            prices = await yahooFinance.historical(
-                ticker,
-                {
-                    period1: moment(tickerIpoDate).format('MM-DD-YYYY'),
-                    period2: moment().format('MM-DD-YYYY'),
-                    interval: '1d',
-                    includeAdjustedClose: true
-                }
-            ) as ITickerPrice[];
+            const request = await fetch(
+                `${this.fundametalsDataApiUrl}/eod/${ticker}.${exchange}?api_token=${this.fundametalsDataApiKey}`
+            );
+
+            prices = await request.json();
 
         } catch (error) {
 
@@ -92,7 +93,7 @@ export class ApiConnectorService {
     /*
     We request benchmark prices as TTM
     */
-    public static async requestBenchmarkPrices(): Promise<ITickerPrice[]> {
+    public static async requestBenchmarkPrices(): Promise<IBenchmarkPrice[]> {
 
         /*
         API returns values one day into past, so we need to adapt our margins
@@ -111,7 +112,7 @@ export class ApiConnectorService {
                 interval: '1d',
                 includeAdjustedClose: true
             }
-        ) as ITickerPrice[];
+        ) as IBenchmarkPrice[];
 
         return benchmarkPrices;
     }
