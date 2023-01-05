@@ -2,8 +2,6 @@
 
 import { workerData } from 'node:worker_threads';
 
-// import { RateLimit } from 'async-sema';
-
 import { IStockProfile } from '../../interfaces/stock-profile.interface';
 
 import { IFundamentals } from '../../interfaces/fundamentals.interface';
@@ -38,12 +36,6 @@ export default async (batch: IFundamentals[]): Promise<IStockProfile[]> => {
     Fortunately, we can share previously requested benchmark prices and treasury bond yield
     */
     const { benchmarkPrices, treasuryBondYield } = workerData;
-
-    /*
-    Since we're fetching prices for every ticker in loop, in parallel with our loops, the frequency
-    might overwhelm API; therefore, we throttle requests to 1 per second
-    */
-    // const limit = RateLimit(1);
 
     for (let i = 0; i < batch.length; i++) {
 
