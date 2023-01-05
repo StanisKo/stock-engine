@@ -18,7 +18,7 @@ Our ending date is the last day of the month just completed — June 30, 2020
 
 import moment from 'moment';
 
-import { ITickerPrice } from '../../interfaces/ticker.interface';
+import { IGenericPrice, ITickerPrice } from '../../interfaces/ticker.interface';
 
 export class TimeSeriesHelperService {
 
@@ -38,9 +38,16 @@ export class TimeSeriesHelperService {
         return [firstDayOfCurrentMonthOneYearBack.format('MM-DD-YYYY'), lastDayOfLastMonth.format('MM-DD-YYYY')];
     }
 
-    public static getStartingAndEndingPrice(prices: ITickerPrice[]): [startingPrice: number, endingPrice: number] {
+    public static getStartingAndEndingPrice(prices: IGenericPrice[]): [startingPrice: number, endingPrice: number] {
 
-        return [prices[0].adjClose, prices[prices.length - 1].adjClose];
+        /*
+        NOTE: on coalesce operator -- we need to get starting and ending price
+        from prices delivered by different APIs
+        */
+        return [
+            prices[0].adjusted_close ?? prices[0].adjClose,
+            prices[prices.length - 1].adjusted_close ?? prices[prices.length - 1].adjClose
+        ];
     }
 
     public static sliceDatasetIntoTTM(prices: ITickerPrice[]): ITickerPrice[] {
@@ -56,14 +63,16 @@ export class TimeSeriesHelperService {
 
         const startingPrice = prices.findIndex(price => {
 
-            let priceMonth: string | number = price.date.getMonth() + 1;
+            const priceDate = new Date(price.date);
+
+            let priceMonth: string | number = priceDate.getMonth() + 1;
 
             /*
             Pad with 0 to adhere to margin
             */
             priceMonth = priceMonth >= 10 ? priceMonth : `0${priceMonth}`;
 
-            const priceYearAndMonth = `${price.date.getFullYear()}-${priceMonth}`;
+            const priceYearAndMonth = `${priceDate.getFullYear()}-${priceMonth}`;
 
             const [month, _, year] = firstDayOfCurrentMonthOneYearBack.split('-');
 
@@ -74,14 +83,16 @@ export class TimeSeriesHelperService {
 
         const endingPrice = prices.findIndex(price => {
 
-            let priceMonth: string | number = price.date.getMonth() + 1;
+            const priceDate = new Date(price.date);
+
+            let priceMonth: string | number = priceDate.getMonth() + 1;
 
             /*
             Pad with 0 to adhere to margin
             */
             priceMonth = priceMonth >= 10 ? priceMonth : `0${priceMonth}`;
 
-            const priceYearAndMonth = `${price.date.getFullYear()}-${priceMonth}`;
+            const priceYearAndMonth = `${priceDate.getFullYear()}-${priceMonth}`;
 
             const [month, _, year] = lastDayOfLastMonth.split('-');
 

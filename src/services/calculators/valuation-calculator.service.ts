@@ -1,4 +1,4 @@
-import { discard } from '../../utils/discard.decorator';
+import { Discard } from '../../utils/discard.decorator';
 
 /*
 EV/R = EV / Revenue
@@ -47,25 +47,25 @@ export class ValuationCalculatorService {
 
     static enterpriseValue: number;
 
-    @discard
+    @Discard
     static calculateEnterpriseValue(marketCap: number, debt: number, cash: number, cashAndEquivalents: number): void {
 
         ValuationCalculatorService.enterpriseValue = marketCap + debt - cash - cashAndEquivalents;
     }
 
-    @discard
+    @Discard
     static calculateEVR(revenue: number): number {
 
         return ValuationCalculatorService.enterpriseValue / revenue;
     }
 
-    @discard
+    @Discard
     static calculateEVEBITDA(ebitda: number): number {
 
         return ValuationCalculatorService.enterpriseValue / ebitda;
     }
 
-    @discard
+    @Discard
     static calculatePriceToFreeCashFlow(freeCashFlow: number, sharesOutstanding: number, price: number): number {
 
         const freeCashFlowPerShare = freeCashFlow / sharesOutstanding;

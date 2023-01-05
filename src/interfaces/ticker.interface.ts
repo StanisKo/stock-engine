@@ -10,6 +10,23 @@ export interface ITickerFundamentals {
 
 export interface ITickerPrice {
 
+    date: string;
+
+    open: number;
+
+    high: number;
+
+    low: number;
+
+    close: number;
+
+    adjusted_close: number;
+
+    volume: number;
+}
+
+export interface IBenchmarkPrice {
+
     date: Date;
 
     open: number;
@@ -25,18 +42,14 @@ export interface ITickerPrice {
     volume: number;
 }
 
-export type FundamentalsApiResponse = { [key: number]: ITickerFundamentals };
-
 /*
-TODO: remove and break down
+Exists to perform equiavalent calculations over prices fetched from different sources
 */
-export interface ITickerFinancialData {
+export interface IGenericPrice {
 
-    fundamentals: ITickerFundamentals,
+    adjusted_close: number;
 
-    prices: ITickerPrice[],
-
-    benchmarkPrices: ITickerPrice[],
-
-    treasuryBondYield: number
+    adjClose: number;
 }
+
+export type FundamentalsApiResponse = { [key: number]: ITickerFundamentals };

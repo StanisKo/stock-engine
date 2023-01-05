@@ -1,4 +1,4 @@
-import { discard } from '../../utils/discard.decorator';
+import { Discard } from '../../utils/discard.decorator';
 
 /*
 R-Squared — measures how much the movement of the assets is influenced by the movement of the index.
@@ -29,13 +29,13 @@ On Correlation: https://www.investopedia.com/terms/c/correlationcoefficient.asp
 On Covariance: https://www.investopedia.com/terms/c/covariance.asp
 */
 
-import { ITickerPrice } from '../../interfaces/ticker.interface';
+import { IBenchmarkPrice, IGenericPrice, ITickerPrice } from '../../interfaces/ticker.interface';
 
 import { CalculatorHelperService } from '../helpers/calculator-helper.service';
 
 export class RSquaredCalculatorService {
 
-    @discard
+    @Discard
     private static calculateCorrelation(tickerReturns: number[], benchmarkReturns: number[]): number {
 
         const N = tickerReturns.length;
@@ -94,15 +94,15 @@ export class RSquaredCalculatorService {
         return correlation;
     }
 
-    @discard
-    static calculateRSquared(prices: ITickerPrice[], benchmarkPrices: ITickerPrice[]): number {
+    @Discard
+    static calculateRSquared(prices: ITickerPrice[], benchmarkPrices: IBenchmarkPrice[]): number {
 
         const [tickerReturns] = CalculatorHelperService.calculateAverageRateOfReturn(
-            prices
+            prices as unknown as IGenericPrice[]
         );
 
         const [benchmarkReturns] = CalculatorHelperService.calculateAverageRateOfReturn(
-            benchmarkPrices
+            benchmarkPrices as unknown as IGenericPrice[]
         );
 
         const correlation = RSquaredCalculatorService.calculateCorrelation(
