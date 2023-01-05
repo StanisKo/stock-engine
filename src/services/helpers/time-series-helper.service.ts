@@ -35,6 +35,11 @@ export class TimeSeriesHelperService {
             lastDayOfLastMonth = lastDayOfLastMonth.add(1, 'day');
         }
 
+        /*
+        On MM-DD-YYYY: this has been done to adhere to yahoo API. Now we use it only for benchmark prices
+
+        This has to be moved to DD-MM-YYYY
+        */
         return [firstDayOfCurrentMonthOneYearBack.format('MM-DD-YYYY'), lastDayOfLastMonth.format('MM-DD-YYYY')];
     }
 
