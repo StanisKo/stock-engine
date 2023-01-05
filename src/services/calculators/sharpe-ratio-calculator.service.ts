@@ -1,3 +1,5 @@
+import { Discard } from '../../utils/discard.decorator';
+
 /*
 Sharpe Ratio — measures rate of return on the asset above risk-free investment,
 such as treasury bonds or cash
@@ -19,6 +21,7 @@ On Sharpe Ratio: https://www.investopedia.com/terms/s/sharperatio.asp
 
 export class SharpeRatioCalculatorService {
 
+    @Discard
     static calculateSharpeRatio(
         tickerRateOfReturn: number,
         treasuryBondYield: number,

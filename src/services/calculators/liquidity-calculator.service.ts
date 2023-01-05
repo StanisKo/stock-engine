@@ -1,3 +1,5 @@
+import { Discard } from '../../utils/discard.decorator';
+
 /*
 Current Ratio denotes company’s capacity to meet it’s short-term obligations (debt),
 where short-term obligations are debt due within 1 year period
@@ -23,11 +25,13 @@ On Quick Assets: https://www.investopedia.com/terms/q/quickratio.asp
 
 export class LiquidityCalculatorService {
 
+    @Discard
     static calculateCurrentRatio(currentAssets: number, currentLiabilities: number): number {
 
         return currentAssets / currentLiabilities;
     }
 
+    @Discard
     static calculateQuickRatio(
         cash: number,
         cashAndEquivalents: number,

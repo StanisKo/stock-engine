@@ -7,6 +7,8 @@ import dotenv from 'dotenv';
 import stockProfilingRouter from './routes/stock-profiling.routes';
 import stockIngestingRouter from './routes/stock-ingesting.routes';
 
+import { ApiConnectorService } from './services/core/api-connector.service';
+
 export class Server {
 
     application: Application;
@@ -59,6 +61,8 @@ export class Server {
         const server = http.createServer(this.application);
 
         server.listen(this.port).on('listening', async () => {
+
+            ApiConnectorService.initializeSharedFields();
 
             console.log( `Engine is available on port ${this.port}`);
 

@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
+import { Discard } from '../../utils/discard.decorator';
+
+import { ITickerPrice, IGenericPrice } from '../../interfaces/ticker.interface';
+
+import { CalculatorHelperService } from '../helpers/calculator-helper.service';
+
 /*
 Standard deviation — indicates how much the current return is deviating from its expected historical normal returns
 The higher standard deviation, the greater possible outcomes, both negative and positive.
@@ -16,10 +22,6 @@ ARoR = SUM(RoR) / N(RoR) where N is count of datapoints we have
 
 On Standard Deviation: https://www.investopedia.com/terms/s/standarddeviation.asp
 */
-
-import { ITickerPrice } from '../../interfaces/ticker.interface';
-
-import { CalculatorHelperService } from '../helpers/calculator-helper.service';
 
 export class StandardDeviationCalculatorService {
 
@@ -42,9 +44,12 @@ export class StandardDeviationCalculatorService {
         return variance;
     }
 
+    @Discard
     static calculateStandardDeviation(prices: ITickerPrice[]): number {
 
-        const [returns, averageRateOfReturn] = CalculatorHelperService.calculateAverageRateOfReturn(prices);
+        const [returns, averageRateOfReturn] = CalculatorHelperService.calculateAverageRateOfReturn(
+            prices as unknown as IGenericPrice[]
+        );
 
         const variance = this.calculateVariance(returns, averageRateOfReturn);
 

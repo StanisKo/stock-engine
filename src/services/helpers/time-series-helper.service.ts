@@ -18,11 +18,11 @@ Our ending date is the last day of the month just completed — June 30, 2020
 
 import moment from 'moment';
 
-import { ITickerPrice } from '../../interfaces/ticker.interface';
+import { IGenericPrice, ITickerPrice } from '../../interfaces/ticker.interface';
 
 export class TimeSeriesHelperService {
 
-    static getTTMMargin(withOneDayForward = false): [start: string, end: string] {
+    public static getTTMMargin(withOneDayForward = false): [start: string, end: string] {
 
         let firstDayOfCurrentMonthOneYearBack = moment().subtract(1, 'year').startOf('month');
 
@@ -35,15 +35,27 @@ export class TimeSeriesHelperService {
             lastDayOfLastMonth = lastDayOfLastMonth.add(1, 'day');
         }
 
+        /*
+        On MM-DD-YYYY: this has been done to adhere to yahoo API. Now we use it only for benchmark prices
+
+        This has to be moved to DD-MM-YYYY
+        */
         return [firstDayOfCurrentMonthOneYearBack.format('MM-DD-YYYY'), lastDayOfLastMonth.format('MM-DD-YYYY')];
     }
 
-    static getStartingAndEndingPrice(prices: ITickerPrice[]): [startingPrice: number, endingPrice: number] {
+    public static getStartingAndEndingPrice(prices: IGenericPrice[]): [startingPrice: number, endingPrice: number] {
 
-        return [prices[0].adjClose, prices[prices.length - 1].adjClose];
+        /*
+        NOTE: on coalesce operator -- we need to get starting and ending price
+        from prices delivered by different APIs
+        */
+        return [
+            prices[0].adjusted_close ?? prices[0].adjClose,
+            prices[prices.length - 1].adjusted_close ?? prices[prices.length - 1].adjClose
+        ];
     }
 
-    static sliceDatasetIntoTTM(prices: ITickerPrice[]): ITickerPrice[] {
+    public static sliceDatasetIntoTTM(prices: ITickerPrice[]): ITickerPrice[] {
 
         /*
         Get margins
@@ -51,22 +63,41 @@ export class TimeSeriesHelperService {
         const [firstDayOfCurrentMonthOneYearBack, lastDayOfLastMonth] = TimeSeriesHelperService.getTTMMargin();
 
         /*
-        Define lookup lambdas
+        Lookup starting and ending price
         */
-        const startingPriceLookup = (priceDate: Date): boolean => {
 
-            const priceYearAndMonth = `${priceDate.getFullYear()}-${priceDate.getMonth() + 1}`;
+        const startingPrice = prices.findIndex(price => {
+
+            const priceDate = new Date(price.date);
+
+            let priceMonth: string | number = priceDate.getMonth() + 1;
+
+            /*
+            Pad with 0 to adhere to margin
+            */
+            priceMonth = priceMonth >= 10 ? priceMonth : `0${priceMonth}`;
+
+            const priceYearAndMonth = `${priceDate.getFullYear()}-${priceMonth}`;
 
             const [month, _, year] = firstDayOfCurrentMonthOneYearBack.split('-');
 
             const lowerMarginYearAndMonth = `${year}-${month}`;
 
             return priceYearAndMonth === lowerMarginYearAndMonth;
-        };
+        });
 
-        const endingPriceLookup = (priceDate: Date): boolean => {
+        const endingPrice = prices.findIndex(price => {
 
-            const priceYearAndMonth = `${priceDate.getFullYear()}-${priceDate.getMonth() + 1}`;
+            const priceDate = new Date(price.date);
+
+            let priceMonth: string | number = priceDate.getMonth() + 1;
+
+            /*
+            Pad with 0 to adhere to margin
+            */
+            priceMonth = priceMonth >= 10 ? priceMonth : `0${priceMonth}`;
+
+            const priceYearAndMonth = `${priceDate.getFullYear()}-${priceMonth}`;
 
             const [month, _, year] = lastDayOfLastMonth.split('-');
 
@@ -80,19 +111,36 @@ export class TimeSeriesHelperService {
             Therefore, we lookup by + 1 month, and slice() ommitting the last
             index will then return us last date of last month
             */
-            const upperMarginYearAndMonth = `${year}-${Number(month) + 1}`;
+
+            let upperMarginYearAndMonth;
+
+            /*
+            If we're on the last month, use next year, first month
+            */
+            if (month === '12') {
+                upperMarginYearAndMonth = `${Number(year) + 1}-01`;
+            }
+            /*
+            Otherwise, use current year, increment the month
+            */
+            else {
+                let nextMonth: string | number = Number(month);
+
+                nextMonth = nextMonth >= 10 ? nextMonth + 1 : `0${nextMonth + 1}`;
+
+                upperMarginYearAndMonth = `${year}-${nextMonth}`;
+            }
 
             return priceYearAndMonth === upperMarginYearAndMonth;
-        };
+        });
 
-        const startingPrice = prices.find(price => startingPriceLookup(price.date));
-
-        const endingPrice = prices.find(price => endingPriceLookup(price.date));
-
-        return prices.slice(prices.indexOf(startingPrice!), prices.indexOf(endingPrice!));
+        /*
+        If no starting price one year back -- stock is young, grab the first index
+        */
+        return prices.slice(startingPrice < 0 ? 0 : startingPrice, endingPrice);
     }
 
-    static sliceDatasetIntoLastNTradingDays(prices: ITickerPrice[], days: number): ITickerPrice[] {
+    public static sliceDatasetIntoLastNTradingDays(prices: ITickerPrice[], days: number): ITickerPrice[] {
 
         return prices.slice(prices.length - 1 - days);
     }

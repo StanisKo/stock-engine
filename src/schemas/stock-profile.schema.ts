@@ -4,9 +4,6 @@ import mongoose from 'mongoose';
 
 import { IStockProfileSchema } from '../interfaces/stock-profile.interface';
 
-import { MarketCapLabel } from '../enums';
-
-
 const stockProfileSchema = new mongoose.Schema<IStockProfileSchema>(
     {
         _id: { type: String, default: uuid.v4 },
@@ -29,7 +26,7 @@ const stockProfileSchema = new mongoose.Schema<IStockProfileSchema>(
         marketCap: {
 
             label: {
-                type: MarketCapLabel,
+                type: String,
                 required: true
             },
 

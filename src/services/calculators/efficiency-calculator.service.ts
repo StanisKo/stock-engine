@@ -1,3 +1,5 @@
+import { Discard } from '../../utils/discard.decorator';
+
 /*
 Asset Turnover = Total Annual Sales / Average Total Assets
 
@@ -16,11 +18,13 @@ On Inventory Turnover: https://www.investopedia.com/terms/i/inventoryturnover.as
 
 export class EfficiencyCalculatorService {
 
+    @Discard
     static calculateAssetTurnover(sales: number, averageTotalAssets: number): number {
 
         return sales / averageTotalAssets;
     }
 
+    @Discard
     static calculateInventoryTurnover(costOfGoodsSold: number, averageValueOfInventory: number): number {
 
         /*

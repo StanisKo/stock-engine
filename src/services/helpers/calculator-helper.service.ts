@@ -1,4 +1,4 @@
-import { ITickerPrice } from '../../interfaces/ticker.interface';
+import { IGenericPrice, ITickerPrice } from '../../interfaces/ticker.interface';
 
 export class CalculatorHelperService {
 
@@ -7,7 +7,7 @@ export class CalculatorHelperService {
         return ((endingPrice - startingPrice) / startingPrice) * 100;
     }
 
-    static calculateAverageRateOfReturn(prices: ITickerPrice[]): [number[], number] {
+    static calculateAverageRateOfReturn(prices: IGenericPrice[]): [number[], number] {
 
         const returns: number[] = [];
 
@@ -25,10 +25,13 @@ export class CalculatorHelperService {
 
             /*
             Otherwise, calculate percentange change over each period
-            */
-            const currentPrice = prices[i].adjClose;
 
-            const previousPrice = prices[i - 1].adjClose;
+            NOTE: on coalesce operator -- we need to calculate averages
+            over prices delivered by different APIs
+            */
+            const currentPrice = prices[i].adjusted_close ?? prices[i].adjClose;
+
+            const previousPrice = prices[i - 1].adjusted_close ?? prices[i - 1].adjClose;
 
             const percentageChange = ((currentPrice - previousPrice) / previousPrice) * 100;
 
@@ -52,13 +55,16 @@ export class CalculatorHelperService {
         return datasetSize * sumOfSquaredReturns - Math.pow(sumOfReturns, 2);
     }
 
+    /*
+    05-01-2023: used only for ticker prices
+    */
     static calculateAveragePrice(prices: ITickerPrice[]): number {
 
         let sum = 0;
 
         for (let i = 0; i < prices.length; i++) {
 
-            sum += prices[i].adjClose;
+            sum += prices[i].adjusted_close;
         }
 
         return sum / prices.length;
