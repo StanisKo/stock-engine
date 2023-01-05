@@ -15,22 +15,6 @@ import { ApiConnectorService } from '../core/api-connector.service';
 import { StockParsingService } from '../core/stock-parsing.service';
 
 /*
-TODO: not all prices are available from yahoo (unauthorized, too much requests!)
-
-Think of substitute or workaround
-
-https://stackoverflow.com/questions/62966122/yahoo-finance-cookie-not-valid
-
-throttle the thing
-
-https://github.com/seanmonstar/reqwest/issues/537
-
-https://dev.to/edefritz/throttle-a-series-of-fetch-requests-in-javascript-ka9
-
-use semaphor
-*/
-
-/*
 A meta-layer function sole purpose of which is to process batch of given fundamentals by using StockParsingService
 
 Called in parallel on every batch by StockProfilingService
@@ -56,10 +40,10 @@ export default async (batch: IFundamentals[]): Promise<IStockProfile[]> => {
     const { benchmarkPrices, treasuryBondYield } = workerData;
 
     /*
-    Since we're fetching prices for every ticker in loop, in parallel, the frequency overwhelmes
-    Yahoo API; therefore, we throttle request to 5 per second
+    Since we're fetching prices for every ticker in loop, in parallel, the frequency overwhelms
+    Yahoo API; therefore, we throttle requests to 1 per second
     */
-    const limit = RateLimit(5);
+    const limit = RateLimit(1);
 
     for (let i = 0; i < batch.length; i++) {
 
