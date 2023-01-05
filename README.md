@@ -744,3 +744,9 @@ Engine uses following data sources:
 3. A paid API (eodhistoricaldata.com) that delivers bulk fundamentals and financial documents.
 
 <br />
+
+# Vocabulary
+
+<br />
+
+* TTM - Trailing Twelve Month: previous twelve month up to not including first day of current month
