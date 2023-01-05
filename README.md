@@ -727,7 +727,7 @@ Engine uses following data sources:
 
 <br />
 
-1. An open-source library to fetch stocks' historical prices and benchmark prices from Yahoo Finance.
+1. An open-source library to fetch benchmark prices from Yahoo Finance.
 
    The choice of benchmark in our case is S&P500 (Standard and Poor 500) index that hosts 500 largest US companies.
 
@@ -741,7 +741,7 @@ Engine uses following data sources:
 
 <br />
 
-3. A paid API (eodhistoricaldata.com) that delivers bulk fundamentals and financial documents.
+3. A paid API (eodhistoricaldata.com) that delivers bulk fundamentals, financial documents and stock's historicacal prices.
 
 <br />
 
@@ -750,3 +750,12 @@ Engine uses following data sources:
 <br />
 
 * TTM - Trailing Twelve Month: previous twelve month up to not including first day of current month
+
+<br />
+
+* IPO - Company going public and issuing stocks
+
+<br />
+
+* Index - a group of stocks, which performance acts as an indicator of economy's health and benchmark of measure
+
