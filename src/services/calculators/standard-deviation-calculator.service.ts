@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { discard } from '../../utils/discard.decorator';
+import { Discard } from '../../utils/discard.decorator';
 
 import { ITickerPrice, IGenericPrice } from '../../interfaces/ticker.interface';
 
@@ -44,7 +44,7 @@ export class StandardDeviationCalculatorService {
         return variance;
     }
 
-    @discard
+    @Discard
     static calculateStandardDeviation(prices: ITickerPrice[]): number {
 
         const [returns, averageRateOfReturn] = CalculatorHelperService.calculateAverageRateOfReturn(

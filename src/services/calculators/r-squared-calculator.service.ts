@@ -1,4 +1,4 @@
-import { discard } from '../../utils/discard.decorator';
+import { Discard } from '../../utils/discard.decorator';
 
 /*
 R-Squared — measures how much the movement of the assets is influenced by the movement of the index.
@@ -35,7 +35,7 @@ import { CalculatorHelperService } from '../helpers/calculator-helper.service';
 
 export class RSquaredCalculatorService {
 
-    @discard
+    @Discard
     private static calculateCorrelation(tickerReturns: number[], benchmarkReturns: number[]): number {
 
         const N = tickerReturns.length;
@@ -94,7 +94,7 @@ export class RSquaredCalculatorService {
         return correlation;
     }
 
-    @discard
+    @Discard
     static calculateRSquared(prices: ITickerPrice[], benchmarkPrices: IBenchmarkPrice[]): number {
 
         const [tickerReturns] = CalculatorHelperService.calculateAverageRateOfReturn(

@@ -1,4 +1,4 @@
-import { discard } from '../../utils/discard.decorator';
+import { Discard } from '../../utils/discard.decorator';
 
 /*
 Current Ratio denotes company’s capacity to meet it’s short-term obligations (debt),
@@ -25,13 +25,13 @@ On Quick Assets: https://www.investopedia.com/terms/q/quickratio.asp
 
 export class LiquidityCalculatorService {
 
-    @discard
+    @Discard
     static calculateCurrentRatio(currentAssets: number, currentLiabilities: number): number {
 
         return currentAssets / currentLiabilities;
     }
 
-    @discard
+    @Discard
     static calculateQuickRatio(
         cash: number,
         cashAndEquivalents: number,

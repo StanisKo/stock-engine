@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-export const discard = (target: any, propertyKey: string, descriptor: PropertyDescriptor): void => {
+export const Discard = (target: any, propertyKey: string, descriptor: PropertyDescriptor): void => {
 
     if (typeof descriptor.value === 'function') {
 
