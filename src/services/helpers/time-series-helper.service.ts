@@ -40,6 +40,10 @@ export class TimeSeriesHelperService {
 
     public static getStartingAndEndingPrice(prices: IGenericPrice[]): [startingPrice: number, endingPrice: number] {
 
+        /*
+        NOTE: on coalesce operator -- we need to get starting and ending price
+        from prices delivered by different APIs
+        */
         return [
             prices[0].adjusted_close ?? prices[0].adjClose,
             prices[prices.length - 1].adjusted_close ?? prices[prices.length - 1].adjClose
