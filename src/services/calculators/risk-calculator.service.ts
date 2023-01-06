@@ -119,48 +119,30 @@ export class RiskCalculatorService {
 
     private static calculateCorrelation(tickerReturns: number[], benchmarkReturns: number[]): number {
 
-        const N = tickerReturns.length;
-
-        let sumOfTickerReturns = 0, sumOfBenchmarkReturns = 0, sumOfMultipliedReturns = 0;
-
-        let sumOfSquaredTickerReturns = 0, sumOfSquaredBenchmarkReturns = 0;
-
         /*
-        We first loop through returns, sum both datasets against themselves,
-        sum the products of multiplication between each ticker-benchmark return pair,
-        and sum the squares of each instance within each dataset
+        Get the covariance, sum of returns, and sum of squared returns
         */
-        for(let i = 0; i < N; i++){
-
-            sumOfTickerReturns += tickerReturns[i];
-
-            sumOfBenchmarkReturns += benchmarkReturns[i];
-
-            sumOfMultipliedReturns += tickerReturns[i] * benchmarkReturns[i];
-
-            sumOfSquaredTickerReturns += Math.pow(tickerReturns[i], 2);
-
-            sumOfSquaredBenchmarkReturns += Math.pow(benchmarkReturns[i], 2);
-        }
-
-        /*
-        We then calculate covariance between ticker-benchmark returns
-        */
-        const covariance = N * sumOfMultipliedReturns - sumOfTickerReturns * sumOfBenchmarkReturns;
+        const {
+            covariance,
+            sumOfTickerReturns,
+            sumOfSquaredTickerReturns,
+            sumOfBenchmarkReturns,
+            sumOfSquaredBenchmarkReturns
+        } = CalculatorHelperService.calculateCovariance(tickerReturns, benchmarkReturns);
 
         /*
         Then find standard deviation of returns
         */
         const standardDeviationOfTickerReturns =
             CalculatorHelperService.calculateStandardDeviationOverReturns(
-                N,
+                tickerReturns.length,
                 sumOfTickerReturns,
                 sumOfSquaredTickerReturns
             );
 
         const standardDeviationOfBenchmarkReturns =
             CalculatorHelperService.calculateStandardDeviationOverReturns(
-                N,
+                benchmarkReturns.length,
                 sumOfBenchmarkReturns,
                 sumOfSquaredBenchmarkReturns
             );
