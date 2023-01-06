@@ -81,33 +81,19 @@ On Covariance: https://www.investopedia.com/terms/c/covariance.asp
 
 export class RiskCalculatorService {
 
-    /*
-    To calculate variance we sum the squares of
-    diffs between daily rate of return and average rate of return
-    and then divide it by count of daily returns - 1
-    */
-    private static calculateVariance(returns: number[], averageRateOfReturn: number): number {
-
-        let sumOfSquares = 0;
-
-        for (let i = 0; i < returns.length; i++) {
-
-            sumOfSquares += Math.pow(returns[i] - averageRateOfReturn, 2);
-        }
-
-        const variance = sumOfSquares / returns.length - 1;
-
-        return variance;
-    }
-
     @Discard
     public static calculateStandardDeviation(prices: ITickerPrice[]): number {
 
+        /*
+        NOTE: we do not calculate returns and ARoR during inputs construction,
+        since for SD we need returns and ARoR over prices since IPO, yet,
+        in other cases -- over TTM prices
+        */
         const [returns, averageRateOfReturn] = CalculatorHelperService.calculateAverageRateOfReturn(
             prices as unknown as IGenericPrice[]
         );
 
-        const variance = this.calculateVariance(returns, averageRateOfReturn);
+        const variance = CalculatorHelperService.calculateVariance(returns, averageRateOfReturn);
 
         const standardDeviation = Math.sqrt(variance);
 
@@ -138,54 +124,36 @@ export class RiskCalculatorService {
 
     private static calculateCorrelation(tickerReturns: number[], benchmarkReturns: number[]): number {
 
-        const N = tickerReturns.length;
-
-        let sumOfTickerReturns = 0, sumOfBenchmarkReturns = 0, sumOfMultipliedReturns = 0;
-
-        let sumOfSquaredTickerReturns = 0, sumOfSquaredBenchmarkReturns = 0;
-
         /*
-        We first loop through returns, sum both datasets against themselves,
-        sum the products of multiplication between each ticker-benchmark return pair,
-        and sum the squares of each instance within each dataset
+        Get the covariance, sum of returns, and sum of squared returns
         */
-        for(let i = 0; i < N; i++){
-
-            sumOfTickerReturns += tickerReturns[i];
-
-            sumOfBenchmarkReturns += benchmarkReturns[i];
-
-            sumOfMultipliedReturns += tickerReturns[i] * benchmarkReturns[i];
-
-            sumOfSquaredTickerReturns += Math.pow(tickerReturns[i], 2);
-
-            sumOfSquaredBenchmarkReturns += Math.pow(benchmarkReturns[i], 2);
-        }
-
-        /*
-        We then calculate covariance between ticker-benchmark returns
-        */
-        const covariance = N * sumOfMultipliedReturns - sumOfTickerReturns * sumOfBenchmarkReturns;
+        const {
+            covariance,
+            sumOfTickerReturns,
+            sumOfSquaredTickerReturns,
+            sumOfBenchmarkReturns,
+            sumOfSquaredBenchmarkReturns
+        } = CalculatorHelperService.calculateCovariance(tickerReturns, benchmarkReturns);
 
         /*
         Then find standard deviation of returns
         */
         const standardDeviationOfTickerReturns =
             CalculatorHelperService.calculateStandardDeviationOverReturns(
-                N,
+                tickerReturns.length,
                 sumOfTickerReturns,
                 sumOfSquaredTickerReturns
             );
 
         const standardDeviationOfBenchmarkReturns =
             CalculatorHelperService.calculateStandardDeviationOverReturns(
-                N,
+                benchmarkReturns.length,
                 sumOfBenchmarkReturns,
                 sumOfSquaredBenchmarkReturns
             );
 
         /*
-        Finally, we calculate correlation
+        Finally, calculate correlation
         */
         const correlation = covariance / Math.sqrt(
             standardDeviationOfTickerReturns * standardDeviationOfBenchmarkReturns
