@@ -66,32 +66,4 @@ export class CalculatorHelperService {
 
         return sum / prices.length;
     }
-
-    public static calculateTickerBenchmarkCovariance(tickerReturns: number[], benchmarkReturns: number[]): number {
-
-        const N = tickerReturns.length;
-
-        let sumOfTickerReturns = 0, sumOfBenchmarkReturns = 0, sumOfMultipliedReturns = 0;
-
-        /*
-        We first loop through returns, sum both datasets against themselves,
-        sum the products of multiplication between each ticker-benchmark return pair,
-        and sum the squares of each instance within each dataset
-        */
-        for(let i = 0; i < N; i++){
-
-            sumOfTickerReturns += tickerReturns[i];
-
-            sumOfBenchmarkReturns += benchmarkReturns[i];
-
-            sumOfMultipliedReturns += tickerReturns[i] * benchmarkReturns[i];
-        }
-
-        /*
-        We then calculate covariance between ticker-benchmark returns
-        */
-        const covariance = N * sumOfMultipliedReturns - sumOfTickerReturns * sumOfBenchmarkReturns;
-
-        return covariance;
-    }
 }
