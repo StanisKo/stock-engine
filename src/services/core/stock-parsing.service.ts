@@ -57,6 +57,8 @@ export class StockParsingService {
 
     tickerEndingPrice: number;
 
+    tickerRateOfReturn: number;
+
     constructor(fundamentals: ITickerFundamentals, prices: ITickerPrice[], benchmarkPrices: IBenchmarkPrice[], treasuryBondYield: number) {
 
         this.fundamentals = fundamentals;
@@ -68,34 +70,6 @@ export class StockParsingService {
         this.treasuryBondYield = treasuryBondYield;
 
         this.stockProfile = {} as IStockProfile;
-    }
-
-    private constructInputsForCalculators(): void {
-
-        /*
-        Get the last annual balance sheet, income statement and cash flow statement
-        necessary for liquidity, valution, debt, and efficiency calculations
-        */
-
-        this.lastAnnualBalanceSheet = this.fundamentals.Financials.Balance_Sheet.yearly_last_0;
-
-        this.lastAnnualIncomeStatement = this.fundamentals.Financials.Income_Statement.yearly_last_0;
-
-        this.lastAnnualCashFlowStatement = this.fundamentals.Financials.Cash_Flow.yearly_last_0;
-
-        /*
-        Get ticker TTM prices
-        */
-
-        this.tickerTTMPrices = TimeSeriesHelperService.sliceDatasetIntoTTM(this.prices);
-
-        const [tickerStartingPrice, tickerEndingPrice] = TimeSeriesHelperService.getStartingAndEndingPrice(
-            this.tickerTTMPrices as unknown as IGenericPrice[]
-        );
-
-        this.tickerStartingPrice = tickerStartingPrice;
-
-        this.tickerEndingPrice = tickerEndingPrice;
     }
 
     private initializeSectionsToFill(): void {
@@ -143,6 +117,43 @@ export class StockParsingService {
             dividendYield: 0,
             dividendPayout: 0
         };
+    }
+
+    private constructInputsForCalculators(): void {
+
+        /*
+        Get the last annual balance sheet, income statement and cash flow statement
+        necessary for liquidity, valution, debt, and efficiency calculations
+        */
+        this.lastAnnualBalanceSheet = this.fundamentals.Financials.Balance_Sheet.yearly_last_0;
+
+        this.lastAnnualIncomeStatement = this.fundamentals.Financials.Income_Statement.yearly_last_0;
+
+        this.lastAnnualCashFlowStatement = this.fundamentals.Financials.Cash_Flow.yearly_last_0;
+
+        /*
+        Get ticker TTM prices
+        */
+        this.tickerTTMPrices = TimeSeriesHelperService.sliceDatasetIntoTTM(this.prices);
+
+        const [tickerStartingPrice, tickerEndingPrice] = TimeSeriesHelperService.getStartingAndEndingPrice(
+            this.tickerTTMPrices as unknown as IGenericPrice[]
+        );
+
+        /*
+        Determine ticker's starting and ending price
+        */
+        this.tickerStartingPrice = tickerStartingPrice;
+
+        this.tickerEndingPrice = tickerEndingPrice;
+
+        /*
+        Calculate ticker's rate of return
+        */
+        this.tickerRateOfReturn = CalculatorHelperService.calculateRateOfReturn(
+            this.tickerStartingPrice,
+            this.tickerEndingPrice
+        );
     }
 
     private consumeOrCalculateVariableFields(): void {
@@ -202,13 +213,8 @@ export class StockParsingService {
         and standard deviation
         */
 
-        const tickerRateOfReturn = CalculatorHelperService.calculateRateOfReturn(
-            this.tickerStartingPrice,
-            this.tickerEndingPrice
-        );
-
         this.stockProfile.risk.sharpeRatio = RiskCalculatorService.calculateSharpeRatio(
-            tickerRateOfReturn,
+            this.tickerRateOfReturn,
             this.treasuryBondYield,
             standardDeviation
         );
@@ -228,7 +234,7 @@ export class StockParsingService {
         );
 
         this.stockProfile.risk.alpha = RiskCalculatorService.calculateAlpha(
-            tickerRateOfReturn,
+            this.tickerRateOfReturn,
             benchmarkRateOfReturn,
             this.treasuryBondYield,
             this.stockProfile.risk.beta
