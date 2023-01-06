@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 import { Discard } from '../../utils/discard.decorator';
 
 import { ITickerPrice, IGenericPrice } from '../../interfaces/ticker.interface';
