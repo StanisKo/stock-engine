@@ -186,7 +186,7 @@ export class StockParsingService {
         );
     }
 
-    private consumeOrCalculateVariableFields(): void {
+    private consumeOrCalculateRatios(): void {
 
         this.stockProfile.ticker = this.fundamentals.General.Code;
 
@@ -201,33 +201,14 @@ export class StockParsingService {
             )
         };
 
-        this.stockProfile.risk.beta = this.fundamentals.Technicals.Beta;
-
-        this.stockProfile.valuation.priceToEarning = this.fundamentals.Highlights.PERatio;
-
-        this.stockProfile.valuation.priceToEarningsGrowth = this.fundamentals.Highlights.PEGRatio;
-
-        this.stockProfile.valuation.priceToSales = this.fundamentals.Valuation.PriceSalesTTM;
-
-        this.stockProfile.valuation.priceToBook = this.fundamentals.Valuation.PriceBookMRQ;
-
-        this.stockProfile.profitability.returnOnAssets = this.fundamentals.Highlights.ReturnOnAssetsTTM;
-
-        this.stockProfile.profitability.returnOnEquity = this.fundamentals.Highlights.ReturnOnEquityTTM;
-
-        this.stockProfile.profitability.profitMargin = this.fundamentals.Highlights.ProfitMargin;
-
-        this.stockProfile.dividends.dividendYield = this.fundamentals.Highlights.DividendYield;
-
-        this.stockProfile.dividends.dividendPayout = this.fundamentals.SplitsDividends.PayoutRatio;
-    }
-
-    private calculateMissingFields(): void {
-
         /*
         Calculate CAGR over ticker TTM prices
         */
         this.stockProfile.cagr = CAGRCalculatorService.calculateCAGR(this.tickerStartingPrice, this.tickerEndingPrice);
+
+        /* **** */
+
+        this.stockProfile.risk.beta = this.fundamentals.Technicals.Beta;
 
         /*
         Calculate standard deviation over entire dataset of ticker prices (since IPO date)
@@ -260,11 +241,20 @@ export class StockParsingService {
         /*
         Calculate R-Squared over ticker TTM prices and benchmark TTM prices
         */
-
         this.stockProfile.risk.rSquared = RiskCalculatorService.calculateRSquared(
             this.tickerTTMPrices,
             this.benchmarkPrices
         );
+
+        /* **** */
+
+        this.stockProfile.valuation.priceToEarning = this.fundamentals.Highlights.PERatio;
+
+        this.stockProfile.valuation.priceToEarningsGrowth = this.fundamentals.Highlights.PEGRatio;
+
+        this.stockProfile.valuation.priceToSales = this.fundamentals.Valuation.PriceSalesTTM;
+
+        this.stockProfile.valuation.priceToBook = this.fundamentals.Valuation.PriceBookMRQ;
 
         /*
         Calculate EV based on market cap and last annual balance sheet
@@ -296,10 +286,19 @@ export class StockParsingService {
             this.averagePriceOverLastSixtyTradingDays
         );
 
+        /* **** */
+
+        this.stockProfile.profitability.returnOnAssets = this.fundamentals.Highlights.ReturnOnAssetsTTM;
+
+        this.stockProfile.profitability.returnOnEquity = this.fundamentals.Highlights.ReturnOnEquityTTM;
+
+        this.stockProfile.profitability.profitMargin = this.fundamentals.Highlights.ProfitMargin;
+
+        /* **** */
+
         /*
         Calculate Liquidity based on last annual balance sheet
         */
-
         this.stockProfile.liquidity.currentRatio = LiquidityCalculatorService.calculateCurrentRatio(
             Number(this.lastAnnualBalanceSheet.totalCurrentAssets),
             Number(this.lastAnnualBalanceSheet.totalCurrentLiabilities)
@@ -316,7 +315,6 @@ export class StockParsingService {
         /*
         Calculate Debt based on last annual balance sheet and income statement
         */
-
         this.stockProfile.debt.debtToEquity = DebtCalculatorService.calculateDebtToEquity(
             Number(this.lastAnnualBalanceSheet.totalLiab),
             Number(this.lastAnnualBalanceSheet.totalStockholderEquity)
@@ -330,7 +328,6 @@ export class StockParsingService {
         /*
         Calculate Efficiency on last annual income statement and balance sheet
         */
-
         this.stockProfile.efficiency.assetTurnover = EfficiencyCalculatorService.calculateAssetTurnover(
             Number(this.lastAnnualIncomeStatement.totalRevenue),
             Number(this.lastAnnualBalanceSheet.totalAssets)
@@ -340,6 +337,12 @@ export class StockParsingService {
             Number(this.lastAnnualIncomeStatement.costOfRevenue),
             Number(this.lastAnnualBalanceSheet.inventory)
         );
+
+        /* **** */
+
+        this.stockProfile.dividends.dividendYield = this.fundamentals.Highlights.DividendYield;
+
+        this.stockProfile.dividends.dividendPayout = this.fundamentals.SplitsDividends.PayoutRatio;
     }
 
     public parseOutStockProfile(): IStockProfile {
@@ -348,9 +351,7 @@ export class StockParsingService {
 
         this.constructInputsForCalculators();
 
-        this.consumeOrCalculateVariableFields();
-
-        this.calculateMissingFields();
+        this.consumeOrCalculateRatios();
 
         return this.stockProfile;
     }
