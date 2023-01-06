@@ -341,6 +341,8 @@ export class StockParsingService {
 
         this.initializeSectionsToFill();
 
+        this.constructInputsForCalculators();
+
         this.consumeOrCalculateVariableFields();
 
         this.calculateMissingFields();
