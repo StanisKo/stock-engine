@@ -18,13 +18,11 @@ import { IStockProfile } from '../../interfaces/stock-profile.interface';
 import { ITickerFundamentals, ITickerPrice, IBenchmarkPrice, IGenericPrice } from '../../interfaces/ticker.interface';
 
 import { CAGRCalculatorService } from '../calculators/cagr-calculator.service';
-import { StandardDeviationCalculatorService } from '../calculators/standard-deviation-calculator.service';
-import { SharpeRatioCalculatorService } from '../calculators/sharpe-ratio-calculator.service';
-import { AlphaCalculatorService } from '../calculators/alpha-calculator.service';
-import { RSquaredCalculatorService } from '../calculators/r-squared-calculator.service';
+
+import { RiskCalculatorService } from '../calculators/risk-calculator.service';
+import { ValuationCalculatorService } from '../calculators/valuation-calculator.service';
 import { LiquidityCalculatorService } from '../calculators/liquidity-calculator.service';
 import { DebtCalculatorService } from '../calculators/debt-calculator.service';
-import { ValuationCalculatorService } from '../calculators/valuation-calculator.service';
 import { EfficiencyCalculatorService } from '../calculators/efficiency-calculator.service';
 
 import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
@@ -172,7 +170,7 @@ export class StockParsingService {
         Calculate standard deviation over entire dataset of ticker prices (since IPO date)
         */
 
-        const standardDeviation = StandardDeviationCalculatorService.calculateStandardDeviation(this.prices);
+        const standardDeviation = RiskCalculatorService.calculateStandardDeviation(this.prices);
 
         this.stockProfile.risk.standardDeviation = standardDeviation;
 
@@ -186,7 +184,7 @@ export class StockParsingService {
             tickerEndingPrice
         );
 
-        this.stockProfile.risk.sharpeRatio = SharpeRatioCalculatorService.calculateSharpeRatio(
+        this.stockProfile.risk.sharpeRatio = RiskCalculatorService.calculateSharpeRatio(
             tickerRateOfReturn,
             this.treasuryBondYield,
             standardDeviation
@@ -206,7 +204,7 @@ export class StockParsingService {
             benchmarkEndingPrice
         );
 
-        this.stockProfile.risk.alpha = AlphaCalculatorService.calculateAlpha(
+        this.stockProfile.risk.alpha = RiskCalculatorService.calculateAlpha(
             tickerRateOfReturn,
             benchmarkRateOfReturn,
             this.treasuryBondYield,
@@ -217,7 +215,7 @@ export class StockParsingService {
         Calculate R-Squared over ticker TTM prices and benchmark TTM prices
         */
 
-        this.stockProfile.risk.rSquared = RSquaredCalculatorService.calculateRSquared(
+        this.stockProfile.risk.rSquared = RiskCalculatorService.calculateRSquared(
             tickerTTMPrices,
             this.benchmarkPrices
         );
