@@ -42,11 +42,20 @@ export class StockParsingService {
     stockProfile: IStockProfile;
 
 
+    /*
+    Inputs for calculators
+    */
     lastAnnualBalanceSheet: ITickerFundamentals;
 
     lastAnnualIncomeStatement: ITickerFundamentals;
 
     lastAnnualCashFlowStatement: ITickerFundamentals;
+
+    tickerTTMPrices: ITickerPrice[];
+
+    tickerStartingPrice: number;
+
+    tickerEndingPrice: number;
 
     constructor(fundamentals: ITickerFundamentals, prices: ITickerPrice[], benchmarkPrices: IBenchmarkPrice[], treasuryBondYield: number) {
 
@@ -73,6 +82,20 @@ export class StockParsingService {
         this.lastAnnualIncomeStatement = this.fundamentals.Financials.Income_Statement.yearly_last_0;
 
         this.lastAnnualCashFlowStatement = this.fundamentals.Financials.Cash_Flow.yearly_last_0;
+
+        /*
+        Get ticker TTM prices
+        */
+
+        this.tickerTTMPrices = TimeSeriesHelperService.sliceDatasetIntoTTM(this.prices);
+
+        const [tickerStartingPrice, tickerEndingPrice] = TimeSeriesHelperService.getStartingAndEndingPrice(
+            this.tickerTTMPrices as unknown as IGenericPrice[]
+        );
+
+        this.tickerStartingPrice = tickerStartingPrice;
+
+        this.tickerEndingPrice = tickerEndingPrice;
     }
 
     private initializeSectionsToFill(): void {
@@ -161,20 +184,10 @@ export class StockParsingService {
     private calculateMissingFields(): void {
 
         /*
-        Get ticker TTM prices
-        */
-
-        const tickerTTMPrices = TimeSeriesHelperService.sliceDatasetIntoTTM(this.prices);
-
-        const [tickerStartingPrice, tickerEndingPrice] = TimeSeriesHelperService.getStartingAndEndingPrice(
-            tickerTTMPrices as unknown as IGenericPrice[]
-        );
-
-        /*
         Calculate CAGR over ticker TTM prices
         */
 
-        this.stockProfile.cagr = CAGRCalculatorService.calculateCAGR(tickerStartingPrice, tickerEndingPrice);
+        this.stockProfile.cagr = CAGRCalculatorService.calculateCAGR(this.tickerStartingPrice, this.tickerEndingPrice);
 
         /*
         Calculate standard deviation over entire dataset of ticker prices (since IPO date)
@@ -190,8 +203,8 @@ export class StockParsingService {
         */
 
         const tickerRateOfReturn = CalculatorHelperService.calculateRateOfReturn(
-            tickerStartingPrice,
-            tickerEndingPrice
+            this.tickerStartingPrice,
+            this.tickerEndingPrice
         );
 
         this.stockProfile.risk.sharpeRatio = RiskCalculatorService.calculateSharpeRatio(
@@ -226,7 +239,7 @@ export class StockParsingService {
         */
 
         this.stockProfile.risk.rSquared = RiskCalculatorService.calculateRSquared(
-            tickerTTMPrices,
+            this.tickerTTMPrices,
             this.benchmarkPrices
         );
 
