@@ -61,6 +61,8 @@ export class StockParsingService {
 
     benchmarkRateOfReturn: number;
 
+    averagePriceOverLastSixtyTradingDays: number;
+
     constructor(fundamentals: ITickerFundamentals, prices: ITickerPrice[], benchmarkPrices: IBenchmarkPrice[], treasuryBondYield: number) {
 
         this.fundamentals = fundamentals;
@@ -125,7 +127,7 @@ export class StockParsingService {
 
         /*
         Get the last annual balance sheet, income statement and cash flow statement
-        necessary for liquidity, valution, debt, and efficiency calculations
+        necessary for liquidity, valuation, debt, and efficiency calculations
         */
         this.lastAnnualBalanceSheet = this.fundamentals.Financials.Balance_Sheet.yearly_last_0;
 
@@ -169,6 +171,18 @@ export class StockParsingService {
         this.benchmarkRateOfReturn = CalculatorHelperService.calculateRateOfReturn(
             benchmarkStartingPrice,
             benchmarkEndingPrice
+        );
+
+        /*
+        Calculate average price over N (60 in our case) trading days
+        */
+        const pricesOverLastSixtyTradingDays = TimeSeriesHelperService.sliceDatasetIntoLastNTradingDays(
+            this.prices,
+            60
+        );
+
+        this.averagePriceOverLastSixtyTradingDays = CalculatorHelperService.calculateAveragePrice(
+            pricesOverLastSixtyTradingDays
         );
     }
 
@@ -276,19 +290,10 @@ export class StockParsingService {
             Number(this.lastAnnualIncomeStatement.ebitda)
         );
 
-        const pricesOverLastSixtyTradingDays = TimeSeriesHelperService.sliceDatasetIntoLastNTradingDays(
-            this.prices,
-            60
-        );
-
-        const averagePriceOverLastSixtyTradingDays = CalculatorHelperService.calculateAveragePrice(
-            pricesOverLastSixtyTradingDays
-        );
-
         this.stockProfile.valuation.priceToFreeCashFlow = ValuationCalculatorService.calculatePriceToFreeCashFlow(
             Number(this.lastAnnualCashFlowStatement.freeCashFlow),
             Number(this.lastAnnualBalanceSheet.commonStockSharesOutstanding),
-            averagePriceOverLastSixtyTradingDays
+            this.averagePriceOverLastSixtyTradingDays
         );
 
         /*
