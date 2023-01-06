@@ -51,24 +51,15 @@ export class StockParsingService {
 
     lastAnnualCashFlowStatement: ITickerFundamentals;
 
-
     tickerTTMPrices: ITickerPrice[];
 
     tickerStartingPrice: number;
 
     tickerEndingPrice: number;
 
-    tickerReturns: number[];
-
-    tickerAverageRateOfReturn: number;
-
     tickerRateOfReturn: number;
 
-
-    benchmarkReturns: number[];
-
     benchmarkRateOfReturn: number;
-
 
     averagePriceOverLastSixtyTradingDays: number;
 
@@ -161,17 +152,6 @@ export class StockParsingService {
         this.tickerEndingPrice = tickerEndingPrice;
 
         /*
-        Calculate ticker's returns and average rate of return
-        */
-        const [tickerReturns, tickerAverageRateOfReturn] = CalculatorHelperService.calculateAverageRateOfReturn(
-            this.tickerTTMPrices as unknown as IGenericPrice[]
-        );
-
-        this.tickerReturns = tickerReturns;
-
-        this.tickerAverageRateOfReturn = tickerAverageRateOfReturn;
-
-        /*
         Calculate ticker's rate of return
         */
         this.tickerRateOfReturn = CalculatorHelperService.calculateRateOfReturn(
@@ -187,15 +167,6 @@ export class StockParsingService {
         const [benchmarkStartingPrice, benchmarkEndingPrice] = TimeSeriesHelperService.getStartingAndEndingPrice(
             this.benchmarkPrices as unknown as IGenericPrice[]
         );
-
-        /*
-        Calculate benchmark returns and benchmark rate of return
-        */
-        const [benchmarkReturns] = CalculatorHelperService.calculateAverageRateOfReturn(
-            this.benchmarkPrices as unknown as IGenericPrice[]
-        );
-
-        this.benchmarkReturns = benchmarkReturns;
 
         this.benchmarkRateOfReturn = CalculatorHelperService.calculateRateOfReturn(
             benchmarkStartingPrice,
