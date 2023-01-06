@@ -2,6 +2,21 @@ import { IGenericPrice, ITickerPrice } from '../../interfaces/ticker.interface';
 
 export class CalculatorHelperService {
 
+    /*
+    05-01-2023: used only for ticker prices
+    */
+    public static calculateAveragePrice(prices: ITickerPrice[]): number {
+
+        let sum = 0;
+
+        for (let i = 0; i < prices.length; i++) {
+
+            sum += prices[i].adjusted_close;
+        }
+
+        return sum / prices.length;
+    }
+
     public static calculateRateOfReturn(startingPrice: number, endingPrice: number): number {
 
         return ((endingPrice - startingPrice) / startingPrice) * 100;
@@ -53,17 +68,21 @@ export class CalculatorHelperService {
     }
 
     /*
-    05-01-2023: used only for ticker prices
+    To calculate variance we sum the squares of
+    diffs between daily rate of return and average rate of return
+    and then divide it by count of daily returns - 1
     */
-    public static calculateAveragePrice(prices: ITickerPrice[]): number {
+    public static calculateVariance(returns: number[], averageRateOfReturn: number): number {
 
-        let sum = 0;
+        let sumOfSquares = 0;
 
-        for (let i = 0; i < prices.length; i++) {
+        for (let i = 0; i < returns.length; i++) {
 
-            sum += prices[i].adjusted_close;
+            sumOfSquares += Math.pow(returns[i] - averageRateOfReturn, 2);
         }
 
-        return sum / prices.length;
+        const variance = sumOfSquares / returns.length - 1;
+
+        return variance;
     }
 }

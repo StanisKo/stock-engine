@@ -81,25 +81,6 @@ On Covariance: https://www.investopedia.com/terms/c/covariance.asp
 
 export class RiskCalculatorService {
 
-    /*
-    To calculate variance we sum the squares of
-    diffs between daily rate of return and average rate of return
-    and then divide it by count of daily returns - 1
-    */
-    private static calculateVariance(returns: number[], averageRateOfReturn: number): number {
-
-        let sumOfSquares = 0;
-
-        for (let i = 0; i < returns.length; i++) {
-
-            sumOfSquares += Math.pow(returns[i] - averageRateOfReturn, 2);
-        }
-
-        const variance = sumOfSquares / returns.length - 1;
-
-        return variance;
-    }
-
     @Discard
     public static calculateStandardDeviation(prices: ITickerPrice[]): number {
 
@@ -107,7 +88,7 @@ export class RiskCalculatorService {
             prices as unknown as IGenericPrice[]
         );
 
-        const variance = this.calculateVariance(returns, averageRateOfReturn);
+        const variance = CalculatorHelperService.calculateVariance(returns, averageRateOfReturn);
 
         const standardDeviation = Math.sqrt(variance);
 
