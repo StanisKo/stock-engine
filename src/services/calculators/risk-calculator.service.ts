@@ -148,7 +148,7 @@ export class RiskCalculatorService {
             );
 
         /*
-        Finally, we calculate correlation
+        Finally, calculate correlation
         */
         const correlation = covariance / Math.sqrt(
             standardDeviationOfTickerReturns * standardDeviationOfBenchmarkReturns
