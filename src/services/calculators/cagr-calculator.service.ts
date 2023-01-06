@@ -16,7 +16,7 @@ On CAGR: https://www.investopedia.com/terms/c/cagr.asp
 export class CAGRCalculatorService {
 
     @Discard
-    static calculateCAGR(startingPrice: number, endingPrice: number): number {
+    public static calculateCAGR(startingPrice: number, endingPrice: number): number {
 
         /*
         NOTE: we're calculating CAGR over TTM (1 year), we don't need to bring

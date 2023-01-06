@@ -21,13 +21,13 @@ On Interest Coverage: https://www.investopedia.com/terms/i/interestcoverageratio
 export class DebtCalculatorService {
 
     @Discard
-    static calculateDebtToEquity(totalLiabilities: number, totalStockholderEquity: number): number {
+    public static calculateDebtToEquity(totalLiabilities: number, totalStockholderEquity: number): number {
 
         return totalLiabilities / totalStockholderEquity;
     }
 
     @Discard
-    static calculateInterestCoverage(ebit: number, interestExpense: number): number {
+    public static calculateInterestCoverage(ebit: number, interestExpense: number): number {
 
         return ebit / interestExpense;
     }

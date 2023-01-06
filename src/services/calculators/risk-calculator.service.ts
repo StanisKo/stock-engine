@@ -116,10 +116,7 @@ export class RiskCalculatorService {
 
     @Discard
     public static calculateSharpeRatio(
-        tickerRateOfReturn: number,
-        treasuryBondYield: number,
-        tickerStandardDeviation: number
-    ): number {
+        tickerRateOfReturn: number, treasuryBondYield: number, tickerStandardDeviation: number): number {
 
         const sharpeRatio = (tickerRateOfReturn - treasuryBondYield) / tickerStandardDeviation;
 
@@ -128,11 +125,7 @@ export class RiskCalculatorService {
 
     @Discard
     public static calculateAlpha(
-        tickerRateOfReturn: number,
-        benchmarkRateOfReturn: number,
-        treasuryBondYield: number,
-        beta: number
-    ): number {
+        tickerRateOfReturn: number, benchmarkRateOfReturn: number, treasuryBondYield: number, beta: number): number {
 
         /*
         NOTE: we do not express alhpa in decimals (therefore, no division by 100)

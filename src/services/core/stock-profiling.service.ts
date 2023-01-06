@@ -12,17 +12,6 @@ import { ServiceResponse } from '../../dtos/serviceResponse';
 
 import { ApiConnectorService } from './api-connector.service';
 
-/*
-Temp:
-
-https://deepsource.io/blog/nodejs-worker-threads/
-
-https://blog.logrocket.com/node-js-multithreading-worker-threads-why-they-matter/
-
-On worker pools!:
-https://www.npmjs.com/package/piscina
-*/
-
 export class StockProfilingService {
 
     public async profileStocks(): Promise<ServiceResponse> {

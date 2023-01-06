@@ -48,25 +48,26 @@ export class ValuationCalculatorService {
     static enterpriseValue: number;
 
     @Discard
-    static calculateEnterpriseValue(marketCap: number, debt: number, cash: number, cashAndEquivalents: number): void {
+    public static calculateEnterpriseValue(
+        marketCap: number, debt: number, cash: number, cashAndEquivalents: number): void {
 
         ValuationCalculatorService.enterpriseValue = marketCap + debt - cash - cashAndEquivalents;
     }
 
     @Discard
-    static calculateEVR(revenue: number): number {
+    public static calculateEVR(revenue: number): number {
 
         return ValuationCalculatorService.enterpriseValue / revenue;
     }
 
     @Discard
-    static calculateEVEBITDA(ebitda: number): number {
+    public static calculateEVEBITDA(ebitda: number): number {
 
         return ValuationCalculatorService.enterpriseValue / ebitda;
     }
 
     @Discard
-    static calculatePriceToFreeCashFlow(freeCashFlow: number, sharesOutstanding: number, price: number): number {
+    public static calculatePriceToFreeCashFlow(freeCashFlow: number, sharesOutstanding: number, price: number): number {
 
         const freeCashFlowPerShare = freeCashFlow / sharesOutstanding;
 

@@ -26,19 +26,16 @@ On Quick Assets: https://www.investopedia.com/terms/q/quickratio.asp
 export class LiquidityCalculatorService {
 
     @Discard
-    static calculateCurrentRatio(currentAssets: number, currentLiabilities: number): number {
+    public static calculateCurrentRatio(currentAssets: number, currentLiabilities: number): number {
 
         return currentAssets / currentLiabilities;
     }
 
     @Discard
-    static calculateQuickRatio(
+    public static calculateQuickRatio(
         cash: number,
         cashAndEquivalents: number,
-        shortTermInvestments: number,
-        netReceivables: number,
-        currentLiabilities: number
-    ): number {
+        shortTermInvestments: number, netReceivables: number, currentLiabilities: number): number {
 
         return (cash + cashAndEquivalents + shortTermInvestments + netReceivables) / currentLiabilities;
     }
