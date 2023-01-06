@@ -208,8 +208,6 @@ export class StockParsingService {
 
         /* **** */
 
-        this.stockProfile.risk.beta = this.fundamentals.Technicals.Beta;
-
         /*
         Calculate standard deviation over entire dataset of ticker prices (since IPO date)
         */
@@ -226,6 +224,8 @@ export class StockParsingService {
             this.treasuryBondYield,
             standardDeviation
         );
+
+        this.stockProfile.risk.beta = this.fundamentals.Technicals.Beta;
 
         /*
         Calculate alpha over ticker rate of return, benchmark rate of return,
