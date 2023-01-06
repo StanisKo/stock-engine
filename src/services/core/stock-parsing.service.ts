@@ -202,22 +202,23 @@ export class StockParsingService {
         };
 
         /*
-        Calculate CAGR over ticker TTM prices
+        CAGR is always missing, calculate over ticker TTM prices
         */
         this.stockProfile.cagr = CAGRCalculatorService.calculateCAGR(this.tickerStartingPrice, this.tickerEndingPrice);
 
         /* **** */
 
         /*
-        Calculate standard deviation over entire dataset of ticker prices (since IPO date)
+        Standard Deviation is always missing,
+        calculate over entire dataset of ticker prices (since IPO date)
         */
         const standardDeviation = RiskCalculatorService.calculateStandardDeviation(this.prices);
 
         this.stockProfile.risk.standardDeviation = standardDeviation;
 
         /*
-        Calculate sharpe ratio over ticker rate of return, risk-free rate (US Treasury 1YR bond yield)
-        and standard deviation
+        Sharpe Ratio is always missing,
+        calculate over ticker rate of return, risk-free rate (US Treasury 1YR bond yield) and standard deviation
         */
         this.stockProfile.risk.sharpeRatio = RiskCalculatorService.calculateSharpeRatio(
             this.tickerRateOfReturn,
@@ -225,6 +226,9 @@ export class StockParsingService {
             standardDeviation
         );
 
+        /*
+        WIP
+        */
         this.stockProfile.risk.beta = this.fundamentals.Technicals.Beta;
 
         /*
@@ -265,21 +269,27 @@ export class StockParsingService {
         number of outstanding shares (last annual balance sheet), and stock price (average of last 60 trading days)
         */
 
-        ValuationCalculatorService.calculateEnterpriseValue(
-            Number(this.fundamentals.Highlights.MarketCapitalization),
-            Number(this.lastAnnualBalanceSheet.shortLongTermDebtTotal),
-            Number(this.lastAnnualBalanceSheet.cash),
-            Number(this.lastAnnualBalanceSheet.cashAndEquivalents)
-        );
+        ValuationCalculatorService.enterpriseValue =
+            this.fundamentals.Valuation.EnterpriseValue ?? ValuationCalculatorService.calculateEnterpriseValue(
+                Number(this.fundamentals.Highlights.MarketCapitalization),
+                Number(this.lastAnnualBalanceSheet.shortLongTermDebtTotal),
+                Number(this.lastAnnualBalanceSheet.cash),
+                Number(this.lastAnnualBalanceSheet.cashAndEquivalents)
+            );
 
-        this.stockProfile.valuation.enterpriseValueToRevenue = ValuationCalculatorService.calculateEVR(
-            Number(this.lastAnnualIncomeStatement.totalRevenue)
-        );
+        this.stockProfile.valuation.enterpriseValueToRevenue =
+            this.fundamentals.Valuation.EnterpriseValueRevenue ?? ValuationCalculatorService.calculateEVR(
+                Number(this.lastAnnualIncomeStatement.totalRevenue)
+            );
 
-        this.stockProfile.valuation.enterpriseValueToEbitda = ValuationCalculatorService.calculateEVEBITDA(
-            Number(this.lastAnnualIncomeStatement.ebitda)
-        );
+        this.stockProfile.valuation.enterpriseValueToEbitda =
+            this.fundamentals.Valuation.EnterpriseValueEbitda ?? ValuationCalculatorService.calculateEVEBITDA(
+                Number(this.lastAnnualIncomeStatement.ebitda)
+            );
 
+        /*
+        Price to Free Cash Flow is always missing
+        */
         this.stockProfile.valuation.priceToFreeCashFlow = ValuationCalculatorService.calculatePriceToFreeCashFlow(
             Number(this.lastAnnualCashFlowStatement.freeCashFlow),
             Number(this.lastAnnualBalanceSheet.commonStockSharesOutstanding),

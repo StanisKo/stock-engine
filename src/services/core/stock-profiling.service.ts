@@ -27,7 +27,9 @@ export class StockProfilingService {
             /*
             We need to process all of them anyways
             */
-            const fundamentals = await Fundamentals.find({}).lean();
+            // const fundamentals = await Fundamentals.find({}).lean();
+
+            const fundamentals = await Fundamentals.find({ 'data.General.Code': 'AAPL' }).lean();
 
             /*
             Testing:
