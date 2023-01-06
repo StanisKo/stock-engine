@@ -37,6 +37,10 @@ On Sharpe Ratio: https://www.investopedia.com/terms/s/sharperatio.asp
 
 ****
 
+Beta = Covariance(Ticker RoR, Benchmark RoR) / Variance(Benchmark Returns)
+
+****
+
 Alpha — measures excess returns/losses against the return of the index
 
 Alpha = (R – Rf) – Beta * (Rm - Rf)
@@ -124,6 +128,20 @@ export class RiskCalculatorService {
     }
 
     @Discard
+    public static calculateBeta(
+        tickerReturns: number[], tickerAverageRateOfReturn: number, benchmarkReturns: number[]): number {
+
+        const tickerBenchmarkCovariance = CalculatorHelperService.calculateTickerBenchmarkCovariance(
+            tickerReturns,
+            benchmarkReturns
+        );
+
+        const tickerVariance = this.calculateVariance(tickerReturns, tickerAverageRateOfReturn);
+
+        return tickerBenchmarkCovariance / tickerVariance;
+    }
+
+    @Discard
     public static calculateAlpha(
         tickerRateOfReturn: number, benchmarkRateOfReturn: number, treasuryBondYield: number, beta: number): number {
 
@@ -136,6 +154,13 @@ export class RiskCalculatorService {
         );
     }
 
+    /*
+    NOTE: this method partially mimics calculateTickerBenchmarkCovariance from helper service,
+    since it needs additional values to calculate Standard Deviation over returns
+
+    The default standard deviation method produces infinity when working with returns
+    (JavaScript limitations)
+    */
     private static calculateCorrelation(tickerReturns: number[], benchmarkReturns: number[]): number {
 
         const N = tickerReturns.length;
