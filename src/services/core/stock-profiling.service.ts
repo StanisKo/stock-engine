@@ -12,17 +12,6 @@ import { ServiceResponse } from '../../dtos/serviceResponse';
 
 import { ApiConnectorService } from './api-connector.service';
 
-/*
-Temp:
-
-https://deepsource.io/blog/nodejs-worker-threads/
-
-https://blog.logrocket.com/node-js-multithreading-worker-threads-why-they-matter/
-
-On worker pools!:
-https://www.npmjs.com/package/piscina
-*/
-
 export class StockProfilingService {
 
     public async profileStocks(): Promise<ServiceResponse> {
@@ -38,7 +27,9 @@ export class StockProfilingService {
             /*
             We need to process all of them anyways
             */
-            const fundamentals = await Fundamentals.find({}).lean();
+            // const fundamentals = await Fundamentals.find({}).lean();
+
+            const fundamentals = await Fundamentals.find({ 'data.General.Code': 'AAPL' }).lean();
 
             /*
             Testing:

@@ -2,12 +2,12 @@ import { IGenericPrice, ITickerPrice } from '../../interfaces/ticker.interface';
 
 export class CalculatorHelperService {
 
-    static calculateRateOfReturn(startingPrice: number, endingPrice: number): number {
+    public static calculateRateOfReturn(startingPrice: number, endingPrice: number): number {
 
         return ((endingPrice - startingPrice) / startingPrice) * 100;
     }
 
-    static calculateAverageRateOfReturn(prices: IGenericPrice[]): [number[], number] {
+    public static calculateAverageRateOfReturn(prices: IGenericPrice[]): [number[], number] {
 
         const returns: number[] = [];
 
@@ -46,11 +46,8 @@ export class CalculatorHelperService {
         return [returns, sumOfReturns / returns.length];
     }
 
-    static calculateStandardDeviationOverReturns(
-        datasetSize: number,
-        sumOfReturns: number,
-        sumOfSquaredReturns: number
-    ): number {
+    public static calculateStandardDeviationOverReturns(
+        datasetSize: number, sumOfReturns: number, sumOfSquaredReturns: number): number {
 
         return datasetSize * sumOfSquaredReturns - Math.pow(sumOfReturns, 2);
     }
@@ -58,7 +55,7 @@ export class CalculatorHelperService {
     /*
     05-01-2023: used only for ticker prices
     */
-    static calculateAveragePrice(prices: ITickerPrice[]): number {
+    public static calculateAveragePrice(prices: ITickerPrice[]): number {
 
         let sum = 0;
 

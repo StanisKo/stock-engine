@@ -19,13 +19,13 @@ On Inventory Turnover: https://www.investopedia.com/terms/i/inventoryturnover.as
 export class EfficiencyCalculatorService {
 
     @Discard
-    static calculateAssetTurnover(sales: number, averageTotalAssets: number): number {
+    public static calculateAssetTurnover(sales: number, averageTotalAssets: number): number {
 
         return sales / averageTotalAssets;
     }
 
     @Discard
-    static calculateInventoryTurnover(costOfGoodsSold: number, averageValueOfInventory: number): number {
+    public static calculateInventoryTurnover(costOfGoodsSold: number, averageValueOfInventory: number): number {
 
         /*
         If we're looking at a service company that does not have inventory, we return 0
