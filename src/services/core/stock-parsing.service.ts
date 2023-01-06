@@ -41,6 +41,13 @@ export class StockParsingService {
 
     stockProfile: IStockProfile;
 
+
+    lastAnnualBalanceSheet: ITickerFundamentals;
+
+    lastAnnualIncomeStatement: ITickerFundamentals;
+
+    lastAnnualCashFlowStatement: ITickerFundamentals;
+
     constructor(fundamentals: ITickerFundamentals, prices: ITickerPrice[], benchmarkPrices: IBenchmarkPrice[], treasuryBondYield: number) {
 
         this.fundamentals = fundamentals;
@@ -52,6 +59,20 @@ export class StockParsingService {
         this.treasuryBondYield = treasuryBondYield;
 
         this.stockProfile = {} as IStockProfile;
+    }
+
+    private constructInputsForCalculators(): void {
+
+        /*
+        Get the last annual balance sheet, income statement and cash flow statement
+        necessary for liquidity, valution, debt, and efficiency calculations
+        */
+
+        this.lastAnnualBalanceSheet = this.fundamentals.Financials.Balance_Sheet.yearly_last_0;
+
+        this.lastAnnualIncomeStatement = this.fundamentals.Financials.Income_Statement.yearly_last_0;
+
+        this.lastAnnualCashFlowStatement = this.fundamentals.Financials.Cash_Flow.yearly_last_0;
     }
 
     private initializeSectionsToFill(): void {
@@ -140,17 +161,6 @@ export class StockParsingService {
     private calculateMissingFields(): void {
 
         /*
-        Get the last annual balance sheet, income statement and cash flow statement
-        necessary for liquidity, valution, debt, and efficiency calculations
-        */
-
-        const lastAnnualBalanceSheet = this.fundamentals.Financials.Balance_Sheet.yearly_last_0;
-
-        const lastAnnualIncomeStatement = this.fundamentals.Financials.Income_Statement.yearly_last_0;
-
-        const lastAnnualCashFlowStatement = this.fundamentals.Financials.Cash_Flow.yearly_last_0;
-
-        /*
         Get ticker TTM prices
         */
 
@@ -231,17 +241,17 @@ export class StockParsingService {
 
         ValuationCalculatorService.calculateEnterpriseValue(
             Number(this.fundamentals.Highlights.MarketCapitalization),
-            Number(lastAnnualBalanceSheet.shortLongTermDebtTotal),
-            Number(lastAnnualBalanceSheet.cash),
-            Number(lastAnnualBalanceSheet.cashAndEquivalents)
+            Number(this.lastAnnualBalanceSheet.shortLongTermDebtTotal),
+            Number(this.lastAnnualBalanceSheet.cash),
+            Number(this.lastAnnualBalanceSheet.cashAndEquivalents)
         );
 
         this.stockProfile.valuation.enterpriseValueToRevenue = ValuationCalculatorService.calculateEVR(
-            Number(lastAnnualIncomeStatement.totalRevenue)
+            Number(this.lastAnnualIncomeStatement.totalRevenue)
         );
 
         this.stockProfile.valuation.enterpriseValueToEbitda = ValuationCalculatorService.calculateEVEBITDA(
-            Number(lastAnnualIncomeStatement.ebitda)
+            Number(this.lastAnnualIncomeStatement.ebitda)
         );
 
         const pricesOverLastSixtyTradingDays = TimeSeriesHelperService.sliceDatasetIntoLastNTradingDays(
@@ -254,8 +264,8 @@ export class StockParsingService {
         );
 
         this.stockProfile.valuation.priceToFreeCashFlow = ValuationCalculatorService.calculatePriceToFreeCashFlow(
-            Number(lastAnnualCashFlowStatement.freeCashFlow),
-            Number(lastAnnualBalanceSheet.commonStockSharesOutstanding),
+            Number(this.lastAnnualCashFlowStatement.freeCashFlow),
+            Number(this.lastAnnualBalanceSheet.commonStockSharesOutstanding),
             averagePriceOverLastSixtyTradingDays
         );
 
@@ -264,16 +274,16 @@ export class StockParsingService {
         */
 
         this.stockProfile.liquidity.currentRatio = LiquidityCalculatorService.calculateCurrentRatio(
-            Number(lastAnnualBalanceSheet.totalCurrentAssets),
-            Number(lastAnnualBalanceSheet.totalCurrentLiabilities)
+            Number(this.lastAnnualBalanceSheet.totalCurrentAssets),
+            Number(this.lastAnnualBalanceSheet.totalCurrentLiabilities)
         );
 
         this.stockProfile.liquidity.quickRatio = LiquidityCalculatorService.calculateQuickRatio(
-            Number(lastAnnualBalanceSheet.cash),
-            Number(lastAnnualBalanceSheet.cashAndEquivalents),
-            Number(lastAnnualBalanceSheet.shortTermInvestments),
-            Number(lastAnnualBalanceSheet.netReceivables),
-            Number(lastAnnualBalanceSheet.totalCurrentLiabilities)
+            Number(this.lastAnnualBalanceSheet.cash),
+            Number(this.lastAnnualBalanceSheet.cashAndEquivalents),
+            Number(this.lastAnnualBalanceSheet.shortTermInvestments),
+            Number(this.lastAnnualBalanceSheet.netReceivables),
+            Number(this.lastAnnualBalanceSheet.totalCurrentLiabilities)
         );
 
         /*
@@ -281,13 +291,13 @@ export class StockParsingService {
         */
 
         this.stockProfile.debt.debtToEquity = DebtCalculatorService.calculateDebtToEquity(
-            Number(lastAnnualBalanceSheet.totalLiab),
-            Number(lastAnnualBalanceSheet.totalStockholderEquity)
+            Number(this.lastAnnualBalanceSheet.totalLiab),
+            Number(this.lastAnnualBalanceSheet.totalStockholderEquity)
         );
 
         this.stockProfile.debt.interestCoverage = DebtCalculatorService.calculateInterestCoverage(
-            Number(lastAnnualIncomeStatement.ebit),
-            Number(lastAnnualIncomeStatement.interestExpense)
+            Number(this.lastAnnualIncomeStatement.ebit),
+            Number(this.lastAnnualIncomeStatement.interestExpense)
         );
 
         /*
@@ -295,13 +305,13 @@ export class StockParsingService {
         */
 
         this.stockProfile.efficiency.assetTurnover = EfficiencyCalculatorService.calculateAssetTurnover(
-            Number(lastAnnualIncomeStatement.totalRevenue),
-            Number(lastAnnualBalanceSheet.totalAssets)
+            Number(this.lastAnnualIncomeStatement.totalRevenue),
+            Number(this.lastAnnualBalanceSheet.totalAssets)
         );
 
         this.stockProfile.efficiency.inventoryTurnover = EfficiencyCalculatorService.calculateInventoryTurnover(
-            Number(lastAnnualIncomeStatement.costOfRevenue),
-            Number(lastAnnualBalanceSheet.inventory)
+            Number(this.lastAnnualIncomeStatement.costOfRevenue),
+            Number(this.lastAnnualBalanceSheet.inventory)
         );
     }
 
