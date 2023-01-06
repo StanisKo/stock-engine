@@ -59,6 +59,8 @@ export class StockParsingService {
 
     tickerRateOfReturn: number;
 
+    benchmarkRateOfReturn: number;
+
     constructor(fundamentals: ITickerFundamentals, prices: ITickerPrice[], benchmarkPrices: IBenchmarkPrice[], treasuryBondYield: number) {
 
         this.fundamentals = fundamentals;
@@ -154,6 +156,20 @@ export class StockParsingService {
             this.tickerStartingPrice,
             this.tickerEndingPrice
         );
+
+        /*
+        Determine benchmark's starting and ending price
+
+        NOTE: benchmark prices are already TTM by default
+        */
+        const [benchmarkStartingPrice, benchmarkEndingPrice] = TimeSeriesHelperService.getStartingAndEndingPrice(
+            this.benchmarkPrices as unknown as IGenericPrice[]
+        );
+
+        this.benchmarkRateOfReturn = CalculatorHelperService.calculateRateOfReturn(
+            benchmarkStartingPrice,
+            benchmarkEndingPrice
+        );
     }
 
     private consumeOrCalculateVariableFields(): void {
@@ -197,13 +213,11 @@ export class StockParsingService {
         /*
         Calculate CAGR over ticker TTM prices
         */
-
         this.stockProfile.cagr = CAGRCalculatorService.calculateCAGR(this.tickerStartingPrice, this.tickerEndingPrice);
 
         /*
         Calculate standard deviation over entire dataset of ticker prices (since IPO date)
         */
-
         const standardDeviation = RiskCalculatorService.calculateStandardDeviation(this.prices);
 
         this.stockProfile.risk.standardDeviation = standardDeviation;
@@ -212,7 +226,6 @@ export class StockParsingService {
         Calculate sharpe ratio over ticker rate of return, risk-free rate (US Treasury 1YR bond yield)
         and standard deviation
         */
-
         this.stockProfile.risk.sharpeRatio = RiskCalculatorService.calculateSharpeRatio(
             this.tickerRateOfReturn,
             this.treasuryBondYield,
@@ -223,19 +236,9 @@ export class StockParsingService {
         Calculate alpha over ticker rate of return, benchmark rate of return,
         risk-free rate (US Treasury 1YR bond yield), and ticker's beta
         */
-
-        const [benchmarkStartingPrice, benchmarkEndingPrice] = TimeSeriesHelperService.getStartingAndEndingPrice(
-            this.benchmarkPrices as unknown as IGenericPrice[]
-        );
-
-        const benchmarkRateOfReturn = CalculatorHelperService.calculateRateOfReturn(
-            benchmarkStartingPrice,
-            benchmarkEndingPrice
-        );
-
         this.stockProfile.risk.alpha = RiskCalculatorService.calculateAlpha(
             this.tickerRateOfReturn,
-            benchmarkRateOfReturn,
+            this.benchmarkRateOfReturn,
             this.treasuryBondYield,
             this.stockProfile.risk.beta
         );
