@@ -84,6 +84,11 @@ export class RiskCalculatorService {
     @Discard
     public static calculateStandardDeviation(prices: ITickerPrice[]): number {
 
+        /*
+        NOTE: we do not calculate returns and ARoR during inputs construction,
+        since for SD we need returns and ARoR over prices since IPO, yet,
+        in other cases -- over TTM prices
+        */
         const [returns, averageRateOfReturn] = CalculatorHelperService.calculateAverageRateOfReturn(
             prices as unknown as IGenericPrice[]
         );
