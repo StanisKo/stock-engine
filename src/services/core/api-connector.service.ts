@@ -53,13 +53,26 @@ export class ApiConnectorService {
         return outputFromExchnage;
     }
 
-    public static async requestTickerFundamentals(ticker: string): Promise<string> {
+    public static async requestTickerFundamentals(ticker: string): Promise<ITickerFundamentals> {
 
-        const request = await fetch(
-            `${this.fundametalsDataApiUrl}/fundamentals/${ticker}.US?api_token=${this.fundametalsDataApiKey}`
-        );
+        let fundamentals;
 
-        const fundamentals = await request.json();
+        try {
+
+            const request = await fetch(
+                `${this.fundametalsDataApiUrl}/fundamentals/${ticker}.US?api_token=${this.fundametalsDataApiKey}`
+            );
+
+            fundamentals = await request.json();
+        }
+        catch (_) {
+
+            /*
+            Bubble up the error if fundametals are unavailable for provided ticker
+            */
+            throw new Error();
+
+        }
 
         return fundamentals;
     }
@@ -79,7 +92,7 @@ export class ApiConnectorService {
 
             prices = await request.json();
 
-        } catch (error) {
+        } catch (_) {
 
             /*
             Bubble up the error if prices are unavailable for provided ticker
