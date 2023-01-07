@@ -51,7 +51,6 @@ export class SingleStockProfilingService {
             response.success = true;
 
             response.data = stockProfile;
-
         }
         catch (error) {
 
