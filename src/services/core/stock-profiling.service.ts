@@ -82,7 +82,11 @@ export class StockProfilingService {
 
                 try {
 
-                    await StockProfile.create(stockProfiles[i]);
+                    await StockProfile.findOneAndUpdate(
+                        {},
+                        stockProfiles[i],
+                        { upsert: true, new: true, setDefaultsOnInsert: true }
+                    );
                 }
                 catch (error) {
 
