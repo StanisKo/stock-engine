@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import http from 'http';
 import express, { Application } from 'express';
 import cors from 'cors';
@@ -42,7 +44,12 @@ export class Server {
 
     private connectRoutes(): void {
 
-        this.application.use('', stockProfilingRouter, stockIngestingRouter, singleProfilingRouter);
+        this.application.use('', stockProfilingRouter, stockIngestingRouter);
+
+        if (['local'].includes(process.env.ENV!)) {
+
+            this.application.use('', singleProfilingRouter);
+        }
     }
 
     private async establishDatabaseConnection(): Promise<void> {
