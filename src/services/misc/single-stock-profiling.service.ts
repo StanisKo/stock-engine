@@ -1,6 +1,10 @@
+import { IFundamentals } from '../../interfaces/fundamentals.interface';
+
 import { IStockProfile } from '../../interfaces/stock-profile.interface';
 
 import { DataServiceResponse } from '../../dtos/serviceResponse';
+
+import { Fundamentals } from '../../schemas/fundamentals.schema';
 
 import { ApiConnectorService } from '../core/api-connector.service';
 import { StockParsingService } from '../core/stock-parsing.service';
@@ -13,7 +17,7 @@ export class SingleStockProfilingService {
 
         try {
 
-            const fundamentals = await ApiConnectorService.requestTickerFundamentals(ticker);
+            const fundamentals: IFundamentals = await Fundamentals.findOne({ 'data.General.Code': ticker }).lean();
 
             if (!fundamentals) {
 
@@ -40,7 +44,7 @@ export class SingleStockProfilingService {
             const treasuryBondYield = await ApiConnectorService.requestUSTreasuryBondYield();
 
             const stockParsingService = new StockParsingService(
-                fundamentals,
+                fundamentals.data,
                 prices,
                 benchmarkPrices,
                 treasuryBondYield
