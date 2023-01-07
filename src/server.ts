@@ -7,6 +7,8 @@ import dotenv from 'dotenv';
 import stockProfilingRouter from './routes/stock-profiling.routes';
 import stockIngestingRouter from './routes/stock-ingesting.routes';
 
+import singleProfilingRouter from './routes/single-stock-profiling.routes';
+
 import { ApiConnectorService } from './services/core/api-connector.service';
 
 export class Server {
@@ -40,7 +42,7 @@ export class Server {
 
     private connectRoutes(): void {
 
-        this.application.use('', stockProfilingRouter, stockIngestingRouter);
+        this.application.use('', stockProfilingRouter, stockIngestingRouter, singleProfilingRouter);
     }
 
     private async establishDatabaseConnection(): Promise<void> {

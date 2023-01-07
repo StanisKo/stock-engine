@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 
 import { SingleStockProfilingService } from '../services/misc/single-stock-profiling.service';
 
-export const profileStocks = async (request: Request, response: Response): Promise<Response> => {
+export const profileStock = async (request: Request, response: Response): Promise<Response> => {
 
     const { ticker } = request.query;
 
