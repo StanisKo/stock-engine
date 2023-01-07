@@ -27,15 +27,7 @@ export class StockProfilingService {
             /*
             We need to process all of them anyways
             */
-            // const fundamentals = await Fundamentals.find({}).lean();
-
-            const fundamentals = await Fundamentals.find({ 'data.General.Code': 'AAPL' }).lean();
-
-            /*
-            Testing:
-
-            const fundamentals = await Fundamentals.find({ 'data.General.Code': 'AAPL' }).lean();
-            */
+            const fundamentals = await Fundamentals.find({}).lean();
 
             /*
             We batch by 500 sets
@@ -82,7 +74,11 @@ export class StockProfilingService {
 
                 try {
 
-                    await StockProfile.create(stockProfiles[i]);
+                    await StockProfile.findOneAndUpdate(
+                        {},
+                        stockProfiles[i],
+                        { upsert: true, new: true, setDefaultsOnInsert: true }
+                    );
                 }
                 catch (error) {
 

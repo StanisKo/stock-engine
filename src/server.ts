@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import http from 'http';
 import express, { Application } from 'express';
 import cors from 'cors';
@@ -6,6 +8,8 @@ import dotenv from 'dotenv';
 
 import stockProfilingRouter from './routes/stock-profiling.routes';
 import stockIngestingRouter from './routes/stock-ingesting.routes';
+
+import singleProfilingRouter from './routes/single-stock-profiling.routes';
 
 import { ApiConnectorService } from './services/core/api-connector.service';
 
@@ -41,6 +45,11 @@ export class Server {
     private connectRoutes(): void {
 
         this.application.use('', stockProfilingRouter, stockIngestingRouter);
+
+        if (['local'].includes(process.env.ENV!)) {
+
+            this.application.use('', singleProfilingRouter);
+        }
     }
 
     private async establishDatabaseConnection(): Promise<void> {
