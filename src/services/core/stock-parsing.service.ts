@@ -226,9 +226,6 @@ export class StockParsingService {
             standardDeviation
         );
 
-        /*
-        WIP
-        */
         this.stockProfile.risk.beta = this.fundamentals.Technicals.Beta;
 
         /*
