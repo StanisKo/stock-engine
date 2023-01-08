@@ -52,6 +52,10 @@ export class StockParserService {
         this.treasuryBondYield = treasuryBondYield;
 
         this.stockProfile = {} as IStockProfile;
+
+        this.constructInputsForCalculators();
+
+        this.initializeCategoriesToFill();
     }
 
     private constructInputsForCalculators(): void {
