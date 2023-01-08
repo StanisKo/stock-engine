@@ -19,6 +19,8 @@ only then proceed to calculate missing (with additional inputs)
 On modularizing: have one super class that hosts shared values
 
 Have per category class for parsing
+
+actually, rest of the classes do not inherit from parent; it must be a partial class
 */
 
 import { IStockProfile } from '../../interfaces/stock-profile.interface';
