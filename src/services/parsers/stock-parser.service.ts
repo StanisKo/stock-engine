@@ -15,27 +15,22 @@ export class StockParserService {
 
     tickerTTMPrices: ITickerPrice[];
 
-    tickerTTMStartingPrice: number;
-
-    tickerTTMEndingPrice: number;
-
     tickerTTMRateOfReturn: number;
 
     tickerTTMAverageRateOfReturn: number;
 
-    tickerAveragePriceOverLastSixtyTradingDays: number;
+    tickerTTMReturns: number[];
 
+    tickerAveragePriceOverLastSixtyTradingDays: number;
 
 
     benchmarkTTMPrices: IBenchmarkPrice[];
 
-    benchmarkTTMStartingPrice: number;
-
-    benchmarkTTMEndingPrice: number;
-
     benchmarkTTMRateOfReturn: number;
 
     benchmarkTTMAverageRateOfReturn: number;
+
+    benchmarkTTMReturns: number[];
 
 
     treasuryBondYield: number;
@@ -52,15 +47,18 @@ export class StockParserService {
         fundamentals: ITickerFundamentals,
         prices: ITickerPrice[], benchmarkPrices: IBenchmarkPrice[], treasuryBondYield: number) {
 
+        this.stockProfile = {} as IStockProfile;
+
         this.fundamentals = fundamentals;
+
 
         this.tickerPricesSinceIPO = prices;
 
         this.benchmarkTTMPrices = benchmarkPrices;
 
+
         this.treasuryBondYield = treasuryBondYield;
 
-        this.stockProfile = {} as IStockProfile;
 
         this.constructInputsForCalculators();
 
@@ -84,32 +82,42 @@ export class StockParserService {
         */
         this.tickerTTMPrices = TimeSeriesHelperService.sliceDatasetIntoTTM(this.tickerPricesSinceIPO);
 
+        /*
+        Get ticker starting and ending TTM prices
+        */
         const [tickerStartingPrice, tickerEndingPrice] = TimeSeriesHelperService.getStartingAndEndingPrice(
             this.tickerTTMPrices as unknown as IGenericPrice[]
         );
 
         /*
-        Determine ticker's starting and ending price
-        */
-        this.tickerTTMStartingPrice = tickerStartingPrice;
-
-        this.tickerTTMEndingPrice = tickerEndingPrice;
-
-        /*
-        Calculate ticker's rate of return
+        Calculate ticker rate of return over starting and ending prices
         */
         this.tickerTTMRateOfReturn = CalculatorHelperService.calculateRateOfReturn(
-            this.tickerTTMStartingPrice,
-            this.tickerTTMEndingPrice
+            tickerStartingPrice,
+            tickerEndingPrice
         );
 
         /*
-        Determine benchmark's starting and ending price
+        Calculate ticker returns and average rate of return TTM
+        */
+        const [tickerReturns, tickerTTMAverageRateOfReturn] = CalculatorHelperService.calculateAverageRateOfReturn(
+            this.tickerTTMPrices as unknown as IGenericPrice[]
+        );
+
+        this.tickerTTMReturns = tickerReturns;
+
+        this.tickerTTMAverageRateOfReturn = tickerTTMAverageRateOfReturn;
+
+        /*
+        Get benchmark starting and ending TTM prices
         */
         const [benchmarkStartingPrice, benchmarkEndingPrice] = TimeSeriesHelperService.getStartingAndEndingPrice(
             this.benchmarkTTMPrices as unknown as IGenericPrice[]
         );
 
+        /*
+        Calculate benchmark rate of return over starting and ending prices
+        */
         this.benchmarkTTMRateOfReturn = CalculatorHelperService.calculateRateOfReturn(
             benchmarkStartingPrice,
             benchmarkEndingPrice
