@@ -4,7 +4,7 @@ import { ITickerFundamentals, ITickerPrice, IBenchmarkPrice, IGenericPrice } fro
 import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 import { CalculatorHelperService } from '../helpers/calculator-helper.service';
 
-import { parseGeneral } from './general-parser-service';
+import { parseGeneral } from './general-parser.service';
 
 /*
 Serves a purpose of shared storage of data used in sub-parsers and calculators
