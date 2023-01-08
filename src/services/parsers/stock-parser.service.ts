@@ -4,6 +4,10 @@ import { ITickerFundamentals, ITickerPrice, IBenchmarkPrice, IGenericPrice } fro
 import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 import { CalculatorHelperService } from '../helpers/calculator-helper.service';
 
+/*
+Serves a purpose of shared storage of data used in sub-parsers and calculators
+*/
+
 export class StockParserService {
 
     fundamentals: ITickerFundamentals;
@@ -77,6 +81,8 @@ export class StockParserService {
 
         this.lastAnnualCashFlowStatement = this.fundamentals.Financials.Cash_Flow.yearly_last_0;
 
+        /* **** */
+
         /*
         Get ticker TTM prices
         */
@@ -109,6 +115,20 @@ export class StockParserService {
         this.tickerTTMAverageRateOfReturn = tickerTTMAverageRateOfReturn;
 
         /*
+        Calculate ticker average price over N (60 in our case) trading days
+        */
+        const pricesOverLastSixtyTradingDays = TimeSeriesHelperService.sliceDatasetIntoLastNTradingDays(
+            this.tickerPricesSinceIPO,
+            60
+        );
+
+        this.tickerAveragePriceOverLastSixtyTradingDays = CalculatorHelperService.calculateAveragePrice(
+            pricesOverLastSixtyTradingDays
+        );
+
+        /* **** */
+
+        /*
         Get benchmark starting and ending TTM prices
         */
         const [benchmarkStartingPrice, benchmarkEndingPrice] = TimeSeriesHelperService.getStartingAndEndingPrice(
@@ -124,16 +144,15 @@ export class StockParserService {
         );
 
         /*
-        Calculate average price over N (60 in our case) trading days
+        Calculate benchamrk returns and average rate of return TTM
         */
-        const pricesOverLastSixtyTradingDays = TimeSeriesHelperService.sliceDatasetIntoLastNTradingDays(
-            this.tickerPricesSinceIPO,
-            60
+        const [benchmarkReturns, benchmarkAverageRateOfReturn] = CalculatorHelperService.calculateAverageRateOfReturn(
+            this.benchmarkTTMPrices as unknown as IGenericPrice[]
         );
 
-        this.tickerAveragePriceOverLastSixtyTradingDays = CalculatorHelperService.calculateAveragePrice(
-            pricesOverLastSixtyTradingDays
-        );
+        this.benchmarkTTMReturns = benchmarkReturns;
+
+        this.benchmarkTTMAverageRateOfReturn = benchmarkAverageRateOfReturn;
     }
 
     private initializeCategoriesToFill(): void {
