@@ -4,7 +4,7 @@
 Thanks: https://www.webtips.dev/solutions/extend-multiple-classes-in-typescript
 */
 
-export const extendMultiple = (baseClass: any, extendedClasses: any[]): void => {
+export const extendMiltuple = (baseClass: any, extendedClasses: any[]): void => {
 
     extendedClasses.forEach(extendedClass => {
 
