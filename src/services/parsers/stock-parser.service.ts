@@ -11,9 +11,32 @@ export class StockParserService {
     stockProfile: IStockProfile;
 
 
-    tickerSinceIPOPrices: ITickerPrice[];
+    tickerPricesSinceIPO: ITickerPrice[];
+
+    tickerTTMPrices: ITickerPrice[];
+
+    tickerTTMStartingPrice: number;
+
+    tickerTTMEndingPrice: number;
+
+    tickerTTMRateOfReturn: number;
+
+    tickerTTMAverageRateOfReturn: number;
+
+    tickerAveragePriceOverLastSixtyTradingDays: number;
+
+
 
     benchmarkTTMPrices: IBenchmarkPrice[];
+
+    benchmarkTTMStartingPrice: number;
+
+    benchmarkTTMEndingPrice: number;
+
+    benchmarkTTMRateOfReturn: number;
+
+    benchmarkTTMAverageRateOfReturn: number;
+
 
     treasuryBondYield: number;
 
@@ -25,27 +48,13 @@ export class StockParserService {
     lastAnnualCashFlowStatement: ITickerFundamentals;
 
 
-    tickerTTMPrices: ITickerPrice[];
-
-    tickerTTMStartingPrice: number;
-
-    tickerTTMEndingPrice: number;
-
-    tickerTTMRateOfReturn: number;
-
-
-    benchmarkTTMRateOfReturn: number;
-
-
-    tickerAveragePriceOverLastSixtyTradingDays: number;
-
     constructor(
         fundamentals: ITickerFundamentals,
         prices: ITickerPrice[], benchmarkPrices: IBenchmarkPrice[], treasuryBondYield: number) {
 
         this.fundamentals = fundamentals;
 
-        this.tickerSinceIPOPrices = prices;
+        this.tickerPricesSinceIPO = prices;
 
         this.benchmarkTTMPrices = benchmarkPrices;
 
@@ -73,7 +82,7 @@ export class StockParserService {
         /*
         Get ticker TTM prices
         */
-        this.tickerTTMPrices = TimeSeriesHelperService.sliceDatasetIntoTTM(this.tickerSinceIPOPrices);
+        this.tickerTTMPrices = TimeSeriesHelperService.sliceDatasetIntoTTM(this.tickerPricesSinceIPO);
 
         const [tickerStartingPrice, tickerEndingPrice] = TimeSeriesHelperService.getStartingAndEndingPrice(
             this.tickerTTMPrices as unknown as IGenericPrice[]
@@ -110,7 +119,7 @@ export class StockParserService {
         Calculate average price over N (60 in our case) trading days
         */
         const pricesOverLastSixtyTradingDays = TimeSeriesHelperService.sliceDatasetIntoLastNTradingDays(
-            this.tickerSinceIPOPrices,
+            this.tickerPricesSinceIPO,
             60
         );
 
