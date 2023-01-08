@@ -226,6 +226,9 @@ export class StockParsingService {
             standardDeviation
         );
 
+        /*
+        Mind, beta has to be calculated of 5 years of prices
+        */
         this.stockProfile.risk.beta = this.fundamentals.Technicals.Beta;
 
         /*
