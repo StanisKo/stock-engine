@@ -12,6 +12,9 @@ Therefore, each ratio is checked:
 1. On availability to be consumed
 2. If not, calculated
 3. if not (enough data), marked as N/A, leading to the discarding of stock
+
+TODO: work on naming first, then break down in modules, isolate by category,
+only then proceed to calculate missing (with additional inputs)
 */
 
 import { IStockProfile } from '../../interfaces/stock-profile.interface';
