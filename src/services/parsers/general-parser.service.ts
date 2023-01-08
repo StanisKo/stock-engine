@@ -25,7 +25,7 @@ export class GeneralParserService extends StockParserService {
         };
 
         /*
-        We don't have them in this, as they're used only for CAGR
+        We don't have them in storage, as they're used only for CAGR
         */
         const [tickerStartingPrice, tickerEndingPrice] = TimeSeriesHelperService.getStartingAndEndingPrice(
             this.tickerTTMPrices as unknown as IGenericPrice[]
