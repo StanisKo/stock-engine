@@ -13,6 +13,8 @@ import singleProfilingRouter from './routes/single-stock-profiling.routes';
 
 import { ApiConnectorService } from './services/core/api-connector.service';
 
+import { configure } from './utils/configure';
+
 export class Server {
 
     application: Application;
@@ -64,6 +66,8 @@ export class Server {
     public async run(): Promise<void> {
 
         await this.establishDatabaseConnection();
+
+        configure();
 
         this.connectRoutes();
 

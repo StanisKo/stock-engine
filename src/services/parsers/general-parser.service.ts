@@ -3,31 +3,35 @@ import { StockParserService } from './stock-parser.service';
 import { IGenericPrice } from '../../interfaces/ticker.interface';
 
 import { MarketCapLabelService } from '../helpers/market-cap-label.service';
-import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 
+import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 import { CAGRCalculatorService } from '../calculators/cagr-calculator.service';
 
-export function parseGeneral(storage: StockParserService): void {
+export class GeneralParserService extends StockParserService {
 
-    storage.stockProfile.ticker = storage.fundamentals.General.Code;
+    public parseGeneral(): void {
 
-    storage.stockProfile.industry = storage.fundamentals.General.Industry;
+        this.stockProfile.ticker = this.fundamentals.General.Code;
 
-    storage.stockProfile.marketCap = {
+        this.stockProfile.industry = this.fundamentals.General.Industry;
 
-        value: storage.fundamentals.Highlights.MarketCapitalization,
+        this.stockProfile.marketCap = {
 
-        label: MarketCapLabelService.createMarketLevelCapLabel(
-            Number(storage.fundamentals.Highlights.MarketCapitalization)
-        )
-    };
+            value: this.fundamentals.Highlights.MarketCapitalization,
 
-    /*
-    We don't have them in storage, as they're used only for CAGR
-    */
-    const [tickerStartingPrice, tickerEndingPrice] = TimeSeriesHelperService.getStartingAndEndingPrice(
-        storage.tickerTTMPrices as unknown as IGenericPrice[]
-    );
+            label: MarketCapLabelService.createMarketLevelCapLabel(
+                Number(this.fundamentals.Highlights.MarketCapitalization)
+            )
+        };
 
-    storage.stockProfile.cagr = CAGRCalculatorService.calculateCAGR(tickerStartingPrice, tickerEndingPrice);
+        /*
+        We don't have them in this, as they're used only for CAGR
+        */
+        const [tickerStartingPrice, tickerEndingPrice] = TimeSeriesHelperService.getStartingAndEndingPrice(
+            this.tickerTTMPrices as unknown as IGenericPrice[]
+        );
+
+        this.stockProfile.cagr = CAGRCalculatorService.calculateCAGR(tickerStartingPrice, tickerEndingPrice);
+    }
+    
 }
