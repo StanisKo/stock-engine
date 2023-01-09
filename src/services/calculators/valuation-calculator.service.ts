@@ -63,7 +63,6 @@ export class ValuationCalculatorService {
         If financial documents are exposed not in USD, we got to convert EPS into USD
         and only then calculate P/E (since price is always in USD)
         */
-
         if (exchangeRate) {
 
             /*
