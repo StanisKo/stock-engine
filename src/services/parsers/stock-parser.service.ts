@@ -59,6 +59,8 @@ export class StockParserService {
 
     lastAnnualCashFlowStatement: ITickerFundamentals;
 
+    mostRecentEarningsPerShare: number;
+
 
     constructor(
         fundamentals: ITickerFundamentals,
@@ -93,6 +95,11 @@ export class StockParserService {
         this.lastAnnualIncomeStatement = this.fundamentals.Financials.Income_Statement.yearly_last_0;
 
         this.lastAnnualCashFlowStatement = this.fundamentals.Financials.Cash_Flow.yearly_last_0;
+
+        /*
+        Get most recent earnings per share
+        */
+        this.mostRecentEarningsPerShare = this.fundamentals.Earnings.Last_0.epsActual;
 
         /* **** */
 
