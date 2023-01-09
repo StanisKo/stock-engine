@@ -753,7 +753,7 @@ Engine uses following data sources:
 
 <br />
 
-* IPO - Company going public and issuing stocks
+* IPO - Initial Public Offering: company going public and issuing stocks
 
 <br />
 
