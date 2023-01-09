@@ -23,12 +23,12 @@ export const parseRisk = (storage: StockParserService): void => {
     );
 
     /*
-    Mind, beta has to be calculated of 5 years of prices
+    Mind, beta has to be calculated of 5 years of prices (WIP)
     */
     storage.stockProfile.risk.beta = storage.fundamentals.Technicals.Beta;
 
     /*
-    Calculate alpha over ticker rate of return, benchmark rate of return,
+    Alpha is always missing, calculate over ticker rate of return, benchmark rate of return,
     risk-free rate (US Treasury 1YR bond yield), and ticker's beta
     */
     storage.stockProfile.risk.alpha = RiskCalculatorService.calculateAlpha(
@@ -39,7 +39,7 @@ export const parseRisk = (storage: StockParserService): void => {
     );
 
     /*
-    Calculate R-Squared over ticker TTM prices and benchmark TTM prices
+    R-Squared is alwaus missing, calculate R-Squared over ticker TTM prices and benchmark TTM prices
     */
     storage.stockProfile.risk.rSquared = RiskCalculatorService.calculateRSquared(
         storage.tickerTTMPrices,

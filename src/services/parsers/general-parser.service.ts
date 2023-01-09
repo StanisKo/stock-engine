@@ -29,5 +29,8 @@ export const parseGeneral = (storage: StockParserService): void => {
         storage.tickerTTMPrices as unknown as IGenericPrice[]
     );
 
+    /*
+    CAGR is always missing, calculate over starting and ending TTM prices
+    */
     storage.stockProfile.cagr = CAGRCalculatorService.calculateCAGR(tickerStartingPrice, tickerEndingPrice);
-}
+};
