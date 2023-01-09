@@ -91,6 +91,8 @@ export class StockParserService {
         /*
         Get the last annual balance sheet, income statement and cash flow statement
         necessary for liquidity, valuation, debt, and efficiency calculations
+
+        TODO: should we work with annual or quarterly data?
         */
         this.lastAnnualBalanceSheet = this.fundamentals.Financials.Balance_Sheet.yearly_last_0;
 
