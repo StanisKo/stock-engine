@@ -59,12 +59,12 @@ export class StockParserService {
 
     lastAnnualCashFlowStatement: ITickerFundamentals;
 
-    mostRecentEarningsPerShare: number;
 
+    exchangeRate?: number;
 
     constructor(
         fundamentals: ITickerFundamentals,
-        prices: ITickerPrice[], benchmarkPrices: IBenchmarkPrice[], treasuryBondYield: number) {
+        prices: ITickerPrice[], benchmarkPrices: IBenchmarkPrice[], treasuryBondYield: number, exchangeRate: number) {
 
         this.stockProfile = {} as IStockProfile;
 
@@ -77,6 +77,8 @@ export class StockParserService {
 
 
         this.treasuryBondYield = treasuryBondYield;
+
+        this.exchangeRate = exchangeRate;
 
 
         this.constructInputsForCalculators();
@@ -95,27 +97,6 @@ export class StockParserService {
         this.lastAnnualIncomeStatement = this.fundamentals.Financials.Income_Statement.yearly_last_0;
 
         this.lastAnnualCashFlowStatement = this.fundamentals.Financials.Cash_Flow.yearly_last_0;
-
-        /*
-        Get most recent earnings per share
-
-        If finanical documents expose figures not in USD, price-based ratios will
-        be skewed. Therefore, we need to manually calculate EPS, convert to USD
-        and then use it
-        */
-        if (this.fundamentals.Financials.Balance_Sheet.currency_symbol !== 'USD') {
-
-            const earningsPerShareInOriginalCurrency =
-                Number(this.lastAnnualIncomeStatement.netIncome) /
-                Number(this.lastAnnualBalanceSheet.commonStockSharesOutstanding);
-
-            const earningsPerShareInUSD = 0;
-
-            this.mostRecentEarningsPerShare = earningsPerShareInUSD;
-        } else {
-
-            this.mostRecentEarningsPerShare = this.fundamentals.Earnings.Last_0.epsActual;
-        }
 
         /* **** */
 

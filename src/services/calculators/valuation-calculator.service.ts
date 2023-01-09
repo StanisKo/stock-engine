@@ -54,7 +54,20 @@ export class ValuationCalculatorService {
     static enterpriseValue: number;
 
     @Discard
-    public static calculatePriceToEarnings(stockPrice: number, earningsPerShare: number): number {
+    public static calculatePriceToEarnings(
+        stockPrice: number, netIncome: number, sharesOutstanding: number, exchangeRate?: number): number {
+
+        let earningsPerShare = netIncome / sharesOutstanding;
+
+        /*
+        If financial documents are exposed not in USD, we got to convert EPS into USD
+        and only then calculate P/E (since price is always in USD)
+        */
+
+        if (exchangeRate) {
+
+            earningsPerShare *= exchangeRate;
+        }
 
         return stockPrice / earningsPerShare;
     }
