@@ -38,6 +38,8 @@ export class StockParserService {
 
     tickerAveragePriceOverLastSixtyTradingDays: number;
 
+    tickerMostRecentPrice: number;
+
 
     benchmarkTTMPrices: IBenchmarkPrice[];
 
@@ -136,6 +138,11 @@ export class StockParserService {
         this.tickerAveragePriceOverLastSixtyTradingDays = CalculatorHelperService.calculateAveragePrice(
             pricesOverLastSixtyTradingDays
         );
+
+        /*
+        NOTE: we're using close here, not the adjusted close, since we want raw market output
+        */
+        this.tickerMostRecentPrice = this.tickerPricesSinceIPO[this.tickerPricesSinceIPO.length - 1].close;
 
         /* **** */
 

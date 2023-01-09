@@ -1,6 +1,12 @@
 import { Discard } from '../../utils/discard.decorator';
 
 /*
+P/E = SP / EPS
+
+SP = Stock Price
+
+EPS = Earnings Per Share
+
 EV/R = EV / Revenue
 
 EV/EBITDA = EV / EBITDA
@@ -46,6 +52,12 @@ On P/CF: https://www.investopedia.com/terms/p/price-to-cash-flowratio.asp
 export class ValuationCalculatorService {
 
     static enterpriseValue: number;
+
+    @Discard
+    public static calculatePriceToEarnings(stockPrice: number, earningsPerShare: number): number {
+
+        return stockPrice / earningsPerShare;
+    }
 
     @Discard
     public static calculateEnterpriseValue(
