@@ -98,8 +98,24 @@ export class StockParserService {
 
         /*
         Get most recent earnings per share
+
+        If finanical documents expose figures not in USD, price-based ratios will
+        be skewed. Therefore, we need to manually calculate EPS, convert to USD
+        and then use it
         */
-        this.mostRecentEarningsPerShare = this.fundamentals.Earnings.Last_0.epsActual;
+        if (this.fundamentals.Financials.Balance_Sheet.currency_symbol !== 'USD') {
+
+            const earningsPerShareInOriginalCurrency =
+                Number(this.lastAnnualIncomeStatement.netIncome) /
+                Number(this.lastAnnualBalanceSheet.commonStockSharesOutstanding);
+
+            const earningsPerShareInUSD = 0;
+
+            this.mostRecentEarningsPerShare = earningsPerShareInUSD;
+        } else {
+
+            this.mostRecentEarningsPerShare = this.fundamentals.Earnings.Last_0.epsActual;
+        }
 
         /* **** */
 
