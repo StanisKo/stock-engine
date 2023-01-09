@@ -165,6 +165,9 @@ export class RiskCalculatorService {
     @Discard
     public static calculateRSquared(prices: ITickerPrice[], benchmarkPrices: IBenchmarkPrice[]): number {
 
+        /*
+        TODO: use storage
+        */
         const [tickerReturns] = CalculatorHelperService.calculateAverageRateOfReturn(
             prices as unknown as IGenericPrice[]
         );
