@@ -44,11 +44,27 @@ export class SingleStockProfilingService {
 
             const treasuryBondYield = await ApiConnectorService.requestUSTreasuryBondYield();
 
+            /*
+            If financial documents are exposed not in USD, we have to grab exchange rate
+            for set's currency, since some calculations factor in price (which is always expressed in USD)
+            */
+            let exchangeRate;
+
+            const figuresExpressedIn = fundamentals.data.Financials.Balance_Sheet.yearly_last_0.currency_symbol;
+
+            if (figuresExpressedIn !== 'USD') {
+
+                exchangeRate = await ApiConnectorService.requestExchangeRateAgainstUSD(
+                    figuresExpressedIn
+                );
+            }
+
             const stockParserService = new StockParserService(
                 fundamentals.data,
                 prices,
                 benchmarkPrices,
-                treasuryBondYield
+                treasuryBondYield,
+                exchangeRate
             );
 
             const stockProfile = stockParserService.parseStockProfile();

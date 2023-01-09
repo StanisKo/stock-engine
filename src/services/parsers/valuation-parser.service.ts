@@ -10,8 +10,8 @@ export const parseValuation = (storage: StockParserService): void => {
     storage.stockProfile.valuation.priceToEarning =
         storage.fundamentals.Highlights.PERatio ?? ValuationCalculatorService.calculatePriceToEarnings(
             storage.tickerMostRecentPrice,
-            Number(storage.lastAnnualBalanceSheet.commonStockSharesOutstanding),
             Number(storage.lastAnnualIncomeStatement.netIncome),
+            Number(storage.lastAnnualBalanceSheet.commonStockSharesOutstanding),
             storage.exchangeRate
         );
 

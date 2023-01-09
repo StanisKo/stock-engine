@@ -66,7 +66,10 @@ export class ValuationCalculatorService {
 
         if (exchangeRate) {
 
-            earningsPerShare *= exchangeRate;
+            /*
+            Our ecxhange rate is reversed (CURR/USD), so we divide
+            */
+            earningsPerShare /= exchangeRate;
         }
 
         return stockPrice / earningsPerShare;
