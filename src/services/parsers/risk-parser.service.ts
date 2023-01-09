@@ -39,10 +39,10 @@ export const parseRisk = (storage: StockParserService): void => {
     );
 
     /*
-    R-Squared is alwaus missing, calculate R-Squared over ticker TTM prices and benchmark TTM prices
+    R-Squared is always missing, calculate R-Squared over ticker TTM returns and benchmark TTM returns
     */
     storage.stockProfile.risk.rSquared = RiskCalculatorService.calculateRSquared(
-        storage.tickerTTMPrices,
-        storage.benchmarkTTMPrices
+        storage.tickerTTMReturns,
+        storage.benchmarkTTMReturns
     );
 };
