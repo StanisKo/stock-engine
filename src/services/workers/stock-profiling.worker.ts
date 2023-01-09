@@ -10,7 +10,7 @@ import { ITickerPrice } from '../../interfaces/ticker.interface';
 
 import { ApiConnectorService } from '../core/api-connector.service';
 
-import { StockParsingService } from '../core/stock-parsing.service';
+import { StockParserService } from '../parsers/stock-parser.service';
 
 /*
 A meta-layer function sole purpose of which is to process batch of given fundamentals by using StockParsingService
@@ -57,9 +57,9 @@ export default async (batch: IFundamentals[]): Promise<IStockProfile[]> => {
             continue;
         }
 
-        const stockParsingService = new StockParsingService(set.data, tickerPrices, benchmarkPrices, treasuryBondYield);
+        const stockParserService = new StockParserService(set.data, tickerPrices, benchmarkPrices, treasuryBondYield);
 
-        const profile = stockParsingService.parseOutStockProfile();
+        const profile = stockParserService.parseStockProfile();
 
         stockProfiles.push(profile);
     }

@@ -7,7 +7,8 @@ import { DataServiceResponse } from '../../dtos/serviceResponse';
 import { Fundamentals } from '../../schemas/fundamentals.schema';
 
 import { ApiConnectorService } from '../core/api-connector.service';
-import { StockParsingService } from '../core/stock-parsing.service';
+
+import { StockParserService } from '../parsers/stock-parser.service';
 
 export class SingleStockProfilingService {
 
@@ -43,14 +44,14 @@ export class SingleStockProfilingService {
 
             const treasuryBondYield = await ApiConnectorService.requestUSTreasuryBondYield();
 
-            const stockParsingService = new StockParsingService(
+            const stockParserService = new StockParserService(
                 fundamentals.data,
                 prices,
                 benchmarkPrices,
                 treasuryBondYield
             );
 
-            const stockProfile = stockParsingService.parseOutStockProfile();
+            const stockProfile = stockParserService.parseStockProfile();
 
             response.success = true;
 

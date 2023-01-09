@@ -1,6 +1,6 @@
 import { Discard } from '../../utils/discard.decorator';
 
-import { ITickerPrice, IBenchmarkPrice, IGenericPrice } from '../../interfaces/ticker.interface';
+import { ITickerPrice, IGenericPrice } from '../../interfaces/ticker.interface';
 
 import { CalculatorHelperService } from '../helpers/calculator-helper.service';
 
@@ -163,19 +163,11 @@ export class RiskCalculatorService {
     }
 
     @Discard
-    public static calculateRSquared(prices: ITickerPrice[], benchmarkPrices: IBenchmarkPrice[]): number {
-
-        const [tickerReturns] = CalculatorHelperService.calculateAverageRateOfReturn(
-            prices as unknown as IGenericPrice[]
-        );
-
-        const [benchmarkReturns] = CalculatorHelperService.calculateAverageRateOfReturn(
-            benchmarkPrices as unknown as IGenericPrice[]
-        );
+    public static calculateRSquared(tickerTTMReturns: number[], benchmarkTTMReturns: number[]): number {
 
         const correlation = this.calculateCorrelation(
-            tickerReturns,
-            benchmarkReturns
+            tickerTTMReturns,
+            benchmarkTTMReturns
         );
 
         const rSquared = Math.pow(correlation, 2) * 100;
