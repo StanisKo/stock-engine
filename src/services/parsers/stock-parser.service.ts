@@ -7,6 +7,7 @@ import { CalculatorHelperService } from '../helpers/calculator-helper.service';
 import { parseGeneral } from './general-parser.service';
 import { parseRisk } from './risk-parser.service';
 import { parseValuation } from './valuation-parser.service';
+import { parseProfitability } from './profitability-parser.service';
 
 /*
 Serves a purpose of shared storage of data used in sub-parsers and calculators
@@ -215,6 +216,8 @@ export class StockParserService {
         parseRisk(this);
 
         parseValuation(this);
+
+        parseProfitability(this);
 
         return this.stockProfile;
     }
