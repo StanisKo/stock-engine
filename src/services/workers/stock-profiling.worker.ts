@@ -43,11 +43,26 @@ export default async (batch: IFundamentals[]): Promise<IStockProfile[]> => {
 
         let tickerPrices: ITickerPrice[] = [];
 
+        /*
+        If financial documents are exposed not in USD, we have to grab exchange rate
+        for set's currency, since some calculations factor in price (which is always expressed in USD)
+        */
+        let exchangeRate;
+
         try {
 
             tickerPrices  = await ApiConnectorService.requestTickerPrices(
                 set.data.General.Code,
             );
+
+            const figuresExpressedIn = set.data.Financials.Balance_Sheet.yearly_last_0.currency_symbol;
+
+            if (figuresExpressedIn !== 'USD') {
+
+                exchangeRate = await ApiConnectorService.requestExchangeRateAgainstUSD(
+                    figuresExpressedIn
+                );
+            }
 
         } catch (error) {
 
@@ -57,7 +72,13 @@ export default async (batch: IFundamentals[]): Promise<IStockProfile[]> => {
             continue;
         }
 
-        const stockParserService = new StockParserService(set.data, tickerPrices, benchmarkPrices, treasuryBondYield);
+        const stockParserService = new StockParserService(
+            set.data,
+            tickerPrices,
+            benchmarkPrices,
+            treasuryBondYield,
+            exchangeRate
+        );
 
         const profile = stockParserService.parseStockProfile();
 

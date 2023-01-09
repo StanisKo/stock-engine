@@ -64,7 +64,7 @@ export class StockParserService {
 
     constructor(
         fundamentals: ITickerFundamentals,
-        prices: ITickerPrice[], benchmarkPrices: IBenchmarkPrice[], treasuryBondYield: number, exchangeRate: number) {
+        prices: ITickerPrice[], benchmarkPrices: IBenchmarkPrice[], treasuryBondYield: number, exchangeRate?: number) {
 
         this.stockProfile = {} as IStockProfile;
 
