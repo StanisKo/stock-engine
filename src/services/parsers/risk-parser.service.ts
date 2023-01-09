@@ -23,7 +23,10 @@ export const parseRisk = (storage: StockParserService): void => {
     );
 
     /*
-    Mind, beta has to be calculated of 5 years of prices (WIP)
+    NOTE: Beta is one of the most commonly used ratios for evaluating risk.
+    It is though calculated over 5 year period of prices. If it is not pre-calculated by API,
+    the stock is too young and we won't be able to calculate it ourselves. Therefore,
+    we only consume it
     */
     storage.stockProfile.risk.beta = storage.fundamentals.Technicals.Beta;
 
