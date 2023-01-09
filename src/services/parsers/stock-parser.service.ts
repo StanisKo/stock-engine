@@ -5,6 +5,7 @@ import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 import { CalculatorHelperService } from '../helpers/calculator-helper.service';
 
 import { parseGeneral } from './general-parser.service';
+import { parseRisk } from './risk-parser.service';
 
 /*
 Serves a purpose of shared storage of data used in sub-parsers and calculators
@@ -209,6 +210,8 @@ export class StockParserService {
     public parseStockProfile(): IStockProfile {
 
         parseGeneral(this);
+
+        parseRisk(this);
 
         return this.stockProfile;
     }

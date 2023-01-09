@@ -7,7 +7,7 @@ import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 
 import { CAGRCalculatorService } from '../calculators/cagr-calculator.service';
 
-export function parseGeneral(storage: StockParserService): void {
+export const parseGeneral = (storage: StockParserService): void => {
 
     storage.stockProfile.ticker = storage.fundamentals.General.Code;
 
