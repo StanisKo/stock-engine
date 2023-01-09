@@ -10,6 +10,7 @@ import { parseValuation } from './valuation-parser.service';
 import { parseProfitability } from './profitability-parser.service';
 import { parseLiquidity } from './liquidity-parser.service';
 import { parseDebt } from './debt-parser.service';
+import { parseEfficiency } from './efficiency-parser.service';
 
 /*
 Serves a purpose of shared storage of data used in sub-parsers and calculators
@@ -224,6 +225,8 @@ export class StockParserService {
         parseLiquidity(this);
 
         parseDebt(this);
+
+        parseEfficiency(this);
 
         return this.stockProfile;
     }
