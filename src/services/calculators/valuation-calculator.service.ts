@@ -99,7 +99,11 @@ export class ValuationCalculatorService {
         stockPrice: number,
         totalAssets: number, intangibleAssets: number, totalLiabilities: number, sharesOutstanding: number): number {
 
-        const bookValuePerShare = (totalAssets - intangibleAssets - totalLiabilities) / sharesOutstanding;
+        /*
+        NOTE: intangible assets are missing for some companies (they don't have any),
+        therefore, swap for 0
+        */
+        const bookValuePerShare = (totalAssets - (intangibleAssets ?? 0) - totalLiabilities) / sharesOutstanding;
 
         return stockPrice / bookValuePerShare;
     }
