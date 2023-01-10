@@ -102,7 +102,7 @@ export class StockParserService {
 
         Certainly, different companies have different start and end dates for the fiscal year reporting
 
-        Therefore, by the time we're executing this code, somemody might have already exposed their annual
+        Therefore, by the time we're executing this code, somebody might have already exposed their annual
         financial figures, whereas, someone else will do so only in 3 months
 
         Therefore, the most recent financial papers for some companies can belong to previous year
