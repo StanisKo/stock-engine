@@ -92,9 +92,18 @@ export class StockParserService {
         Get the last annual balance sheet, income statement and cash flow statement
         necessary for liquidity, valuation, debt, and efficiency calculations
 
-        TODO: should we work with annual or quarterly data?
+        MAJOR TODO:
 
-        Probably both
+        Certainly, different companies have different start and end dates for the fiscal year reporting
+
+        Therefore, by the time we're executing this code, somemody might have already exposed their annual
+        financial figures, whereas, someone else will do so only in 3 months
+
+        Therefore, the most recent financial papers for some companies can belong to previous year
+
+        To mitigate that, we can use last querterly papers, that, though might skew the picture
+
+        An external expert input is needed: do we use annual papers or quarterly papers?
         */
         this.lastAnnualBalanceSheet = this.fundamentals.Financials.Balance_Sheet.yearly_last_0;
 
