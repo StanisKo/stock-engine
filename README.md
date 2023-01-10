@@ -527,8 +527,16 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
+  Formula:
+
+  <br />
+
   ```
-  No formula: ROE is available directly from API
+  ROE = Net Income / Average Shareholders' Equity
+
+  Average Shareholders' Equity = (Previous FY Shareholders' Equity + Last FY Shareholders' Equity) / 2
+
+  FY = Fiscal Year
   ```
 
   <br />
@@ -790,4 +798,8 @@ Engine uses following data sources:
 <br />
 
 * Index - a group of stocks, which performance acts as an indicator of economy's health and benchmark of measure
+
+<br />
+
+* FY - Fiscal Year
 

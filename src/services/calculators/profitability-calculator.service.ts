@@ -7,4 +7,13 @@ export class ProfitabilityCalculatorService {
 
         return netIncome / totalAssets;
     }
+
+    @Discard
+    public static calculateReturnOnEquity(
+        netIncome: number, startingShareholderEquity: number, endingShareholderEquity: number): number {
+
+        const averageShareholderEquity = (startingShareholderEquity + endingShareholderEquity) / 2;
+
+        return netIncome / averageShareholderEquity;
+    }
 }

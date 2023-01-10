@@ -10,7 +10,12 @@ export const parseProfitability = (storage: StockParserService): void => {
             Number(storage.lastAnnualBalanceSheet.totalAssets),
         );
 
-    storage.stockProfile.profitability.returnOnEquity = storage.fundamentals.Highlights.ReturnOnEquityTTM;
+    storage.stockProfile.profitability.returnOnEquity =
+        storage.fundamentals.Highlights.ReturnOnEquityTTM ?? ProfitabilityCalculatorService.calculateReturnOnEquity(
+            Number(storage.lastAnnualIncomeStatement.netIncome),
+            Number(storage.previousAnnualBalanceSheet.totalStockholderEquity),
+            Number(storage.lastAnnualBalanceSheet.totalStockholderEquity)
+        );
 
     storage.stockProfile.profitability.profitMargin = storage.fundamentals.Highlights.ProfitMargin;
 };
