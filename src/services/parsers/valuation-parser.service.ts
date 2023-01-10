@@ -24,7 +24,8 @@ export const parseValuation = (storage: StockParserService): void => {
     storage.stockProfile.valuation.priceToSales =
         storage.fundamentals.Valuation.PriceSalesTTM ?? ValuationCalculatorService.calculatePriceToSales(
             storage.tickerMostRecentPrice,
-            Number(storage.lastAnnualIncomeStatement.totalRevenue)
+            Number(storage.lastAnnualIncomeStatement.totalRevenue),
+            Number(storage.lastAnnualBalanceSheet.commonStockSharesOutstanding),
         );
 
     storage.stockProfile.valuation.priceToBook = storage.fundamentals.Valuation.PriceBookMRQ;

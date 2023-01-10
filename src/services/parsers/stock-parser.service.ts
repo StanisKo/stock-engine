@@ -42,6 +42,9 @@ export class StockParserService {
 
     tickerAveragePriceOverLastSixtyTradingDays: number;
 
+    /*
+    TODO: Should we use TTM most recent price, or just most recent?
+    */
     tickerMostRecentPrice: number;
 
 
