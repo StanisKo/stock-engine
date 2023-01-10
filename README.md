@@ -557,8 +557,12 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
+  Formula:
+
+  <br />
+
   ```
-  No formula: Profit Margin is available directly from API
+  Profit Margin = Net Sales / Net Profits
   ```
 
   <br />

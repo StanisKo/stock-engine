@@ -16,4 +16,10 @@ export class ProfitabilityCalculatorService {
 
         return netIncome / averageShareholderEquity;
     }
+
+    @Discard
+    public static calculateProfitMargin(netSales: number, netProfit: number): number {
+
+        return netSales / netProfit;
+    }
 }
