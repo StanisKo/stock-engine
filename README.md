@@ -256,8 +256,16 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
+  Formula:
+
+  <br />
+
   ```
-  No formula: P/E ratio is available directly from API
+  P/E = SP / EPS
+
+  SP = Stock Price
+
+  EPS (Earnings Per Share) = Net Income / Shares Outstanding
   ```
 
   <br />
