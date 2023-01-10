@@ -75,9 +75,9 @@ export class StockProfilingService {
                 try {
 
                     await StockProfile.findOneAndUpdate(
-                        {},
+                        { ticker: stockProfiles[i].ticker },
                         stockProfiles[i],
-                        { upsert: true, new: true, setDefaultsOnInsert: true }
+                        { upsert: true, new: true }
                     );
                 }
                 catch (error) {

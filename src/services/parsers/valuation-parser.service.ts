@@ -5,7 +5,7 @@ import { ValuationCalculatorService } from '../calculators/valuation-calculator.
 export const parseValuation = (storage: StockParserService): void => {
 
     storage.stockProfile.valuation.priceToEarning =
-        storage.fundamentals.Highlights.PERatio ?? ValuationCalculatorService.calculatePriceToEarnings(
+        storage.fundamentals.Highlights.PERatio || ValuationCalculatorService.calculatePriceToEarnings(
             storage.tickerMostRecentPrice,
             Number(storage.lastAnnualIncomeStatement.netIncome),
             Number(storage.lastAnnualBalanceSheet.commonStockSharesOutstanding),
@@ -13,20 +13,20 @@ export const parseValuation = (storage: StockParserService): void => {
         );
 
     storage.stockProfile.valuation.priceToEarningsGrowth =
-        storage.fundamentals.Highlights.PEGRatio ?? ValuationCalculatorService.calculatePriceToEarningsGrowth(
+        storage.fundamentals.Highlights.PEGRatio || ValuationCalculatorService.calculatePriceToEarningsGrowth(
             storage.stockProfile.valuation.priceToEarning,
             storage.annualEarningsGrowth
         );
 
     storage.stockProfile.valuation.priceToSales =
-        storage.fundamentals.Valuation.PriceSalesTTM ?? ValuationCalculatorService.calculatePriceToSales(
+        storage.fundamentals.Valuation.PriceSalesTTM || ValuationCalculatorService.calculatePriceToSales(
             storage.tickerMostRecentPrice,
             Number(storage.lastAnnualIncomeStatement.totalRevenue),
             Number(storage.lastAnnualBalanceSheet.commonStockSharesOutstanding),
         );
 
     storage.stockProfile.valuation.priceToBook =
-        storage.fundamentals.Valuation.PriceBookMRQ ?? ValuationCalculatorService.calculatePriceToBook(
+        storage.fundamentals.Valuation.PriceBookMRQ || ValuationCalculatorService.calculatePriceToBook(
             storage.tickerMostRecentPrice,
             Number(storage.lastAnnualBalanceSheet.totalAssets),
             Number(storage.lastAnnualBalanceSheet.intangibleAssets),
@@ -44,7 +44,7 @@ export const parseValuation = (storage: StockParserService): void => {
     */
 
     ValuationCalculatorService.enterpriseValue =
-        storage.fundamentals.Valuation.EnterpriseValue ?? ValuationCalculatorService.calculateEnterpriseValue(
+        storage.fundamentals.Valuation.EnterpriseValue || ValuationCalculatorService.calculateEnterpriseValue(
             Number(storage.fundamentals.Highlights.MarketCapitalization),
             Number(storage.lastAnnualBalanceSheet.shortLongTermDebtTotal),
             Number(storage.lastAnnualBalanceSheet.cash),
@@ -52,12 +52,12 @@ export const parseValuation = (storage: StockParserService): void => {
         );
 
     storage.stockProfile.valuation.enterpriseValueToRevenue =
-        storage.fundamentals.Valuation.EnterpriseValueRevenue ?? ValuationCalculatorService.calculateEVR(
+        storage.fundamentals.Valuation.EnterpriseValueRevenue || ValuationCalculatorService.calculateEVR(
             Number(storage.lastAnnualIncomeStatement.totalRevenue)
         );
 
     storage.stockProfile.valuation.enterpriseValueToEbitda =
-        storage.fundamentals.Valuation.EnterpriseValueEbitda ?? ValuationCalculatorService.calculateEVEBITDA(
+        storage.fundamentals.Valuation.EnterpriseValueEbitda || ValuationCalculatorService.calculateEVEBITDA(
             Number(storage.lastAnnualIncomeStatement.ebitda)
         );
 

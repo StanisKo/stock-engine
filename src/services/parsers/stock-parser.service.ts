@@ -126,20 +126,33 @@ export class StockParserService {
 
         this.lastAnnualCashFlowStatement = this.fundamentals.Financials.Cash_Flow.yearly_last_0;
 
-        const annualEarningsTrend = Object.values(this.fundamentals.Earnings.Trend).find(trend => {
+        /*
+        Deduce annual earnings growth
 
-            const lookup  = trend as { period: string, date: string };
+        If no earnings trends data, leave unitialized, resulting in discard when (if) used
+        */
+        const earningsTrends = Object.values(this.fundamentals.Earnings.Trend || {});
 
-            const trendDate = moment(lookup.date);
+        if (earningsTrends.length) {
 
-            /*
-            Get the annual trend entry over last year (0y), that is before current date
-            */
-            return lookup.period === '0y' && trendDate.isBefore(moment());
+            const annualEarningsTrend = Object.values(this.fundamentals.Earnings.Trend).find(trend => {
 
-        }) as { [key: string]: number };
+                const lookup  = trend as { period: string, date: string };
 
-        this.annualEarningsGrowth = annualEarningsTrend.growth;
+                const trendDate = moment(lookup.date);
+
+                /*
+                Get the annual trend entry over last year (0y), that is before current date
+                */
+                return lookup.period === '0y' && trendDate.isBefore(moment());
+
+            }) as { [key: string]: number };
+
+            if (annualEarningsTrend) {
+
+                this.annualEarningsGrowth = annualEarningsTrend.growth;
+            }
+        }
 
         /* **** */
 
