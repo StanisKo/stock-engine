@@ -72,12 +72,15 @@ export class StockProfilingService {
 
             for (let i = 0; i < stockProfiles.length; i++) {
 
+                /*
+                TODO: nested validation, some nullable betas still coming through
+                */
                 try {
 
                     await StockProfile.findOneAndUpdate(
-                        {},
+                        { ticker: stockProfiles[i].ticker },
                         stockProfiles[i],
-                        { upsert: true, new: true, setDefaultsOnInsert: true }
+                        { upsert: true, new: true }
                     );
                 }
                 catch (error) {

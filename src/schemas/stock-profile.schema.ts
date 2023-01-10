@@ -10,7 +10,8 @@ const stockProfileSchema = new mongoose.Schema<IStockProfileSchema>(
 
         ticker: {
             type: String,
-            required: true
+            required: true,
+            unique: true
         },
 
         industry: {
