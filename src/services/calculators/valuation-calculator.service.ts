@@ -75,7 +75,7 @@ export class ValuationCalculatorService {
     }
 
     /*
-    We calculate PEG based on growth estimated over the previously reported fiscal year
+    We calculate PEG based on earnings growth over the previously reported fiscal year
     */
     @Discard
     public static calculatePriceToEarningsGrowth(priceToEarnings: number, earningsGrowth: number): number {
