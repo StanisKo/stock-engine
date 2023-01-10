@@ -7,4 +7,10 @@ export class ProfitabilityCalculatorService {
 
         return netIncome / totalAssets;
     }
+
+    @Discard
+    public static calculateReturnOnEquity(netIncome: number, shareholderEquity: number): number {
+
+        return netIncome / shareholderEquity;
+    }
 }
