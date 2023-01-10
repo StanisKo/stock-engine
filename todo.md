@@ -10,4 +10,6 @@ FUTURE:
 
 ****
 
+* Look back in past more: calculate risk ratios and average down across more years
+
 * Tests
