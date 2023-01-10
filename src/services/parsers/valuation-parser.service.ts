@@ -16,10 +16,10 @@ export const parseValuation = (storage: StockParserService): void => {
         );
 
     storage.stockProfile.valuation.priceToEarningsGrowth =
-    storage.fundamentals.Highlights.PEGRatio ?? ValuationCalculatorService.calculatePriceToEarningsGrowth(
-        storage.stockProfile.valuation.priceToEarning,
-        storage.annualEarningsGrowth
-    );
+        storage.fundamentals.Highlights.PEGRatio ?? ValuationCalculatorService.calculatePriceToEarningsGrowth(
+            storage.stockProfile.valuation.priceToEarning,
+            storage.annualEarningsGrowth
+        );
 
     storage.stockProfile.valuation.priceToSales = storage.fundamentals.Valuation.PriceSalesTTM;
 

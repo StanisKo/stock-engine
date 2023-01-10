@@ -80,7 +80,11 @@ export class ValuationCalculatorService {
     @Discard
     public static calculatePriceToEarningsGrowth(priceToEarnings: number, earningsGrowth: number): number {
 
-        return priceToEarnings / earningsGrowth;
+        /*
+        NOTE: we bring earnings growth to whole number instead of decimal in which
+        it is usually expresed
+        */
+        return priceToEarnings / (earningsGrowth * 100);
     }
 
     @Discard
