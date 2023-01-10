@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import moment from 'moment';
+
 import { IStockProfile } from '../../interfaces/stock-profile.interface';
 import { ITickerFundamentals, ITickerPrice, IBenchmarkPrice, IGenericPrice } from '../../interfaces/ticker.interface';
 
@@ -115,9 +117,21 @@ export class StockParserService {
 
         this.lastAnnualCashFlowStatement = this.fundamentals.Financials.Cash_Flow.yearly_last_0;
 
-        const annualEarningsTrend = Object.values(this.fundamentals.Earnings.Trend).find(
-            trend => (trend as { [key: string]: any }).period === '+1y'
-        ) as { [key: string]: number };
+        /*
+        TODO: tackle this typing
+        */
+        const annualEarningsTrend = Object.values(this.fundamentals.Earnings.Trend).find(trend => {
+
+            const lookup  = trend as { period: string, date: string };
+
+            const trendDate = moment(lookup.date);
+
+            /*
+            Get the annual trend entry over last year (0y), that is before current date
+            */
+            return lookup.period === '0y' && trendDate.isBefore(moment());
+
+        }) as { [key: string]: number };
 
         this.annualEarningsGrowth = annualEarningsTrend.growth;
 
