@@ -88,6 +88,14 @@ export class ValuationCalculatorService {
     }
 
     @Discard
+    public static calculatePriceToSales(stockPrice: number, salesRevenue: number, sharesOutstanding: number): number {
+
+        const salesPerShare = salesRevenue / sharesOutstanding;
+
+        return stockPrice / salesPerShare;
+    }
+
+    @Discard
     public static calculateEnterpriseValue(
         marketCap: number, debt: number, cash: number, cashAndEquivalents: number): void {
 

@@ -4,9 +4,6 @@ import { ValuationCalculatorService } from '../calculators/valuation-calculator.
 
 export const parseValuation = (storage: StockParserService): void => {
 
-    /*
-    All these are WIP and need to be either consumer or calculated
-    */
     storage.stockProfile.valuation.priceToEarning =
         storage.fundamentals.Highlights.PERatio ?? ValuationCalculatorService.calculatePriceToEarnings(
             storage.tickerMostRecentPrice,
@@ -21,7 +18,12 @@ export const parseValuation = (storage: StockParserService): void => {
             storage.annualEarningsGrowth
         );
 
-    storage.stockProfile.valuation.priceToSales = storage.fundamentals.Valuation.PriceSalesTTM;
+    storage.stockProfile.valuation.priceToSales =
+        storage.fundamentals.Valuation.PriceSalesTTM ?? ValuationCalculatorService.calculatePriceToSales(
+            storage.tickerMostRecentPrice,
+            Number(storage.lastAnnualIncomeStatement.totalRevenue),
+            Number(storage.lastAnnualBalanceSheet.commonStockSharesOutstanding),
+        );
 
     storage.stockProfile.valuation.priceToBook = storage.fundamentals.Valuation.PriceBookMRQ;
 
