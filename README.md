@@ -499,8 +499,12 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
+  Formula:
+
+  <br />
+
   ```
-  No formula: ROA is available directly from API
+  ROA = Net Income / Total Assets
   ```
 
   <br />
