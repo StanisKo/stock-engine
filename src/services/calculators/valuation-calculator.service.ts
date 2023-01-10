@@ -76,12 +76,6 @@ export class ValuationCalculatorService {
 
     /*
     We calculate PEG based on earnings growth over the previously reported fiscal year
-
-    TODO: handle discard in the parser, for some this is somehow 0, hmm
-
-    If both operands are 0 -- return N/A
-
-    Apply the same principle to EPS; develop against one of those weird tickers
     */
     @Discard
     public static calculatePriceToEarningsGrowth(priceToEarnings: number, earningsGrowth: number): number {

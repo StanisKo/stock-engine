@@ -72,9 +72,6 @@ export class StockProfilingService {
 
             for (let i = 0; i < stockProfiles.length; i++) {
 
-                /*
-                TODO: nested validation, some nullable betas still coming through
-                */
                 try {
 
                     await StockProfile.findOneAndUpdate(
