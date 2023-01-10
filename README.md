@@ -799,3 +799,7 @@ Engine uses following data sources:
 
 * Index - a group of stocks, which performance acts as an indicator of economy's health and benchmark of measure
 
+<br />
+
+* FY - Fiscal Year
+
