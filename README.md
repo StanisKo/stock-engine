@@ -527,8 +527,12 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
+  Formula:
+
+  <br />
+
   ```
-  No formula: ROE is available directly from API
+  ROE = Net Income / Shareholders' Equity
   ```
 
   <br />
