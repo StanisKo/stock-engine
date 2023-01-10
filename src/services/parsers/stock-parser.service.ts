@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { IStockProfile } from '../../interfaces/stock-profile.interface';
 import { ITickerFundamentals, ITickerPrice, IBenchmarkPrice, IGenericPrice } from '../../interfaces/ticker.interface';
 
@@ -60,6 +62,8 @@ export class StockParserService {
     lastAnnualCashFlowStatement: ITickerFundamentals;
 
 
+    annualEarningsGrowth: number;
+
     exchangeRate?: number;
 
     constructor(
@@ -110,6 +114,12 @@ export class StockParserService {
         this.lastAnnualIncomeStatement = this.fundamentals.Financials.Income_Statement.yearly_last_0;
 
         this.lastAnnualCashFlowStatement = this.fundamentals.Financials.Cash_Flow.yearly_last_0;
+
+        const annualEarningsTrend = Object.values(this.fundamentals.Earnings.Trend).find(
+            trend => (trend as { [key: string]: any }).period === '+1y'
+        ) as { [key: string]: number };
+
+        this.annualEarningsGrowth = annualEarningsTrend.growth;
 
         /* **** */
 

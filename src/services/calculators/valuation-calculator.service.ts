@@ -74,6 +74,15 @@ export class ValuationCalculatorService {
         return stockPrice / earningsPerShare;
     }
 
+    /*
+    We calculate PEG based on growth estimated over the next year (+1y)
+    */
+    @Discard
+    public static calculatePriceToEarningsGrowth(priceToEarnings: number, earningsGrowth: number): number {
+
+        return priceToEarnings / earningsGrowth;
+    }
+
     @Discard
     public static calculateEnterpriseValue(
         marketCap: number, debt: number, cash: number, cashAndEquivalents: number): void {
