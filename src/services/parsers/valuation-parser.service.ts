@@ -4,9 +4,6 @@ import { ValuationCalculatorService } from '../calculators/valuation-calculator.
 
 export const parseValuation = (storage: StockParserService): void => {
 
-    /*
-    All these are WIP and need to be either consumer or calculated
-    */
     storage.stockProfile.valuation.priceToEarning =
         storage.fundamentals.Highlights.PERatio ?? ValuationCalculatorService.calculatePriceToEarnings(
             storage.tickerMostRecentPrice,
