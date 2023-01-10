@@ -64,6 +64,7 @@ export class StockParserService {
 
     previousAnnualBalanceSheet: ITickerFundamentals;
 
+
     lastAnnualIncomeStatement: ITickerFundamentals;
 
     lastAnnualCashFlowStatement: ITickerFundamentals;
@@ -100,7 +101,7 @@ export class StockParserService {
     private constructInputsForCalculators(): void {
 
         /*
-        Get the last annual balance sheet, income statement and cash flow statement
+        Get the last (and previous) annual balance sheet, income statement and cash flow statement
         necessary for liquidity, valuation, debt, and efficiency calculations
 
         MAJOR TODO:
@@ -119,6 +120,7 @@ export class StockParserService {
         this.lastAnnualBalanceSheet = this.fundamentals.Financials.Balance_Sheet.yearly_last_0;
 
         this.previousAnnualBalanceSheet = this.fundamentals.Financials.Balance_Sheet.yearly_last_1;
+
 
         this.lastAnnualIncomeStatement = this.fundamentals.Financials.Income_Statement.yearly_last_0;
 
