@@ -30,7 +30,7 @@ export const parseRisk = (storage: StockParserService): void => {
     
     Therefore, we only consume it
     */
-    storage.stockProfile.risk.beta = storage.fundamentals.Technicals.Beta ?? 'N/A';
+    storage.stockProfile.risk.beta = storage.fundamentals.Technicals.Beta || 'N/A';
 
     /*
     Alpha is always missing, calculate over ticker rate of return, benchmark rate of return,

@@ -131,7 +131,7 @@ export class StockParserService {
 
         If no earnings trends data, leave unitialized, resulting in discard when (if) used
         */
-        const earningsTrends = Object.values(this.fundamentals.Earnings.Trend ?? {});
+        const earningsTrends = Object.values(this.fundamentals.Earnings.Trend || {});
 
         if (earningsTrends.length) {
 
