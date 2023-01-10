@@ -17,5 +17,9 @@ export const parseProfitability = (storage: StockParserService): void => {
             Number(storage.lastAnnualBalanceSheet.totalStockholderEquity)
         );
 
-    storage.stockProfile.profitability.profitMargin = storage.fundamentals.Highlights.ProfitMargin;
+    storage.stockProfile.profitability.profitMargin =
+        storage.fundamentals.Highlights.ProfitMargin ?? ProfitabilityCalculatorService.calculateProfitMargin(
+            Number(storage.lastAnnualIncomeStatement.netIncome),
+            Number(storage.lastAnnualIncomeStatement.totalRevenue)
+        );
 };
