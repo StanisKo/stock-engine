@@ -287,6 +287,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
   Target: < 1.0 && < Industry Peers
 
   <br />
+
   Formula:
 
   <br />
@@ -315,8 +316,16 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
+  Formula:
+
+  <br />
+
   ```
-  No formula: P/S ratio is available directly from API
+  P/S = SP / SPS
+
+  SP = Stock Price
+
+  SPS (Sales per Share) = Sales / Shares Outstanding
   ```
 
   <br />
