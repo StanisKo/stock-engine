@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+import moment from 'moment';
+
 import { IStockProfile } from '../../interfaces/stock-profile.interface';
 import { ITickerFundamentals, ITickerPrice, IBenchmarkPrice, IGenericPrice } from '../../interfaces/ticker.interface';
 
@@ -60,6 +64,8 @@ export class StockParserService {
     lastAnnualCashFlowStatement: ITickerFundamentals;
 
 
+    annualEarningsGrowth: number;
+
     exchangeRate?: number;
 
     constructor(
@@ -96,7 +102,7 @@ export class StockParserService {
 
         Certainly, different companies have different start and end dates for the fiscal year reporting
 
-        Therefore, by the time we're executing this code, somemody might have already exposed their annual
+        Therefore, by the time we're executing this code, somebody might have already exposed their annual
         financial figures, whereas, someone else will do so only in 3 months
 
         Therefore, the most recent financial papers for some companies can belong to previous year
@@ -110,6 +116,21 @@ export class StockParserService {
         this.lastAnnualIncomeStatement = this.fundamentals.Financials.Income_Statement.yearly_last_0;
 
         this.lastAnnualCashFlowStatement = this.fundamentals.Financials.Cash_Flow.yearly_last_0;
+
+        const annualEarningsTrend = Object.values(this.fundamentals.Earnings.Trend).find(trend => {
+
+            const lookup  = trend as { period: string, date: string };
+
+            const trendDate = moment(lookup.date);
+
+            /*
+            Get the annual trend entry over last year (0y), that is before current date
+            */
+            return lookup.period === '0y' && trendDate.isBefore(moment());
+
+        }) as { [key: string]: number };
+
+        this.annualEarningsGrowth = annualEarningsTrend.growth;
 
         /* **** */
 

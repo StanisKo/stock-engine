@@ -287,9 +287,12 @@ Each set of fundamentals (profile) is divided into 6 categories:
   Target: < 1.0 && < Industry Peers
 
   <br />
+  Formula:
+
+  <br />
 
   ```
-  No formula: PEG ratio is available directly from API
+  PEG = P/E / EPS Growth
   ```
 
   <br />
