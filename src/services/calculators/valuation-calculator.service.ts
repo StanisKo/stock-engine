@@ -88,6 +88,12 @@ export class ValuationCalculatorService {
     }
 
     @Discard
+    public static calculatePriceToSales(stockPrice: number, salesRevenue: number): number {
+
+        return stockPrice / salesRevenue;
+    }
+
+    @Discard
     public static calculateEnterpriseValue(
         marketCap: number, debt: number, cash: number, cashAndEquivalents: number): void {
 
