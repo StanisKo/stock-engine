@@ -25,7 +25,14 @@ export const parseValuation = (storage: StockParserService): void => {
             Number(storage.lastAnnualBalanceSheet.commonStockSharesOutstanding),
         );
 
-    storage.stockProfile.valuation.priceToBook = storage.fundamentals.Valuation.PriceBookMRQ;
+    storage.stockProfile.valuation.priceToBook =
+        storage.fundamentals.Valuation.PriceBookMRQ ?? ValuationCalculatorService.calculatePriceToBook(
+            storage.tickerMostRecentPrice,
+            Number(storage.lastAnnualBalanceSheet.totalAssets),
+            Number(storage.lastAnnualBalanceSheet.intangibleAssets),
+            Number(storage.lastAnnualBalanceSheet.totalLiab),
+            Number(storage.lastAnnualBalanceSheet.commonStockSharesOutstanding),
+        );
 
     /*
     Calculate EV based on market cap and last annual balance sheet
