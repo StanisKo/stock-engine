@@ -9,8 +9,11 @@ export class ProfitabilityCalculatorService {
     }
 
     @Discard
-    public static calculateReturnOnEquity(netIncome: number, shareholderEquity: number): number {
+    public static calculateReturnOnEquity(
+        netIncome: number, startingShareholderEquity: number, endingShareholderEquity: number): number {
 
-        return netIncome / shareholderEquity;
+        const averageShareholderEquity = (startingShareholderEquity + endingShareholderEquity) / 2;
+
+        return netIncome / averageShareholderEquity;
     }
 }

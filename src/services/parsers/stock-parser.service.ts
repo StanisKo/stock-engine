@@ -62,6 +62,8 @@ export class StockParserService {
 
     lastAnnualBalanceSheet: ITickerFundamentals;
 
+    previousAnnualBalanceSheet: ITickerFundamentals;
+
     lastAnnualIncomeStatement: ITickerFundamentals;
 
     lastAnnualCashFlowStatement: ITickerFundamentals;
@@ -115,6 +117,8 @@ export class StockParserService {
         An external expert input is needed: do we use annual papers or quarterly papers?
         */
         this.lastAnnualBalanceSheet = this.fundamentals.Financials.Balance_Sheet.yearly_last_0;
+
+        this.previousAnnualBalanceSheet = this.fundamentals.Financials.Balance_Sheet.yearly_last_1;
 
         this.lastAnnualIncomeStatement = this.fundamentals.Financials.Income_Statement.yearly_last_0;
 
