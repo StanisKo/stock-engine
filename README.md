@@ -532,7 +532,11 @@ Each set of fundamentals (profile) is divided into 6 categories:
   <br />
 
   ```
-  ROE = Net Income / Shareholders' Equity
+  ROE = Net Income / Average Shareholders' Equity
+
+  Average Shareholders' Equity = (Previous FY Shareholders' Equity + Last FY Shareholders' Equity) / 2
+
+  FY = Fiscal Year
   ```
 
   <br />
