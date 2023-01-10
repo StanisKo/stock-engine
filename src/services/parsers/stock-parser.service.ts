@@ -117,9 +117,6 @@ export class StockParserService {
 
         this.lastAnnualCashFlowStatement = this.fundamentals.Financials.Cash_Flow.yearly_last_0;
 
-        /*
-        TODO: tackle this typing
-        */
         const annualEarningsTrend = Object.values(this.fundamentals.Earnings.Trend).find(trend => {
 
             const lookup  = trend as { period: string, date: string };
