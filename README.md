@@ -348,8 +348,16 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
+  Formula:
+
+  <br />
+
   ```
-  No formula: P/B ratio is available directly from API
+  P/B = SP / BVPS
+
+  SP = Stock Price
+
+  BPVS (Book Value Per Share) = (Total Assets - Intangible Assets - Total Liabilites) / Shares Outstanding
   ```
 
   <br />
