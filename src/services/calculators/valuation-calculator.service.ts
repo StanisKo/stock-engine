@@ -95,6 +95,15 @@ export class ValuationCalculatorService {
         return stockPrice / salesPerShare;
     }
 
+    @Discard static calculatePriceToBook(
+        stockPrice: number,
+        totalAssets: number, intangibleAssets: number, totalLiabilities: number, sharesOutstanding: number): number {
+
+        const bookValuePerShare = (totalAssets - intangibleAssets - totalLiabilities) / sharesOutstanding;
+
+        return stockPrice / bookValuePerShare;
+    }
+
     @Discard
     public static calculateEnterpriseValue(
         marketCap: number, debt: number, cash: number, cashAndEquivalents: number): void {
