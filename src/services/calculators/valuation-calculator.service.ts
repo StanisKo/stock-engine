@@ -1,6 +1,12 @@
 import { Discard } from '../../utils/discard.decorator';
 
 /*
+P/E = SP / EPS
+
+SP = Stock Price
+
+EPS = Earnings Per Share
+
 EV/R = EV / Revenue
 
 EV/EBITDA = EV / EBITDA
@@ -46,6 +52,27 @@ On P/CF: https://www.investopedia.com/terms/p/price-to-cash-flowratio.asp
 export class ValuationCalculatorService {
 
     static enterpriseValue: number;
+
+    @Discard
+    public static calculatePriceToEarnings(
+        stockPrice: number, netIncome: number, sharesOutstanding: number, exchangeRate?: number): number {
+
+        let earningsPerShare = netIncome / sharesOutstanding;
+
+        /*
+        If financial documents are exposed not in USD, we got to convert EPS into USD
+        and only then calculate P/E (since price is always in USD)
+        */
+        if (exchangeRate) {
+
+            /*
+            Our ecxhange rate is reversed (CURR/USD), so we divide
+            */
+            earningsPerShare /= exchangeRate;
+        }
+
+        return stockPrice / earningsPerShare;
+    }
 
     @Discard
     public static calculateEnterpriseValue(

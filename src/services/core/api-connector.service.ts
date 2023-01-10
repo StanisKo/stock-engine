@@ -103,6 +103,19 @@ export class ApiConnectorService {
         return prices;
     }
 
+    public static async requestExchangeRateAgainstUSD(currency: string): Promise<number> {
+
+        const request = await fetch(
+            `${this.fundametalsDataApiUrl}/real-time/${currency}.FOREX?api_token=${this.fundametalsDataApiKey}&fmt=json`
+        );
+
+        const response = await request.json();
+
+        const exchangeRate = response.close;
+
+        return exchangeRate;
+    }
+
     /*
     We request benchmark prices as TTM
     */

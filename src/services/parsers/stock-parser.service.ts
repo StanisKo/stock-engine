@@ -38,6 +38,8 @@ export class StockParserService {
 
     tickerAveragePriceOverLastSixtyTradingDays: number;
 
+    tickerMostRecentPrice: number;
+
 
     benchmarkTTMPrices: IBenchmarkPrice[];
 
@@ -58,9 +60,11 @@ export class StockParserService {
     lastAnnualCashFlowStatement: ITickerFundamentals;
 
 
+    exchangeRate?: number;
+
     constructor(
         fundamentals: ITickerFundamentals,
-        prices: ITickerPrice[], benchmarkPrices: IBenchmarkPrice[], treasuryBondYield: number) {
+        prices: ITickerPrice[], benchmarkPrices: IBenchmarkPrice[], treasuryBondYield: number, exchangeRate?: number) {
 
         this.stockProfile = {} as IStockProfile;
 
@@ -74,6 +78,8 @@ export class StockParserService {
 
         this.treasuryBondYield = treasuryBondYield;
 
+        this.exchangeRate = exchangeRate;
+
 
         this.constructInputsForCalculators();
 
@@ -85,6 +91,19 @@ export class StockParserService {
         /*
         Get the last annual balance sheet, income statement and cash flow statement
         necessary for liquidity, valuation, debt, and efficiency calculations
+
+        MAJOR TODO:
+
+        Certainly, different companies have different start and end dates for the fiscal year reporting
+
+        Therefore, by the time we're executing this code, somemody might have already exposed their annual
+        financial figures, whereas, someone else will do so only in 3 months
+
+        Therefore, the most recent financial papers for some companies can belong to previous year
+
+        To mitigate that, we can use last querterly papers, that, though might skew the picture
+
+        An external expert input is needed: do we use annual papers or quarterly papers?
         */
         this.lastAnnualBalanceSheet = this.fundamentals.Financials.Balance_Sheet.yearly_last_0;
 
@@ -136,6 +155,11 @@ export class StockParserService {
         this.tickerAveragePriceOverLastSixtyTradingDays = CalculatorHelperService.calculateAveragePrice(
             pricesOverLastSixtyTradingDays
         );
+
+        /*
+        NOTE: we're using close here, not the adjusted close, since we want raw market output
+        */
+        this.tickerMostRecentPrice = this.tickerPricesSinceIPO[this.tickerPricesSinceIPO.length - 1].close;
 
         /* **** */
 
