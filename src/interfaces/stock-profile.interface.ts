@@ -2,6 +2,8 @@ import { MarketCapLabel } from '../enums';
 
 export interface IStockProfile {
 
+    score: number,
+
     ticker: string,
 
     industry: string,

@@ -15,6 +15,8 @@ export default async (industry: string): Promise<IStockProfile[]> => {
 
         const profile = profilesToScore[i];
 
+        let overallProfileScore = 0;
+
         const categoryScores = {
 
             cagr: 0,
@@ -32,6 +34,6 @@ export default async (industry: string): Promise<IStockProfile[]> => {
             efficiency: 0
         };
 
-        
+
     }
-}
+};
