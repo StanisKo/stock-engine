@@ -11,7 +11,7 @@ number of categories in profile
 
 export class WeightConfiguratorService {
 
-    private averageWeightOfCategory = 100 / 6;
+    private averageWeightOfCategory = 100 / 7;
 
 
     private averageWeightOfRiskRatio = 100 / 5;
