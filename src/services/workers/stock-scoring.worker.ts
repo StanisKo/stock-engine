@@ -22,22 +22,12 @@ export default async (industry: string): Promise<IStockProfile[]> => {
         let overallProfileScore = 0;
 
         const categoryScores = {
-
-            cagr: 0,
-
-            risk: 0,
-
-            valuation: 0,
-
-            profitability: 0,
-
-            liquidity: 0,
-
-            debt: 0,
-
-            efficiency: 0
+            cagr: 0, risk: 0, valuation: 0, profitability: 0, liquidity: 0, debt: 0, efficiency: 0
         };
 
+        /*
+        TODO: this has to be modularized
+        */
         const categoriesToScore = Object.keys(categoryScores);
 
         for (let j = 0; j < categoriesToScore.length; j++) {
@@ -53,12 +43,20 @@ export default async (industry: string): Promise<IStockProfile[]> => {
 
                 for (let k = 0; k < profilesToScore.length; k++) {
 
-                    cagrValuesAcrossProfiles.push(
-                        profilesToScore[k].cagr
-                    );
+                    cagrValuesAcrossProfiles.push(profilesToScore[k].cagr);
                 }
 
-                
+                const sorted = mergeSort(cagrValuesAcrossProfiles);
+
+                const highest = sorted[sorted.length - 1];
+
+                const lowest = sorted[0];
+
+                const scaledScore = 100 * (profile.cagr - lowest) / (highest - lowest);
+
+                const scaledScoreInProportionToWeight = scaledScore * (weightConfiguratorService.weights.cagr / 100);
+
+                categoryScores.cagr = scaledScoreInProportionToWeight;
             }
         }
     }
