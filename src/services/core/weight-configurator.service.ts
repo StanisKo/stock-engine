@@ -17,6 +17,18 @@ export class WeightConfiguratorService {
     */
     public static cagr = this.averageWeightOfCategory;
 
+    public static risk = this.averageWeightOfCategory;
+
+    public static valuation = this.averageWeightOfCategory;
+
+    public static profitability = this.averageWeightOfCategory;
+
+    public static liquidity = this.averageWeightOfCategory;
+
+    public static debt = this.averageWeightOfCategory;
+
+    public static efficiency = this.averageWeightOfCategory;
+
 
     public static standardDeviation = this.averageWeightOfRiskRatio;
 
