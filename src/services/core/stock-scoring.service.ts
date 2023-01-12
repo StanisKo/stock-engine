@@ -1,5 +1,7 @@
 import { ServiceResponse } from '../../dtos/serviceResponse';
 
+import { Industry } from '../../schemas/industry.schema';
+
 export class StockScoringService {
 
     public async scoreStocks(): Promise<ServiceResponse> {
@@ -8,6 +10,10 @@ export class StockScoringService {
 
         try {
 
+            /*
+            We need to process all of them
+            */
+            const industries = await Industry.find({}).lean();
 
         }
         catch (error) {
