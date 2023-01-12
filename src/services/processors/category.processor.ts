@@ -27,9 +27,10 @@ export const processCategory = (
         Since our scaled score ranges from 0 to 100, we need to bring it to the proportion this score
         would occupy in relation to other categories
 
-        In such, we multiply the calculated score on it's weight divided by 100 (weights are expressed in per cent)
+        In such, we multiply the weight on calculated score divided by 100, to get to the proportion
+        that score occupied within the weight
 
-        E.g.: 42 * (14.2 / 100) = 42 * 0.142 = 17,64
+        E.g.: weight * (score / 100) = 14.2 * (42 / 100)
         */
         const sorted = mergeSort(valuesToScore!);
 
@@ -39,7 +40,7 @@ export const processCategory = (
 
         const scaledScore = 100 * (profile.cagr - lowest) / (highest - lowest);
 
-        scaledScoreInProportionToWeight = scaledScore * (weightConfiguratorService.weights.cagr / 100);
+        scaledScoreInProportionToWeight = weightConfiguratorService.weights.cagr * (scaledScore / 100);
     }
     else {
 
