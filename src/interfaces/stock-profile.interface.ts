@@ -1,11 +1,5 @@
 import { MarketCapLabel } from '../enums';
 
-/*
-TODO: clean this interface; remove formulae, descriptions, and targets from the comments
-
-Keep all docs in readme
-*/
-
 export interface IStockProfile {
 
     score: number,
