@@ -4,12 +4,16 @@ import { StockProfile } from '../../schemas/stock-profile.schema';
 
 import { WeightConfiguratorService } from '../core/weight-configurator.service';
 
+import { mergeSort } from '../../utils/merge-sort.algo';
+
 
 export default async (industry: string): Promise<IStockProfile[]> => {
 
     const weightConfiguratorService = new WeightConfiguratorService();
 
     const profilesToScore = await StockProfile.find({ industry }).lean();
+
+    const scoredProfiles = [];
 
     for (let i = 0; i < profilesToScore.length; i++) {
 
@@ -34,9 +38,28 @@ export default async (industry: string): Promise<IStockProfile[]> => {
             efficiency: 0
         };
 
-        /*
-        We first tackle CAGR
-        */
-        
+        const categoriesToScore = Object.keys(categoryScores);
+
+        for (let j = 0; j < categoriesToScore.length; j++) {
+
+            const category = categoriesToScore[j];
+
+            /*
+            We tackle CAGR explicitly, as there are no ratios to it -- we treat it as a separate category
+            */
+            if (category === 'cagr') {
+
+                const cagrValuesAcrossProfiles = [];
+
+                for (let k = 0; k < profilesToScore.length; k++) {
+
+                    cagrValuesAcrossProfiles.push(
+                        profilesToScore[k].cagr
+                    );
+                }
+
+                
+            }
+        }
     }
 };
