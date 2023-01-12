@@ -10,6 +10,8 @@ import { mergeSort } from '../../algos/merge-sort.algo';
 
 /*
 TODO: class that gathers input before passing them into processors: on all rations
+
+and then merge sort all those inputs
 */
 
 
