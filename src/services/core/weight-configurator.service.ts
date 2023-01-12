@@ -3,7 +3,10 @@ At this point in time, we do not have access to business logic that would
 define weights for each ratio
 
 In such, we deduce weights by simply averaging down each ratio against number
-of ratios on given category
+of ratios in given category
+
+Same principle is applied to categories' weights: they are averaged down against
+number of categories in profile
 */
 
 export class WeightConfiguratorService {
