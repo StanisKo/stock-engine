@@ -4,7 +4,13 @@ import { StockProfile } from '../../schemas/stock-profile.schema';
 
 import { WeightConfiguratorService } from '../core/weight-configurator.service';
 
+import { CategoryProcessorService } from '../processors/category-processor.service';
+
 import { mergeSort } from '../../algos/merge-sort.algo';
+
+/*
+TODO: class that gathers input before passing them into processors: on all rations
+*/
 
 
 export default async (industry: string): Promise<IStockProfile[]> => {
@@ -29,7 +35,9 @@ export default async (industry: string): Promise<IStockProfile[]> => {
 
         for (let j = 0; j < categoriesToScore.length; j++) {
 
-            const category = categoriesToScore[j];
+            CategoryProcessorService.weightConfiguratorService = weightConfiguratorService;
+
+            CategoryProcessorService.processCategory(categoriesToScore[j], profile, );
         }
     }
 };
