@@ -25,39 +25,11 @@ export default async (industry: string): Promise<IStockProfile[]> => {
             cagr: 0, risk: 0, valuation: 0, profitability: 0, liquidity: 0, debt: 0, efficiency: 0
         };
 
-        /*
-        TODO: this has to be modularized
-        */
         const categoriesToScore = Object.keys(categoryScores);
 
         for (let j = 0; j < categoriesToScore.length; j++) {
 
             const category = categoriesToScore[j];
-
-            /*
-            We tackle CAGR explicitly, as there are no ratios to it -- we treat it as a separate category
-            */
-            if (category === 'cagr') {
-
-                const cagrValuesAcrossProfiles = [];
-
-                for (let k = 0; k < profilesToScore.length; k++) {
-
-                    cagrValuesAcrossProfiles.push(profilesToScore[k].cagr);
-                }
-
-                const sorted = mergeSort(cagrValuesAcrossProfiles);
-
-                const highest = sorted[sorted.length - 1];
-
-                const lowest = sorted[0];
-
-                const scaledScore = 100 * (profile.cagr - lowest) / (highest - lowest);
-
-                const scaledScoreInProportionToWeight = scaledScore * (weightConfiguratorService.weights.cagr / 100);
-
-                categoryScores.cagr = scaledScoreInProportionToWeight;
-            }
         }
     }
 };
