@@ -4,7 +4,7 @@ import { StockProfile } from '../../schemas/stock-profile.schema';
 
 import { WeightConfiguratorService } from '../core/weight-configurator.service';
 
-import { mergeSort } from '../../utils/merge-sort.algo';
+import { mergeSort } from '../../algos/merge-sort.algo';
 
 
 export default async (industry: string): Promise<IStockProfile[]> => {
