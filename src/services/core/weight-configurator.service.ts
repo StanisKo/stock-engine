@@ -19,6 +19,12 @@ export class WeightConfiguratorService {
 
     private averageWeightOfProfitabilityRatio = 100 / 3;
 
+    private averageWeightOfLiqudityRatio = 100 / 2;
+
+    private averageWeightOfDebtRatio = 100 / 2;
+
+    private averageWeightOfEfficiencyRatio = 100 / 2;
+
 
     public weights = {
 
@@ -72,5 +78,19 @@ export class WeightConfiguratorService {
 
         profitMargin: this.averageWeightOfProfitabilityRatio,
 
+
+        currentRatio: this.averageWeightOfLiqudityRatio,
+
+        quickRatio: this.averageWeightOfLiqudityRatio,
+
+
+        debtToEquity: this.averageWeightOfDebtRatio,
+
+        interestCoverage: this.averageWeightOfDebtRatio,
+
+
+        assetTurnover: this.averageWeightOfEfficiencyRatio,
+
+        inventoryTurnover: this.averageWeightOfEfficiencyRatio
     };
 }
