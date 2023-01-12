@@ -13,7 +13,7 @@ import { ApiConnectorService } from '../core/api-connector.service';
 import { StockParserService } from '../parsers/stock-parser.service';
 
 /*
-A meta-layer function sole purpose of which is to process batch of given fundamentals by using StockParsingService
+A meta-layer function sole purpose of which is to process batch of given fundamentals by using StockParserService
 
 Called in parallel on every batch by StockProfilingService
 */
