@@ -34,6 +34,9 @@ export default async (industry: string): Promise<IStockProfile[]> => {
             efficiency: 0
         };
 
-
+        /*
+        We first tackle CAGR
+        */
+        
     }
 };
