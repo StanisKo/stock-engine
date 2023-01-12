@@ -4,17 +4,14 @@ import { StockProfile } from '../../schemas/stock-profile.schema';
 
 import { WeightConfiguratorService } from '../core/weight-configurator.service';
 
-import { RatiosExtractorService } from '../helpers/ratios-extractor.service';
+import { CategoryProcessorService } from '../processors/category-processor.service';
 
-import { RatiosProcessorService } from '../processors/ratios-processor.service';
+import { mergeSort } from '../../algos/merge-sort.algo';
 
 /*
 TODO: class that gathers input before passing them into processors: on all rations
 
 and then merge sort all those inputs
-
-do not loop through categories, only ratios in extractir
-
 */
 
 
@@ -22,15 +19,9 @@ export default async (industry: string): Promise<IStockProfile[]> => {
 
     const weightConfiguratorService = new WeightConfiguratorService();
 
-    const ratiosExtractorService = new RatiosExtractorService;
-
     const profilesToScore = await StockProfile.find({ industry }).lean();
 
-    const scoredProfiles: IStockProfile[] = [];
-
-    RatiosProcessorService.ratiosExtractorService = ratiosExtractorService;
-
-    RatiosProcessorService.weightConfiguratorService = weightConfiguratorService;
+    const scoredProfiles = [];
 
     for (let i = 0; i < profilesToScore.length; i++) {
 
@@ -38,8 +29,17 @@ export default async (industry: string): Promise<IStockProfile[]> => {
 
         let overallProfileScore = 0;
 
-        RatiosProcessorService.processRatio();
-    }
+        const categoryScores = {
+            cagr: 0, risk: 0, valuation: 0, profitability: 0, liquidity: 0, debt: 0, efficiency: 0
+        };
 
-    return scoredProfiles;
+        const categoriesToScore = Object.keys(categoryScores);
+
+        for (let j = 0; j < categoriesToScore.length; j++) {
+
+            CategoryProcessorService.weightConfiguratorService = weightConfiguratorService;
+
+            CategoryProcessorService.processCategory(categoriesToScore[j], profile, );
+        }
+    }
 };
