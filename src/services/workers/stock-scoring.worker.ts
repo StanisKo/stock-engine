@@ -13,6 +13,25 @@ export default async (industry: string): Promise<IStockProfile[]> => {
 
     for (let i = 0; i < profilesToScore.length; i++) {
 
+        const profile = profilesToScore[i];
 
+        const categoryScores = {
+
+            cagr: 0,
+
+            risk: 0,
+
+            valuation: 0,
+
+            profitability: 0,
+
+            liquidity: 0,
+
+            debt: 0,
+
+            efficiency: 0
+        };
+
+        
     }
 }
