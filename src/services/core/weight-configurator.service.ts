@@ -15,6 +15,8 @@ export class WeightConfiguratorService {
 
     private static averageWeightOfRiskRatio = 100 / 5;
 
+    private static averageWeightOfValuationRatio = 100 / 7;
+
     /*
     We treat CAGR as a separate category
     */
@@ -42,4 +44,19 @@ export class WeightConfiguratorService {
     public static alpha = this.averageWeightOfRiskRatio;
 
     public static rSquared = this.averageWeightOfRiskRatio;
+
+
+    public static priceToEarnings = this.averageWeightOfValuationRatio;
+
+    public static priceToEarningsGrowth = this.averageWeightOfValuationRatio;
+
+    public static priceToSales = this.averageWeightOfValuationRatio;
+
+    public static priceToBook = this.averageWeightOfValuationRatio;
+
+    public static enterpriseValueToRevenue = this.averageWeightOfValuationRatio;
+
+    public static enterpriseValueToEbitda = this.averageWeightOfValuationRatio;
+
+    public static priceToFreeCashFlow = this.averageWeightOfValuationRatio;
 }
