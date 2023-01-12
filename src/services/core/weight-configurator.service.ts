@@ -11,52 +11,66 @@ number of categories in profile
 
 export class WeightConfiguratorService {
 
-    private static averageWeightOfCategory = 100 / 6;
+    private averageWeightOfCategory = 100 / 6;
 
-    private static averageWeightOfRiskRatio = 100 / 5;
+    private averageWeightOfRiskRatio = 100 / 5;
 
-    private static averageWeightOfValuationRatio = 100 / 7;
+    private averageWeightOfValuationRatio = 100 / 7;
 
-    /*
-    We treat CAGR as a separate category
-    */
-    public static cagr = this.averageWeightOfCategory;
-
-    public static risk = this.averageWeightOfCategory;
-
-    public static valuation = this.averageWeightOfCategory;
-
-    public static profitability = this.averageWeightOfCategory;
-
-    public static liquidity = this.averageWeightOfCategory;
-
-    public static debt = this.averageWeightOfCategory;
-
-    public static efficiency = this.averageWeightOfCategory;
+    private averageWeightOfProfitabilityRatio = 100 / 3;
 
 
-    public static standardDeviation = this.averageWeightOfRiskRatio;
+    public weights = {
 
-    public static sharpeRatio = this.averageWeightOfRiskRatio;
+        /*
+        We treat CAGR as a separate category
+        */
+        cagr: this.averageWeightOfCategory,
 
-    public static beta = this.averageWeightOfRiskRatio;
+        risk: this.averageWeightOfCategory,
 
-    public static alpha = this.averageWeightOfRiskRatio;
+        valuation: this.averageWeightOfCategory,
 
-    public static rSquared = this.averageWeightOfRiskRatio;
+        profitability: this.averageWeightOfCategory,
+
+        liquidity: this.averageWeightOfCategory,
+
+        debt: this.averageWeightOfCategory,
+
+        efficiency: this.averageWeightOfCategory,
 
 
-    public static priceToEarnings = this.averageWeightOfValuationRatio;
+        standardDeviation: this.averageWeightOfRiskRatio,
 
-    public static priceToEarningsGrowth = this.averageWeightOfValuationRatio;
+        sharpeRatio: this.averageWeightOfRiskRatio,
 
-    public static priceToSales = this.averageWeightOfValuationRatio;
+        beta: this.averageWeightOfRiskRatio,
 
-    public static priceToBook = this.averageWeightOfValuationRatio;
+        alpha: this.averageWeightOfRiskRatio,
 
-    public static enterpriseValueToRevenue = this.averageWeightOfValuationRatio;
+        rSquared: this.averageWeightOfRiskRatio,
 
-    public static enterpriseValueToEbitda = this.averageWeightOfValuationRatio;
 
-    public static priceToFreeCashFlow = this.averageWeightOfValuationRatio;
+        priceToEarnings: this.averageWeightOfValuationRatio,
+
+        priceToEarningsGrowth: this.averageWeightOfValuationRatio,
+
+        priceToSales: this.averageWeightOfValuationRatio,
+
+        priceToBook: this.averageWeightOfValuationRatio,
+
+        enterpriseValueToRevenue: this.averageWeightOfValuationRatio,
+
+        enterpriseValueToEbitda: this.averageWeightOfValuationRatio,
+
+        priceToFreeCashFlow: this.averageWeightOfValuationRatio,
+
+
+        returnOnAssets: this.averageWeightOfProfitabilityRatio,
+
+        returnOnEquity: this.averageWeightOfProfitabilityRatio,
+
+        profitMargin: this.averageWeightOfProfitabilityRatio,
+
+    };
 }
