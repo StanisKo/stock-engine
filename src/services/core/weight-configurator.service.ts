@@ -13,6 +13,7 @@ export class WeightConfiguratorService {
 
     private averageWeightOfCategory = 100 / 6;
 
+
     private averageWeightOfRiskRatio = 100 / 5;
 
     private averageWeightOfValuationRatio = 100 / 7;
