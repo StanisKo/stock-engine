@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import { establishDatabaseConnection } from '../../utils/database.connector';
 
 import { IStockProfile } from '../../interfaces/stock-profile.interface';
 
@@ -18,11 +18,7 @@ export default async (industry: string): Promise<IStockProfile[]> => {
 
     Therefore, we need to manually hook into database from each thread
     */
-    const { MONGO_PROTOCOL, MONGO_USERNAME, MONGO_PASSWORD, MONGO_HOST, MONGO_PORT, MONGO_DATABASE } = process.env;
-
-    await mongoose.connect(
-        `${MONGO_PROTOCOL}://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}:${MONGO_PORT}/${MONGO_DATABASE}`
-    );
+    await establishDatabaseConnection();
 
     const profilesToScore = await StockProfile.find({ industry }).lean();
 
