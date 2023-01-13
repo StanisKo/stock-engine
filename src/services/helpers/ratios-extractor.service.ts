@@ -28,14 +28,6 @@ export class RatiosExtractorService {
                 const categoryKey = keysOfCurrentlyIteratedProfile[j];
 
                 /*
-                Skip key if it's non-data related (or dividends, since we don't process them yet)
-                */
-                if (!this.categories.includes(categoryKey)) {
-
-                    continue;
-                }
-
-                /*
                 Handle CAGR explicitly
                 */
                 if (categoryKey === 'cagr') {
@@ -48,6 +40,14 @@ export class RatiosExtractorService {
 
                         this.ratios[categoryKey].push(profile[categoryKey]);
                     }
+                }
+
+                /*
+                Skip key if it's non-data related (or dividends, since we don't process them yet)
+                */
+                if (!this.categories.includes(categoryKey)) {
+
+                    continue;
                 }
 
                 /*
