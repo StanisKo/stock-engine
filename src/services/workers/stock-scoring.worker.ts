@@ -64,6 +64,8 @@ export default async (industry: string): Promise<IStockProfile[]> => {
 
     for (let i = 0; i < profilesToScore.length; i++) {
 
+        let overallProfileScore = 0;
+
         const profile = profilesToScore[i];
 
         const categoryScores = {
@@ -74,7 +76,7 @@ export default async (industry: string): Promise<IStockProfile[]> => {
 
         for (let j = 0; j < categories.length; j++) {
 
-            const category = categories[i];
+            const category = categories[j];
 
             const scaledScoreInProportionToWeight = CategoryProcessorService.processCategory(
                 category,
@@ -84,7 +86,9 @@ export default async (industry: string): Promise<IStockProfile[]> => {
             categoryScores[category as keyof typeof categoryScores] = scaledScoreInProportionToWeight;
         }
 
-        console.log(categoryScores);
+        overallProfileScore = Object.values(categoryScores).reduce((a, b) => a + b);
+
+        profile.score = overallProfileScore;
     }
 
     return scoredProfiles;
