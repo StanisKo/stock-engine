@@ -1,3 +1,7 @@
+/*
+Optimize!
+*/
+
 const merge = (left: number[], right: number[]): number[] => {
 
     const result = [];
