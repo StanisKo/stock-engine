@@ -32,7 +32,14 @@ export class RatiosExtractorService {
 
                 if (key === 'cagr') {
 
-                    this.ratios[key].push(profile[key]);
+                    if (!this.ratios[key]) {
+
+                        this.ratios[key] = [profile[key]];
+                    }
+                    else {
+
+                        this.ratios[key].push(profile[key]);
+                    }
                 }
 
                 /*
