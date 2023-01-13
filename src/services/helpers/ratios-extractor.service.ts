@@ -25,53 +25,52 @@ export class RatiosExtractorService {
 
             for (let j = 0; j < keysOfCurrentlyIteratedProfile.length; j++) {
 
-                /*
-                Handle CAGR explicitly
-                */
-                const key = keysOfCurrentlyIteratedProfile[j];
-
-                if (key === 'cagr') {
-
-                    if (!this.ratios[key]) {
-
-                        this.ratios[key] = [profile[key]];
-                    }
-                    else {
-
-                        this.ratios[key].push(profile[key]);
-                    }
-                }
+                const categoryKey = keysOfCurrentlyIteratedProfile[j];
 
                 /*
                 Skip key if it's non-data related (or dividends, since we don't process them yet)
                 */
-                if (!this.categories.includes(key)) {
+                if (!this.categories.includes(categoryKey)) {
 
                     continue;
                 }
 
                 /*
+                Handle CAGR explicitly
+                */
+                if (categoryKey === 'cagr') {
+
+                    if (!this.ratios[categoryKey]) {
+
+                        this.ratios[categoryKey] = [profile[categoryKey]];
+                    }
+                    else {
+
+                        this.ratios[categoryKey].push(profile[categoryKey]);
+                    }
+                }
+
+                /*
                 Otherwise, traverse and extract
                 */
-                const ratiosWithinCurrentlyIteratedCategory = Object.keys(profile[key]);
+                const ratiosWithinCurrentlyIteratedCategory = Object.keys(profile[categoryKey]);
 
                 for (let k = 0; k < ratiosWithinCurrentlyIteratedCategory.length; k++) {
 
                     const ratioKey = ratiosWithinCurrentlyIteratedCategory[k];
 
-                    const ratio = profile[key][ratioKey];
+                    const ratio = profile[categoryKey][ratioKey];
 
-                    if (!this.ratios[key]) {
+                    if (!this.ratios[ratioKey]) {
 
-                        this.ratios[key] = [ratio];
+                        this.ratios[ratioKey] = [ratio];
                     }
                     else {
 
-                        this.ratios[key].push(ratio);
+                        this.ratios[ratioKey].push(ratio);
                     }
                 }
             }
-
         }
     }
 }
