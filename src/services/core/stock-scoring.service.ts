@@ -1,3 +1,7 @@
+import { resolve } from 'path';
+
+import Piscina from 'piscina';
+
 import { ServiceResponse } from '../../dtos/serviceResponse';
 
 import { Industry } from '../../schemas/industry.schema';
@@ -13,7 +17,18 @@ export class StockScoringService {
             /*
             We need to process all of them
             */
-            const industries = await Industry.find({}).lean();
+            const industries = await Industry.find({ name: 'Airlines' }).lean();
+
+            const workerPoolOptions = {
+                filename: resolve(__dirname, '../workers/stock-scoring.worker.ts'),
+                concurrentTasksPerWorker: 2
+            };
+
+            const workerPool = new Piscina(workerPoolOptions);
+
+            await Promise.all(
+                industries.map(industry => workerPool.run(industry))
+            );
 
         }
         catch (error) {
