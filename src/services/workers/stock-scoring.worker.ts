@@ -8,7 +8,11 @@ import { Industry } from '../../schemas/industry.schema';
 
 import { RatiosExtractorService } from '../helpers/ratios-extractor.service';
 
+/*
+A meta-layer function that queries profiles by given industry and scores them using various processors
 
+Called in parallel on every industry by StockScoringService
+*/
 export default async (industry: string): Promise<IStockProfile[]> => {
 
     const ratiosExtractorService = new RatiosExtractorService();
