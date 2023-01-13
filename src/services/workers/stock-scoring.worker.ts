@@ -21,6 +21,10 @@ export default async (industry: string): Promise<IStockProfile[]> => {
 
     const scoredProfiles = [];
 
+    /*
+    Loop to extract
+    */
+
     for (let i = 0; i < profilesToScore.length; i++) {
 
         const profile = profilesToScore[i];
