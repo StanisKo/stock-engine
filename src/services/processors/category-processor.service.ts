@@ -2,15 +2,19 @@
 
 import { IStockProfile } from '../../interfaces/stock-profile.interface';
 
+import { RatiosExtractorService } from '../helpers/ratios-extractor.service';
+
 import { WeightConfiguratorService } from '../core/weight-configurator.service';
 
 import { mergeSort } from '../../algos/merge-sort.algo';
 
 export class CategoryProcessorService {
 
+    public static ratiosExtractorService: RatiosExtractorService;
+
     public static weightConfiguratorService: WeightConfiguratorService;
 
-    public static processCategory(category: string, profile: IStockProfile, valuesToScore?: number[]): number {
+    public static processCategory(category: string, profile: IStockProfile): number {
 
         let scaledScoreInProportionToWeight = 0;
 
@@ -34,7 +38,7 @@ export class CategoryProcessorService {
 
             E.g.: weight * (score / 100) = 14.2 * (42 / 100)
             */
-            const sorted = mergeSort(valuesToScore!);
+            const sorted = mergeSort(this.ratiosExtractorService.ratios.cagr);
 
             const highest = sorted[sorted.length - 1];
 
