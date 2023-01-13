@@ -8,6 +8,7 @@ import dotenv from 'dotenv';
 
 import stockProfilingRouter from './routes/stock-profiling.routes';
 import stockIngestingRouter from './routes/stock-ingesting.routes';
+import stockScoringRouter from './routes/stock-scoring.routes';
 
 import singleProfilingRouter from './routes/single-stock-profiling.routes';
 
@@ -44,7 +45,7 @@ export class Server {
 
     private connectRoutes(): void {
 
-        this.application.use('', stockProfilingRouter, stockIngestingRouter);
+        this.application.use('', stockProfilingRouter, stockIngestingRouter, stockScoringRouter);
 
         if (['local'].includes(process.env.ENV!)) {
 
