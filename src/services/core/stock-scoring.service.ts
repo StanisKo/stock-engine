@@ -17,7 +17,7 @@ export class StockScoringService {
             /*
             We need to process all of them
             */
-            const industries = await Industry.find({ name: 'Airlines' }).lean();
+            const industries = await Industry.find({ name: 'Airlines' }, { name: true }).lean();
 
             const workerPoolOptions = {
                 filename: resolve(__dirname, '../workers/stock-scoring.worker.ts'),
@@ -27,7 +27,7 @@ export class StockScoringService {
             const workerPool = new Piscina(workerPoolOptions);
 
             await Promise.all(
-                industries.map(industry => workerPool.run(industry))
+                industries.map(industry => workerPool.run(industry.name))
             );
 
         }
