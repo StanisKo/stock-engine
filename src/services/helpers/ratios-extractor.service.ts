@@ -4,9 +4,7 @@ export class RatiosExtractorService {
 
     public ratios: { [key: string]: number[] };
 
-    public categories: string[];
-
-    private keys: string[];
+    private categories: string[];
 
     constructor() {
 
@@ -15,19 +13,6 @@ export class RatiosExtractorService {
         this.categories = [
             'risk', 'valuation', 'profitability', 'liquidity', 'debt', 'efficiency'
         ];
-
-        this.keys = [
-            'cagr', 'standardDeviation', 'sharpeRatio', 'beta', 'alpha', 'rSquared',
-            'priceToEarning', 'priceToEarningsGrowth', 'priceToSales', 'priceToBook',
-            'enterpriseValueToRevenue', 'enterpriseValueToEbitda', 'priceToFreeCashFlow',
-            'returnOnAssets', 'returnOnEquity', 'profitMargin', 'currentRatio', 'quickRatio',
-            'debtToEquity', 'interestCoverage', 'assetTurnover', 'inventoryTurnover'
-        ];
-
-        for (let i = 0; i < this.keys.length; i++) {
-
-            this.ratios[this.keys[i]] = [];
-        }
     }
 
     public extractRatiosFromProfiles(profiles: IStockProfile[]): void {
@@ -51,7 +36,7 @@ export class RatiosExtractorService {
                 }
 
                 /*
-                Skip key if it's non-data related
+                Skip key if it's non-data related (or dividends, since we don't process them yet)
                 */
                 if (!this.categories.includes(key)) {
 
@@ -64,7 +49,17 @@ export class RatiosExtractorService {
                 const ratiosWithinCurrentlyIteratedCategory = Object.keys(profile[key as keyof IStockProfile]);
 
                 for (let k = 0; k < ratiosWithinCurrentlyIteratedCategory.length; k++) {
-                    
+
+                    const ratio = profile[key as keyof IStockProfile] as number;
+
+                    if (!this.ratios[key]) {
+
+                        this.ratios[key] = [ratio];
+                    }
+                    else {
+
+                        this.ratios[key].push(ratio);
+                    }
                 }
             }
 
