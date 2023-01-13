@@ -42,7 +42,5 @@ export default async (industry: string): Promise<IStockProfile[]> => {
 
     ratiosExtractorService.extractRatiosFromProfiles(profilesToScore);
 
-    console.log(JSON.stringify(ratiosExtractorService, null, 4));
-
     return scoredProfiles;
 };
