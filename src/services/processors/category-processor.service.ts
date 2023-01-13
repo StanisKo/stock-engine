@@ -3,8 +3,9 @@
 import { IStockProfile } from '../../interfaces/stock-profile.interface';
 
 import { RatiosExtractorService } from '../helpers/ratios-extractor.service';
-
 import { WeightConfiguratorService } from '../core/weight-configurator.service';
+
+import { RiskProcessorService } from './risk-processor.service';
 
 import { mergeSort } from '../../algos/merge-sort.algo';
 
@@ -49,6 +50,10 @@ export class CategoryProcessorService {
             scaledScoreInProportionToWeight = this.weightConfiguratorService.weights.cagr * (scaledScore / 100);
         }
         else {
+
+            const processorsMap = { risk: RiskProcessorService };
+
+            
 
             /*
             We process by ratio
