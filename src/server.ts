@@ -3,11 +3,13 @@
 import http from 'http';
 import express, { Application } from 'express';
 import cors from 'cors';
-import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+
+import { establishDatabaseConnection } from './utils/database.connector';
 
 import stockProfilingRouter from './routes/stock-profiling.routes';
 import stockIngestingRouter from './routes/stock-ingesting.routes';
+import stockScoringRouter from './routes/stock-scoring.routes';
 
 import singleProfilingRouter from './routes/single-stock-profiling.routes';
 
@@ -44,7 +46,7 @@ export class Server {
 
     private connectRoutes(): void {
 
-        this.application.use('', stockProfilingRouter, stockIngestingRouter);
+        this.application.use('', stockProfilingRouter, stockIngestingRouter, stockScoringRouter);
 
         if (['local'].includes(process.env.ENV!)) {
 
@@ -52,18 +54,9 @@ export class Server {
         }
     }
 
-    private async establishDatabaseConnection(): Promise<void> {
-
-        const { MONGO_PROTOCOL, MONGO_USERNAME, MONGO_PASSWORD, MONGO_HOST, MONGO_PORT, MONGO_DATABASE } = process.env;
-
-        await mongoose.connect(
-            `${MONGO_PROTOCOL}://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}:${MONGO_PORT}/${MONGO_DATABASE}`
-        );
-    }
-
     public async run(): Promise<void> {
 
-        await this.establishDatabaseConnection();
+        await establishDatabaseConnection();
 
         this.connectRoutes();
 

@@ -1,6 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { MarketCapLabel } from '../enums';
 
 export interface IStockProfile {
+
+    score: number,
 
     ticker: string,
 
@@ -333,4 +337,9 @@ export interface IStockProfile {
 export interface IStockProfileSchema extends IStockProfile {
 
     _id: string
+}
+
+export interface IIndexableStockProfile extends IStockProfile {
+
+    [key: string]: any
 }

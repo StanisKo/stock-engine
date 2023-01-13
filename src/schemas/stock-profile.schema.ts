@@ -8,6 +8,11 @@ const stockProfileSchema = new mongoose.Schema<IStockProfileSchema>(
     {
         _id: { type: String, default: uuid.v4 },
 
+        score: {
+            type: Number,
+            default: null
+        },
+
         ticker: {
             type: String,
             required: true,
