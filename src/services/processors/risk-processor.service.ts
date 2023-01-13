@@ -7,7 +7,7 @@ export class RiskProcessorService {
 
     Plus, parent class would share a pointer to weights and data storage
     */
-    public static process(): void {
+    public static processRatios(): void {
 
         console.log(1);
     }
