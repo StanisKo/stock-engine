@@ -1,4 +1,4 @@
-import { IStockProfile } from '../../interfaces/stock-profile.interface';
+import { IStockProfile, IIndexableStockProfile } from '../../interfaces/stock-profile.interface';
 
 export class RatiosExtractorService {
 
@@ -19,7 +19,7 @@ export class RatiosExtractorService {
 
         for (let i = 0; i < profiles.length; i++) {
 
-            const profile = profiles[i];
+            const profile = profiles[i] as IIndexableStockProfile;
 
             const keysOfCurrentlyIteratedProfile = Object.keys(profile);
 
@@ -53,11 +53,13 @@ export class RatiosExtractorService {
                 /*
                 Otherwise, traverse and extract
                 */
-                const ratiosWithinCurrentlyIteratedCategory = Object.keys(profile[key as keyof IStockProfile]);
+                const ratiosWithinCurrentlyIteratedCategory = Object.keys(profile[key]);
 
                 for (let k = 0; k < ratiosWithinCurrentlyIteratedCategory.length; k++) {
 
-                    const ratio = profile[key as keyof IStockProfile] as number;
+                    const ratioKey = ratiosWithinCurrentlyIteratedCategory[k];
+
+                    const ratio = profile[key][ratioKey];
 
                     if (!this.ratios[key]) {
 
