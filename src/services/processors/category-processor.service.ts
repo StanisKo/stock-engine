@@ -53,11 +53,7 @@ export class CategoryProcessorService {
 
             const processorsMap = { risk: RiskProcessorService };
 
-            
-
-            /*
-            We process by ratio
-            */
+            const scaledScore = processorsMap[category as keyof typeof processorsMap].process();
         }
 
         return scaledScoreInProportionToWeight;
