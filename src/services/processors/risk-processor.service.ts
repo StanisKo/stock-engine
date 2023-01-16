@@ -1,11 +1,9 @@
-export class RiskProcessorService {
+import { CategoryProcessorService } from './category-processor.service';
+
+export class RiskProcessorService extends CategoryProcessorService {
 
     /*
-    Have a parent class that shares this method and keep mountable logic in sub-classes?
-
-    Ratios Processor Service, yes
-
-    Plus, parent class would share a pointer to weights and data storage
+    Each sub-class must implement mountable logic that is applied to it's ratios
     */
     public static processRatios(): void {
 
