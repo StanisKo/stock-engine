@@ -1,19 +1,23 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
 import { IIndexableStockProfile } from '../../interfaces/stock-profile.interface';
+import { IProcessor } from '../../interfaces/processor.interface';
 
 import { RatiosExtractorService } from '../helpers/ratios-extractor.service';
 import { WeightConfiguratorService } from '../core/weight-configurator.service';
 
-// import { RiskProcessorService } from './risk-processor.service';
+import { RiskProcessorService } from './risk-processor.service';
 
 import { mergeSort } from '../../algos/merge-sort.algo';
+
 
 export class CategoryProcessorService {
 
     public static ratiosExtractorService: RatiosExtractorService;
 
     public static weightConfiguratorService: WeightConfiguratorService;
+
+    private static processorsMap: { [key: string]: IProcessor } = { risk: RiskProcessorService };
 
     /*
     Used explicitly for CAGR and declared here to avoid re-declaration in calls
@@ -24,12 +28,13 @@ export class CategoryProcessorService {
 
     public static processCategory(category: string, profile: IIndexableStockProfile): number {
 
+        /*
+        Score for the processed category
+        */
         let scaledScoreInProportionToWeight = 0;
 
         /*
         We tackle CAGR explicitly, as there are no ratios to it -- we treat it as a separate category
-
-        In such, we also pass CAGR values accross profiles from the outside, to avoid unnecessary queries
         */
         if (category === 'cagr') {
 
@@ -56,9 +61,20 @@ export class CategoryProcessorService {
         }
         else {
 
-            // const processorsMap = { risk: RiskProcessorService };
+            /*
+            Otherwise, we make use of one of the sub-processor classes:
 
-            // const scaledScore = processorsMap[category as keyof typeof processorsMap].processRatios(profile);
+            Each of them inherits from CategoryProcessorService and defines it's own targets (per ratio)
+
+            We index the implementation out of the map and let it process ratios for given category:
+
+            1. Calculate scaled score per ratio and bring it to weight
+
+            2. Sum ratio scores (resulting in category scaled score) and bring it to weight
+
+            3. Return here and write to the map
+            */
+            scaledScoreInProportionToWeight = this.processorsMap[category].processRatios(profile);
         }
 
         return scaledScoreInProportionToWeight;
