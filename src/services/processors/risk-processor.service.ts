@@ -8,6 +8,10 @@ export class RiskProcessorService extends CategoryProcessorService {
 
     private static key = 'risk';
 
+    private static targets = {
+
+    };
+
     /*
     Each sub-class must implement mountable logic that is applied to it's ratios
     */
@@ -17,7 +21,11 @@ export class RiskProcessorService extends CategoryProcessorService {
 
         for (let i = 0 ; i < ratiosToProcess.length; i++) {
 
-            
+            const ratio = this.ratiosExtractorService.ratios[ratiosToProcess[i]];
+
+            const sorted = mergeSort(ratio);
+
+
         }
     }
 }
