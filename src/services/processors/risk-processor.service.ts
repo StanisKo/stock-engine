@@ -6,7 +6,7 @@ import { mergeSort } from '../../algos/merge-sort.algo';
 
 export class RiskProcessorService extends CategoryProcessorService {
 
-    private static category = 'risk';
+    private static category = 'risk' as keyof typeof this.weightConfiguratorService.weights;
 
     private static targets = {
 
@@ -25,11 +25,20 @@ export class RiskProcessorService extends CategoryProcessorService {
 
         const ratiosToProcess = Object.keys(profile[this.category]);
 
+        /*
+        Define category scaled score in proportion to weight
+        */
         let scaledScoreInProportionToWeight = 0;
 
         /*
+        Define sum of ratios scaled scores in proportion to their relative weights
+        */
+        let sumOfRatiosScaledScores = 0;
+
+        /*
         We implement almost identical pattern as one in the parent class, but this time
-        we sum the scores per ratio, filling the 
+        we sum the scores per ratio, filling the sum variable, which we then bring to the weight
+        of the category, resulting in scaled score (in proportion to weight) of the category itself
         */
         for (let i = 0 ; i < ratiosToProcess.length; i++) {
 
@@ -43,8 +52,14 @@ export class RiskProcessorService extends CategoryProcessorService {
 
             const scaledScore = 100 * (profile[this.category][ratio] - lowest) / (highest - lowest);
 
-            scaledScoreInProportionToWeight += this.weightConfiguratorService.weights[ratio] * (scaledScore / 100);
+            /*
+            NOTE: in proportion to ratio weight!
+            */
+            sumOfRatiosScaledScores += this.weightConfiguratorService.weights[ratio] * (scaledScore / 100);
         }
+
+        scaledScoreInProportionToWeight =
+            this.weightConfiguratorService.weights[this.category] * (sumOfRatiosScaledScores / 100);
 
         return scaledScoreInProportionToWeight;
     }
