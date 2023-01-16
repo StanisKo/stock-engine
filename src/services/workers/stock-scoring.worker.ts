@@ -37,7 +37,12 @@ export default async (industry: string): Promise<IStockProfile[]> => {
     /*
     Query profiles related to given industry
     */
-    const profilesToScore = await StockProfile.find({ industry }).lean() as IIndexableStockProfile[];
+    let profilesToScore = await StockProfile.find({ industry }).lean() as IIndexableStockProfile[];
+
+    /*
+    NOTE: DEV & DEBUG
+    */
+    profilesToScore = [profilesToScore[0]];
 
     /*
     If no profiles exist for given industry -- stocks were discarded during profiling
@@ -62,9 +67,7 @@ export default async (industry: string): Promise<IStockProfile[]> => {
 
     CategoryProcessorService.weightConfiguratorService = weightConfiguratorService;
 
-    // for (let i = 0; i < profilesToScore.length; i++) {
-
-    for (let i = 0; i < 1; i++) {
+    for (let i = 0; i < profilesToScore.length; i++) {
 
         let overallProfileScore = 0;
 
