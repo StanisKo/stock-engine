@@ -1,4 +1,4 @@
-import { IStockProfile } from '../../interfaces/stock-profile.interface';
+import { IIndexableStockProfile } from '../../interfaces/stock-profile.interface';
 
 import { CategoryProcessorService } from './category-processor.service';
 
@@ -21,29 +21,27 @@ export class RiskProcessorService extends CategoryProcessorService {
         rSquared: '<'
     };
 
-    /*
-    Each sub-class must implement mountable logic that is applied to it's ratios
-    */
-    public static processRatios(profile: IStockProfile): void {
+    public static processRatios(profile: IIndexableStockProfile): number {
 
-        const ratiosToProcess = Object.keys(profile[this.key as keyof IStockProfile]);
+        const ratiosToProcess = Object.keys(profile[this.key]);
+
+        let scaledScoreInProportionToWeight = 0;
 
         for (let i = 0 ; i < ratiosToProcess.length; i++) {
 
-            const ratio = ratiosToProcess[i];
+            const ratio = ratiosToProcess[i] as keyof typeof this.targets;
 
             const values = this.ratiosExtractorService.ratios[ratio];
 
             const sorted = mergeSort(values);
 
-            const [highest, lowest] = this.deduceHighestAndLowestBasedOnTarget(
-                this.targets[ratio as keyof typeof this.targets],
-                sorted
-            );
+            const [highest, lowest] = this.deduceHighestAndLowestBasedOnTarget(this.targets[ratio], sorted);
 
-            const scaledScore = 100 * (profile.cagr - lowest) / (highest - lowest);
+            const scaledScore = 100 * (profile[this.key][ratio] - lowest) / (highest - lowest);
 
-            scaledScoreInProportionToWeight = this.weightConfiguratorService.weights[ratio] * (scaledScore / 100);
+            scaledScoreInProportionToWeight += this.weightConfiguratorService.weights[ratio] * (scaledScore / 100);
         }
+
+        return scaledScoreInProportionToWeight;
     }
 }

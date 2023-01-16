@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
-import { IStockProfile } from '../../interfaces/stock-profile.interface';
+import { IIndexableStockProfile } from '../../interfaces/stock-profile.interface';
 
 import { RatiosExtractorService } from '../helpers/ratios-extractor.service';
 import { WeightConfiguratorService } from '../core/weight-configurator.service';
@@ -22,7 +22,7 @@ export class CategoryProcessorService {
     */
     private static target = '>';
 
-    public static processCategory(category: string, profile: IStockProfile): number {
+    public static processCategory(category: string, profile: IIndexableStockProfile): number {
 
         let scaledScoreInProportionToWeight = 0;
 

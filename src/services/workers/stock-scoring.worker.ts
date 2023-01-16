@@ -1,6 +1,6 @@
 import { establishDatabaseConnection } from '../../utils/database.connector';
 
-import { IStockProfile } from '../../interfaces/stock-profile.interface';
+import { IIndexableStockProfile, IStockProfile } from '../../interfaces/stock-profile.interface';
 
 import { StockProfile } from '../../schemas/stock-profile.schema';
 
@@ -37,7 +37,7 @@ export default async (industry: string): Promise<IStockProfile[]> => {
     /*
     Query profiles related to given industry
     */
-    const profilesToScore = await StockProfile.find({ industry }).lean();
+    const profilesToScore = await StockProfile.find({ industry }).lean() as IIndexableStockProfile[];
 
     /*
     If no profiles exist for given industry -- stocks were discarded during profiling
@@ -72,7 +72,7 @@ export default async (industry: string): Promise<IStockProfile[]> => {
             cagr: 0, risk: 0, valuation: 0, profitability: 0, liquidity: 0, debt: 0, efficiency: 0
         };
 
-        const categories = Object.keys(categoryScores);
+        const categories = Object.keys(categoryScores) as (keyof typeof categoryScores)[];
 
         for (let j = 0; j < categories.length; j++) {
 
@@ -83,10 +83,8 @@ export default async (industry: string): Promise<IStockProfile[]> => {
                 profile
             );
 
-            categoryScores[category as keyof typeof categoryScores] = scaledScoreInProportionToWeight;
+            categoryScores[category] = scaledScoreInProportionToWeight;
         }
-
-        console.log(categoryScores);
 
         overallProfileScore = Object.values(categoryScores).reduce((a, b) => a + b);
 
