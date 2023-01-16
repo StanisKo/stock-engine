@@ -17,14 +17,14 @@ export class CategoryProcessorService {
 
     public static weightConfiguratorService: WeightConfiguratorService;
 
-    private static processorsMap: { [key: string]: IProcessor } = { risk: RiskProcessorService };
-
     /*
     Used explicitly for CAGR and declared here to avoid re-declaration in calls
 
     Each sub-processor overrides this field according to it's own targets
     */
     private static target = '>';
+
+    private static processorsMap: { [key: string]: IProcessor } = { risk: RiskProcessorService };
 
     public static processCategory(category: string, profile: IIndexableStockProfile): number {
 
