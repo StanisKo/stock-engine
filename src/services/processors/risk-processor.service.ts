@@ -6,7 +6,7 @@ import { mergeSort } from '../../algos/merge-sort.algo';
 
 export class RiskProcessorService extends CategoryProcessorService {
 
-    private static category = 'risk' as keyof typeof this.weightConfiguratorService.weights;
+    private static category = 'risk';
 
     private static targets = {
 
@@ -52,9 +52,6 @@ export class RiskProcessorService extends CategoryProcessorService {
 
             const scaledScore = 100 * (profile[this.category][ratio] - lowest) / (highest - lowest);
 
-            /*
-            NOTE: in proportion to ratio weight!
-            */
             sumOfRatiosScaledScores += this.weightConfiguratorService.weights[ratio] * (scaledScore / 100);
         }
 
