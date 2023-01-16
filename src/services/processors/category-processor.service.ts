@@ -53,7 +53,7 @@ export class CategoryProcessorService {
 
             const processorsMap = { risk: RiskProcessorService };
 
-            const scaledScore = processorsMap[category as keyof typeof processorsMap].processRatios();
+            const scaledScore = processorsMap[category as keyof typeof processorsMap].processRatios(profile);
         }
 
         return scaledScoreInProportionToWeight;
