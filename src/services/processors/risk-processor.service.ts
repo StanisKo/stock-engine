@@ -10,6 +10,15 @@ export class RiskProcessorService extends CategoryProcessorService {
 
     private static targets = {
 
+        standardDeviation: '>',
+
+        sharpeRatio: '>',
+
+        beta: '>',
+
+        alpha: '>',
+
+        rSquared: '<'
     };
 
     /*
@@ -21,11 +30,20 @@ export class RiskProcessorService extends CategoryProcessorService {
 
         for (let i = 0 ; i < ratiosToProcess.length; i++) {
 
-            const ratio = this.ratiosExtractorService.ratios[ratiosToProcess[i]];
+            const ratio = ratiosToProcess[i];
 
-            const sorted = mergeSort(ratio);
+            const values = this.ratiosExtractorService.ratios[ratio];
 
+            const sorted = mergeSort(values);
 
+            const [highest, lowest] = this.deduceHighestAndLowestBasedOnTarget(
+                this.targets[ratio as keyof typeof this.targets],
+                sorted
+            );
+
+            const scaledScore = 100 * (profile.cagr - lowest) / (highest - lowest);
+
+            scaledScoreInProportionToWeight = this.weightConfiguratorService.weights[ratio] * (scaledScore / 100);
         }
     }
 }

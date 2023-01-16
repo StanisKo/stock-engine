@@ -20,7 +20,7 @@ export class CategoryProcessorService {
 
     Each sub-processor overrides this field according to it's own targets
     */
-    private static target: '<' | '>' = '>';
+    private static target = '>';
 
     public static processCategory(category: string, profile: IStockProfile): number {
 
@@ -64,7 +64,7 @@ export class CategoryProcessorService {
         return scaledScoreInProportionToWeight;
     }
 
-    private static deduceHighestAndLowestBasedOnTarget(target: '<' | '>', input: number[]): [number, number] {
+    protected static deduceHighestAndLowestBasedOnTarget(target: string, input: number[]): [number, number] {
 
         const highestIndex = target === '>' ? input.length - 1 : 0;
 
