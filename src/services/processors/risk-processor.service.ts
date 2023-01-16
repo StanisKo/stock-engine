@@ -26,7 +26,12 @@ export class RiskProcessorService {
         /*
         We could've used targets map here; this is equivalent
         */
-        const ratiosToProcess = Object.keys(profile[this.category]);
+        let ratiosToProcess = Object.keys(profile[this.category]);
+
+        /*
+        NOTE: DEV & DEBUG
+        */
+        ratiosToProcess = [ratiosToProcess[0]];
 
         /*
         Define category scaled score in proportion to weight
