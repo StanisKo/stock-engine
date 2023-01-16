@@ -8,7 +8,7 @@ export class RiskProcessorService extends CategoryProcessorService {
 
     private static category = 'risk';
 
-    private static targets = {
+    private static targets: { [key: string]: string } = {
 
         standardDeviation: '>',
 
@@ -23,6 +23,9 @@ export class RiskProcessorService extends CategoryProcessorService {
 
     public static processRatios(profile: IIndexableStockProfile): number {
 
+        /*
+        We could've used targets map here; this is equivalent
+        */
         const ratiosToProcess = Object.keys(profile[this.category]);
 
         /*
@@ -42,7 +45,7 @@ export class RiskProcessorService extends CategoryProcessorService {
         */
         for (let i = 0 ; i < ratiosToProcess.length; i++) {
 
-            const ratio = ratiosToProcess[i] as keyof typeof this.targets;
+            const ratio = ratiosToProcess[i];
 
             const values = this.ratiosExtractorService.ratios[ratio];
 
