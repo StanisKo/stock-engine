@@ -74,13 +74,16 @@ export class CategoryProcessorService {
 
             3. Return here and write to the map
             */
-            scaledScoreInProportionToWeight = this.processorsMap[category].processRatios(profile);
+            if (category === 'risk') {
+
+                scaledScoreInProportionToWeight = this.processorsMap[category].processRatios(profile);
+            }
         }
 
         return scaledScoreInProportionToWeight;
     }
 
-    protected static deduceHighestAndLowestBasedOnTarget(target: string, input: number[]): [number, number] {
+    public static deduceHighestAndLowestBasedOnTarget(target: string, input: number[]): [number, number] {
 
         const highestIndex = target === '>' ? input.length - 1 : 0;
 

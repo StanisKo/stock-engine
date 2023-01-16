@@ -4,7 +4,7 @@ import { CategoryProcessorService } from './category-processor.service';
 
 import { mergeSort } from '../../algos/merge-sort.algo';
 
-export class RiskProcessorService extends CategoryProcessorService {
+export class RiskProcessorService {
 
     private static category = 'risk';
 
@@ -47,19 +47,23 @@ export class RiskProcessorService extends CategoryProcessorService {
 
             const ratio = ratiosToProcess[i];
 
-            const values = this.ratiosExtractorService.ratios[ratio];
+            const values = CategoryProcessorService.ratiosExtractorService.ratios[ratio];
 
             const sorted = mergeSort(values);
 
-            const [highest, lowest] = this.deduceHighestAndLowestBasedOnTarget(this.targets[ratio], sorted);
+            const [highest, lowest] = CategoryProcessorService.deduceHighestAndLowestBasedOnTarget(
+                this.targets[ratio],
+                sorted
+            );
 
             const scaledScore = 100 * (profile[this.category][ratio] - lowest) / (highest - lowest);
 
-            sumOfRatiosScaledScores += this.weightConfiguratorService.weights[ratio] * (scaledScore / 100);
+            sumOfRatiosScaledScores +=
+                CategoryProcessorService.weightConfiguratorService.weights[ratio] * (scaledScore / 100);
         }
 
         scaledScoreInProportionToWeight =
-            this.weightConfiguratorService.weights[this.category] * (sumOfRatiosScaledScores / 100);
+            CategoryProcessorService.weightConfiguratorService.weights[this.category] * (sumOfRatiosScaledScores / 100);
 
         return scaledScoreInProportionToWeight;
     }
