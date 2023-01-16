@@ -20,7 +20,7 @@ export class CategoryProcessorService {
     /*
     Used explicitly for CAGR and declared here to avoid re-declaration in calls
 
-    Each sub-processor overrides this field according to it's own targets
+    Each sub-processor defines this field according to it's own targets
     */
     private static target = '>';
 
@@ -64,15 +64,15 @@ export class CategoryProcessorService {
             /*
             Otherwise, we make use of one of the sub-processor classes:
 
-            Each of them inherits from CategoryProcessorService and defines it's own targets (per ratio)
+            Each of them defines it's own targets (per ratio)
 
-            We index the implementation out of the map and let it process ratios for given category:
+            We index the implementation out of the processors map and let it process ratios for given category:
 
             1. Calculate scaled score per ratio and bring it to weight
 
             2. Sum ratio scores (resulting in category scaled score) and bring it to weight
 
-            3. Return here and write to the map
+            3. Return here and write to the map of category scores
             */
             if (category === 'risk') {
 

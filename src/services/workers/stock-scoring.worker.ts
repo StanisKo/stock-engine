@@ -62,7 +62,9 @@ export default async (industry: string): Promise<IStockProfile[]> => {
 
     CategoryProcessorService.weightConfiguratorService = weightConfiguratorService;
 
-    for (let i = 0; i < profilesToScore.length; i++) {
+    // for (let i = 0; i < profilesToScore.length; i++) {
+
+    for (let i = 0; i < 1; i++) {
 
         let overallProfileScore = 0;
 
