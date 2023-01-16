@@ -46,18 +46,18 @@ export class CategoryProcessorService {
             Since our scaled score ranges from 0 to 100, we need to bring it to the proportion this score
             would occupy in relation to other categories
 
-            In such, we multiply the weight on calculated score divided by 100, to get to the proportion
+            In such, we multiply the weight on calculated score, to get to the proportion
             that score occupied within the weight
 
-            E.g.: weight * (score / 100) = 14.2 * (42 / 100)
+            E.g.: weight * score = 14.2 * 0.42
             */
             const sorted = mergeSort(this.ratiosExtractorService.ratios.cagr);
 
             const [highest, lowest] = this.deduceHighestAndLowestBasedOnTarget(this.target, sorted);
 
-            const scaledScore = 100 * (profile.cagr - lowest) / (highest - lowest);
+            const scaledScore = (profile.cagr - lowest) / (highest - lowest);
 
-            scaledScoreInProportionToWeight = this.weightConfiguratorService.weights.cagr * (scaledScore / 100);
+            scaledScoreInProportionToWeight = this.weightConfiguratorService.weights.cagr * scaledScore;
         }
         else {
 

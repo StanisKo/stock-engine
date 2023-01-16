@@ -61,10 +61,10 @@ export class RiskProcessorService {
                 sorted
             );
 
-            const scaledScore = 100 * (profile[this.category][ratio] - lowest) / (highest - lowest);
+            const scaledScore = (profile[this.category][ratio] - lowest) / (highest - lowest);
 
             sumOfRatiosScaledScores +=
-                CategoryProcessorService.weightConfiguratorService.weights[ratio] * (scaledScore / 100);
+                CategoryProcessorService.weightConfiguratorService.weights[ratio] * scaledScore;
         }
 
         scaledScoreInProportionToWeight =
