@@ -5,7 +5,7 @@ import { IStockProfile } from '../../interfaces/stock-profile.interface';
 import { RatiosExtractorService } from '../helpers/ratios-extractor.service';
 import { WeightConfiguratorService } from '../core/weight-configurator.service';
 
-import { RiskProcessorService } from './risk-processor.service';
+// import { RiskProcessorService } from './risk-processor.service';
 
 import { mergeSort } from '../../algos/merge-sort.algo';
 
@@ -14,6 +14,13 @@ export class CategoryProcessorService {
     public static ratiosExtractorService: RatiosExtractorService;
 
     public static weightConfiguratorService: WeightConfiguratorService;
+
+    /*
+    Used explicitly for CAGR and declared here to avoid re-declaration in calls
+
+    Each sub-processor overrides this field according to it's own targets
+    */
+    private static target: '<' | '>' = '>';
 
     public static processCategory(category: string, profile: IStockProfile): number {
 
@@ -41,9 +48,7 @@ export class CategoryProcessorService {
             */
             const sorted = mergeSort(this.ratiosExtractorService.ratios.cagr);
 
-            const highest = sorted[sorted.length - 1];
-
-            const lowest = sorted[0];
+            const [highest, lowest] = this.deduceHighestAndLowestBasedOnTarget(this.target, sorted);
 
             const scaledScore = 100 * (profile.cagr - lowest) / (highest - lowest);
 
@@ -51,11 +56,20 @@ export class CategoryProcessorService {
         }
         else {
 
-            const processorsMap = { risk: RiskProcessorService };
+            // const processorsMap = { risk: RiskProcessorService };
 
-            const scaledScore = processorsMap[category as keyof typeof processorsMap].processRatios(profile);
+            // const scaledScore = processorsMap[category as keyof typeof processorsMap].processRatios(profile);
         }
 
         return scaledScoreInProportionToWeight;
+    }
+
+    private static deduceHighestAndLowestBasedOnTarget(target: '<' | '>', input: number[]): [number, number] {
+
+        const highestIndex = target === '>' ? input.length - 1 : 0;
+
+        const lowestIndex = target === '>' ? 0 : input.length - 1;
+
+        return [input[highestIndex], input[lowestIndex]];
     }
 }
