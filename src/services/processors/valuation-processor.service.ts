@@ -34,6 +34,8 @@ export class ValuationProcessorService {
     it automatically gets 0 score
 
     TODO: this has to also factor in negative values!
+
+    In fact, it has to be a preliminary check even before we tap into margins
     */
     private static margins: { [key: string]: (value: number) => boolean } = {
 
