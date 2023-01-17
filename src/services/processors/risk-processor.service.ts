@@ -81,28 +81,28 @@ export class RiskProcessorService {
                 if (!valueFallsIntoDesiredMargin) {
 
                     sumOfRatiosScaledScores += 0;
+
+                    continue;
                 }
             }
+
             /*
             Otherwise, we sort values, calculate scaled score, bring it to weight and sum
             with the rest of the scores
             */
-            else {
+            const values = CategoryProcessorService.ratiosExtractorService.ratios[ratio];
 
-                const values = CategoryProcessorService.ratiosExtractorService.ratios[ratio];
+            const sorted = mergeSort(values);
 
-                const sorted = mergeSort(values);
+            const [highest, lowest] = CategoryProcessorService.deduceHighestAndLowestBasedOnTarget(
+                this.targets[ratio],
+                sorted
+            );
 
-                const [highest, lowest] = CategoryProcessorService.deduceHighestAndLowestBasedOnTarget(
-                    this.targets[ratio],
-                    sorted
-                );
+            const scaledScore = (ratioValue - lowest) / (highest - lowest);
 
-                const scaledScore = (ratioValue - lowest) / (highest - lowest);
-
-                sumOfRatiosScaledScores +=
-                    CategoryProcessorService.weightConfiguratorService.weights[ratio] * scaledScore;
-            }
+            sumOfRatiosScaledScores +=
+                CategoryProcessorService.weightConfiguratorService.weights[ratio] * scaledScore;
         }
 
         /*
