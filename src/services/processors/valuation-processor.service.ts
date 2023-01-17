@@ -32,6 +32,8 @@ export class ValuationProcessorService {
     /*
     Determines margins for each ratio; if the ratio does not fall into desired margin,
     it automatically gets 0 score
+
+    TODO: this has to also factor in negative values!
     */
     private static margins: { [key: string]: (value: number) => boolean } = {
 
