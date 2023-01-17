@@ -7,6 +7,7 @@ import { RatiosExtractorService } from '../helpers/ratios-extractor.service';
 import { WeightConfiguratorService } from '../core/weight-configurator.service';
 
 import { RiskProcessorService } from './risk-processor.service';
+import { ValuationProcessorService } from './valuation-processor.service';
 
 import { mergeSort } from '../../algos/merge-sort.algo';
 
@@ -24,7 +25,10 @@ export class CategoryProcessorService {
     */
     private static target = '>';
 
-    private static processorsMap: { [key: string]: IProcessor } = { risk: RiskProcessorService };
+    private static processorsMap: { [key: string]: IProcessor } = {
+        risk: RiskProcessorService,
+        valuation: ValuationProcessorService
+    };
 
     public static processCategory(category: string, profile: IIndexableStockProfile): number {
 
@@ -76,7 +80,7 @@ export class CategoryProcessorService {
 
             NOTE: DEV & DEBUG
             */
-            if (category === 'risk') {
+            if (['risk', 'valuation'].includes(category)) {
 
                 scaledScoreInProportionToWeight = this.processorsMap[category].processRatios(profile);
             }

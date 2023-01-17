@@ -88,6 +88,8 @@ export default async (industry: string): Promise<IStockProfile[]> => {
 
         overallProfileScore = Object.values(categoryScores).reduce((a, b) => a + b);
 
+        console.log(profile.ticker, overallProfileScore);
+
         profile.score = overallProfileScore;
     }
 
