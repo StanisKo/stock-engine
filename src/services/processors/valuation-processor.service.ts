@@ -36,6 +36,8 @@ export class ValuationProcessorService {
     TODO: this has to also factor in negative values!
 
     In fact, it has to be a preliminary check even before we tap into margins
+
+    Go through every ratio and check how to handle negative values; implement checks
     */
     private static margins: { [key: string]: (value: number) => boolean } = {
 
