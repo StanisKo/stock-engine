@@ -34,10 +34,7 @@ export class RiskProcessorService {
 
     public static processRatios(profile: IIndexableStockProfile): number {
 
-        /*
-        We could've used targets map here; this is equivalent
-        */
-        let ratiosToProcess = Object.keys(profile[this.category]);
+        let ratiosToProcess = Object.keys(this.targets);
 
         /*
         NOTE: DEV & DEBUG
@@ -63,19 +60,33 @@ export class RiskProcessorService {
 
             const ratio = ratiosToProcess[i];
 
-            const values = CategoryProcessorService.ratiosExtractorService.ratios[ratio];
+            const ratioValue = profile[this.category][ratio];
 
-            const sorted = mergeSort(values);
+            if (this.margins[ratio]) {
 
-            const [highest, lowest] = CategoryProcessorService.deduceHighestAndLowestBasedOnTarget(
-                this.targets[ratio],
-                sorted
-            );
+                const valueFallsIntoDesiredMargin = this.margins[ratio](ratioValue);
 
-            const scaledScore = (profile[this.category][ratio] - lowest) / (highest - lowest);
+                if (!valueFallsIntoDesiredMargin) {
 
-            sumOfRatiosScaledScores +=
-                CategoryProcessorService.weightConfiguratorService.weights[ratio] * scaledScore;
+                    sumOfRatiosScaledScores += 0;
+                }
+            }
+            else {
+
+                const values = CategoryProcessorService.ratiosExtractorService.ratios[ratio];
+
+                const sorted = mergeSort(values);
+
+                const [highest, lowest] = CategoryProcessorService.deduceHighestAndLowestBasedOnTarget(
+                    this.targets[ratio],
+                    sorted
+                );
+
+                const scaledScore = (ratioValue - lowest) / (highest - lowest);
+
+                sumOfRatiosScaledScores +=
+                    CategoryProcessorService.weightConfiguratorService.weights[ratio] * scaledScore;
+            }
         }
 
         scaledScoreInProportionToWeight =
