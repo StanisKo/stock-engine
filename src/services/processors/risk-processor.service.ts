@@ -8,6 +8,10 @@ export class RiskProcessorService {
 
     private static category = 'risk';
 
+    /*
+    Determines comparison logic for each ratio that belongs to this category
+    In the nutshell -- dictates whether we're looking for highest or lowest value amongst profiles
+    */
     private static targets: { [key: string]: string } = {
 
         standardDeviation: '>',
@@ -21,6 +25,10 @@ export class RiskProcessorService {
         rSquared: '<'
     };
 
+    /*
+    Determines margins for each ratio; if the ratio does not fall into desired margin,
+    it automatically gets 0 score
+    */
     private static margins: { [key: string]: (value: number) => boolean } = {
 
         sharpeRatio: (value: number) => value > 1,
@@ -62,6 +70,10 @@ export class RiskProcessorService {
 
             const ratioValue = profile[this.category][ratio];
 
+            /*
+            We first check if ratio falls into margin and if not we score it as 0,
+            without further sorting and calculations
+            */
             if (this.margins[ratio]) {
 
                 const valueFallsIntoDesiredMargin = this.margins[ratio](ratioValue);
