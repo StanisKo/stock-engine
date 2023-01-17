@@ -102,6 +102,11 @@ export class RiskProcessorService {
 
         /*
         Finally, we bring the sum of scaled (and weighted) ratio scores to the weight of the category
+
+        We divide sum by 100, since both operands are expressed in raw percentage: 20% and 42%
+
+        Therefore, we bring weighted sum to 0.N% in order to deduce how much 'space' it takes within the
+        weight of category
         */
         scaledScoreInProportionToWeight =
             CategoryProcessorService.weightConfiguratorService.weights[this.category] * (sumOfRatiosScaledScores / 100);
