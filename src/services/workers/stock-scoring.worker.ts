@@ -86,8 +86,6 @@ export default async (industry: string): Promise<IStockProfile[]> => {
             categoryScores[category] = scaledScoreInProportionToWeight;
         }
 
-        console.log(categoryScores);
-
         overallProfileScore = Object.values(categoryScores).reduce((a, b) => a + b);
 
         profile.score = overallProfileScore;
