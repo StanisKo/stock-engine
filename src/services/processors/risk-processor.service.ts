@@ -83,6 +83,10 @@ export class RiskProcessorService {
                     sumOfRatiosScaledScores += 0;
                 }
             }
+            /*
+            Otherwise, we sort values, calculate scaled score, bring it to weight and sum
+            with the rest of the scores
+            */
             else {
 
                 const values = CategoryProcessorService.ratiosExtractorService.ratios[ratio];
@@ -101,6 +105,9 @@ export class RiskProcessorService {
             }
         }
 
+        /*
+        Finally, we bring the sum of scaled (and weighted) ratio scores to the weight of the category
+        */
         scaledScoreInProportionToWeight =
             CategoryProcessorService.weightConfiguratorService.weights[this.category] * (sumOfRatiosScaledScores / 100);
 
