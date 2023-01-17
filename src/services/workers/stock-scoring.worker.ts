@@ -37,7 +37,7 @@ export default async (industry: string): Promise<IStockProfile[]> => {
     /*
     Query profiles related to given industry
     */
-    let profilesToScore = await StockProfile.find({ industry }).lean() as IIndexableStockProfile[];
+    const profilesToScore = await StockProfile.find({ industry }).lean() as IIndexableStockProfile[];
 
     /*
     If no profiles exist for given industry -- stocks were discarded during profiling
@@ -54,11 +54,6 @@ export default async (industry: string): Promise<IStockProfile[]> => {
     Precalculate and store inputs for processors
     */
     ratiosExtractorService.extractRatiosFromProfiles(profilesToScore);
-
-    /*
-    NOTE: DEV & DEBUG
-    */
-    profilesToScore = [profilesToScore[0]];
 
     /*
     Make data and weights accessible to processors

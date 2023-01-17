@@ -45,11 +45,6 @@ export class RiskProcessorService {
         const ratiosToProcess = Object.keys(this.targets);
 
         /*
-        NOTE: DEV & DEBUG
-        */
-        // ratiosToProcess = [ratiosToProcess[0]];
-
-        /*
         Define category scaled score in proportion to weight
         */
         let scaledScoreInProportionToWeight = 0;
