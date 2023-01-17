@@ -36,6 +36,9 @@ export class StockScoringService {
                 industries.map(industry => workerPool.run(industry.name))
             );
 
+            /*
+            TODO: db bulk updates here
+            */
         }
         catch (error) {
 
