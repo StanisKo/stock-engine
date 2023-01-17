@@ -21,6 +21,17 @@ export class RiskProcessorService {
         rSquared: '<'
     };
 
+    private static margins: { [key: string]: (value: number) => boolean } = {
+
+        sharpeRatio: (value: number) => value > 1,
+
+        beta: (value: number) => value > 1,
+
+        alpha: (value: number) => value > 0,
+
+        rSquared: (value: number) => value < 70
+    };
+
     public static processRatios(profile: IIndexableStockProfile): number {
 
         /*
