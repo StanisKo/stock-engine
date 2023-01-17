@@ -26,7 +26,9 @@ export class CategoryProcessorService {
     private static target = '>';
 
     private static processorsMap: { [key: string]: IProcessor } = {
+
         risk: RiskProcessorService,
+
         valuation: ValuationProcessorService
     };
 

@@ -62,6 +62,14 @@ export default async (industry: string): Promise<IStockProfile[]> => {
 
     CategoryProcessorService.weightConfiguratorService = weightConfiguratorService;
 
+    /*
+    TODO: this loop and it's internals has to be packed into CategoryProcessorService
+
+    CategoryProcessorService should be renamed to StockProcessorService
+
+    RatiosProcessorService base class should be renamed to CategoryProcessorService
+    */
+
     for (let i = 0; i < profilesToScore.length; i++) {
 
         let overallProfileScore = 0;
