@@ -72,7 +72,7 @@ const stockProfileSchema = new mongoose.Schema<IStockProfileSchema>(
 
         valuation: {
 
-            priceToEarning: {
+            priceToEarnings: {
                 type: Number,
                 required: true
             },

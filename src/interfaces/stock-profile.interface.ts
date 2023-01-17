@@ -123,7 +123,7 @@ export interface IStockProfile {
 
         TODO: typo, s in the end, please
         */
-        priceToEarning: number,
+        priceToEarnings: number,
 
         /*
         Helps to understand future growth prospects of the company and its stock.
