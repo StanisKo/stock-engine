@@ -73,6 +73,8 @@ export class CategoryProcessorService {
             2. Sum ratio scores (resulting in category scaled score) and bring it to weight
 
             3. Return here and write to the map of category scores
+
+            NOTE: DEV & DEBUG
             */
             if (category === 'risk') {
 

@@ -42,12 +42,12 @@ export class RiskProcessorService {
 
     public static processRatios(profile: IIndexableStockProfile): number {
 
-        let ratiosToProcess = Object.keys(this.targets);
+        const ratiosToProcess = Object.keys(this.targets);
 
         /*
         NOTE: DEV & DEBUG
         */
-        ratiosToProcess = [ratiosToProcess[0]];
+        // ratiosToProcess = [ratiosToProcess[0]];
 
         /*
         Define category scaled score in proportion to weight
