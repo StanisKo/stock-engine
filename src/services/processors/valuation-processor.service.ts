@@ -35,13 +35,15 @@ export class ValuationProcessorService {
     */
     private static margins: { [key: string]: (value: number) => boolean } = {
 
-        sharpeRatio: (value: number) => value > 1,
+        priceToEarningsGrowth: (value: number) => value < 1,
 
-        beta: (value: number) => value > 1,
+        priceToBook: (value: number) => value < 1,
 
-        alpha: (value: number) => value > 0,
+        enterpriseValueToRevenue: (value: number) => value > 1 && value < 3,
 
-        rSquared: (value: number) => value < 70
+        enterpriseValueToEbitda: (value: number) => value < 10,
+
+        priceToFreeCashFlow: (value: number) => value < 5
     };
 
     public static processRatios(profile: IIndexableStockProfile): number {
