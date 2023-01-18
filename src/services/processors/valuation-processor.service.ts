@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 
-import { RatiosProcessorService } from './ratios-processor.service';
+import { CategoryProcessorService } from './category-processor.service';
 
-export class ValuationProcessorService extends RatiosProcessorService {
+export class ValuationProcessorService extends CategoryProcessorService {
 
     static category = 'valuation';
 

@@ -10,7 +10,7 @@ import { RatiosExtractorService } from '../helpers/ratios-extractor.service';
 
 import { WeightConfiguratorService } from '../core/weight-configurator.service';
 
-import { CategoryProcessorService } from '../processors/category-processor.service';
+import { StockProcessorService } from '../processors/stock-processor.service';
 
 /*
 A meta-layer function that queries profiles by given industry and scores them using various processors
@@ -25,7 +25,7 @@ export default async (industry: string): Promise<IStockProfile[]> => {
     */
     await establishDatabaseConnection();
 
-    const scoredProfiles: IStockProfile[] = [];
+    let scoredProfiles: IStockProfile[] = [];
 
     /*
     Initialize ratios storage and weights
@@ -58,48 +58,11 @@ export default async (industry: string): Promise<IStockProfile[]> => {
     /*
     Make data and weights accessible to processors
     */
-    CategoryProcessorService.ratiosExtractorService = ratiosExtractorService;
+    StockProcessorService.ratiosExtractorService = ratiosExtractorService;
 
-    CategoryProcessorService.weightConfiguratorService = weightConfiguratorService;
+    StockProcessorService.weightConfiguratorService = weightConfiguratorService;
 
-    /*
-    TODO: this loop and it's internals has to be packed into CategoryProcessorService
-
-    CategoryProcessorService should be renamed to StockProcessorService
-
-    RatiosProcessorService base class should be renamed to CategoryProcessorService
-    */
-
-    for (let i = 0; i < profilesToScore.length; i++) {
-
-        let overallProfileScore = 0;
-
-        const profile = profilesToScore[i];
-
-        const categoryScores = {
-            cagr: 0, risk: 0, valuation: 0, profitability: 0, liquidity: 0, debt: 0, efficiency: 0
-        };
-
-        const categories = Object.keys(categoryScores) as (keyof typeof categoryScores)[];
-
-        for (let j = 0; j < categories.length; j++) {
-
-            const category = categories[j];
-
-            const scaledScoreInProportionToWeight = CategoryProcessorService.processCategory(
-                category,
-                profile
-            );
-
-            categoryScores[category] = scaledScoreInProportionToWeight;
-        }
-
-        overallProfileScore = Object.values(categoryScores).reduce((a, b) => a + b);
-
-        console.log(profile.ticker, overallProfileScore);
-
-        profile.score = overallProfileScore;
-    }
+    scoredProfiles = StockProcessorService.processCategory(profilesToScore);
 
     return scoredProfiles;
 };
