@@ -763,6 +763,10 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
 <br />
 
+# Scoring
+
+<br />
+
 # 3-rd Party APIs
 
 <br />
@@ -810,4 +814,8 @@ Engine uses following data sources:
 <br />
 
 * MRQ - Most Recent Quarter
+
+<br />
+
+* Ticker - Symbol of a stock on the exchange
 
