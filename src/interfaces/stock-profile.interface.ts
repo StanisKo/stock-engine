@@ -120,8 +120,6 @@ export interface IStockProfile {
         Target: < Industry Peers
 
         We're looking for LOWEST P/E, since we need stocks that are undervalued for their perfomance
-
-        TODO: typo, s in the end, please
         */
         priceToEarnings: number,
 

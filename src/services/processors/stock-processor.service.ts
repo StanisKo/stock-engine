@@ -8,6 +8,7 @@ import { WeightConfiguratorService } from '../core/weight-configurator.service';
 
 import { RiskProcessorService } from './risk-processor.service';
 import { ValuationProcessorService } from './valuation-processor.service';
+import { ProfitabilityProcessorService } from './profitability-processor.service';
 
 import { mergeSort } from '../../algos/merge-sort.algo';
 
@@ -29,7 +30,9 @@ export class StockProcessorService {
 
         risk: RiskProcessorService,
 
-        valuation: ValuationProcessorService
+        valuation: ValuationProcessorService,
+
+        profitability: ProfitabilityProcessorService
     };
 
     public static processCategory(profilesToScore: IIndexableStockProfile[]): IIndexableStockProfile[] {
@@ -104,7 +107,7 @@ export class StockProcessorService {
 
                     NOTE: DEV & DEBUG
                     */
-                    if (['risk', 'valuation'].includes(category)) {
+                    if (['risk', 'valuation', 'profitability'].includes(category)) {
 
                         /*
                         Loop through ratios in each categegory in each profile
