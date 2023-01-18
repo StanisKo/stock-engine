@@ -1,55 +1,96 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
+import { IIndexableStockProfile } from '../../interfaces/stock-profile.interface';
 
-import { IStockProfile } from '../../interfaces/stock-profile.interface';
-
-import { WeightConfiguratorService } from '../core/weight-configurator.service';
+import { StockProcessorService } from './stock-processor.service';
 
 import { mergeSort } from '../../algos/merge-sort.algo';
 
 export class CategoryProcessorService {
 
-    public static weightConfiguratorService: WeightConfiguratorService;
+    protected static category: string;
 
-    public static processCategory(category: string, profile: IStockProfile, valuesToScore?: number[]): number {
+    /*
+    Determines comparison logic for each ratio that belongs to this category
+    In the nutshell -- dictates whether we're looking for highest or lowest value amongst profiles
+    */
+    protected static targets: { [key: string]: string };
 
+    /*
+    Determines margins for each ratio; if the ratio does not fall into desired margin,
+    it automatically gets 0 score
+    */
+    protected static margins: { [key: string]: (value: number) => boolean };
+
+    public static processRatios(profile: IIndexableStockProfile): number {
+
+        const ratiosToProcess = Object.keys(this.targets);
+
+        /*
+        Define category scaled score in proportion to weight
+        */
         let scaledScoreInProportionToWeight = 0;
 
         /*
-        We tackle CAGR explicitly, as there are no ratios to it -- we treat it as a separate category
-
-        In such, we also pass CAGR values accross profiles from the outside, to avoid unnecessary queries
+        Define sum of ratios scaled scores in proportion to their relative weights
         */
-        if (category === 'cagr') {
+        let sumOfRatiosScaledScores = 0;
+
+        /*
+        We implement almost identical pattern as one in the parent class, but this time
+        we sum the scores per ratio, filling the sum variable, which we then bring to the weight
+        of the category, resulting in scaled score (in proportion to weight) of the category itself
+        */
+        for (let i = 0 ; i < ratiosToProcess.length; i++) {
+
+            const ratio = ratiosToProcess[i];
+
+            const ratioValue = profile[this.category][ratio];
 
             /*
-            We first merge sort the values
-
-            Then, grab the highest and lowest, and calculate scaled score of the category based on them
-
-            Since our scaled score ranges from 0 to 100, we need to bring it to the proportion this score
-            would occupy in relation to other categories
-
-            In such, we multiply the weight on calculated score divided by 100, to get to the proportion
-            that score occupied within the weight
-
-            E.g.: weight * (score / 100) = 14.2 * (42 / 100)
+            We first check if ratio falls into margin and if not we score it as 0,
+            without further sorting and calculations
             */
-            const sorted = mergeSort(valuesToScore!);
+            if (this.margins[ratio]) {
 
-            const highest = sorted[sorted.length - 1];
+                const valueFallsIntoDesiredMargin = this.margins[ratio](ratioValue);
 
-            const lowest = sorted[0];
+                if (!valueFallsIntoDesiredMargin) {
 
-            const scaledScore = 100 * (profile.cagr - lowest) / (highest - lowest);
+                    sumOfRatiosScaledScores += 0;
 
-            scaledScoreInProportionToWeight = this.weightConfiguratorService.weights.cagr * (scaledScore / 100);
-        }
-        else {
+                    continue;
+                }
+            }
 
             /*
-            We process by ratio
+            Otherwise, we sort values, calculate scaled score, bring it to weight and sum
+            with the rest of the scores
             */
+            const values = StockProcessorService.ratiosExtractorService.ratios[ratio];
+
+            const sorted = mergeSort(values);
+
+            const [highest, lowest] = StockProcessorService.deduceHighestAndLowestBasedOnTarget(
+                this.targets[ratio],
+                sorted
+            );
+
+            const scaledScore = (ratioValue - lowest) / (highest - lowest);
+
+            sumOfRatiosScaledScores +=
+                StockProcessorService.weightConfiguratorService.weights[ratio] * scaledScore;
         }
+
+        /*
+        Finally, we bring the sum of scaled (and weighted) ratio scores to the weight of the category
+
+        We divide sum by 100, since both operands are expressed in raw percentage: 20% and 42%
+        (since we already weighted each ratio)
+
+        Therefore, we bring weighted sum to 0.N% in order to deduce how much 'space' it takes within the
+        weight of category
+        */
+        scaledScoreInProportionToWeight =
+            StockProcessorService.weightConfiguratorService.weights[this.category] * (sumOfRatiosScaledScores / 100);
 
         return scaledScoreInProportionToWeight;
     }

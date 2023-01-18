@@ -17,6 +17,12 @@ export class StockScoringService {
             /*
             We need to process all of them
             */
+
+            /*
+            NOTE: DEV & DEBUG
+
+            const industries = await Industry.find({}, { name: true }).lean();
+            */
             const industries = await Industry.find({ name: 'Airlines' }, { name: true }).lean();
 
             const workerPoolOptions = {
@@ -30,6 +36,9 @@ export class StockScoringService {
                 industries.map(industry => workerPool.run(industry.name))
             );
 
+            /*
+            TODO: db bulk updates here
+            */
         }
         catch (error) {
 

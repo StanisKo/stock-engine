@@ -244,7 +244,7 @@ export class StockParserService {
         };
 
         this.stockProfile.valuation = {
-            priceToEarning: 0,
+            priceToEarnings: 0,
             priceToEarningsGrowth: 0,
             priceToSales: 0,
             priceToBook: 0,

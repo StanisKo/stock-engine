@@ -27,7 +27,7 @@ export class WeightConfiguratorService {
     private averageWeightOfEfficiencyRatio = 100 / 2;
 
 
-    public weights = {
+    public weights: { [key: string]: number } = {
 
         /*
         We treat CAGR as a separate category

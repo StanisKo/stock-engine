@@ -4,7 +4,7 @@ import { ValuationCalculatorService } from '../calculators/valuation-calculator.
 
 export const parseValuation = (storage: StockParserService): void => {
 
-    storage.stockProfile.valuation.priceToEarning =
+    storage.stockProfile.valuation.priceToEarnings =
         storage.fundamentals.Highlights.PERatio || ValuationCalculatorService.calculatePriceToEarnings(
             storage.tickerMostRecentPrice,
             Number(storage.lastAnnualIncomeStatement.netIncome),
@@ -14,7 +14,7 @@ export const parseValuation = (storage: StockParserService): void => {
 
     storage.stockProfile.valuation.priceToEarningsGrowth =
         storage.fundamentals.Highlights.PEGRatio || ValuationCalculatorService.calculatePriceToEarningsGrowth(
-            storage.stockProfile.valuation.priceToEarning,
+            storage.stockProfile.valuation.priceToEarnings,
             storage.annualEarningsGrowth
         );
 
