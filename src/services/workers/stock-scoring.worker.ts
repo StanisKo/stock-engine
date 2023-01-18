@@ -56,7 +56,7 @@ export default async (industry: string): Promise<IStockProfile[]> => {
     ratiosExtractorService.extractRatiosFromProfiles(profilesToScore);
 
     /*
-    Make data and weights accessible to processors
+    Make data and weights accessible to processors and score
     */
     StockProcessorService.ratiosExtractorService = ratiosExtractorService;
 
