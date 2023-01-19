@@ -2,6 +2,10 @@ import { resolve } from 'path';
 
 import Piscina from 'piscina';
 
+import { AnyBulkWriteOperation } from 'mongodb';
+
+import { IStockProfile } from '../../interfaces/stock-profile.interface';
+
 import { ServiceResponse } from '../../dtos/serviceResponse';
 
 import { Industry } from '../../schemas/industry.schema';
@@ -32,9 +36,15 @@ export class StockScoringService {
 
             const workerPool = new Piscina(workerPoolOptions);
 
-            await Promise.all(
+            let scoredProfiles = await Promise.all(
                 industries.map(industry => workerPool.run(industry.name))
             );
+
+            scoredProfiles = scoredProfiles.flat() as IStockProfile[];
+
+            console.log(scoredProfiles);
+
+            // const profilesInsertOperations: AnyBulkWriteOperation<IStockProfile>[] = [];
 
             /*
             TODO: db bulk updates here
