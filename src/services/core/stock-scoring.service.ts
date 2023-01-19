@@ -44,20 +44,20 @@ export class StockScoringService {
 
             scoredProfiles = scoredProfiles.flat() as IStockProfile[];
 
-            const profilesUpdatetOperations: AnyBulkWriteOperation<IStockProfileSchema>[] = [];
+            const profilesUpdateOperations: AnyBulkWriteOperation<IStockProfileSchema>[] = [];
 
             for (let i = 0; i < scoredProfiles.length; i++) {
 
                 const profile = scoredProfiles[i];
 
-                profilesUpdatetOperations.push(
+                profilesUpdateOperations.push(
                     {
                         updateOne: { filter: { _id: profile._id }, update: { $set: profile }}
                     }
                 );
             }
 
-            await StockProfile.bulkWrite(profilesUpdatetOperations);
+            await StockProfile.bulkWrite(profilesUpdateOperations);
         }
         catch (error) {
 
