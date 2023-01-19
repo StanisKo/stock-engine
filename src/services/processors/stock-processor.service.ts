@@ -123,8 +123,6 @@ export class StockProcessorService {
 
             overallProfileScore = Object.values(categoryScores).reduce((a, b) => a + b);
 
-            console.log(profile.ticker, categoryScores);
-
             profile.score = overallProfileScore;
         }
 
