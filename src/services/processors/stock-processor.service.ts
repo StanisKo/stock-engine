@@ -10,6 +10,7 @@ import { RiskProcessorService } from './risk-processor.service';
 import { ValuationProcessorService } from './valuation-processor.service';
 import { ProfitabilityProcessorService } from './profitability-processor.service';
 import { LiquidityProcessorService } from './liquidity-processor.service';
+import { DebtProcessorService } from './debt-processor.service';
 
 import { mergeSort } from '../../algos/merge-sort.algo';
 
@@ -35,7 +36,9 @@ export class StockProcessorService {
 
         profitability: ProfitabilityProcessorService,
 
-        liquidity: LiquidityProcessorService
+        liquidity: LiquidityProcessorService,
+
+        debt: DebtProcessorService
     };
 
     public static processCategory(profilesToScore: IIndexableStockProfile[]): IIndexableStockProfile[] {
@@ -110,7 +113,7 @@ export class StockProcessorService {
 
                     NOTE: DEV & DEBUG
                     */
-                    if (['risk', 'valuation', 'profitability', 'liquidity'].includes(category)) {
+                    if (['risk', 'valuation', 'profitability', 'liquidity', 'debt'].includes(category)) {
 
                         /*
                         Loop through ratios in each categegory in each profile
