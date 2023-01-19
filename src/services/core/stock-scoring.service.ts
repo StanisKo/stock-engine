@@ -4,11 +4,13 @@ import Piscina from 'piscina';
 
 import { AnyBulkWriteOperation } from 'mongodb';
 
-import { IStockProfile } from '../../interfaces/stock-profile.interface';
+import { IStockProfile, IStockProfileSchema } from '../../interfaces/stock-profile.interface';
 
 import { ServiceResponse } from '../../dtos/serviceResponse';
 
 import { Industry } from '../../schemas/industry.schema';
+
+import { StockProfile } from '../../schemas/stock-profile.schema';
 
 export class StockScoringService {
 
@@ -42,13 +44,20 @@ export class StockScoringService {
 
             scoredProfiles = scoredProfiles.flat() as IStockProfile[];
 
-            console.log(scoredProfiles);
+            const profilesUpdatetOperations: AnyBulkWriteOperation<IStockProfileSchema>[] = [];
 
-            // const profilesInsertOperations: AnyBulkWriteOperation<IStockProfile>[] = [];
+            for (let i = 0; i < scoredProfiles.length; i++) {
 
-            /*
-            TODO: db bulk updates here
-            */
+                const profile = scoredProfiles[i];
+
+                profilesUpdatetOperations.push(
+                    {
+                        updateOne: { filter: { _id: profile._id }, update: { $set: profile }}
+                    }
+                );
+            }
+
+            await StockProfile.bulkWrite(profilesUpdatetOperations);
         }
         catch (error) {
 
