@@ -11,6 +11,7 @@ import { ValuationProcessorService } from './valuation-processor.service';
 import { ProfitabilityProcessorService } from './profitability-processor.service';
 import { LiquidityProcessorService } from './liquidity-processor.service';
 import { DebtProcessorService } from './debt-processor.service';
+import { EfficiencyProcessorService } from './efficiency-processor.service';
 
 import { mergeSort } from '../../algos/merge-sort.algo';
 
@@ -38,7 +39,9 @@ export class StockProcessorService {
 
         liquidity: LiquidityProcessorService,
 
-        debt: DebtProcessorService
+        debt: DebtProcessorService,
+
+        efficiency: EfficiencyProcessorService
     };
 
     public static processCategory(profilesToScore: IIndexableStockProfile[]): IIndexableStockProfile[] {
@@ -111,15 +114,8 @@ export class StockProcessorService {
 
                     3. Return here and write to the map of category scores
 
-                    NOTE: DEV & DEBUG
                     */
-                    if (['risk', 'valuation', 'profitability', 'liquidity', 'debt'].includes(category)) {
-
-                        /*
-                        Loop through ratios in each categegory in each profile
-                        */
-                        scaledScoreInProportionToWeight = this.processorsMap[category].processRatios(profile);
-                    }
+                    scaledScoreInProportionToWeight = this.processorsMap[category].processRatios(profile);
                 }
 
                 categoryScores[category] = scaledScoreInProportionToWeight;
