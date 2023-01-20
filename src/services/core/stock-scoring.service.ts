@@ -25,8 +25,6 @@ export class StockScoringService {
             */
             const industries = await Industry.find({}, { name: true }).lean();
 
-            // const industries = await Industry.find({ name: 'Insurance-Life' }, { name: true }).lean();
-
             const workerPoolOptions = {
                 filename: resolve(__dirname, '../workers/stock-scoring.worker.ts'),
                 concurrentTasksPerWorker: 2
