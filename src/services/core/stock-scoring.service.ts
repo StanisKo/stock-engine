@@ -52,7 +52,7 @@ export class StockScoringService {
 
                 profilesUpdateOperations.push(
                     {
-                        updateOne: { filter: { _id: profile._id }, update: { $set: profile }}
+                        updateOne: { filter: { _id: profile._id }, update: { $set: { score: profile.score } }}
                     }
                 );
             }
