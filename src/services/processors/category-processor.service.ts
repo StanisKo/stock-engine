@@ -87,7 +87,7 @@ export class CategoryProcessorService {
             If not, score by asset turnover twice, since the company by design cannot be evaluated
             from inventory side of things
 
-            Therefore, we look only  athow efficient they are with their assets
+            Therefore, we look only at how efficient they are with their assets
             */
             const processedStocksDoNotHaveInventory = [ratioValue, highest, lowest].every(value => value === 0);
 
