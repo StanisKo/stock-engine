@@ -56,7 +56,7 @@ export default async (industry: string): Promise<IStockProfile[]> => {
     */
     if (profilesToScore.length === 1) {
 
-        return scoredProfiles;
+        return profilesToScore;
     }
 
     /*
