@@ -74,10 +74,50 @@ export class CategoryProcessorService {
                 sorted
             );
 
-            const scaledScore = (ratioValue - lowest) / (highest - lowest);
+            /*
+            NOTE: managing inventory turnover explicitly:
 
-            sumOfRatiosScaledScores +=
-                StockProcessorService.weightConfiguratorService.weights[ratio] * scaledScore;
+            If value of currently iterated profile is 0 and highest and lowest are also 0,
+            none of the stocks in the industry have inventory
+
+            In such, we doubly score the profile on assetTurnover. E.g.:
+
+            If stock has inventory, score efficiency by asset turnover and inventory turnover
+
+            If not, score by asset turnover twice, since the company by design cannot be evaluated
+            from inventory side of things
+
+            Therefore, we look only  athow efficient they are with their assets
+            */
+            const processedStocksDoNotHaveInventory = [ratioValue, highest, lowest].every(value => value === 0);
+
+            if (ratio === 'inventoryTurnover' && processedStocksDoNotHaveInventory) {
+
+                const ratio = 'assetTurnover';
+
+                const ratioValue = profile[this.category][ratio];
+
+                const values = StockProcessorService.ratiosExtractorService.ratios[ratio];
+
+                const sorted = mergeSort(values);
+
+                const [highest, lowest] = StockProcessorService.deduceHighestAndLowestBasedOnTarget(
+                    this.targets[ratio],
+                    sorted
+                );
+
+                const scaledScore = (ratioValue - lowest) / (highest - lowest);
+
+                sumOfRatiosScaledScores +=
+                    StockProcessorService.weightConfiguratorService.weights[ratio] * scaledScore;
+            }
+            else {
+
+                const scaledScore = (ratioValue - lowest) / (highest - lowest);
+
+                sumOfRatiosScaledScores +=
+                    StockProcessorService.weightConfiguratorService.weights[ratio] * scaledScore;
+            }
         }
 
         /*
