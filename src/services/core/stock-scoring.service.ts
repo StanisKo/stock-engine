@@ -27,9 +27,9 @@ export class StockScoringService {
             /*
             NOTE: DEV & DEBUG
 
-            const industries = await Industry.find({}, { name: true }).lean();
+            const industries = await Industry.find({ name: 'Household Products' }, { name: true }).lean();
             */
-            const industries = await Industry.find({ name: 'Airlines' }, { name: true }).lean();
+            const industries = await Industry.find({}, { name: true }).lean();
 
             const workerPoolOptions = {
                 filename: resolve(__dirname, '../workers/stock-scoring.worker.ts'),
@@ -49,6 +49,16 @@ export class StockScoringService {
             for (let i = 0; i < scoredProfiles.length; i++) {
 
                 const profile = scoredProfiles[i];
+
+                /*
+                If we didn't score the profile (it's a single stock in the industry), skip it
+                */
+                if (profile.score === null) {
+
+                    console.log(profile.ticker);
+
+                    continue;
+                }
 
                 profilesUpdateOperations.push(
                     {

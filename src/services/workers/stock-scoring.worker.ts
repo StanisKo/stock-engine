@@ -51,6 +51,15 @@ export default async (industry: string): Promise<IStockProfile[]> => {
     }
 
     /*
+    If there is only one stock in the industry, we do not score it, as we cannot
+    make an objective judgement whether it is a good stock or bad stock
+    */
+    if (profilesToScore.length === 1) {
+
+        return scoredProfiles;
+    }
+
+    /*
     Precalculate and store inputs for processors
     */
     ratiosExtractorService.extractRatiosFromProfiles(profilesToScore);
