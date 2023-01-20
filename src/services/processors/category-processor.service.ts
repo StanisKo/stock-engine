@@ -93,6 +93,9 @@ export class CategoryProcessorService {
 
             if (ratio === 'inventoryTurnover' && processedStocksDoNotHaveInventory) {
 
+                /*
+                Redeclare block-scoped variables and use them for scoring and bringing to weight
+                */
                 const ratio = 'assetTurnover';
 
                 const ratioValue = profile[this.category][ratio];
@@ -112,7 +115,9 @@ export class CategoryProcessorService {
                     StockProcessorService.weightConfiguratorService.weights[ratio] * scaledScore;
             }
             else {
-
+                /*
+                Otherwise use variables from closure
+                */
                 const scaledScore = (ratioValue - lowest) / (highest - lowest);
 
                 sumOfRatiosScaledScores +=
