@@ -8,6 +8,10 @@ import { WeightConfiguratorService } from '../core/weight-configurator.service';
 
 import { RiskProcessorService } from './risk-processor.service';
 import { ValuationProcessorService } from './valuation-processor.service';
+import { ProfitabilityProcessorService } from './profitability-processor.service';
+import { LiquidityProcessorService } from './liquidity-processor.service';
+import { DebtProcessorService } from './debt-processor.service';
+import { EfficiencyProcessorService } from './efficiency-processor.service';
 
 import { mergeSort } from '../../algos/merge-sort.algo';
 
@@ -29,7 +33,15 @@ export class StockProcessorService {
 
         risk: RiskProcessorService,
 
-        valuation: ValuationProcessorService
+        valuation: ValuationProcessorService,
+
+        profitability: ProfitabilityProcessorService,
+
+        liquidity: LiquidityProcessorService,
+
+        debt: DebtProcessorService,
+
+        efficiency: EfficiencyProcessorService
     };
 
     public static processCategory(profilesToScore: IIndexableStockProfile[]): IIndexableStockProfile[] {
@@ -102,23 +114,14 @@ export class StockProcessorService {
 
                     3. Return here and write to the map of category scores
 
-                    NOTE: DEV & DEBUG
                     */
-                    if (['risk', 'valuation'].includes(category)) {
-
-                        /*
-                        Loop through ratios in each categegory in each profile
-                        */
-                        scaledScoreInProportionToWeight = this.processorsMap[category].processRatios(profile);
-                    }
+                    scaledScoreInProportionToWeight = this.processorsMap[category].processRatios(profile);
                 }
 
                 categoryScores[category] = scaledScoreInProportionToWeight;
             }
 
             overallProfileScore = Object.values(categoryScores).reduce((a, b) => a + b);
-
-            console.log(profile.ticker, overallProfileScore);
 
             profile.score = overallProfileScore;
         }
