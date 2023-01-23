@@ -12,6 +12,8 @@ import { ServiceResponse } from '../../dtos/serviceResponse';
 
 import { ApiConnectorService } from './api-connector.service';
 
+import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
+
 export class StockIngestingService {
 
     public async ingestStocks(): Promise<ServiceResponse> {
@@ -85,6 +87,18 @@ export class StockIngestingService {
                 const tickerIPODate = moment(bulkFundamentalsData[i].General.IPODate);
 
                 if (!tickerIPODate.isValid() || tickerIPODate.isAfter(moment())) {
+
+                    continue;
+                }
+
+                /*
+                If ticker IPO date is after TTM margin, stock is too you to be evaluated properly, weed it out
+                */
+                const [ttmMarginStart] = TimeSeriesHelperService.getTTMMargin();
+
+                const tickerIPODateIsAfterTTMMargin = tickerIPODate.isAfter(moment(ttmMarginStart, 'MM-DD-YYYY'));
+
+                if (tickerIPODateIsAfterTTMMargin) {
 
                     continue;
                 }
