@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-
 import { workerData } from 'node:worker_threads';
 
 import { IStockProfile } from '../../interfaces/stock-profile.interface';
@@ -63,7 +61,11 @@ export default async (batch: IFundamentals[]): Promise<IStockProfile[]> => {
             */
             const [ttmMarginStart] = TimeSeriesHelperService.getTTMMargin();
 
-            if (moment(tickerPrices[0].date).isAfter(moment(ttmMarginStart, 'MM-DD-YYYY'))) {
+            const pricesDoNotFallIntoTTMMargin = moment(tickerPrices[0].date).isAfter(
+                moment(ttmMarginStart, 'MM-DD-YYYY')
+            );
+
+            if (pricesDoNotFallIntoTTMMargin) {
 
                 continue;
             }
