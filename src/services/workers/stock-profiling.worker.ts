@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 import { workerData } from 'node:worker_threads';
 
 import { IStockProfile } from '../../interfaces/stock-profile.interface';
@@ -11,7 +13,6 @@ import { ApiConnectorService } from '../core/api-connector.service';
 import { StockParserService } from '../parsers/stock-parser.service';
 
 import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
-import moment from 'moment';
 
 /*
 A meta-layer function sole purpose of which is to process batch of given fundamentals by using StockParserService
