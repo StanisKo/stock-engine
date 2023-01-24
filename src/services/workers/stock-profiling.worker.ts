@@ -12,6 +12,9 @@ import { ApiConnectorService } from '../core/api-connector.service';
 
 import { StockParserService } from '../parsers/stock-parser.service';
 
+import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
+import moment from 'moment';
+
 /*
 A meta-layer function sole purpose of which is to process batch of given fundamentals by using StockParserService
 
@@ -54,6 +57,16 @@ export default async (batch: IFundamentals[]): Promise<IStockProfile[]> => {
             tickerPrices  = await ApiConnectorService.requestTickerPrices(
                 set.data.General.Code,
             );
+
+            /*
+            If prices are availalable, yet they do not fall into TTM margin, skip the stock
+            */
+            const [ttmMarginStart] = TimeSeriesHelperService.getTTMMargin();
+
+            if (moment(tickerPrices[0].date).isAfter(moment(ttmMarginStart, 'MM-DD-YYYY'))) {
+
+                continue;
+            }
 
             const figuresExpressedIn = set.data.Financials.Balance_Sheet.yearly_last_0.currency_symbol;
 

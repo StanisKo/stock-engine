@@ -92,7 +92,7 @@ export class StockIngestingService {
                 }
 
                 /*
-                If ticker IPO date is after TTM margin, stock is too you to be evaluated properly, weed it out
+                If ticker IPO date is after TTM margin, stock is too young to be evaluated properly, weed it out
                 */
                 const [ttmMarginStart] = TimeSeriesHelperService.getTTMMargin();
 
