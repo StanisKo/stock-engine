@@ -36,7 +36,7 @@ export class TimeSeriesHelperService {
         }
 
         /*
-        On MM-DD-YYYY: this has been done to adhere to yahoo API. Now we use it only for benchmark prices
+        TODO: On MM-DD-YYYY: this has been done to adhere to yahoo API. Now we use it only for benchmark prices
 
         This has to be moved to DD-MM-YYYY
         */
