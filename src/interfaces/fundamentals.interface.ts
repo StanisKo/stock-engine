@@ -4,5 +4,7 @@ export interface IFundamentals {
 
   _id: string,
 
+  ticker: string,
+
   data: { [key: string]: any }
 }
