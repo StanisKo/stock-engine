@@ -60,6 +60,8 @@ export class StockScoringService {
             }
 
             await StockProfile.bulkWrite(profilesUpdateOperations);
+
+            response.success = true;
         }
         catch (error) {
 
