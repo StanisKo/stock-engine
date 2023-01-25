@@ -835,7 +835,80 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-# Scoring
+# Scoring and Weights
+
+<br />
+
+The score of the stock ranges `from 0 to 100`.
+
+<br />
+
+Each aforementioned category takes up it’s average 'space' within the range.
+
+<br />
+
+<b>NOTE:</b> We, additionally, calculate TTM Rate of Return and treat it as a separate category.
+
+<br />
+
+In such, the ‘space’ which category occupies within the score is `100 / 7 ≈ 14.28`.
+
+<br />
+
+The score of the category ranges `from 0 to 100`, where `100` is then weighted as `14.28` — value it occupies within overall profile score.
+
+<br />
+
+E.g.: given the stock scored `80` on the category, the value we factor into overall profile score is therefore:
+
+<br />
+
+`Weight * Score / 100 = 14.28 * 80 / 100 = 11.42`
+
+<br />
+
+Where `11.42` is the 'space' category will contribute to the overall profile score.
+
+<br />
+
+Equivalently, we follow the same pattern when it comes to ratios within a single category:
+
+<br />
+
+The score of the ratio ranges `from 0 to 100`, where `100` is *currently* weighted as `average` it occupies within the
+(weighted) score of the category.
+
+<br />
+
+<b>Example</b>:
+
+<br />
+
+Debt category is based on Debt to Equity and Interest Coverage.
+
+<br />
+
+The weight of debt category is `14.28`.
+
+<br />
+
+Weights of Debt to Equity and Interest Coverage are, therefore, `50/50: 7.24 and 7.24`.
+
+<br />
+
+We compare both ratios with the ratios of stocks within the same industry and give them a score.
+
+Say, given stock is the best in it’s industry on Debt to Equity and gets a `100` score (`7.24`), and more or less 
+
+good on Interest Coverage and gets `70` score (`5.06` out of `7.24` of Interest Coverage weight).
+
+<br />
+
+We then sum weighted scores and arrive to the score of the category: `12.30`.
+
+<br />
+
+We then sum weighted scores of each category and arrive to the score of the stock.
 
 <br />
 
