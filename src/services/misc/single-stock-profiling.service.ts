@@ -18,7 +18,7 @@ export class SingleStockProfilingService {
 
         try {
 
-            const fundamentals: IFundamentals = await Fundamentals.findOne({ 'data.General.Code': ticker }).lean();
+            const fundamentals: IFundamentals = await Fundamentals.findOne({ ticker }).lean();
 
             if (!fundamentals) {
 

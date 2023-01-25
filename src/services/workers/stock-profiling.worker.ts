@@ -54,7 +54,7 @@ export default async (batch: IFundamentals[]): Promise<IStockProfile[]> => {
         try {
 
             tickerPrices  = await ApiConnectorService.requestTickerPrices(
-                set.data.General.Code,
+                set.ticker,
             );
 
             /*
