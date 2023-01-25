@@ -15,7 +15,7 @@ All fundamentals that form profiles must be compared within the same industry.
 
 <br />
 
-Engine, therefore, sculpts profiles for each stock in each industry available from the API, compares profiles ratio-by-ratio and scores them by assigning an arbitrary number between 0 and 100.
+Engine, therefore, sculpts profiles for each stock in each industry available from the API, compares profiles ratio-by-ratio and scores them by assigning a number between 0 and 100.
 
 <br />
 
@@ -69,7 +69,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: > Industry Peers
+  Target: `>` Industry Peers
 
   <br />
 
@@ -114,7 +114,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: > 1.0 && > Industry Peers
+  Target: `> 1.0 && >` Industry Peers
 
   <br />
 
@@ -144,6 +144,16 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   We're looking for HIGHEST Beta since we need stocks that have potential to grow faster than the market.
 
+  Beta Ranges:
+
+    * `> 0 && < 1.0`: Less volatile than the index.
+
+    * `== 1.0`: Mirrors the volatility of the index.
+
+    * `> 1.0`: More volatile than the index.
+
+    * `< 0`: Moves in opposite direction of the index (very rare).
+
   <br />
 
   Target: > 1.0 && > Industry Peers
@@ -170,9 +180,15 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   We're looking for HIGHEST Alpha since we need stocks that outperform the market (index).
 
+  Alpha Ranges:
+
+    * `> 0`: Outperforms the index.
+
+    * `< 0`: Underperforms the index.
+
   <br />
 
-  Target: > 0 && > Industry Peers
+  Target: `> 0 && >` Industry Peers
 
   <br />
 
@@ -198,9 +214,15 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   We're looking for LOWEST R-Squared since we need stocks that deviate from the market (index).
 
+  R-Squared Ranges:
+
+    * `>= 85% && <= 100%`: Closely correlates with index (influenced by 85-100%).
+
+    * `<= 70%`: Does not perform like index (influenced by 70% or less).
+
   <br />
 
-  Target: < 70% && < Industry Peers
+  Target: `< 70% && <` Industry Peers
 
   <br />
 
@@ -252,7 +274,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: < Industry Peers
+  Target: `<` Industry Peers
 
   <br />
 
@@ -284,7 +306,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: < 1.0 && < Industry Peers
+  Target: `< 1.0 && <` Industry Peers
 
   <br />
 
@@ -312,7 +334,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: < Industry Peers
+  Target: `<` Industry Peers
 
   <br />
 
@@ -344,7 +366,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: < 1.0 && < Industry Peers
+  Target: `< 1.0 && <` Industry Peers
 
   <br />
 
@@ -380,7 +402,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: > 1 && < 3 && < Industry Peers
+  Target: `> 1 && < 3 && <` Industry Peers
 
   <br />
 
@@ -412,7 +434,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: < 10 && < Industry Peers
+  Target: `< 10 && <` Industry Peers
 
   <br />
 
@@ -444,7 +466,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: < 5 && < Industry Peers
+  Target: `< 5 && <` Industry Peers
 
   <br />
 
@@ -495,7 +517,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: > Industry Peers
+  Target: `>` Industry Peers
 
   <br />
 
@@ -523,7 +545,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: > Industry Peers
+  Target: `>` Industry Peers
 
   <br />
 
@@ -553,7 +575,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: > Industry Peers
+  Target: `>` Industry Peers
 
   <br />
 
@@ -583,7 +605,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: > Industry Peers
+  Target: `>` Industry Peers
 
   <br />
 
@@ -609,7 +631,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: > Industry Peers
+  Target: `>` Industry Peers
 
   <br />
 
@@ -649,7 +671,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: < Industry Peers
+  Target: `<` Industry Peers
 
   <br />
 
@@ -679,7 +701,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: > 1.0 && > Industry Peers
+  Target: `> 1.0 && >` Industry Peers
 
   <br />
 
@@ -713,7 +735,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: > Industry Peers
+  Target: `>` Industry Peers
 
   <br />
 
@@ -743,7 +765,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: > Industry Peers
+  Target: `>` Industry Peers
 
   <br />
 
