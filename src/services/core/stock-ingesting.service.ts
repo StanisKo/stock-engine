@@ -30,7 +30,7 @@ export class StockIngestingService {
             */
             const industries: { [key: string]: boolean } = {};
 
-            let industriesInsertOperations: AnyBulkWriteOperation<IIndustry>[] = [];
+            let industriesUpsertOperations: AnyBulkWriteOperation<IIndustry>[] = [];
 
             for (let i = 0; i < bulkFundamentalsData.length; i++) {
 
@@ -47,21 +47,27 @@ export class StockIngestingService {
 
                 industries[industry] = true;
 
-                industriesInsertOperations = [
-                    ...industriesInsertOperations,
+                industriesUpsertOperations = [
+                    ...industriesUpsertOperations,
                     {
-                        insertOne: { document: new Industry({ name: industry }) }
+                        updateOne: {
+                            filter: { name: industry },
+
+                            update: { $set: { name: industry } },
+
+                            upsert: true
+                        }
                     }
                 ];
             }
 
-            await Industry.bulkWrite(industriesInsertOperations);
+            await Industry.bulkWrite(industriesUpsertOperations);
 
             /*
             Further, we need to store all of the requested fundamentals
             */
 
-            let fundamentalsInsertOperations: AnyBulkWriteOperation<IFundamentals>[] = [];
+            let fundamentalsUpsertOperations: AnyBulkWriteOperation<IFundamentals>[] = [];
 
             for (let i = 0; i < bulkFundamentalsData.length; i++) {
 
@@ -103,15 +109,21 @@ export class StockIngestingService {
                     continue;
                 }
 
-                fundamentalsInsertOperations = [
-                    ...fundamentalsInsertOperations,
+                fundamentalsUpsertOperations = [
+                    ...fundamentalsUpsertOperations,
                     {
-                        insertOne: { document: new Fundamentals({ data: { ...bulkFundamentalsData[i] } }) }
+                        updateOne: {
+                            filter: { ticker: bulkFundamentalsData[i].General.Code },
+
+                            update: { $set: { data: { ...bulkFundamentalsData[i] } } },
+
+                            upsert: true
+                        }
                     }
                 ];
             }
 
-            await Fundamentals.bulkWrite(fundamentalsInsertOperations);
+            await Fundamentals.bulkWrite(fundamentalsUpsertOperations);
 
             response.success = true;
         }
