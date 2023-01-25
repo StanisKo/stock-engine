@@ -802,12 +802,38 @@ Each set of fundamentals (profile) is divided into 6 categories:
   <br />
 
   ```
-  No formula: Dividend Yied is available directly from API
+  No formula: Dividend Yield is available directly from API
   ```
 
   <br />
 
+  <b>NOTE</b>: we do not concern ourselves with dividends yet
 
+  <br />
+
+* *Dividend Payout*
+
+  A percentage of profit distributed to investors.
+
+  Helps to understand if company can sustain its dividend payouts in the future.
+
+  We're looking for MODERATE Dividend Payout, since we need stocks that can sustain their payments.
+
+  <br />
+
+  Target: `>= 50% && <= 70% && >` Industry Peers
+
+  <br />
+
+  ```
+  No formula: Dividend Payout is available directly from API
+  ```
+
+  <br />
+
+  <b>NOTE</b>: we do not concern ourselves with dividends yet
+
+  <br />
 
 # Scoring
 
