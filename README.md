@@ -783,7 +783,31 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   On Inventory Turnover: https://www.investopedia.com/terms/i/inventoryturnover.asp
 
+  <br />
+
+<b>Dividends</b>
+
 <br />
+
+* *Dividend Yield*
+
+  Denotes how much interest you earn from dividends.
+
+  We're looking for HIGHEST Dividend Yield, since we need stocks that pay the most.
+
+  <br />
+
+  Target: `<= 5% && >` Industry Peers
+
+  <br />
+
+  ```
+  No formula: Dividend Yied is available directly from API
+  ```
+
+  <br />
+
+
 
 # Scoring
 
