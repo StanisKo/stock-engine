@@ -15,7 +15,7 @@ All fundamentals that form profiles must be compared within the same industry.
 
 <br />
 
-Engine, therefore, sculpts profiles for each stock in each industry available from the API, compares profiles ratio-by-ratio and scores them by assigning an arbitrary number between 0 and 100.
+Engine, therefore, sculpts profiles for each stock in each industry available from the API, compares profiles ratio-by-ratio and scores them by assigning a number between 0 and 100.
 
 <br />
 
@@ -69,7 +69,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: > Industry Peers
+  Target: `>` Industry Peers
 
   <br />
 
@@ -114,7 +114,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: > 1.0 && > Industry Peers
+  Target: `> 1.0 && >` Industry Peers
 
   <br />
 
@@ -144,6 +144,16 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   We're looking for HIGHEST Beta since we need stocks that have potential to grow faster than the market.
 
+  Beta Ranges:
+
+    * `> 0 && < 1.0`: Less volatile than the index.
+
+    * `== 1.0`: Mirrors the volatility of the index.
+
+    * `> 1.0`: More volatile than the index.
+
+    * `< 0`: Moves in opposite direction of the index (very rare).
+
   <br />
 
   Target: > 1.0 && > Industry Peers
@@ -170,9 +180,15 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   We're looking for HIGHEST Alpha since we need stocks that outperform the market (index).
 
+  Alpha Ranges:
+
+    * `> 0`: Outperforms the index.
+
+    * `< 0`: Underperforms the index.
+
   <br />
 
-  Target: > 0 && > Industry Peers
+  Target: `> 0 && >` Industry Peers
 
   <br />
 
@@ -198,9 +214,15 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   We're looking for LOWEST R-Squared since we need stocks that deviate from the market (index).
 
+  R-Squared Ranges:
+
+    * `>= 85% && <= 100%`: Closely correlates with index (influenced by 85-100%).
+
+    * `<= 70%`: Does not perform like index (influenced by 70% or less).
+
   <br />
 
-  Target: < 70% && < Industry Peers
+  Target: `< 70% && <` Industry Peers
 
   <br />
 
@@ -252,7 +274,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: < Industry Peers
+  Target: `<` Industry Peers
 
   <br />
 
@@ -284,7 +306,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: < 1.0 && < Industry Peers
+  Target: `< 1.0 && <` Industry Peers
 
   <br />
 
@@ -312,7 +334,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: < Industry Peers
+  Target: `<` Industry Peers
 
   <br />
 
@@ -344,7 +366,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: < 1.0 && < Industry Peers
+  Target: `< 1.0 && <` Industry Peers
 
   <br />
 
@@ -380,7 +402,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: > 1 && < 3 && < Industry Peers
+  Target: `> 1 && < 3 && <` Industry Peers
 
   <br />
 
@@ -412,7 +434,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: < 10 && < Industry Peers
+  Target: `< 10 && <` Industry Peers
 
   <br />
 
@@ -444,7 +466,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: < 5 && < Industry Peers
+  Target: `< 5 && <` Industry Peers
 
   <br />
 
@@ -495,7 +517,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: > Industry Peers
+  Target: `>` Industry Peers
 
   <br />
 
@@ -523,7 +545,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: > Industry Peers
+  Target: `>` Industry Peers
 
   <br />
 
@@ -553,7 +575,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: > Industry Peers
+  Target: `>` Industry Peers
 
   <br />
 
@@ -583,7 +605,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: > Industry Peers
+  Target: `>` Industry Peers
 
   <br />
 
@@ -609,7 +631,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: > Industry Peers
+  Target: `>` Industry Peers
 
   <br />
 
@@ -649,7 +671,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: < Industry Peers
+  Target: `<` Industry Peers
 
   <br />
 
@@ -679,7 +701,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: > 1.0 && > Industry Peers
+  Target: `> 1.0 && >` Industry Peers
 
   <br />
 
@@ -713,7 +735,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: > Industry Peers
+  Target: `>` Industry Peers
 
   <br />
 
@@ -743,7 +765,7 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
-  Target: > Industry Peers
+  Target: `>` Industry Peers
 
   <br />
 
@@ -761,9 +783,166 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   On Inventory Turnover: https://www.investopedia.com/terms/i/inventoryturnover.asp
 
+  <br />
+
+<b>Dividends</b>
+
 <br />
 
-# Scoring
+* *Dividend Yield*
+
+  Denotes how much interest you earn from dividends.
+
+  We're looking for HIGHEST Dividend Yield, since we need stocks that pay the most.
+
+  <br />
+
+  Target: `<= 5% && >` Industry Peers
+
+  <br />
+
+  ```
+  No formula: Dividend Yield is available directly from API
+  ```
+
+  <br />
+
+  <b>NOTE</b>: we do not concern ourselves with dividends yet
+
+  <br />
+
+* *Dividend Payout*
+
+  A percentage of profit distributed to investors.
+
+  Helps to understand if company can sustain its dividend payouts in the future.
+
+  We're looking for MODERATE Dividend Payout, since we need stocks that can sustain their payments.
+
+  <br />
+
+  Target: `>= 50% && <= 70% && >` Industry Peers
+
+  <br />
+
+  ```
+  No formula: Dividend Payout is available directly from API
+  ```
+
+  <br />
+
+  <b>NOTE</b>: we do not concern ourselves with dividends yet
+
+  <br />
+
+<b>CAGR</b>
+
+<br />
+
+  Compound Annual Growth Rate (CAGR) — mean annual growth rate of an investment over a specified period of time longer than one year.
+
+  It represents one of the most accurate ways to calculate and determine returns for an asset.
+
+  We're looking for HIGHEST CAGR since we need stocks that historically are most profitable.
+
+  <br />
+
+  Target: `>` Industry Peers
+
+  <br />
+
+  ```
+  CAGR = ( [ (Ending Price / Starting Price) ^ (1 / N of years to look back) ] - 1) * 100
+
+  NOTE: since we calculate CAGR over TTM, at this point in time, it is a simple annual Rate of Return:
+
+  ((Ending Price / Starting Price) - 1) * 100
+  ```
+
+  <br />
+
+  <b>NOTE</b>: we treat CAGR as a separate category and, in fact, calculate it over TTM. In such, this is not necessary CAGR, but an annual Rate of Return.
+
+  <br />
+
+  On CAGR: https://www.investopedia.com/terms/c/cagr.asp
+
+  <br />
+
+# Scoring and Weights
+
+<br />
+
+The score of the stock ranges `from 0 to 100`.
+
+<br />
+
+Each aforementioned category takes up it’s average 'space' within the range.
+
+<br />
+
+<b>NOTE:</b> We, additionally, calculate TTM Rate of Return and treat it as a separate category.
+
+<br />
+
+In such, the ‘space’ which category occupies within the score is `100 / 7 ≈ 14.28`.
+
+<br />
+
+The score of the category ranges `from 0 to 100`, where `100` is then weighted as `14.28` — value it occupies within overall profile score.
+
+<br />
+
+E.g.: given the stock scored `80` on the category, the value we factor into overall profile score is therefore:
+
+<br />
+
+`Weight * Score / 100 = 14.28 * 80 / 100 = 11.42`
+
+<br />
+
+Where `11.42` is the 'space' category will contribute to the overall profile score.
+
+<br />
+
+Equivalently, we follow the same pattern when it comes to ratios within a single category:
+
+<br />
+
+The score of the ratio ranges `from 0 to 100`, where `100` is *currently* weighted as `average` it occupies within the
+(weighted) score of the category.
+
+<br />
+
+<b>Example</b>:
+
+<br />
+
+Debt category is based on Debt to Equity and Interest Coverage.
+
+<br />
+
+The weight of debt category is `14.28`.
+
+<br />
+
+Weights of Debt to Equity and Interest Coverage are, therefore, `50/50: 7.24 and 7.24`.
+
+<br />
+
+We compare both ratios with the ratios of stocks within the same industry and give them a score.
+
+Say, given stock is the best in it’s industry on Debt to Equity and gets a `100` score (`7.24`), and more or less 
+
+good on Interest Coverage and gets `70` score (`5.06` out of `7.24` of Interest Coverage weight).
+
+<br />
+
+We then sum weighted scores and arrive to the score of the category: `12.30`.
+
+<br />
+
+We then sum weighted scores of each category and arrive to the score of the stock.
 
 <br />
 

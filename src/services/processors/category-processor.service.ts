@@ -35,7 +35,7 @@ export class CategoryProcessorService {
         let sumOfRatiosScaledScores = 0;
 
         /*
-        We implement almost identical pattern as one in the parent class, but this time
+        We implement almost identical pattern as one in the StockProcessorService, but this time
         we sum the scores per ratio, filling the sum variable, which we then bring to the weight
         of the category, resulting in scaled score (in proportion to weight) of the category itself
         */

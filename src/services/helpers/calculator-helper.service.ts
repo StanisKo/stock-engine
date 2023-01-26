@@ -61,6 +61,10 @@ export class CalculatorHelperService {
         return [returns, sumOfReturns / returns.length];
     }
 
+    /*
+    TODO: move SD, Variance and Covariance back into RiskCalculatorService
+    */
+
     public static calculateStandardDeviationOverReturns(
         datasetSize: number, sumOfReturns: number, sumOfSquaredReturns: number): number {
 
