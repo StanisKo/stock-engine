@@ -10,15 +10,6 @@ export interface IStockProfile {
 
     industry: string,
 
-    /*
-    Compound Annual Growth Rate (CAGR) — mean annual growth rate of an investment
-    over a specified period of time longer than one year.
-    It represents one of the most accurate ways to calculate and determine returns for an asset.
-
-    Target: > Industry Peers
-
-    We're looking for HIGHEST CAGR since we need stocks that historically are most profitable
-    */
     cagr: number,
 
     marketCap: {

@@ -835,6 +835,40 @@ Each set of fundamentals (profile) is divided into 6 categories:
 
   <br />
 
+<b>CAGR</b>
+
+<br />
+
+  Compound Annual Growth Rate (CAGR) — mean annual growth rate of an investment over a specified period of time longer than one year.
+
+  It represents one of the most accurate ways to calculate and determine returns for an asset.
+
+  We're looking for HIGHEST CAGR since we need stocks that historically are most profitable.
+
+  <br />
+
+  Target: `>` Industry Peers
+
+  <br />
+
+  ```
+  CAGR = ( [ (Ending Price / Starting Price) ^ (1 / N of years to look back) ] - 1) * 100
+
+  NOTE: since we calculate CAGR over TTM, at this point in time, it is a simple annual Rate of Return:
+
+  ((Ending Price / Starting Price) - 1) * 100
+  ```
+
+  <br />
+
+  <b>NOTE</b>: we treat CAGR as a separate category and, in fact, calculate it over TTM. In such, this is not necessary CAGR, but an annual Rate of Return.
+
+  <br />
+
+  On CAGR: https://www.investopedia.com/terms/c/cagr.asp
+
+  <br />
+
 # Scoring and Weights
 
 <br />
