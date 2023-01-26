@@ -16,23 +16,21 @@ dotenv.config();
 
     while (shouldContinueIngesting) {
 
-        try {
-            const request = await fetch(`${process.env.HOST}:${process.env.PORT}/ingest-stocks`);
+        console.log('Ingesting now');
 
-            const { success } = await request.json();
+        const request = await fetch(`${process.env.HOST}:${process.env.PORT}/ingest-stocks`);
 
-            if (success) {
+        const { success } = await request.json();
 
-                shouldContinueIngesting = !success;
-            }
+        if (success) {
 
-        } catch(_) {
+            shouldContinueIngesting = !success;
+        }
+        else {
 
-            console.log('Ingest failed, re-trying');
+            console.log('Ingest failed, retrying now');
 
             continue;
         }
-
-        console.log('Ingest successful');
     }
 })();
