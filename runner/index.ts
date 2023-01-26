@@ -32,9 +32,25 @@ dotenv.config();
 
             continue;
         }
-
-        console.log('Ingest successful');
-
-        process.exit();
     }
+
+    console.log('Ingest successful');
+
+    /*
+    We then proceed to profiling
+    */
+    console.log('Profiling now');
+
+    await fetch(`${process.env.HOST}:${process.env.PORT}/profile-stocks`);
+
+    console.log('Profiling successful');
+
+    /*
+    Finally, we tap into scoring
+    */
+    console.log('Scoring now');
+
+    await fetch(`${process.env.HOST}:${process.env.PORT}/score-stocks`);
+
+    console.log('Scoring successful');
 })();
