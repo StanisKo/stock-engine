@@ -32,5 +32,9 @@ dotenv.config();
 
             continue;
         }
+
+        console.log('Ingest successful');
+
+        process.exit();
     }
 })();
