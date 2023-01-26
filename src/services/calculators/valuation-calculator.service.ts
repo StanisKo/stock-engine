@@ -37,16 +37,6 @@ we use P/CF formula and swap Operating Cash Flow per share for Free Cash Flow pe
 
 Reason is that P/CF can also be calculated as Market Cap / Operating Cash Flow, therefore,
 we can safely calculate P/FCF by using Free Cash Flow Per Share and Stock Price
-
-****
-
-On EV/R: https://www.investopedia.com/terms/e/ev-revenue-multiple.asp
-
-On EV/EBITDA: https://www.investopedia.com/terms/e/ev-ebitda.asp
-
-On P/FCF: https://www.investopedia.com/terms/p/pricetofreecashflow.asp
-
-On P/CF: https://www.investopedia.com/terms/p/price-to-cash-flowratio.asp
 */
 
 export class ValuationCalculatorService {

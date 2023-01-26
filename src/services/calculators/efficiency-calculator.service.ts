@@ -8,12 +8,6 @@ Inventory Turnover = COGS / Average Value of Inventory
 COGS = Cost of Goods Sold
 
 NOTE: API provides Total Annual Sales as totalRevenue, COGS as costOfRevenue
-
-****
-
-On Asset Turnover: https://www.investopedia.com/terms/a/assetturnover.asp
-
-On Inventory Turnover: https://www.investopedia.com/terms/i/inventoryturnover.asp
 */
 
 export class EfficiencyCalculatorService {
