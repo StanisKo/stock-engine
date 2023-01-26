@@ -10,4 +10,4 @@ COPY ./index.ts .
 
 RUN yarn install
 
-CMD ["yarn", "run"]
+CMD ["yarn", "boot"]
