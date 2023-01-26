@@ -5,22 +5,22 @@
 **/node_modules
 
 # db data
-/docker
+**/docker
 
 # testing
-/coverage
+**/coverage
 
 # production
 **/build
 
 # env
-.env
+**/.env
 
 # misc
-.DS_Store
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+**/.DS_Store
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
 
 # thoughts, questions, ideas
-scratch.md
+**/scratch.md
