@@ -2,6 +2,8 @@ import dotenv from 'dotenv';
 
 import fetch from 'node-fetch';
 
+import { Logger } from './utils/logger';
+
 dotenv.config();
 
 (async (): Promise<void> => {
@@ -16,7 +18,7 @@ dotenv.config();
 
     while (shouldContinueIngesting) {
 
-        console.log('Ingesting now');
+        Logger.info('Ingesting now');
 
         const request = await fetch(`${process.env.HOST}:${process.env.PORT}/ingest-stocks`);
 
@@ -28,29 +30,29 @@ dotenv.config();
         }
         else {
 
-            console.log('Ingest failed, retrying now');
+            Logger.info('Ingest failed, retrying now');
 
             continue;
         }
     }
 
-    console.log('Ingest successful');
+    Logger.info('Ingest successful');
 
     /*
     We then proceed to profiling
     */
-    console.log('Profiling now');
+    Logger.info('Profiling now');
 
     await fetch(`${process.env.HOST}:${process.env.PORT}/profile-stocks`);
 
-    console.log('Profiling successful');
+    Logger.info('Profiling successful');
 
     /*
     Finally, we tap into scoring
     */
-    console.log('Scoring now');
+    Logger.info('Scoring now');
 
     await fetch(`${process.env.HOST}:${process.env.PORT}/score-stocks`);
 
-    console.log('Scoring successful');
+    Logger.info('Scoring successful');
 })();

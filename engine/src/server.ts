@@ -15,6 +15,8 @@ import singleProfilingRouter from './routes/single-stock-profiling.routes';
 
 import { ApiConnectorService } from './services/core/api-connector.service';
 
+import { Logger } from './utils/logger';
+
 export class Server {
 
     application: Application;
@@ -66,13 +68,13 @@ export class Server {
 
             ApiConnectorService.initializeSharedFields();
 
-            console.log( `Engine is available on port ${this.port}`);
+            Logger.info( `Engine is available on port ${this.port}`);
 
         }).on('error', error => {
 
-            console.log(error.message);
+            Logger.error(error.message);
 
-            console.log(error.stack);
+            Logger.error(error.stack);
         });
     }
 }
