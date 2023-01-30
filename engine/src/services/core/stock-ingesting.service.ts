@@ -14,6 +14,8 @@ import { ApiConnectorService } from './api-connector.service';
 
 import { TimeSeriesHelperService } from '../helpers/time-series-helper.service';
 
+import { Logger } from '../../utils/logger';
+
 export class StockIngestingService {
 
     public async ingestStocks(): Promise<ServiceResponse> {
@@ -129,7 +131,7 @@ export class StockIngestingService {
         }
         catch (error) {
 
-            console.log(error);
+            Logger.error(error);
 
             response.success = false;
 

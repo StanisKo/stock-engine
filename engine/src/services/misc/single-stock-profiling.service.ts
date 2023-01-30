@@ -10,6 +10,8 @@ import { ApiConnectorService } from '../core/api-connector.service';
 
 import { StockParserService } from '../parsers/stock-parser.service';
 
+import { Logger } from '../../utils/logger';
+
 export class SingleStockProfilingService {
 
     public async profileStock(ticker: string): Promise<DataServiceResponse<IStockProfile>> {
@@ -75,7 +77,7 @@ export class SingleStockProfilingService {
         }
         catch (error) {
 
-            console.log(error);
+            Logger.error(error);
 
             response.success = false;
 

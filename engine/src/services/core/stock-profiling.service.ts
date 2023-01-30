@@ -12,6 +12,8 @@ import { ServiceResponse } from '../../dtos/serviceResponse';
 
 import { ApiConnectorService } from './api-connector.service';
 
+import { Logger } from '../../utils/logger';
+
 export class StockProfilingService {
 
     public async profileStocks(): Promise<ServiceResponse> {
@@ -82,7 +84,7 @@ export class StockProfilingService {
                 }
                 catch (error) {
 
-                    console.log(`Discarding ${stockProfiles[i].ticker}`);
+                    Logger.info(`Discarding ${stockProfiles[i].ticker}`);
 
                     continue;
                 }
@@ -92,7 +94,7 @@ export class StockProfilingService {
         }
         catch (error) {
 
-            console.log(error);
+            Logger.error(error);
 
             response.success = false;
 

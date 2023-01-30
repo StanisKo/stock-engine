@@ -12,6 +12,8 @@ import { Industry } from '../../schemas/industry.schema';
 
 import { StockProfile } from '../../schemas/stock-profile.schema';
 
+import { Logger } from '../../utils/logger';
+
 export class StockScoringService {
 
     public async scoreStocks(): Promise<ServiceResponse> {
@@ -65,7 +67,7 @@ export class StockScoringService {
         }
         catch (error) {
 
-            console.log(error);
+            Logger.error(error);
 
             response.success = false;
 
