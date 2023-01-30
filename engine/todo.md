@@ -10,6 +10,8 @@ FUTURE:
 
 ****
 
+* Logger
+
 * Consider using OpenAI for calculations
 
 * Look back in past more: calculate risk ratios and average down across more years
